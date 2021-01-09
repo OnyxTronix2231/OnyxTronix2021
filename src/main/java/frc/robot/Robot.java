@@ -4,9 +4,16 @@
 
 package frc.robot;
 
+import static frc.robot.RobotConstants.ROBOT_TYPE;
+
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.drivetrain.BasicDriveTrainComponentsA;
+import frc.robot.drivetrain.DriveTrain;
+import frc.robot.drivetrain.DriveTrainComponents;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,14 +23,26 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
 
+  DriveTrain driveTrain;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+    DriveTrainComponents driveTrainComponents;
 
+    if (ROBOT_TYPE == RobotType.A) {
+      driveTrainComponents = new BasicDriveTrainComponentsA();
+    } else {
+      driveTrainComponents = null;
+    }
 
+    driveTrain = new DriveTrain(driveTrainComponents);
+
+    new DriverOI(driveTrain);
+    new DeputyOI();
   }
 
   /**
@@ -42,12 +61,22 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
   }
 
-  /** This function is called once each time the robot enters Disabled mode. */
+  /**
+   * This function is called once each time the robot enters Disabled mode.
+   */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    new Timer().schedule(new TimerTask() {
+      @Override
+      public void run() {
+        driveTrain.setNeutralModeToCoast();
+      }
+    }, 3000);
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
 
   @Override
@@ -55,25 +84,34 @@ public class Robot extends TimedRobot {
 
   }
 
-  /** This function is called periodically during autonomous. */
+  /**
+   * This function is called periodically during autonomous.
+   */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
-
+    driveTrain.setNeutralModeToBrake();
   }
 
-  /** This function is called periodically during operator control. */
+  /**
+   * This function is called periodically during operator control.
+   */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
   }
 
-  /** This function is called periodically during test mode. */
+  /**
+   * This function is called periodically during test mode.
+   */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }

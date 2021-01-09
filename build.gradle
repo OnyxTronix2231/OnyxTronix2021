@@ -3,6 +3,10 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2021.1.2"
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
