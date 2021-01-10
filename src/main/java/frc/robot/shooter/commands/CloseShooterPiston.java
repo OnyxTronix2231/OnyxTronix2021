@@ -5,15 +5,15 @@ import frc.robot.shooter.Shooter;
 
 public class CloseShooterPiston extends InstantCommand {
 
-  private final Shooter shooter;
+    private final Shooter shooter;
 
-  public CloseShooterPiston(final Shooter shooter) {
-    this.shooter = shooter;
-  }
+    public CloseShooterPiston(final Shooter shooter) {
+        this.shooter = shooter;
+    }
 
-  @Override
-  public void initialize() {
-    shooter.closeShooterPiston();
-  }
+    @Override
+    public void initialize() {
+        shooter.closeShooterPiston();
+    }
 }
 

@@ -5,14 +5,14 @@ import frc.robot.shooter.Shooter;
 
 public class StopShooter extends InstantCommand {
 
-  private Shooter shooter;
+    private Shooter shooter;
 
-    public StopShooter(final Shooter shooter){
-      this.shooter = shooter;
+    public StopShooter(final Shooter shooter) {
+        this.shooter = shooter;
     }
 
-  @Override
-  public void initialize() {
-    shooter.stopMotor();
-  }
+    @Override
+    public void initialize() {
+        shooter.stopMotor();
+    }
 }

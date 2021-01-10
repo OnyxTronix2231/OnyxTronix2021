@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public interface ShooterComponents {
 
-  WPI_TalonFX getMasterMotor();
+    WPI_TalonFX getMasterMotor();
 
-  IMotorController getSlaveMotor();
+    IMotorController getSlaveMotor();
 
-  Solenoid getSolenoid();
+    Solenoid getSolenoid();
 }

@@ -5,14 +5,14 @@ import frc.robot.shooter.Shooter;
 
 public class OpenShooterPiston extends InstantCommand {
 
-  private final Shooter shooter;
+    private final Shooter shooter;
 
-  public OpenShooterPiston(final Shooter shooter) {
-    this.shooter = shooter;
-  }
+    public OpenShooterPiston(final Shooter shooter) {
+        this.shooter = shooter;
+    }
 
-  @Override
-  public void initialize() {
-    shooter.openShooterPiston();
-  }
+    @Override
+    public void initialize() {
+        shooter.openShooterPiston();
+    }
 }
