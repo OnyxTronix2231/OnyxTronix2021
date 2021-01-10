@@ -1,0 +1,18 @@
+package frc.robot.shooter.commands;
+
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.shooter.Shooter;
+
+public class OpenShooterPiston extends InstantCommand {
+
+  private final Shooter shooter;
+
+  public OpenShooterPiston(final Shooter shooter) {
+    this.shooter = shooter;
+  }
+
+  @Override
+  public void initialize() {
+    shooter.openShooterPiston();
+  }
+}
