@@ -1,19 +1,32 @@
 package frc.robot.drivetrain;
 
-public class Path {
-  private final robot.drivetrain.Pose[] poses;
-  private final robot.drivetrain.Pose endingPose;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 
-  public Path(final robot.drivetrain.Pose... poses) {
+public class Path {
+  private final Pose[] poses;
+  private final Pose endingPose;
+
+  public Path(final Pose... poses) {
     this.poses = poses;
     endingPose = poses[poses.length - 1];
   }
 
-  public robot.drivetrain.Pose getPoseAt(int i) {
+  public Path(boolean isReversed, Pose2d... poses) {
+    Pose[] newPoses = new Pose[poses.length];
+    int i = 0;
+    for (Pose2d pose: poses) {
+      newPoses[i] = new Pose(pose, isReversed);
+      i++;
+    }
+    this.poses = newPoses;
+    endingPose = newPoses[poses.length - 1];
+  }
+
+  public Pose getPoseAt(int i) {
     return poses[i];
   }
 
-  public robot.drivetrain.Pose getEndingPose() {
+  public Pose getEndingPose() {
     return endingPose;
   }
 }

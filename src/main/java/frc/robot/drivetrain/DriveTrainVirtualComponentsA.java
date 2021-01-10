@@ -1,7 +1,5 @@
 package frc.robot.drivetrain;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -10,6 +8,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
 
 public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents {
   private final DifferentialDrive differentialDrive;
@@ -20,7 +20,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
   private final TrajectoryConfig trajectoryConfig;
   private final OnyxTrajectoryGenerator trajectoryGenerator;
 
-  public DriveTrainVirtualComponentsA(BasicDriveTrainComponentsA componentsA) {
+  public DriveTrainVirtualComponentsA(DriveTrainComponents componentsA) {
     differentialDrive = new DifferentialDrive(componentsA.getLeftMasterMotor(), componentsA.getRightMasterMotor());
     differentialDrive.setRightSideInverted(false);
     differentialDrive.setSafetyEnabled(false);
@@ -36,44 +36,43 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
 
     trajectoryConfig = new TrajectoryConfig(MAX_SPEED_METERS_PER_SECOND, MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
         .setKinematics(driveKinematics)
-        .addConstraint(autonomousVoltage)
-    ;
+        .addConstraint(autonomousVoltage);
 
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
   }
 
   @Override
   public DifferentialDrive getDifferentialDrive() {
-    return null;
+    return differentialDrive;
   }
 
   @Override
   public DifferentialDriveOdometry getOdometry() {
-    return null;
+    return odometry;
   }
 
   @Override
   public SimpleMotorFeedforward getMotorFeedForward() {
-    return null;
+    return motorFeedforward;
   }
 
   @Override
   public DifferentialDriveKinematics getDriveKinematics() {
-    return null;
+    return driveKinematics;
   }
 
   @Override
   public DifferentialDriveVoltageConstraint getAutonomousVoltage() {
-    return null;
+    return autonomousVoltage;
   }
 
   @Override
   public TrajectoryConfig getTrajectoryConfig() {
-    return null;
+    return trajectoryConfig;
   }
 
   @Override
   public OnyxTrajectoryGenerator getTrajectoryGenerator() {
-    return null;
+    return trajectoryGenerator;
   }
 }

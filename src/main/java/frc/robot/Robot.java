@@ -8,9 +8,7 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.drivetrain.BasicDriveTrainComponentsA;
-import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.drivetrain.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,14 +30,17 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     DriveTrainComponents driveTrainComponents;
+    DriveTrainVirtualComponents driveTrainVirtualComponents;
 
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
+      driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
     } else {
       driveTrainComponents = null;
+      driveTrainVirtualComponents = null;
     }
 
-    driveTrain = new DriveTrain(driveTrainComponents);
+    driveTrain = new DriveTrain(driveTrainComponents, driveTrainVirtualComponents);
 
     new DriverOI(driveTrain);
     new DeputyOI();

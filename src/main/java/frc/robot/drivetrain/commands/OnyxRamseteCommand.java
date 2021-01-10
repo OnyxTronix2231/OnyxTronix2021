@@ -1,8 +1,5 @@
 package frc.robot.drivetrain.commands;
 
-import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
-import static robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.TRAJECTORY_P;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -19,6 +16,9 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+
+import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRAJECTORY_P;
 
 public class OnyxRamseteCommand extends CommandBase {
   private static NetworkTableEntry networkTableEntry;
