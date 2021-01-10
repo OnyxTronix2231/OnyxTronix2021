@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.turret.Turret;
+import frc.robot.turret.TurretComponents;
+import frc.robot.turret.TurretComponentsA;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +27,7 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
+  Turret turret;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -32,16 +36,21 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     DriveTrainComponents driveTrainComponents;
+    TurretComponents turretComponents;
 
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
+      turretComponents = new TurretComponentsA();
     } else {
       driveTrainComponents = null;
+      turretComponents = null;
     }
 
     driveTrain = new DriveTrain(driveTrainComponents);
+    turret = new Turret(turretComponents);
 
-    new DriverOI(driveTrain);
+
+    new DriverOI(driveTrain,turret);
     new DeputyOI();
   }
 
