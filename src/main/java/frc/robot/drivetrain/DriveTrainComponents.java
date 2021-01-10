@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public interface DriveTrainComponents {
 
+  NormalizedPigeonIMU getPigeonIMU();
+
   WPI_TalonFX getRightMasterMotor();
 
   IMotorController getRightSlaveMotor();
@@ -13,6 +15,4 @@ public interface DriveTrainComponents {
   WPI_TalonFX getLeftMasterMotor();
 
   IMotorController getLeftSlaveMotor();
-
-  DifferentialDrive getDifferentialDrive();
 }

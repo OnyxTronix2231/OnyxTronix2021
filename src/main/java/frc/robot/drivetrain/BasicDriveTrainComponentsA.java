@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
 public class BasicDriveTrainComponentsA implements DriveTrainComponents {
@@ -23,7 +22,7 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
   private final WPI_TalonFX rightSlave;
   private final WPI_TalonFX leftMaster;
   private final WPI_TalonFX leftSlave;
-  private final DifferentialDrive differentialDrive;
+  private final NormalizedPigeonIMU normalizedPigeonIMU;
 
   public BasicDriveTrainComponentsA() {
     rightMaster = new WPI_TalonFX(RIGHT_MASTER_PORT);
@@ -50,9 +49,8 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
     leftSlave.setNeutralMode(NeutralMode.Brake);
     leftSlave.follow(leftMaster);
 
-    differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-    differentialDrive.setRightSideInverted(false);
-    differentialDrive.setSafetyEnabled(false);
+    normalizedPigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);
+    normalizedPigeonIMU.setYaw(0);
   }
 
   @Override
@@ -76,8 +74,8 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
   }
 
   @Override
-  public DifferentialDrive getDifferentialDrive() {
-    return differentialDrive;
+  public NormalizedPigeonIMU getPigeonIMU() {
+    return normalizedPigeonIMU;
   }
 
   private TalonFXConfiguration getFalconConfiguration() {
