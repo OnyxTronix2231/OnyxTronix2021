@@ -1,8 +1,8 @@
 package frc.robot.shooter;
 
 import static frc.robot.RobotConstants.PRIMARY_PID;
-import static frc.robot.shooter.ShooterConstants.ShooterComponentsA.RPM_TO_ENCODER_UNITS;
-import static frc.robot.shooter.ShooterConstants.ShooterComponentsA.MILLISECOND_TO_MINUTE;
+import static frc.robot.shooter.ShooterConstants.*;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.PID_VELOCITY_GAINS;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -11,49 +11,59 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
-    private double lastVelocityError;
+    private double lastRPMError;
 
     public Shooter(final ShooterComponents components) {
         this.components = components;
-        lastVelocityError = Integer.MAX_VALUE;
+        lastRPMError = Integer.MAX_VALUE;
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current RPM",
-                () -> components.getMasterMotor().getSelectedSensorVelocity() * 600 / 2048.0);
+                () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
                 () -> components.getMasterMotor().getSelectedSensorVelocity());
     }
 
+    /** shoot by speed get percent output between -1 to 1 and move the motor in -100% to 100% */
     public void shootBySpeed(final double speed) {
         components.getMasterMotor().set(speed);
     }
 
+    /** stop motor use shootBySpeed give it 0 so its 0% what stop the motor
+     * make sure you  are in break mode if you want to stop immediately
+     * or coast to let it stop by it self */
     public void stopMotor() {
         shootBySpeed(0);
     }
 
+    /** isOnTarget check if you got to the right velocity in order to shoot the ball */
     public boolean isOnTarget() {
-        return Math.abs(components.getMasterMotor().getClosedLoopError()) < rpmToEncoderUnits(ShooterConstants.TOLERANCE);
+        return Math.abs(components.getMasterMotor().getClosedLoopError()) < RPMToEncoderUnits(TOLERANCE);
     }
 
     public void configVelocitySlot() {
-        components.getMasterMotor().selectProfileSlot(ShooterConstants.ShooterComponentsA.PID_VELOCITY_GAINS, PRIMARY_PID);
+        components.getMasterMotor().selectProfileSlot(PID_VELOCITY_GAINS, PRIMARY_PID);
     }
 
-    public void setVelocity(final double velocity) {
-        components.getMasterMotor().set(ControlMode.Velocity, rpmToEncoderUnits(velocity));
+    /** setVelocity is an function that get RPM value and transfer it to encoder units and sent this into the motor */
+    public void setRPM(final double RPM) {
+        components.getMasterMotor().set(ControlMode.Velocity, RPMToEncoderUnits(RPM));
     }
 
+    /** openShooterPiston open the Piston (this piston change the angle of the shoot) */
     public void openShooterPiston() {
         components.getSolenoid().set(ShooterConstants.IS_PISTON_OPEN);
     }
 
+    /** closeShooterPiston open the Piston (this piston change the angle of the shoot) */
     public void closeShooterPiston() {
         components.getSolenoid().set(!ShooterConstants.IS_PISTON_OPEN);
     }
 
-    public double distanceToVelocity(double distance) {
-        if (distance > ShooterConstants.ShooterComponentsA.MIDDLE_DISTANCE) {
+    /** this function is the most important function, distanceToVelocity get distance and calculate using 2 formulas
+     * in order to get the velocity that is needed in order to shoot the ball to the middle target */
+    public double distanceToEncoderUnits(double distance) {
+        if (distance > MIDDLE_DISTANCE) {
             return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }
         return 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
@@ -62,31 +72,45 @@ public class Shooter extends SubsystemBase {
     // y= -0.0121x2 +26.707x + 24130 > 450
     //y = 0.1912x2 - 161.44x +67791 < 450
 
-    public double rpmToEncoderUnits(double rpm){
-        return (rpm * RPM_TO_ENCODER_UNITS) / MILLISECOND_TO_MINUTE;
+    /** this function change RPM units to encoder units */
+    public double RPMToEncoderUnits(double RPM){
+        return (RPM * ENCODER_UNITS_PER_ROTATION) / MILLISECOND_TO_MINUTE;
     }
 
+    /** this function change encoder units to rpm units */
+    public double encoderUnitsToRPM(double encoderUnits){
+        return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
+    }
+
+    /** in order to wait until ball shot wee need to determine a way to check if ball was shhot in order to do it
+     * we use velocity error to see if it was shot error is a velocity change that happen when ball is shoot */
+
+    /** this function check the max velocity in the beginning */
     public void startChecking() {
-        lastVelocityError = Integer.MAX_VALUE;
+        lastRPMError = Integer.MAX_VALUE;
     }
 
-    public double getVelocityError() {
-        return components.getMasterMotor().getClosedLoopError();
+    /** this function check velocity error in the close loop  */
+    public double getRPMError() {
+        return encoderUnitsToRPM(components.getMasterMotor().getClosedLoopError());
     }
 
+    /** this function determine if the ball was shoot*/
     public boolean isBallShot() {
-        if (getVelocityError() > rpmToEncoderUnits(ShooterConstants.ShooterComponentsA.MIN_VELOCITY_ERROR) && getVelocityError() > lastVelocityError) {
-            lastVelocityError = getVelocityError();
-            return true;
+        boolean isBallShot = false;
+        if (getRPMError() > MIN_ERROR_RPM && getRPMError() > lastRPMError) {
+            isBallShot = true;
         }
-        return false;
+        lastRPMError = getRPMError();
+        return isBallShot;
     }
-
+    /** like isBallShot but checking if the ball didnt shoot */
     public boolean isBallNotShot() {
         return !isBallShot();
     }
 
+    /** check if the wheels got to the right speed in order to shoot */
     public boolean isReadyToShoot() {
-        return getVelocityError() < rpmToEncoderUnits(ShooterConstants.ShooterComponentsA.AT_SHOOTING_VELOCITY);
+        return getRPMError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
     }
 }

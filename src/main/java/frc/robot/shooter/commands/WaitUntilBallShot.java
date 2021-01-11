@@ -3,11 +3,11 @@ package frc.robot.shooter.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.shooter.Shooter;
 
-public class WaitUntilBallShotByVelocity extends CommandBase {
+public class WaitUntilBallShot extends CommandBase {
 
     private final Shooter shooter;
 
-    public WaitUntilBallShotByVelocity(final Shooter shooter) {
+    public WaitUntilBallShot(final Shooter shooter) {
         this.shooter = shooter;
     }
 
