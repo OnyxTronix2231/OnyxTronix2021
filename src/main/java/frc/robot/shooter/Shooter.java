@@ -1,7 +1,7 @@
 package frc.robot.shooter;
 
 import static frc.robot.RobotConstants.PRIMARY_PID;
-import static frc.robot.shooter.ShooterConstants.ShooterComponentsA.ENCODE_UNITS_TO_RPM;
+import static frc.robot.shooter.ShooterConstants.ShooterComponentsA.RPM_TO_ENCODER_UNITS;
 import static frc.robot.shooter.ShooterConstants.ShooterComponentsA.MILLISECOND_TO_MINUTE;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -33,7 +33,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isOnTarget() {
-        return Math.abs(components.getMasterMotor().getClosedLoopError()) < encoderUnitsToRpm(ShooterConstants.TOLERANCE);
+        return Math.abs(components.getMasterMotor().getClosedLoopError()) < rpmToEncoderUnits(ShooterConstants.TOLERANCE);
     }
 
     public void configVelocitySlot() {
@@ -41,7 +41,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setVelocity(final double velocity) {
-        components.getMasterMotor().set(ControlMode.Velocity, encoderUnitsToRpm(velocity));
+        components.getMasterMotor().set(ControlMode.Velocity, rpmToEncoderUnits(velocity));
     }
 
     public void openShooterPiston() {
@@ -62,8 +62,8 @@ public class Shooter extends SubsystemBase {
     // y= -0.0121x2 +26.707x + 24130 > 450
     //y = 0.1912x2 - 161.44x +67791 < 450
 
-    public double encoderUnitsToRpm(double encoderUnits){
-        return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODE_UNITS_TO_RPM;
+    public double rpmToEncoderUnits(double rpm){
+        return (rpm * RPM_TO_ENCODER_UNITS) / MILLISECOND_TO_MINUTE;
     }
 
     public void startChecking() {
@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isBallShot() {
-        if (getVelocityError() > ShooterConstants.ShooterComponentsA.MIN_VELOCITY_ERROR && getVelocityError() > lastVelocityError) {
+        if (getVelocityError() > rpmToEncoderUnits(ShooterConstants.ShooterComponentsA.MIN_VELOCITY_ERROR) && getVelocityError() > lastVelocityError) {
             lastVelocityError = getVelocityError();
             return true;
         }
@@ -87,6 +87,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isReadyToShoot() {
-        return getVelocityError() < ShooterConstants.ShooterComponentsA.AT_SHOOTING_VELOCITY;
+        return getVelocityError() < rpmToEncoderUnits(ShooterConstants.ShooterComponentsA.AT_SHOOTING_VELOCITY);
     }
 }

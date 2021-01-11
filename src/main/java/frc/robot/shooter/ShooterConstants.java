@@ -15,7 +15,7 @@ public final class ShooterConstants {
         static final int TRIGGER_THRESHOLD_CURRENT = 30; // TODO: check and change
         static final int MIDDLE_DISTANCE = 450;
         static final int PID_VELOCITY_GAINS = 0;
-        static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
+        static final double MAX_CLOSED_LOOP_OUTPUT = 1024;
         static final double VELOCITY_P = 0.6;
         static final double VELOCITY_I = 0;
         static final double VELOCITY_D = 0;
@@ -24,7 +24,7 @@ public final class ShooterConstants {
         static final double CLOSE_LOOP_RAMP = 0;//3;//TODO: check and change
         static final double MIN_VELOCITY_ERROR = 1000;
         static final double AT_SHOOTING_VELOCITY = 400;
-        static final double ENCODE_UNITS_TO_RPM = 2480;
+        static final double RPM_TO_ENCODER_UNITS = 2480;
         static final double MILLISECOND_TO_MINUTE = 600;
     }
 
