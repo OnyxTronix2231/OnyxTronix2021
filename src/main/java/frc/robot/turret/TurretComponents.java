@@ -11,5 +11,5 @@ public interface TurretComponents {
 
     CtreEncoder getEncoder();
 
-    PIDController PID_CONTROLLER();
+    PIDController getPIDController();
 }

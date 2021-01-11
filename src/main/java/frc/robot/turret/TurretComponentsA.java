@@ -6,7 +6,7 @@ import pid.interfaces.PIDController;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.turret.TurretConstants.*;
-import static frc.robot.turret.TurretConstants.TurretComponentsA.PID_IDX;
+import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
 
 
 public class TurretComponentsA implements TurretComponents {
@@ -15,9 +15,9 @@ public class TurretComponentsA implements TurretComponents {
     private PIDController controller;
 
     public TurretComponentsA() {
-        this.masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        this.encoder = new CtreEncoder(masterMotor, PID_IDX);
-        this.controller = new CtrePIDController(masterMotor,encoder,0,0,0,0,0,0);
+        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        encoder = new CtreEncoder(masterMotor, PID_IDX);
+        controller = new CtrePIDController(masterMotor, encoder, KP, KI, KD, KF, PID_POSITION_GAINS, TIME_OUT_MS);
     }
 
     @Override
@@ -26,11 +26,13 @@ public class TurretComponentsA implements TurretComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() { return encoder; }
+    public CtreEncoder getEncoder() {
+        return encoder;
+    }
 
     @Override
-    public PIDController PID_CONTROLLER() {
-        return null;
+    public PIDController getPIDController() {
+        return controller;
     }
 
 }
