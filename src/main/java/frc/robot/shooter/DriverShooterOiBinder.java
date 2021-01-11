@@ -9,10 +9,10 @@ import onyxTronix.JoystickAxis;
 import onyxTronix.UniqueAxisCache;
 import onyxTronix.UniqueButtonCache;
 
-public class DeputyShooterOi {
+public class DriverShooterOiBinder {
 
-    public DeputyShooterOi(final UniqueAxisCache buttonJoystickAxisCache,
-                           UniqueButtonCache driveJoystickButtonCache, final Shooter shooter) {
+    public DriverShooterOiBinder(final UniqueAxisCache buttonJoystickAxisCache,
+                                 UniqueButtonCache driveJoystickButtonCache, final Shooter shooter) {
 
         final JoystickAxis shootByVelocity = buttonJoystickAxisCache.createJoystickTrigger(XboxController.Axis.kLeftY.value);
         shootByVelocity.whileActiveContinuous(new ShootByRPM(shooter, () -> 17000));

@@ -2,6 +2,7 @@ package frc.robot.shooter;
 
 import static frc.robot.RobotConstants.PRIMARY_PID;
 import static frc.robot.shooter.ShooterConstants.*;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.PID_VELOCITY_GAINS;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -29,9 +30,7 @@ public class Shooter extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    /** stop motor use shootBySpeed give it 0 so its 0% what stop the motor
-     * make sure you  are in break mode if you want to stop immediately
-     * or coast to let it stop by it self */
+    /** stopMotor function use shootBySpeed, the function gives the motor 0% what make the motor stop */
     public void stopMotor() {
         shootBySpeed(0);
     }
@@ -52,21 +51,28 @@ public class Shooter extends SubsystemBase {
 
     /** openShooterPiston open the Piston (this piston change the angle of the shoot) */
     public void openShooterPiston() {
-        components.getSolenoid().set(ShooterConstants.IS_PISTON_OPEN);
+        components.getSolenoid().set(ShooterConstants.IS_SOLENOID_INVERTED);
     }
 
     /** closeShooterPiston open the Piston (this piston change the angle of the shoot) */
     public void closeShooterPiston() {
-        components.getSolenoid().set(!ShooterConstants.IS_PISTON_OPEN);
+        components.getSolenoid().set(!ShooterConstants.IS_SOLENOID_INVERTED);
     }
 
     /** this function is the most important function, distanceToVelocity get distance and calculate using 2 formulas
      * in order to get the velocity that is needed in order to shoot the ball to the middle target */
     public double distanceToEncoderUnits(double distance) {
+        double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
-            return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
+            encoderUnitsTarget = -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }
-        return 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
+        else {
+            encoderUnitsTarget = 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
+        }
+        if (encoderUnitsTarget <= MAX_VELOCITY){
+            return encoderUnitsTarget;
+        }
+        return MAX_VELOCITY;
     }
 
     // y= -0.0121x2 +26.707x + 24130 > 450
