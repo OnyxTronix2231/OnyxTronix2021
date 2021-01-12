@@ -1,7 +1,5 @@
 package frc.robot.ballTrigger;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.CLOSE_SOLENOID;
@@ -13,14 +11,6 @@ public class BallTrigger extends SubsystemBase {
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
-    }
-
-    public WPI_TalonSRX getMasterMotor() {
-        return components.getMasterMotor();
-    }
-
-    public Solenoid getSolenoid() {
-        return components.getSolenoid();
     }
 
     public void moveBallTriggerBySpeed(final double speed) {

@@ -16,7 +16,7 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     public BasicBallTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-        masterMotor.setNeutralMode(NeutralMode.Coast);
+        masterMotor.setNeutralMode(NeutralMode.Brake);
         masterMotor.enableCurrentLimit(true);
 
         solenoid = new Solenoid(SOLENOID_ID);
