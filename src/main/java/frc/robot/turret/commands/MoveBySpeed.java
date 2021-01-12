@@ -27,6 +27,4 @@ public class MoveBySpeed extends CommandBase {
     public void end(boolean interrupted) {
         turret.stop();
     }
-
-
 }

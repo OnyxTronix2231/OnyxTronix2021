@@ -5,11 +5,11 @@ import frc.robot.turret.Turret;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveToAngle extends CommandBase {
+public class MoveByAngle extends CommandBase {
     private final Turret turret;
     private final DoubleSupplier getAngle;
 
-    public MoveToAngle(Turret turret, DoubleSupplier getAngle) {
+    public MoveByAngle(Turret turret, DoubleSupplier getAngle) {
         this.turret = turret;
         this.getAngle = getAngle;
         addRequirements(turret);
@@ -17,17 +17,16 @@ public class MoveToAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        turret.initMoveToAngle(getAngle.getAsDouble());
+        turret.initMoveByAngle(getAngle.getAsDouble());
     }
 
     @Override
     public void execute() {
-        turret.updateMoveToAngle(getAngle.getAsDouble());
+        turret.updateMoveByAngle(getAngle.getAsDouble());
     }
 
     @Override
-    public void end(boolean interrupted) {
-       turret.stop();
+    public void end(boolean interrupted){
+        turret.stop();
     }
-
 }

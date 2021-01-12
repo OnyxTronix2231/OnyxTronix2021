@@ -2,6 +2,10 @@ package frc.robot.turret;
 
 public class TurretConstants {
     static final int MASTER_MOTOR_ID = 1;
+    static final double ENCODER_UNITS = 4096;
+    static final double RATIO = 5;
+    static final double DEGREES_IN_CIRCLE = 360;
+
     public static final class TurretComponentsA{
         static final int PID_IDX = 0;
         static final int KP = 0;

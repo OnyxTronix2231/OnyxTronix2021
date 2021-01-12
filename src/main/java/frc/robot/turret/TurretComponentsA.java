@@ -2,6 +2,7 @@ package frc.robot.turret;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import pid.CtrePIDController;
+import pid.PIDControlMode;
 import pid.interfaces.PIDController;
 import sensors.counter.CtreEncoder;
 
@@ -17,7 +18,7 @@ public class TurretComponentsA implements TurretComponents {
     public TurretComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         encoder = new CtreEncoder(masterMotor, PID_IDX);
-        controller = new CtrePIDController(masterMotor, encoder, KP, KI, KD, KF, PID_POSITION_GAINS, TIME_OUT_MS);
+        controller = new CtrePIDController(masterMotor, encoder, KP, KI, KD, KF, PIDControlMode.Position);
     }
 
     @Override
@@ -34,5 +35,4 @@ public class TurretComponentsA implements TurretComponents {
     public PIDController getPIDController() {
         return controller;
     }
-
 }
