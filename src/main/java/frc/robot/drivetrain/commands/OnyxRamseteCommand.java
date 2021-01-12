@@ -1,6 +1,5 @@
 package frc.robot.drivetrain.commands;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -9,7 +8,6 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -21,7 +19,6 @@ import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRAJECTORY_P;
 
 public class OnyxRamseteCommand extends CommandBase {
-  private static NetworkTableEntry networkTableEntry;
   public final Timer timer = new Timer();
   private final Supplier<Trajectory> trajectorySupplier;
   private final Supplier<Pose2d> pose2dSupplier;
@@ -53,13 +50,6 @@ public class OnyxRamseteCommand extends CommandBase {
     this.feedforward = feedforward;
     leftController = new PIDController(TRAJECTORY_P, 0, 0);
     rightController = new PIDController(TRAJECTORY_P, 0, 0);
-
-    try {
-      networkTableEntry =
-          Shuffleboard.getTab("Odometry").add("9", leftController.getPositionError()).getEntry();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
     addRequirements(requirements);
   }
 
@@ -111,7 +101,6 @@ public class OnyxRamseteCommand extends CommandBase {
 
     outputVoltage.accept(leftOutput, rightOutput);
 
-    networkTableEntry.setValue(leftController.getPositionError());
     prevTime = currentTime;
     prevSpeeds = targetWheelSpeeds;
 
