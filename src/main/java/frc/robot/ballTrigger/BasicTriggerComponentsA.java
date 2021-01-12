@@ -4,22 +4,22 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.SOLENOID_ID;
+import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
+import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.SOLENOID_CHANNEL;
 
-public class BasicBallTriggerComponentsA implements BallTriggerComponents {
+public class BasicTriggerComponentsA implements TriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
 
     private final Solenoid solenoid;
 
-    public BasicBallTriggerComponentsA() {
+    public BasicTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.setNeutralMode(NeutralMode.Brake);
         masterMotor.enableCurrentLimit(true);
 
-        solenoid = new Solenoid(SOLENOID_ID);
+        solenoid = new Solenoid(SOLENOID_CHANNEL);
     }
 
     @Override

@@ -10,7 +10,7 @@ public class Revolver extends SubsystemBase {
         this.components = components;
     }
 
-    public void moveRevolverBySpeed(final double speed) {
+    public void moveRevolverBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 

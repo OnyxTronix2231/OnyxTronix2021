@@ -10,7 +10,7 @@ public class MoveRevolverBySpeed extends CommandBase {
     private final Revolver revolver;
     private final DoubleSupplier speedSupplier;
 
-    public MoveRevolverBySpeed(final Revolver revolver, final DoubleSupplier speedSupplier) {
+    public MoveRevolverBySpeed(Revolver revolver, DoubleSupplier speedSupplier) {
         this.revolver = revolver;
         this.speedSupplier = speedSupplier;
         addRequirements(revolver);

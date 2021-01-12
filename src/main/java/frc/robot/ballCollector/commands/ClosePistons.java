@@ -1,19 +1,11 @@
 package frc.robot.ballCollector.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ballCollector.BallCollector;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.ballCollector.Collector;
 
-public class ClosePistons extends CommandBase {
+public class ClosePistons extends InstantCommand {
 
-    private final BallCollector ballCollector;
-
-    public ClosePistons(final BallCollector ballCollector) {
-        this.ballCollector = ballCollector;
-        addRequirements(ballCollector);
-    }
-
-    @Override
-    public void initialize() {
-        ballCollector.closePistons();
+    public ClosePistons(Collector collector) {
+        super(collector::closePistons);
     }
 }

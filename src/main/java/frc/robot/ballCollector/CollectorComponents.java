@@ -3,7 +3,7 @@ package frc.robot.ballCollector;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public interface BallCollectorComponents {
+public interface CollectorComponents {
 
     WPI_TalonSRX getMasterMotor();
 

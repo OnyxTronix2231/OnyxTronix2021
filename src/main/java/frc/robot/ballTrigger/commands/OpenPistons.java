@@ -1,19 +1,11 @@
 package frc.robot.ballTrigger.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ballTrigger.BallTrigger;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.ballTrigger.Trigger;
 
-public class OpenPistons extends CommandBase {
+public class OpenPistons extends InstantCommand {
 
-    private final BallTrigger ballTrigger;
-
-    public OpenPistons(final BallTrigger ballTrigger) {
-        this.ballTrigger = ballTrigger;
-        addRequirements(ballTrigger);
-    }
-
-    @Override
-    public void initialize() {
-        ballTrigger.openPistons();
+    public OpenPistons(Trigger trigger) {
+        super(trigger::openPistons);
     }
 }
