@@ -10,9 +10,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.drivetrain.commands.OnyxRamseteCommand;
 
 import java.util.List;
 
@@ -37,17 +35,17 @@ public class DriveTrain extends SubsystemBase {
         getLeftDistance() / CM_TO_METERS, getRightDistance() / CM_TO_METERS);
   }
 
-  public void initMotionProfileSlot(final int slot) {
+  public void initMotionProfileSlot(int slot) {
     components.getLeftMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
     components.getRightMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
   }
 
-  public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
+  public void arcadeDrive(double forwardSpeed, double rotationSpeed) {
     vComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
         rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
-  public void driveByMotionMagic(final double leftTarget, final double rightTarget) {
+  public void driveByMotionMagic(double leftTarget, double rightTarget) {
     driveMotorByMotionMagic(getLeftMaster(), leftTarget);
     driveMotorByMotionMagic(getRightMaster(), rightTarget);
   }
@@ -74,12 +72,12 @@ public class DriveTrain extends SubsystemBase {
         encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
   }
 
-  public boolean isDriveOnTarget(final double leftTarget, final double rightTarget) {
+  public boolean isDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE) &&
         Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE);
   }
 
-  public void driveTrainVelocity(final double leftVelocity, final double rightVelocity) {
+  public void driveTrainVelocity(double leftVelocity, double rightVelocity) {
     final double leftFeedForwardVolts = vComponents.getMotorFeedForward().calculate(leftVelocity, 0);
     final double rightFeedForwardVolts = vComponents.getMotorFeedForward().calculate(rightVelocity, 0);
 
@@ -90,15 +88,15 @@ public class DriveTrain extends SubsystemBase {
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
   }
 
-  public void driveTrainVelocityReverse(final double leftVelocity, final double rightVelocity) {
+  public void driveTrainVelocityReverse(double leftVelocity, double rightVelocity) {
     driveTrainVelocity(-leftVelocity, -rightVelocity);
   }
 
-  public double getRightTargetFromDistance(final double distance) {
+  public double getRightTargetFromDistance(double distance) {
     return getTargetFromDistance(getRightMaster(), distance);
   }
 
-  public double getLeftTargetFromDistance(final double distance) {
+  public double getLeftTargetFromDistance(double distance) {
     return getTargetFromDistance(getLeftMaster(), distance);
   }
 
@@ -136,7 +134,7 @@ public class DriveTrain extends SubsystemBase {
     components.getPigeonIMU().setYaw(angle);
   }
 
-  private void driveMotorByMotionMagic(final WPI_TalonFX motor, final double target) {
+  private void driveMotorByMotionMagic(WPI_TalonFX motor, double target) {
     motor.set(ControlMode.MotionMagic, target, DemandType.ArbitraryFeedForward, ARB_FEED_FORWARD);
   }
 
@@ -148,7 +146,7 @@ public class DriveTrain extends SubsystemBase {
     return components.getRightMasterMotor();
   }
 
-  private double getTargetFromDistance(final WPI_TalonFX motor, final double distance) {
+  private double getTargetFromDistance(WPI_TalonFX motor, double distance) {
     return cmToEncoderUnits(distance) + motor.getSelectedSensorPosition();
   }
 
@@ -160,7 +158,7 @@ public class DriveTrain extends SubsystemBase {
     return ((double) getRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER;
   }
 
-  private void resetOdometryToPose(final Pose2d pose) {//For future Vision integration - will delete comment pre-merge
+  private void resetOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
     resetEncoders();
     vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
   }
@@ -169,19 +167,19 @@ public class DriveTrain extends SubsystemBase {
     return List.of(new Pose2d());
   }
 
-  private double cmToEncoderUnits(final double cm) {
+  private double cmToEncoderUnits(double cm) {
     return CONVERSION_RATE * ENCODER_CPR * cm / PERIMETER;
   }
 
-  private double metersToSteps(final double meters) {
+  private double metersToSteps(double meters) {
     return (ENCODER_CPR / PERIMETER_IN_METERS) * meters;
   }
 
-  private double metersPerSecToStepsPer100ms(final double metersPerSec) {
+  private double metersPerSecToStepsPer100ms(double metersPerSec) {
     return metersToSteps(metersPerSec / SEC_TO_100MS);
   }
 
-  private double encoderUnitsToMeter(final double encoder) {
+  private double encoderUnitsToMeter(double encoder) {
     return encoder / ENCODER_CPR * PERIMETER_IN_METERS;
   }
 

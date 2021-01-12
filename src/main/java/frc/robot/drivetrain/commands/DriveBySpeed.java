@@ -11,8 +11,8 @@ public class DriveBySpeed extends CommandBase {
   private final DoubleSupplier forwardSpeedCalculationSupplier;
   private final DoubleSupplier rotationSpeedCalculationSupplier;
 
-  public DriveBySpeed(final DriveTrain driveTrain, final DoubleSupplier forwardSpeedCalculationSupplier,
-                      final DoubleSupplier rotationSpeedCalculationSupplier) {
+  public DriveBySpeed(DriveTrain driveTrain, DoubleSupplier forwardSpeedCalculationSupplier,
+                      DoubleSupplier rotationSpeedCalculationSupplier) {
     this.driveTrain = driveTrain;
     this.forwardSpeedCalculationSupplier = forwardSpeedCalculationSupplier;
     this.rotationSpeedCalculationSupplier = rotationSpeedCalculationSupplier;
@@ -26,7 +26,7 @@ public class DriveBySpeed extends CommandBase {
   }
 
   @Override
-  public void end(final boolean interrupted) {
+  public void end(boolean interrupted) {
     driveTrain.stopDrive();
   }
 }

@@ -6,7 +6,7 @@ public class Path {
   private final Pose[] poses;
   private final Pose endingPose;
 
-  public Path(final Pose... poses) {
+  public Path(Pose... poses) {
     this.poses = poses;
     endingPose = poses[poses.length - 1];
   }

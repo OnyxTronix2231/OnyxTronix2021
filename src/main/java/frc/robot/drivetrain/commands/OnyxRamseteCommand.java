@@ -33,14 +33,14 @@ public class OnyxRamseteCommand extends CommandBase {
   private Trajectory trajectory;
   private DifferentialDriveWheelSpeeds prevSpeeds;
 
-  public OnyxRamseteCommand(final Supplier<Trajectory> trajectorySupplier,
-                            final Supplier<Pose2d> pose2dSupplier,
-                            final RamseteController controller,
-                            final DifferentialDriveKinematics kinematics,
-                            final Supplier<DifferentialDriveWheelSpeeds> wheelSpeeds,
-                            final BiConsumer<Double, Double> outputVoltage,
-                            final SimpleMotorFeedforward feedforward,
-                            final Subsystem... requirements) {
+  public OnyxRamseteCommand(Supplier<Trajectory> trajectorySupplier,
+                            Supplier<Pose2d> pose2dSupplier,
+                            RamseteController controller,
+                            DifferentialDriveKinematics kinematics,
+                            Supplier<DifferentialDriveWheelSpeeds> wheelSpeeds,
+                            BiConsumer<Double, Double> outputVoltage,
+                            SimpleMotorFeedforward feedforward,
+                            Subsystem... requirements) {
     this.trajectorySupplier = requireNonNullParam(trajectorySupplier, "trajectory", "RamseteCommand");
     this.pose2dSupplier = requireNonNullParam(pose2dSupplier, "pose", "RamseteCommand");
     this.controller = requireNonNullParam(controller, "controller", "RamseteCommand");
@@ -107,7 +107,7 @@ public class OnyxRamseteCommand extends CommandBase {
   }
 
   @Override
-  public void end(final boolean interrupted) {
+  public void end(boolean interrupted) {
     timer.stop();
     outputVoltage.accept(0.0, 0.0);
   }

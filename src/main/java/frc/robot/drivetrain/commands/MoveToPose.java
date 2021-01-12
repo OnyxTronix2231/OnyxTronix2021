@@ -10,8 +10,8 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.Tra
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_ZETA;
 
 public class MoveToPose extends OnyxRamseteCommand {
-  public MoveToPose(final DriveTrain driveTrain,
-                    final Pose finishPose) {
+  public MoveToPose(DriveTrain driveTrain,
+                    Pose finishPose) {
     super(() -> driveTrain.getTrajectoryGenerator().getTrajectoryFromPoseList(List.of(driveTrain.getPose(),
         finishPose.getPose2d()), finishPose.isForward()),
         driveTrain::getPose,

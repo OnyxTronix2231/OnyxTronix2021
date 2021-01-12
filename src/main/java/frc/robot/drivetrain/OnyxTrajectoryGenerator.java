@@ -11,7 +11,7 @@ public class OnyxTrajectoryGenerator {
 
   final TrajectoryConfig trajectoryConfig;
 
-  public OnyxTrajectoryGenerator(final TrajectoryConfig trajectoryConfig) {
+  public OnyxTrajectoryGenerator(TrajectoryConfig trajectoryConfig) {
     this.trajectoryConfig = trajectoryConfig;
   }
 
