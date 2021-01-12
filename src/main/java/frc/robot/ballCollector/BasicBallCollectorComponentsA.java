@@ -23,11 +23,11 @@ public class BasicBallCollectorComponentsA implements BallCollectorComponents {
 
     @Override
     public WPI_TalonSRX getMasterMotor() {
-        return null;
+        return masterMotor;
     }
 
     @Override
     public Solenoid getSolenoid() {
-        return null;
+        return solenoid;
     }
 }
