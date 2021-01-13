@@ -30,9 +30,21 @@ public class Shooter extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
+    public void changeAngleBySpeed(final double speed){
+        components.getAngleMotor().set(ControlMode.PercentOutput,speed);
+    }
+
     /** stopMotor function use shootBySpeed, the function gives the motor 0% what make the motor stop */
     public void stopMotor() {
         shootBySpeed(0);
+    }
+
+    public void stopAngleMotor() {
+        changeAngleBySpeed(0);
+    }
+
+    public void changeAngleByPosition(double angle){
+        components.getAngleMotor().set(ControlMode.MotionMagic,angle);
     }
 
     /** isOnTarget check if you got to the right velocity in order to shoot the ball */
@@ -47,16 +59,6 @@ public class Shooter extends SubsystemBase {
     /** setVelocity is an function that get RPM value and transfer it to encoder units and sent this into the motor */
     public void setRPM(final double RPM) {
         components.getMasterMotor().set(ControlMode.Velocity, RPMToEncoderUnits(RPM));
-    }
-
-    /** openShooterPiston open the Piston (this piston change the angle of the shoot) */
-    public void openShooterPiston() {
-        components.getSolenoid().set(ShooterConstants.IS_SOLENOID_INVERTED);
-    }
-
-    /** closeShooterPiston open the Piston (this piston change the angle of the shoot) */
-    public void closeShooterPiston() {
-        components.getSolenoid().set(!ShooterConstants.IS_SOLENOID_INVERTED);
     }
 
     /** this function is the most important function, distanceToVelocity get distance and calculate using 2 formulas

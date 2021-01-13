@@ -1,17 +1,20 @@
 package frc.robot.shooter;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Solenoid;
+
+import static com.ctre.phoenix.motorcontrol.FeedbackDevice.IntegratedSensor;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
 
     private final WPI_TalonFX masterMotor;
     private final WPI_TalonFX slaveMotor;
-    private final Solenoid solenoid;
+    private final TalonSRX angleMotor;
 
     public BasicShooterComponentsA() {
         masterMotor = new WPI_TalonFX(ShooterConstants.ShooterConstantsA.MASTER_MOTOR_ID);
@@ -26,23 +29,33 @@ public class BasicShooterComponentsA implements ShooterComponents {
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
 
-        solenoid = new Solenoid(ShooterConstants.ShooterConstantsA.SOLENOID_PORT);
+        angleMotor = new TalonSRX(4);
+        angleMotor.configFactoryDefault();
+        angleMotor.setNeutralMode(NeutralMode.Brake);
+        angleMotor.configAllSettings(getTalonSRXConfiguration());
     }
-
 
     private TalonFXConfiguration getFalconConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
-        config.slot0.kP = ShooterConstants.ShooterConstantsA.VELOCITY_P;
-        config.slot0.kI = ShooterConstants.ShooterConstantsA.VELOCITY_I;
-        config.slot0.kD = ShooterConstants.ShooterConstantsA.VELOCITY_D;
-        config.slot0.kF = ShooterConstants.ShooterConstantsA.VELOCITY_F;
-        config.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-        config.supplyCurrLimit.currentLimit = ShooterConstants.ShooterConstantsA.CURRENT_LIMIT;
-        config.supplyCurrLimit.triggerThresholdCurrent = ShooterConstants.ShooterConstantsA.TRIGGER_THRESHOLD_CURRENT;
-        config.supplyCurrLimit.triggerThresholdTime = ShooterConstants.ShooterConstantsA.TRIGGER_THRESHOLD_TIME;
-        config.closedloopRamp = ShooterConstants.ShooterConstantsA.CLOSE_LOOP_RAMP;
-        config.openloopRamp = ShooterConstants.ShooterConstantsA.OPEN_LOOP_RAMP;
+        config.slot0.kP = SHOOTER_VELOCITY_P;
+        config.slot0.kI = SHOOTER_VELOCITY_I;
+        config.slot0.kD = SHOOTER_VELOCITY_D;
+        config.slot0.kF = SHOOTER_VELOCITY_F;
+        config.primaryPID.selectedFeedbackSensor = IntegratedSensor;
+        config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
+        config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
+        config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
+        config.closedloopRamp = CLOSE_LOOP_RAMP;
+        config.openloopRamp = OPEN_LOOP_RAMP;
         config.supplyCurrLimit.enable = true;
+        return config;
+    }
+    private TalonSRXConfiguration getTalonSRXConfiguration() {
+        final TalonSRXConfiguration config = new TalonSRXConfiguration();
+        config.slot0.kP = ANGLE_VELOCITY_P;
+        config.slot0.kI = ANGLE_VELOCITY_I;
+        config.slot0.kD = ANGLE_VELOCITY_D;
+        config.slot0.kF = ANGLE_VELOCITY_F;
         return config;
     }
 
@@ -52,12 +65,12 @@ public class BasicShooterComponentsA implements ShooterComponents {
     }
 
     @Override
-    public IMotorController getSlaveMotor() {
-        return slaveMotor;
+    public TalonSRX getAngleMotor() {
+        return angleMotor;
     }
 
     @Override
-    public Solenoid getSolenoid() {
-        return solenoid;
+    public IMotorController getSlaveMotor() {
+        return slaveMotor;
     }
 }
