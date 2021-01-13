@@ -1,4 +1,4 @@
-package frc.robot.Trigger;
+package frc.robot.ballTrigger;
 
 public final class TriggerConstants {
 

@@ -1,14 +1,14 @@
-package frc.robot.Trigger;
+package frc.robot.ballTrigger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.Trigger.TriggerConstants.OPEN_PISTON;
+import static frc.robot.ballTrigger.TriggerConstants.OPEN_PISTON;
 
-public class Trigger extends SubsystemBase {
+public class BallTrigger extends SubsystemBase {
 
     private final TriggerComponents components;
 
-    public Trigger(TriggerComponents components) {
+    public BallTrigger(TriggerComponents components) {
         this.components = components;
     }
 

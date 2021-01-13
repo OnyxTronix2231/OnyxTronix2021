@@ -1,4 +1,4 @@
-package frc.robot.Collector;
+package frc.robot.collector;
 
 public class CollectorConstants {
 

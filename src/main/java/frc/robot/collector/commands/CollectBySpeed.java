@@ -1,7 +1,7 @@
-package frc.robot.Collector.commands;
+package frc.robot.collector.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Collector.Collector;
+import frc.robot.collector.Collector;
 
 import java.util.function.DoubleSupplier;
 

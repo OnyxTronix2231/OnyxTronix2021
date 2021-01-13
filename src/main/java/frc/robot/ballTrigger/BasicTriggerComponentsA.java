@@ -1,11 +1,11 @@
-package frc.robot.Trigger;
+package frc.robot.ballTrigger;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 
-import static frc.robot.Trigger.TriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
-import static frc.robot.Trigger.TriggerConstants.BallTriggerConstantsA.SOLENOID_CHANNEL;
+import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
+import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.SOLENOID_CHANNEL;
 
 public class BasicTriggerComponentsA implements TriggerComponents {
 

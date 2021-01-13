@@ -14,6 +14,14 @@ public class Revolver extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
+    public void moveRevolverByRPM(double RPM) {
+        components.getPIDController().setSetpoint(RPMToEncoderUnit(RPM));
+    }
+
+    public double RPMToEncoderUnit(double RPM) {
+        return RPM * 1023 / 60 / 10;
+    }
+
     public void stop() {
         moveRevolverBySpeed(0);
     }
