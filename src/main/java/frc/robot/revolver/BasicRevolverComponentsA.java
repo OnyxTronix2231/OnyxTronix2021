@@ -2,8 +2,6 @@ package frc.robot.revolver;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.revrobotics.Rev2mDistanceSensor;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
 
