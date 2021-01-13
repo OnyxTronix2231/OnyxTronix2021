@@ -14,7 +14,7 @@ public class Revolver extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void stopMotor() {
+    public void stop() {
         moveRevolverBySpeed(0);
     }
 }

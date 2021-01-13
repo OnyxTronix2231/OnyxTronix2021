@@ -23,6 +23,6 @@ public class MoveRevolverBySpeed extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        revolver.stopMotor();
+        revolver.stop();
     }
 }

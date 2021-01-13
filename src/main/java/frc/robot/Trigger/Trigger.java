@@ -16,7 +16,7 @@ public class Trigger extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void stopMotor() {
+    public void stop() {
         moveBallTriggerBySpeed(0);
     }
 

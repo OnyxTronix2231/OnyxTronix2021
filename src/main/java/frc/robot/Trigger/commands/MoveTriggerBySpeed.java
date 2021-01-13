@@ -23,6 +23,6 @@ public class MoveTriggerBySpeed extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        trigger.stopMotor();
+        trigger.stop();
     }
 }
