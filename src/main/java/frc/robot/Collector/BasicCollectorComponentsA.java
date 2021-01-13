@@ -1,19 +1,18 @@
-package frc.robot.ballTrigger;
+package frc.robot.Collector;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 
-import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
-import static frc.robot.ballTrigger.TriggerConstants.BallTriggerConstantsA.SOLENOID_CHANNEL;
+import static frc.robot.Collector.CollectorConstants.BallCollectorConstantsA.MASTER_MOTOR_ID;
+import static frc.robot.Collector.CollectorConstants.BallCollectorConstantsA.SOLENOID_CHANNEL;
 
-public class BasicTriggerComponentsA implements TriggerComponents {
+public class BasicCollectorComponentsA implements CollectorComponents {
 
     private final WPI_TalonSRX masterMotor;
-
     private final Solenoid solenoid;
 
-    public BasicTriggerComponentsA() {
+    public BasicCollectorComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.setNeutralMode(NeutralMode.Brake);

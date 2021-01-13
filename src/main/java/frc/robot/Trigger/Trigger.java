@@ -1,8 +1,8 @@
-package frc.robot.ballTrigger;
+package frc.robot.Trigger;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.ballTrigger.TriggerConstants.OPEN_PISTON;
+import static frc.robot.Trigger.TriggerConstants.OPEN_PISTON;
 
 public class Trigger extends SubsystemBase {
 

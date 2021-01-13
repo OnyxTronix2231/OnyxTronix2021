@@ -1,4 +1,4 @@
-package frc.robot.ballTrigger;
+package frc.robot.Trigger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;

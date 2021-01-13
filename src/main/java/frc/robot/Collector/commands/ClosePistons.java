@@ -1,7 +1,7 @@
-package frc.robot.ballCollector.commands;
+package frc.robot.Collector.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.ballCollector.Collector;
+import frc.robot.Collector.Collector;
 
 public class ClosePistons extends InstantCommand {
 

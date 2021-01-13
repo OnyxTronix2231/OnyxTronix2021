@@ -1,7 +1,7 @@
-package frc.robot.ballTrigger.commands;
+package frc.robot.Trigger.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ballTrigger.Trigger;
+import frc.robot.Trigger.Trigger;
 
 import java.util.function.DoubleSupplier;
 

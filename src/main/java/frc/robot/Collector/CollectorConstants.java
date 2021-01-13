@@ -1,4 +1,4 @@
-package frc.robot.ballCollector;
+package frc.robot.Collector;
 
 public class CollectorConstants {
 
@@ -6,6 +6,6 @@ public class CollectorConstants {
 
     public static final class BallCollectorConstantsA {
         static final int MASTER_MOTOR_ID = 2; //TODO: check value
-        static final int SOLENOID_CHANNEL = 3;
+        static final int SOLENOID_CHANNEL = 3; //TODO: check value
     }
 }

@@ -1,8 +1,8 @@
-package frc.robot.ballCollector;
+package frc.robot.Collector;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.ballCollector.CollectorConstants.*;
+import static frc.robot.Collector.CollectorConstants.*;
 
 public class Collector extends SubsystemBase {
 
