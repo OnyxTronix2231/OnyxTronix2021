@@ -24,10 +24,6 @@ public class Roulette extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void moveByRouletteRounds(double rouletteRounds){
-        components.getController().setSetpoint(rotationToEncoderUnits(rouletteRounds));
-    }
-
     public void initMoveByRotation(double rotations){
         this.components.getController().setSetpoint(rotationToEncoderUnits(rotations));
         this.components.getController().enable();

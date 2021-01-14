@@ -27,9 +27,12 @@ public class SpinByRouletteRounds extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) { // function that counts the right
-        // amount of colors to ensure the right amount of rotations were complete, when said amount of
-        // rotations is complete, the boolean interrupted should signal for the function end to work
+    public boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
         roulette.stop();
     }
 }

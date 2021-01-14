@@ -9,7 +9,9 @@ import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
+import static frc.robot.Roulette.RouletteConstants.CHANNEL;
 import static frc.robot.Roulette.RouletteConstants.CollectorConstantsA.*;
+import static frc.robot.Roulette.RouletteConstants.DEVICE_NUMBER;
 
 public class RouletteComponentsA implements RouletteComponents{
 
@@ -20,8 +22,8 @@ public class RouletteComponentsA implements RouletteComponents{
     private ColorSensorV3 colorSensor;
 
     public RouletteComponentsA() {
-        masterMotor = new WPI_TalonSRX(0);
-        solenoid = new Solenoid(0);
+        masterMotor = new WPI_TalonSRX(DEVICE_NUMBER);
+        solenoid = new Solenoid(CHANNEL);
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
                 new PIDFTerms(K_P, K_I, K_D, K_F), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
