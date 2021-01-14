@@ -6,8 +6,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import pid.CtreMotionMagicController;
+import pid.CtrePIDController;
+import pid.PIDControlMode;
+import pid.PIDFTerms;
+import sensors.counter.CtreEncoder;
 
-import static com.ctre.phoenix.motorcontrol.FeedbackDevice.IntegratedSensor;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
@@ -15,6 +19,8 @@ public class BasicShooterComponentsA implements ShooterComponents {
     private final WPI_TalonFX masterMotor;
     private final WPI_TalonFX slaveMotor;
     private final TalonSRX angleMotor;
+    private final CtreMotionMagicController ctreMotionMagicController;
+    private final  CtrePIDController ctrePIDController;
 
     public BasicShooterComponentsA() {
         masterMotor = new WPI_TalonFX(ShooterConstants.ShooterConstantsA.MASTER_MOTOR_ID);
@@ -33,15 +39,18 @@ public class BasicShooterComponentsA implements ShooterComponents {
         angleMotor.configFactoryDefault();
         angleMotor.setNeutralMode(NeutralMode.Brake);
         angleMotor.configAllSettings(getTalonSRXConfiguration());
+
+         ctreMotionMagicController = new CtreMotionMagicController(angleMotor,
+                new CtreEncoder(angleMotor),
+                new PIDFTerms(ANGLE_MOTOR_VELOCITY_P, ANGLE_MOTOR_VELOCITY_I, ANGLE_MOTOR_VELOCITY_D, ANGLE_VELOCITY_F),
+                ANGLE_MOTOR_MAX_ACCELERATION, ANGLE_MOTOR_CRUISE_VELOCITY, ANGLE_MOTOR_ACCELERATION_SMOOTHING);
+         ctrePIDController = new CtrePIDController(masterMotor,
+                new CtreEncoder(masterMotor),
+                new PIDFTerms(SHOOTER_VELOCITY_P, SHOOTER_VELOCITY_I, SHOOTER_VELOCITY_D, SHOOTER_VELOCITY_F), PIDControlMode.Velocity);
     }
 
     private TalonFXConfiguration getFalconConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
-        config.slot0.kP = SHOOTER_VELOCITY_P;
-        config.slot0.kI = SHOOTER_VELOCITY_I;
-        config.slot0.kD = SHOOTER_VELOCITY_D;
-        config.slot0.kF = SHOOTER_VELOCITY_F;
-        config.primaryPID.selectedFeedbackSensor = IntegratedSensor;
         config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
         config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
         config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
@@ -50,12 +59,9 @@ public class BasicShooterComponentsA implements ShooterComponents {
         config.supplyCurrLimit.enable = true;
         return config;
     }
+
     private TalonSRXConfiguration getTalonSRXConfiguration() {
         final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.slot0.kP = ANGLE_VELOCITY_P;
-        config.slot0.kI = ANGLE_VELOCITY_I;
-        config.slot0.kD = ANGLE_VELOCITY_D;
-        config.slot0.kF = ANGLE_VELOCITY_F;
         return config;
     }
 
@@ -67,6 +73,16 @@ public class BasicShooterComponentsA implements ShooterComponents {
     @Override
     public TalonSRX getAngleMotor() {
         return angleMotor;
+    }
+
+    @Override
+    public CtreMotionMagicController getCtreMotionMagicController() {
+        return ctreMotionMagicController;
+    }
+
+    @Override
+    public CtrePIDController getCtrePIDController() {
+        return ctrePIDController;
     }
 
     @Override

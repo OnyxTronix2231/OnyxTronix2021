@@ -7,10 +7,15 @@ package frc.robot;
 import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.shooter.BasicShooterComponentsA;
+import frc.robot.shooter.DriverShooterOiBinder;
+import frc.robot.shooter.Shooter;
+import frc.robot.shooter.ShooterComponents;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +29,7 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
+    Shooter shooter;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -32,16 +38,19 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrainComponents driveTrainComponents;
+        ShooterComponents shooterComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new BasicDriveTrainComponentsA();
+            shooterComponents = new BasicShooterComponentsA();
         } else {
             driveTrainComponents = null;
+            shooterComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents);
-
-        new DriverOI(driveTrain);
+        shooter = new Shooter(shooterComponents);
+        new DriverOI(driveTrain, shooter);
         new DeputyOI();
     }
 

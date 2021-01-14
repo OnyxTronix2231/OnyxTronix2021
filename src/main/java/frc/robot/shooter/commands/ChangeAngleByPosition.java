@@ -3,19 +3,21 @@ package frc.robot.shooter.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.shooter.Shooter;
 
+import java.util.function.DoubleSupplier;
+
 public class ChangeAngleByPosition extends CommandBase {
 
-    private final double angle;
+    private final DoubleSupplier angle;
     private final Shooter shooter;
     
-    public ChangeAngleByPosition(final double angle, final Shooter shooter){
+    public ChangeAngleByPosition(final Shooter shooter, final DoubleSupplier angle){
         this.angle = angle;
         this.shooter = shooter;
     }
 
     @Override
     public void execute() {
-        shooter.changeAngleByPosition(angle);
+        shooter.changeAngleByPosition(angle.getAsDouble());
     }
 
     @Override

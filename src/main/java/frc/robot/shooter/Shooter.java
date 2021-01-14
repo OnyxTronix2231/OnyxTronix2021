@@ -2,12 +2,13 @@ package frc.robot.shooter;
 
 import static frc.robot.RobotConstants.PRIMARY_PID;
 import static frc.robot.shooter.ShooterConstants.*;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_MOTOR_MAX_VELOCITY;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.PID_VELOCITY_GAINS;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import pid.CtrePIDController;
 
 public class Shooter extends SubsystemBase {
 
@@ -46,12 +47,8 @@ public class Shooter extends SubsystemBase {
     }
 
     public void changeAngleByPosition(double angle){
-        components.getAngleMotor().set(ControlMode.MotionMagic,angle);
-    }
-
-    /** isOnTarget check if you got to the right velocity in order to shoot the ball */
-    public boolean isOnTarget() {
-        return Math.abs(components.getMasterMotor().getClosedLoopError()) < RPMToEncoderUnits(TOLERANCE);
+        components.getCtreMotionMagicController().update(angle);
+        components.getCtreMotionMagicController().enable();
     }
 
     public void configVelocitySlot() {
@@ -60,7 +57,8 @@ public class Shooter extends SubsystemBase {
 
     /** setVelocity is an function that get RPM value and transfer it to encoder units and sent this into the motor */
     public void setRPM(final double RPM) {
-        components.getMasterMotor().set(ControlMode.Velocity, RPMToEncoderUnits(RPM));
+        components.getCtrePIDController().update(RPM);
+        components.getCtrePIDController().enable();
     }
 
     /** this function is the most important function, distanceToVelocity get distance and calculate using 2 formulas
@@ -73,10 +71,10 @@ public class Shooter extends SubsystemBase {
         else {
             encoderUnitsTarget = 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
         }
-        if (encoderUnitsTarget <= MAX_VELOCITY){
+        if (encoderUnitsTarget <= SHOOTER_MOTOR_MAX_VELOCITY){
             return encoderUnitsTarget;
         }
-        return MAX_VELOCITY;
+        return SHOOTER_MOTOR_MAX_VELOCITY;
     }
 
     // y= -0.0121x2 +26.707x + 24130 > 450
@@ -105,18 +103,14 @@ public class Shooter extends SubsystemBase {
         lastRPMError = Integer.MAX_VALUE;
     }
 
-    /** this function check velocity error in the close loop  */
-    public double getRPMError() {
-        return encoderUnitsToRPM(components.getMasterMotor().getClosedLoopError());
-    }
-
     /** this function determine if the ball was shoot*/
     public boolean isBallShot() {
         boolean isBallShot = false;
-        if (getRPMError() > MIN_ERROR_RPM && getRPMError() > lastRPMError) {
+        if (components.getCtrePIDController().getCurrentError() >
+                MIN_ERROR_RPM && components.getCtrePIDController().getCurrentError() > lastRPMError) {
             isBallShot = true;
         }
-        lastRPMError = getRPMError();
+        lastRPMError = components.getCtrePIDController().getCurrentError();
         return isBallShot;
     }
     /** like isBallShot but checking if the ball didnt shoot */
@@ -126,6 +120,6 @@ public class Shooter extends SubsystemBase {
 
     /** check if the wheels got to the right speed in order to shoot */
     public boolean isReadyToShoot() {
-        return getRPMError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
+        return components.getCtrePIDController().getCurrentError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
     }
 }
