@@ -8,7 +8,7 @@ public class ChangeAngleByPosition extends CommandBase {
     private final double angle;
     private final Shooter shooter;
     
-    public ChangeAngleByPosition(double angle, Shooter shooter){
+    public ChangeAngleByPosition(final double angle, final Shooter shooter){
         this.angle = angle;
         this.shooter = shooter;
     }

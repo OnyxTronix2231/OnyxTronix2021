@@ -23,6 +23,8 @@ public class Shooter extends SubsystemBase {
                 () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
                 () -> components.getMasterMotor().getSelectedSensorVelocity());
+        Shuffleboard.getTab("Shooter").addNumber("current angle RPM",()->
+                encoderUnitsToRPM(components.getAngleMotor().getSelectedSensorVelocity()));
     }
 
     /** shoot by speed get percent output between -1 to 1 and move the motor in -100% to 100% */
@@ -88,6 +90,11 @@ public class Shooter extends SubsystemBase {
     /** this function change encoder units to rpm units */
     public double encoderUnitsToRPM(double encoderUnits){
         return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
+    }
+
+    /** this function change angle values to encoder units */
+    public double angleToEncoderUnits(final double angle){
+        return angle / ANGLE_TO_ENCODER_UNITS;
     }
 
     /** in order to wait until ball shot wee need to determine a way to check if ball was shhot in order to do it
