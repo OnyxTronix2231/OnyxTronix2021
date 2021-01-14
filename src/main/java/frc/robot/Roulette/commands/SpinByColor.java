@@ -1,5 +1,7 @@
 package frc.robot.Roulette.commands;
 
-public class SpinByColor {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class SpinByColor extends CommandBase {
 
 }
