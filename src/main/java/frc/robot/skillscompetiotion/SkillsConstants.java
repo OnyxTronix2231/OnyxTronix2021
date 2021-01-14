@@ -1,11 +1,15 @@
 package frc.robot.skillscompetiotion;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import frc.robot.drivetrain.Pose;
 
 import java.util.List;
+import java.math.*;
 
-public class SkillsConstants {
-  public static class Waypoints {
+public final class SkillsConstants {
+  public static final class Waypoints {
+
     public static final Waypoint A1 = new Waypoint(30, 150);
     public static final Waypoint A3 = new Waypoint(90, 150);
     public static final Waypoint A4 = new Waypoint(120, 150);
@@ -52,21 +56,43 @@ public class SkillsConstants {
     public static final Waypoint E10 = new Waypoint(300, 30);
   }
 
-  public static class Paths {
-    public static final List<Pose> RED_FIRST_PATH = List.of(
-
+  public static final class Paths {
+    public static final List<Pose> RED_FIRST_PATH = List.of( //C3->D5->A6
+        new Pose(0.3, 2.5, 0),
+        new Pose(Waypoints.C3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.164, -0.315))),
+        new Pose(Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.549, 0.5))),
+        new Pose(Waypoints.A6.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.912, 0.518))),
+        new Pose(8.1, 4.3, 0)
     );
 
-    public static final List<Pose> RED_SECOND_PATH = List.of(
-
+    public static final List<Pose> RED_SECOND_PATH = List.of( //B3->D5-B7
+        new Pose(0.3, 3.5, 0),
+        new Pose(Waypoints.B3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.132, -0.635))),
+        new Pose(Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.318, -0.571))),
+        new Pose(Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.278, 0.708))),
+        new Pose(8.1, 3.5,0)
     );
 
-    public static final List<Pose> BLUE_FIRST_PATH = List.of(
-
+    public static final List<Pose> BLUE_FIRST_PATH = List.of( //E6->B7->C9
+        new Pose(0.3, 4.5, 0),
+        new Pose(Waypoints.E6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.052, 0.872))),
+        new Pose(Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(-0.067, 2.75))),
+        new Pose(Waypoints.C9.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.269, -0.56))),
+        new Pose(8.1, 1.74, Calculations.angleFromTangentVectors(1.269, -0.56))
     );
 
-    public static final List<Pose> BLUE_SECOND_PATH = List.of(
-
+    public static final List<Pose> BLUE_SECOND_PATH = List.of( //D6->B8->D10
+        new Pose(0.3, 1, 0),
+        new Pose(Waypoints.D6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.145, 0.734))),
+        new Pose(Waypoints.B8.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.484, 0.291))),
+        new Pose(Waypoints.D10.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.229, -0.916))),
+        new Pose(8.1, 1.2, Calculations.angleFromTangentVectors(1.229, -0.916))
     );
+  }
+
+  public static final class Calculations {
+    public static double angleFromTangentVectors(double sizeOfX, double sizeOfY) {
+      return Math.asin(sizeOfY / Math.sqrt(Math.pow(sizeOfX, 2) + Math.pow(sizeOfY, 2)));
+    }
   }
 }

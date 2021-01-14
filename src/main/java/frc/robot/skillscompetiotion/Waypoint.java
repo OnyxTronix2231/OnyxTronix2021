@@ -12,8 +12,8 @@ public class Waypoint {
     this.y = y * 0.0254;
   }
 
-  public Pose2d getPose2dFromRotation(Rotation2d rotation){
-    return new Pose2d(x, y, rotation);
+  public Pose2d getPose2dFromRotation(double deg){
+    return new Pose2d(x, y, Rotation2d.fromDegrees(deg));
   }
 
   public double getX() {

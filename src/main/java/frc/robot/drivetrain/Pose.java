@@ -14,9 +14,29 @@ public class Pose {
     this.isForward = isForward;
   }
 
-  public Pose(Waypoint waypoint, Rotation2d rotation, boolean isForward) {
-    pose2d = waypoint.getPose2dFromRotation(rotation);
+  public Pose(Pose2d pose2d) {
+    this.pose2d = pose2d;
+    isForward = false;
+  }
+
+  public Pose(double x, double y, double deg, boolean isForward) {
+    pose2d = new Pose2d(x, y, Rotation2d.fromDegrees(deg));
     this.isForward = isForward;
+  }
+
+  public Pose(double x, double y, double deg) {
+    pose2d = new Pose2d(x, y, Rotation2d.fromDegrees(deg));
+    isForward = false;
+  }
+
+  public Pose(Waypoint waypoint, double deg, boolean isForward) {
+    pose2d = waypoint.getPose2dFromRotation(deg);
+    this.isForward = isForward;
+  }
+
+  public Pose(Waypoint waypoint, double deg) {
+    pose2d = waypoint.getPose2dFromRotation(deg);
+    isForward = false;
   }
 
   public Pose2d getPose2d() {
