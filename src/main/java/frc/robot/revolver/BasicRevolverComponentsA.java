@@ -6,7 +6,7 @@ import pid.CtrePIDController;
 import pid.PIDControlMode;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.MASTER_MOTOR_ID;
+import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
 
 public class BasicRevolverComponentsA implements RevolverComponents {
 
@@ -21,7 +21,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
 
         encoder = new CtreEncoder(masterMotor, 0);
 
-        pidController = new CtrePIDController(masterMotor, encoder, 0, 0, 0, 0, PIDControlMode.Velocity);
+        pidController = new CtrePIDController(masterMotor, encoder, RPM_P, RPM_I, RPM_D, RPM_F, PIDControlMode.Velocity);
     }
 
     @Override

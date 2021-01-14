@@ -1,10 +1,10 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.revolver.Revolver;
-import frc.robot.revolver.commands.MoveRevolverBySpeed;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.MoveTriggerBySpeed;
+import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.MoveRevolverBySpeed;
 
 import java.util.function.DoubleSupplier;
 
