@@ -9,6 +9,6 @@ public class ClosePiston extends InstantCommand {
         super(roulette::closePiston);
     }
     // how do you make sure the engine is off when the pistol is turned off
-    /
+
 
 }
