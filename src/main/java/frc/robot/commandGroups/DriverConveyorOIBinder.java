@@ -18,7 +18,7 @@ public class DriverConveyorOIBinder {
                 () -> 0.8));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> 1500, () -> 0.8));
+                revolver, ballTrigger, () -> 600, () -> 0.8));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseTriggerPistons(ballTrigger));
     }
 }
