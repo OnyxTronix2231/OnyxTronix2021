@@ -4,7 +4,10 @@ import static frc.robot.shooter.ShooterConstants.*;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_MOTOR_MAX_VELOCITY;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -44,12 +47,12 @@ public class Shooter extends SubsystemBase {
     }
 
     public void changeAngleByPosition(double angle) {
-        components.getCtreMotionMagicController().update(angle);
+        components.getCtreMotionMagicController().update(angleToEncoderUnits(angle));
         components.getCtreMotionMagicController().enable();
     }
 
     public void setRPM(final double RPM) {
-        components.getCtrePIDController().update(RPM);
+        components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
         components.getCtrePIDController().enable();
     }
 
@@ -94,5 +97,17 @@ public class Shooter extends SubsystemBase {
 
     public boolean isReadyToShoot() {
         return components.getCtrePIDController().getCurrentError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
+    }
+
+    @Override
+    public void simulationPeriodic() {
+        components.getFlyWheelSim().setInputVoltage(components.getMasterMotor().getMotorOutputPercent()
+                * RobotController.getBatteryVoltage());
+        components.getFlyWheelSim().update(0.02);
+        components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
+                RPMToEncoderUnits(components.getFlyWheelSim().getAngularVelocityRPM()));
+        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
+        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
+                components.getFlyWheelSim().getCurrentDrawAmps()));
     }
 }
