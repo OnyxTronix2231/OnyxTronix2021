@@ -60,7 +60,7 @@ public class Shooter extends SubsystemBase {
         } else {
             encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA2(distance);
         }
-        if (encoderUnitsTarget <= SHOOTER_MOTOR_MAX_VELOCITY){
+        if (encoderUnitsTarget <= SHOOTER_MOTOR_MAX_VELOCITY) {
             return encoderUnitsTarget;
         }
         return SHOOTER_MOTOR_MAX_VELOCITY;
