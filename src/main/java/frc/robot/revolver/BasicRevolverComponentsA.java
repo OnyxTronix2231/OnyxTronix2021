@@ -21,7 +21,8 @@ public class BasicRevolverComponentsA implements RevolverComponents {
 
         encoder = new CtreEncoder(masterMotor, 0);
 
-        pidController = new CtrePIDController(masterMotor, encoder, RPM_P, RPM_I, RPM_D, RPM_F, PIDControlMode.Velocity);
+        pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+                PIDControlMode.Velocity);
     }
 
     @Override

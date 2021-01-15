@@ -5,20 +5,25 @@ import frc.robot.ballTrigger.BallTrigger;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveTriggerBySpeed extends CommandBase {
+public class MoveBallTriggerByRPM extends CommandBase {
 
     private final BallTrigger ballTrigger;
-    private final DoubleSupplier speedSupplier;
+    private final DoubleSupplier RPMSupplier;
 
-    public MoveTriggerBySpeed(BallTrigger ballTrigger, DoubleSupplier speedSupplier) {
+    public MoveBallTriggerByRPM(BallTrigger ballTrigger, DoubleSupplier RPMSupplier) {
         this.ballTrigger = ballTrigger;
-        this.speedSupplier = speedSupplier;
+        this.RPMSupplier = RPMSupplier;
         addRequirements(ballTrigger);
     }
 
     @Override
+    public void initialize() {
+        ballTrigger.moveBallTriggerByRPM(RPMSupplier.getAsDouble());
+    }
+
+    @Override
     public void execute() {
-        ballTrigger.moveBallTriggerBySpeed(speedSupplier.getAsDouble());
+        ballTrigger.updateBallTriggerRPM(RPMSupplier.getAsDouble());
     }
 
     @Override

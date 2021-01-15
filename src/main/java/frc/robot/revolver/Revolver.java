@@ -2,10 +2,10 @@ package frc.robot.revolver;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.ENCODER_UNITS;
+import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
+import static frc.robot.revolver.RevolverConstants.SECONDS_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.HUNDREDS_OF_MILLISECS_IN_SEC;
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.TOLERANCE;
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.SECONDS_IN_MIN;
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.HUNDREDS_OF_MILLISECS_IN_SEC;
 
 public class Revolver extends SubsystemBase {
 
@@ -37,6 +37,10 @@ public class Revolver extends SubsystemBase {
     }
 
     public double RPMToEncoderUnit(double RPM) {
-        return RPM * ENCODER_UNITS / SECONDS_IN_MIN / HUNDREDS_OF_MILLISECS_IN_SEC;
+        return RPM * ENCODER_UNITS_PER_ROTATION / (SECONDS_IN_MIN * HUNDREDS_OF_MILLISECS_IN_SEC);
+    }
+
+    public double encoderUnitsToRPM(double encoderUnits) {
+        return (encoderUnits * (SECONDS_IN_MIN * HUNDREDS_OF_MILLISECS_IN_SEC)) /ENCODER_UNITS_PER_ROTATION;
     }
 }

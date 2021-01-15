@@ -2,7 +2,7 @@ package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.ballTrigger.commands.CloseTriggerPistons;
+import frc.robot.ballTrigger.commands.CloseBallTriggerPistons;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
@@ -19,6 +19,6 @@ public class DriverConveyorOIBinder {
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
                 revolver, ballTrigger, () -> 600, () -> 0.8));
-        spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseTriggerPistons(ballTrigger));
+        spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPistons(ballTrigger));
     }
 }
