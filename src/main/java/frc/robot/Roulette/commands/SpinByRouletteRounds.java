@@ -17,7 +17,6 @@ public class SpinByRouletteRounds extends CommandBase {
 
     @Override
     public void initialize() {
-        roulette.reset();
         roulette.initMoveByRotation(rouletteRounds.getAsDouble());
     }
 
@@ -28,7 +27,7 @@ public class SpinByRouletteRounds extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return roulette.isOnTarget();
     }
 
     @Override
