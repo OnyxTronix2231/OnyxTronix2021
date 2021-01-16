@@ -14,16 +14,16 @@ public class BallTrigger extends SubsystemBase {
         this.components = components;
     }
 
-    public void moveBallTriggerBySpeed(double speed) {
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
-    public void initBallTriggerByRPM(double RPM) {
+    public void initMoveByRPM(double RPM) {
         components.getPIDController().setSetpoint(RPMToEncoderUnits(RPM));
         components.getPIDController().enable();
     }
 
-    public void updateBallTriggerRPM(double RPM) {
+    public void updateMoveByRPM(double RPM) {
         components.getPIDController().update(RPMToEncoderUnits(RPM));
     }
 
@@ -36,7 +36,7 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void stop() {
-        moveBallTriggerBySpeed(0);
+        moveBySpeed(0);
     }
 
     public void openPistons() {

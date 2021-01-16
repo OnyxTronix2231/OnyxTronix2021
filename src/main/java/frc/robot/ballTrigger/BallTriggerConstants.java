@@ -9,13 +9,12 @@ public final class BallTriggerConstants {
     public static final class BallTriggerConstantsA {
         static final int MASTER_MOTOR_ID = 0; //TODO: check value
         static final int SOLENOID_CHANNEL = 1; //TODO: check value
-        static final int PID_SLOT = 0;
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final double MAX_RPM = 3000; //TODO: check value
         static final double VELOCITY_P = 0; //TODO: check value
         static final double VELOCITY_I = 0; //TODO: check value
         static final double VELOCITY_D = 0; //TODO: check value
-        static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_RPM; //TODO: check value
+        static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_RPM; 
         static final int PEAK_AMP = 0; //TODO: check value
         static final int PEAK_AMP_DURATION = 0; //TODO: check value
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value

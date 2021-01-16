@@ -12,12 +12,12 @@ public class Collector extends SubsystemBase {
         this.components = components;
     }
 
-    public void collectBySpeed(double speed) {
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
     public void stop() {
-        collectBySpeed(0);
+        moveBySpeed(0);
     }
 
     public void openPistons() {

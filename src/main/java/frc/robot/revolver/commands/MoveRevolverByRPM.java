@@ -18,12 +18,12 @@ public class MoveRevolverByRPM extends CommandBase {
 
     @Override
     public void initialize() {
-        revolver.initRevolverByRPM(RPMSupplier.getAsDouble());
+        revolver.initMoveByRPM(RPMSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        revolver.updateRevolverRPM(RPMSupplier.getAsDouble());
+        revolver.updateMoveByRPM(RPMSupplier.getAsDouble());
     }
 
     @Override
