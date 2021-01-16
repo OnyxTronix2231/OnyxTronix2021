@@ -10,14 +10,14 @@ import sensors.counter.CtreEncoder;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*;
 
-public class BasicBallBallTriggerComponentsA implements BallTriggerComponents {
+public class BasicBallTriggerComponentsA implements BallTriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
     private final Solenoid solenoid;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
 
-    public BasicBallBallTriggerComponentsA() {
+    public BasicBallTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getConfiguration());
