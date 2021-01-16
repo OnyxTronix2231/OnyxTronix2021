@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
 
 import static frc.robot.Roulette.RouletteConstants.*;
 
@@ -40,21 +41,30 @@ public class Roulette extends SubsystemBase {
         components.getController().enable();
     }
 
+    public void updateMoveByRotations(double wheelRotations) {
+        this.components.getController().update(wheelRotationToEncoderUnits(wheelRotations));
+    }
+
     public boolean isOnTarget() {
         return components.getController().isOnTarget(PERCENT_TOLERANCE
                 * wheelRotationToEncoderUnits(1));
     }
 
-    public void updateMoveByRotations(double rotations) {
-        this.components.getController().update(wheelRotationToEncoderUnits(rotations));
+    public double encoderUnitsToRouletteRounds() {
+        return encoderUnitsToRotation(components.getMasterMotor().
+                getSelectedSensorPosition()) * (1 / RATIO_ROULETTE_TO_WHEEL);
+    }
+
+    public DoubleSupplier remainingRouletteRounds() {
+        return () -> REQUIRED_AMOUNT_OF_ROUNDS - encoderUnitsToRouletteRounds(); // ? calculations
     }
 
     public double wheelRotationToEncoderUnits(double rotations) {
-        return rotations * ENCODER_UNITS_PER_ROUND ;
+        return rotations * ENCODER_UNITS_PER_ROUND;
     }
 
     public double encoderUnitsToRotation(double encoderUnits) {
-        return encoderUnits / ENCODER_UNITS_PER_ROUND / RATIO_ROULETTE_TO_WEEL;
+        return encoderUnits / ENCODER_UNITS_PER_ROUND;
     }
 
     public void reset() {

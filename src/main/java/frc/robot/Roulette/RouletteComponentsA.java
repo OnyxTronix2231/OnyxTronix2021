@@ -13,9 +13,9 @@ import static frc.robot.Roulette.RouletteConstants.CHANNEL;
 import static frc.robot.Roulette.RouletteConstants.CollectorConstantsA.*;
 import static frc.robot.Roulette.RouletteConstants.DEVICE_NUMBER;
 
-public class RouletteComponentsA implements RouletteComponents{
+public class RouletteComponentsA implements RouletteComponents {
 
-    private WPI_TalonSRX masterMotor ;
+    private WPI_TalonSRX masterMotor;
     private Solenoid solenoid;
     private CtreEncoder encoder;
     private CtreMotionMagicController controller;
@@ -31,18 +31,28 @@ public class RouletteComponentsA implements RouletteComponents{
     }
 
     @Override
-    public WPI_TalonSRX getMasterMotor(){ return masterMotor;}
+    public WPI_TalonSRX getMasterMotor() {
+        return masterMotor;
+    }
 
     @Override
-    public Solenoid getSolenoid() { return solenoid;}
+    public Solenoid getSolenoid() {
+        return solenoid;
+    }
 
     @Override
-    public MotionMagicController getController() { return controller;}
+    public MotionMagicController getController() {
+        return controller;
+    }
 
     @Override
-    public Counter getEncoder() { return encoder; }
+    public Counter getEncoder() {
+        return encoder;
+    }
 
     @Override
-    public ColorSensorV3 getColorSensor() { return colorSensor; }
+    public ColorSensorV3 getColorSensor() {
+        return colorSensor;
+    }
 
 }

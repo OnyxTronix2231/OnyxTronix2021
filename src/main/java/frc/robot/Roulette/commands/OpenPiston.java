@@ -7,7 +7,7 @@ import frc.robot.Roulette.Roulette;
 
 public class OpenPiston extends InstantCommand {
 
-    public OpenPiston(Roulette roulette){
+    public OpenPiston(Roulette roulette) {
         super(roulette::openPiston);
     }
 

@@ -5,7 +5,7 @@ import frc.robot.Roulette.Roulette;
 
 public class ClosePiston extends InstantCommand {
 
-    public ClosePiston(Roulette roulette){
+    public ClosePiston(Roulette roulette) {
         super(roulette::closePiston);
     }
 
