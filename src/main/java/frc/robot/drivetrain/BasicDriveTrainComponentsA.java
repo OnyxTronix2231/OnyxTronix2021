@@ -74,10 +74,14 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
     final TalonFXConfiguration config = new TalonFXConfiguration();
     config.peakOutputForward = MAX_OUTPUT_FORWARD;
     config.peakOutputReverse = MAX_OUTPUT_REVERSE;
-    config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
-    config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
-    config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
-    config.supplyCurrLimit.enable = true;
+    config.supplyCurrLimit.currentLimit = SUPPLY_CURRENT_LIMIT;
+    config.supplyCurrLimit.triggerThresholdCurrent = SUPPLY_TRIGGER_THRESHOLD_CURRENT;
+    config.supplyCurrLimit.triggerThresholdTime = SUPPLY_TRIGGER_THRESHOLD_TIME;
+    config.supplyCurrLimit.enable = SUPPLY_CURRENT_LIMIT_ENABLED;
+    config.statorCurrLimit.currentLimit = STATOR_CURRENT_LIMIT;
+    config.statorCurrLimit.triggerThresholdCurrent = STATOR_TRIGGER_THRESHOLD_CURRENT;
+    config.statorCurrLimit.triggerThresholdTime = STATOR_TRIGGER_THRESHOLD_TIME;
+    config.statorCurrLimit.enable = STATOR_CURRENT_LIMIT_ENABLED;
     return config;
   }
 }
