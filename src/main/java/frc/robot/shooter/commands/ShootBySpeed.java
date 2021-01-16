@@ -18,11 +18,11 @@ public class ShootBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.shootBySpeed(speedSupplier.getAsDouble());
+        shooter.moveShooterBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override
     public void end(final boolean interrupted) {
-        shooter.stopMotor();
+        shooter.stopShooterMotor();
     }
 }

@@ -7,17 +7,18 @@ import java.util.function.DoubleSupplier;
 
 public class ChangeAngleByPosition extends CommandBase {
 
-    private final DoubleSupplier angle;
+    private final DoubleSupplier angleSupplier;
     private final Shooter shooter;
     
-    public ChangeAngleByPosition(final Shooter shooter, final DoubleSupplier angle){
-        this.angle = angle;
+    public ChangeAngleByPosition(final Shooter shooter, final DoubleSupplier angleSupplier){
+        this.angleSupplier = angleSupplier;
         this.shooter = shooter;
+        addRequirements(shooter);
     }
 
     @Override
     public void execute() {
-        shooter.changeAngleByPosition(angle.getAsDouble());
+        shooter.changeAngleByPosition(angleSupplier.getAsDouble());
     }
 
     @Override

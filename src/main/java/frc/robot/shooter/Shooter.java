@@ -30,7 +30,7 @@ public class Shooter extends SubsystemBase {
                 encoderUnitsToRPM(components.getAngleMotor().getSelectedSensorVelocity()));
     }
 
-    public void shootBySpeed(final double speed) {
+    public void moveShooterBySpeed(final double speed) {
         components.getMasterMotor().set(speed);
     }
 
@@ -38,8 +38,8 @@ public class Shooter extends SubsystemBase {
         components.getAngleMotor().set(ControlMode.PercentOutput, speed);
     }
 
-    public void stopMotor() {
-        shootBySpeed(0);
+    public void stopShooterMotor() {
+        moveShooterBySpeed(0);
     }
 
     public void stopAngleMotor() {

@@ -23,6 +23,6 @@ public class ShootByRPM extends CommandBase {
 
     @Override
     public void end(final boolean interrupted) {
-        shooter.stopMotor();
+        shooter.stopShooterMotor();
     }
 }
