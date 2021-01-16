@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -22,10 +23,13 @@ public class DriveTrain extends SubsystemBase {
 
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
+  private final SimulationDriveTrainComponents simComponents;
 
-  public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents) {
+  public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
+                    SimulationDriveTrainComponents simComponents) {
     this.components = components;
     this.vComponents = vComponents;
+    this.simComponents = simComponents;
     resetEncoders();
   }
 
@@ -35,13 +39,29 @@ public class DriveTrain extends SubsystemBase {
         getLeftDistance() / CM_TO_METERS, getRightDistance() / CM_TO_METERS);
   }
 
+  @Override
+  public void simulationPeriodic() {
+    simComponents.getDriveTrainSim().setInputs(simComponents.getLeftMasterMotor().
+        getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents.getRightMasterMotor().
+        getMotorOutputPercent() * RobotController.getBatteryVoltage());
+    simComponents.getDriveTrainSim().update(0.02);
+    simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition((int)simComponents.
+        getDriveTrainSim().getLeftPositionMeters());
+    simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition((int)simComponents.
+        getDriveTrainSim().getLeftPositionMeters());
+  }
+
   public void initMotionProfileSlot(int slot) {
     components.getLeftMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
     components.getRightMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
+    simComponents.getLeftMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
+    simComponents.getRightMasterMotor().selectProfileSlot(slot, DRIVE_BY_DISTANCE_SLOT);
   }
 
   public void arcadeDrive(double forwardSpeed, double rotationSpeed) {
     vComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+        rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+    simComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
         rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
@@ -54,16 +74,32 @@ public class DriveTrain extends SubsystemBase {
     return vComponents.getOdometry().getPoseMeters();
   }
 
+  public Pose2d getSimPose() {
+    return simComponents.getOdometry().getPoseMeters();
+  }
+
   public DifferentialDriveKinematics getKinematics() {
     return vComponents.getDriveKinematics();
+  }
+
+  public DifferentialDriveKinematics getSimKinematics() {
+    return simComponents.getDriveKinematics();
   }
 
   public SimpleMotorFeedforward getFeedForward() {
     return vComponents.getMotorFeedForward();
   }
 
+  public SimpleMotorFeedforward getSimFeedForward() {
+    return simComponents.getMotorFeedForward();
+  }
+
   public OnyxTrajectoryGenerator getTrajectoryGenerator() {
     return vComponents.getTrajectoryGenerator();
+  }
+
+  public OnyxTrajectoryGenerator geSimTrajectoryGenerator() {
+    return simComponents.getTrajectoryGenerator();
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
@@ -72,14 +108,27 @@ public class DriveTrain extends SubsystemBase {
         encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
   }
 
+  public DifferentialDriveWheelSpeeds getSimWheelSpeeds() {
+    return new DifferentialDriveWheelSpeeds(encoderUnitsToMeter(getSimLeftMaster().getSelectedSensorVelocity()
+        * 10),
+        encoderUnitsToMeter(getSimRightMaster().getSelectedSensorVelocity() * 10));
+  }
+
   public boolean isDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE) &&
         Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE);
   }
 
+  public boolean isSimDriveOnTarget(double leftTarget, double rightTarget) {
+    return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE) &&
+        Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE);
+  }
+
   public void driveTrainVelocity(double leftVelocity, double rightVelocity) {
     final double leftFeedForwardVolts = vComponents.getMotorFeedForward().calculate(leftVelocity, 0);
     final double rightFeedForwardVolts = vComponents.getMotorFeedForward().calculate(rightVelocity, 0);
+    final double leftSimFeedForwardVolts = simComponents.getMotorFeedForward().calculate(leftVelocity, 0);
+    final double rightSimFeedForwardVolts = simComponents.getMotorFeedForward().calculate(rightVelocity, 0);
 
     initMotionProfileSlot(TRAJECTORY_PID_SLOT);
     getLeftMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(leftVelocity),
@@ -121,6 +170,10 @@ public class DriveTrain extends SubsystemBase {
     components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
     components.getRightMasterMotor().setNeutralMode(NeutralMode.Coast);
     components.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
+    simComponents.getLeftMasterMotor().setNeutralMode(NeutralMode.Coast);
+    simComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
+    simComponents.getRightMasterMotor().setNeutralMode(NeutralMode.Coast);
+    simComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
   }
 
   public void setNeutralModeToBrake() {
@@ -128,6 +181,10 @@ public class DriveTrain extends SubsystemBase {
     components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
     components.getRightMasterMotor().setNeutralMode(NeutralMode.Brake);
     components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
+    simComponents.getLeftMasterMotor().setNeutralMode(NeutralMode.Brake);
+    simComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
+    simComponents.getRightMasterMotor().setNeutralMode(NeutralMode.Brake);
+    simComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
   }
 
   public void setGyroAngle(double angle) {
@@ -144,6 +201,14 @@ public class DriveTrain extends SubsystemBase {
 
   private WPI_TalonFX getRightMaster() {
     return components.getRightMasterMotor();
+  }
+
+  private WPI_TalonSRX getSimLeftMaster() {
+    return simComponents.getLeftMasterMotor();
+  }
+
+  private WPI_TalonSRX getSimRightMaster() {
+    return simComponents.getRightMasterMotor();
   }
 
   private double getTargetFromDistance(WPI_TalonFX motor, double distance) {

@@ -19,7 +19,7 @@ public final class DriveTrainConstants {
   private static final double INCH_TO_CM = 2.54;
   static final double PERIMETER = 6 * INCH_TO_CM * Math.PI; //TODO: tuning is required
   static final double PERIMETER_IN_METERS = PERIMETER / 100;
-  private static final double ENCODER_UNITS = 2046;
+  private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainComponentsA {
 
@@ -39,12 +39,14 @@ public final class DriveTrainConstants {
     static final double TRIGGER_THRESHOLD_TIME = 0.03; // TODO: check value
     static final double PERCENTAGE_CLOSED_LOOP_OUTPUT = 1.0;
     static final double OPEN_LOOP_RAMP = 0; // TODO: Calibration with A
-    static final double CLOSED_LOOP_RAMP = 0;
+    static final double CLOSED_LOOP_RAMP = 0; // TODO: Calibration with A
     static final double VELOCITY_CONTROLLER_P = 0; // TODO: Calibration with A
     static final double VELOCITY_CONTROLLER_I = 0; // TODO: Calibration with A
     static final double VELOCITY_CONTROLLER_D = 0; // TODO: Calibration with A
-    static final double MAX_OUTPUT_FORWARD = 0.6;
-    static final double MAX_OUTPUT_REVERSE = -0.6;
+    static final double MAX_OUTPUT_FORWARD = 0.6; // TODO: Calibration with A
+    static final double MAX_OUTPUT_REVERSE = -0.6; // TODO: Calibration with A
+    static final int CONTINUOUS_CURRENT_LIMIT = 10; // TODO: Calibration with A
+    static final int PEAK_CURRENT_DURATION = 1000; // TODO: Calibration with A
     public static final double TRAJECTORY_P = 0.4; // TODO: Calibration with A
     static final double TRAJECTORY_I = 0; // TODO: Calibration with A
     static final double TRAJECTORY_D = 4; // TODO: Calibration with A

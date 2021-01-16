@@ -6,8 +6,11 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpiutil.math.Matrix;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
 
@@ -19,6 +22,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
   private final DifferentialDriveVoltageConstraint autonomousVoltage;
   private final TrajectoryConfig trajectoryConfig;
   private final OnyxTrajectoryGenerator trajectoryGenerator;
+  private final DifferentialDrivetrainSim driveTrainSim;
 
   public DriveTrainVirtualComponentsA(DriveTrainComponents componentsA) {
     differentialDrive = new DifferentialDrive(componentsA.getLeftMasterMotor(), componentsA.getRightMasterMotor());
@@ -39,6 +43,9 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
         .addConstraint(autonomousVoltage);
 
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
+
+    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), 9.5, 1, 10,
+        0.1524, 0.6, null);
   }
 
   @Override

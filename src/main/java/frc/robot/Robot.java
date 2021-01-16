@@ -31,16 +31,19 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     DriveTrainComponents driveTrainComponents;
     DriveTrainVirtualComponents driveTrainVirtualComponents;
+    SimulationDriveTrainComponents simulationDriveTrainComponents;
 
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
       driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
+      simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
     } else {
       driveTrainComponents = null;
       driveTrainVirtualComponents = null;
+      simulationDriveTrainComponents = null;
     }
 
-    driveTrain = new DriveTrain(driveTrainComponents, driveTrainVirtualComponents);
+    driveTrain = new DriveTrain(driveTrainComponents, driveTrainVirtualComponents, simulationDriveTrainComponents);
 
     new DriverOI(driveTrain);
     new DeputyOI();
