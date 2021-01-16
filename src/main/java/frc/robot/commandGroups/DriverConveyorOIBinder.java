@@ -11,14 +11,15 @@ public class DriverConveyorOIBinder {
     public DriverConveyorOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver,
                                   Trigger collectAndLoadRevolver, Trigger spinRevolverAndTriggerWheels,
                                   Trigger spinRevolverAndTriggerThenOpenPiston) {
-        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver, () -> 52.5, () -> 0.8));
+        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver, () -> 1394.53125,
+                () -> 0.8));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
         spinRevolverAndTriggerWheels.whileActiveOnce(new SpinRevolverAndTriggerWheels(ballTrigger, revolver, () -> 0.8,
                 () -> 0.8));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> 120, () -> 0.8));
+                revolver, ballTrigger, () -> 3187.5, () -> 0.8));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPistons(ballTrigger));
     }
 }
