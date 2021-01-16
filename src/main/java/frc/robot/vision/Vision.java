@@ -9,7 +9,9 @@ import static frc.robot.vision.VisionConstants.AREA_TOLARANCE;
 
 
 public class Vision {
-    private final Limelight limelight;
+    private Limelight limelight;
+    private OuterTarget outerTarget;
+    private InnerTarget innerTarget;
 
     public Vision(){
         this.limelight = Limelight.getInstance();
@@ -38,6 +40,17 @@ public class Vision {
             return this.limelight.getTarget().getTargetArea();
         }
         return DEFAULT_TARGET_AREA;
+    }
+
+    public double getTargetDistance(){
+        if(hasTarget()){
+            double sumAngle = getVerticalAngleToTarget() + LIMELIGHT_ANGLE_TO_HORIZON;
+            double trueHeight = TARGET_HEIGHT - LIMELIGHT_HEIGHT_TO_FLOOR;
+            return trueHeight / Math.tan(sumAngle);
+        }
+        else{
+            return DEFAULT_TARGET_DISTANCE;
+        }
     }
 
     public GSCOption determineBlueOrRed(){
