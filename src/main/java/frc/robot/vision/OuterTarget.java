@@ -12,4 +12,10 @@ public class OuterTarget {
     private Vector2dEx turretToTargetVector;
     private Vector2dEx robotToTargetVector;
 
+    public OuterTarget(double gyroYawAngle, double turretAngleRelativeToTarget )
 }
+
+
+
+
+
