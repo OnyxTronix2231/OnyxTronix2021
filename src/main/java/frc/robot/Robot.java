@@ -8,9 +8,18 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.BallTriggerComponents;
+import frc.robot.ballTrigger.BasicBallTriggerComponentsA;
+import frc.robot.collector.BasicCollectorComponentsA;
+import frc.robot.collector.Collector;
+import frc.robot.collector.CollectorComponents;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.revolver.BasicRevolverComponentsA;
+import frc.robot.revolver.Revolver;
+import frc.robot.revolver.RevolverComponents;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +33,9 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
+  BallTrigger ballTrigger;
+  Collector collector;
+  Revolver revolver;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -32,16 +44,28 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     DriveTrainComponents driveTrainComponents;
+    BallTriggerComponents ballTriggerComponents;
+    CollectorComponents collectorComponents;
+    RevolverComponents revolverComponents;
 
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
+      ballTriggerComponents = new BasicBallTriggerComponentsA();
+      collectorComponents = new BasicCollectorComponentsA();
+      revolverComponents = new BasicRevolverComponentsA();
     } else {
       driveTrainComponents = null;
+      ballTriggerComponents = null;
+      collectorComponents = null;
+      revolverComponents = null;
     }
 
     driveTrain = new DriveTrain(driveTrainComponents);
+    ballTrigger = new BallTrigger(ballTriggerComponents);
+    collector = new Collector(collectorComponents);
+    revolver = new Revolver(revolverComponents);
 
-    new DriverOI(driveTrain);
+    new DriverOI(driveTrain, ballTrigger, collector, revolver);
     new DeputyOI();
   }
 
