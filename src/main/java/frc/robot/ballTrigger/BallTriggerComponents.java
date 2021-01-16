@@ -2,8 +2,8 @@ package frc.robot.ballTrigger;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
-import pid.CtrePIDController;
-import sensors.counter.CtreEncoder;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 
 public interface BallTriggerComponents {
 
@@ -11,7 +11,7 @@ public interface BallTriggerComponents {
 
     Solenoid getSolenoid();
 
-    CtreEncoder getEncoder();
+    Counter getEncoder();
 
-    CtrePIDController getPIDController();
+    PIDController getPIDController();
 }

@@ -7,19 +7,22 @@ import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
 
+import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.RPM_WHILE_COLLECTING;
+import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.RPM_WHILE_SHOOTING;
+
 public class DriverConveyorOIBinder {
     public DriverConveyorOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver,
                                   Trigger collectAndLoadRevolver, Trigger spinRevolverAndTriggerWheels,
                                   Trigger spinRevolverAndTriggerThenOpenPiston) {
-        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver, () -> 1394.53125,
-                () -> 0.8));
+        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
+                () -> RPM_WHILE_COLLECTING, () -> 0.8));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
         spinRevolverAndTriggerWheels.whileActiveOnce(new SpinRevolverAndTriggerWheels(ballTrigger, revolver, () -> 0.8,
                 () -> 0.8));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> 3187.5, () -> 0.8));
+                revolver, ballTrigger, () -> RPM_WHILE_SHOOTING, () -> 0.8));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPistons(ballTrigger));
     }
 }

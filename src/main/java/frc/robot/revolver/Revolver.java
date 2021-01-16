@@ -3,9 +3,8 @@ package frc.robot.revolver;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.revolver.RevolverConstants.SECONDS_IN_MIN;
-import static frc.robot.revolver.RevolverConstants.HUNDREDS_OF_MILLISECS_IN_SEC;
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.TOLERANCE;
+import static frc.robot.revolver.RevolverConstants.HUNDREDS_OF_MILLISECS_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 
 public class Revolver extends SubsystemBase {
 
@@ -19,7 +18,7 @@ public class Revolver extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void moveRevolverByRPM(double RPM) {
+    public void initRevolverByRPM(double RPM) {
         components.getPIDController().setSetpoint(RPMToEncoderUnit(RPM));
         components.getPIDController().enable();
     }
@@ -33,14 +32,14 @@ public class Revolver extends SubsystemBase {
     }
 
     public boolean isOnTarget() {
-        return components.getPIDController().isOnTarget(TOLERANCE);
+        return components.getPIDController().isOnTarget(TOLERANCE_IN_RPM);
     }
 
     public double RPMToEncoderUnit(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / (SECONDS_IN_MIN * HUNDREDS_OF_MILLISECS_IN_SEC);
+        return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILLISECS_IN_MIN;
     }
 
     public double encoderUnitsToRPM(double encoderUnits) {
-        return (encoderUnits * (SECONDS_IN_MIN * HUNDREDS_OF_MILLISECS_IN_SEC)) /ENCODER_UNITS_PER_ROTATION;
+        return (encoderUnits * HUNDREDS_OF_MILLISECS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 }

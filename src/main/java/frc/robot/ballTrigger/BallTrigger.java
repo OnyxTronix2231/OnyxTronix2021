@@ -3,8 +3,7 @@ package frc.robot.ballTrigger;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.ballTrigger.BallTriggerConstants.SECONDS_IN_MIN;
-import static frc.robot.ballTrigger.BallTriggerConstants.HUNDREDS_OF_MILISECS_IN_SEC;
+import static frc.robot.ballTrigger.BallTriggerConstants.HUNDREDS_OF_MILISECS_IN_MIN;
 import static frc.robot.ballTrigger.BallTriggerConstants.OPEN_PISTON;
 
 public class BallTrigger extends SubsystemBase {
@@ -19,7 +18,7 @@ public class BallTrigger extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void moveBallTriggerByRPM(double RPM) {
+    public void initBallTriggerByRPM(double RPM) {
         components.getPIDController().setSetpoint(RPMToEncoderUnits(RPM));
         components.getPIDController().enable();
     }
@@ -29,11 +28,11 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public double RPMToEncoderUnits(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / (SECONDS_IN_MIN * HUNDREDS_OF_MILISECS_IN_SEC);
+        return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILISECS_IN_MIN;
     }
 
     public double encoderUnitsToRPM(double encoderUnits) {
-        return (encoderUnits * (SECONDS_IN_MIN * HUNDREDS_OF_MILISECS_IN_SEC)) / ENCODER_UNITS_PER_ROTATION;
+        return (encoderUnits * HUNDREDS_OF_MILISECS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
     public void stop() {

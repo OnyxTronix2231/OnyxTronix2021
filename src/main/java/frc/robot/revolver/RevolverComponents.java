@@ -1,14 +1,14 @@
 package frc.robot.revolver;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import pid.CtrePIDController;
-import sensors.counter.CtreEncoder;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 
 public interface RevolverComponents {
 
     WPI_TalonFX getMasterMotor();
 
-    CtreEncoder getEncoder();
+    Counter getEncoder();
 
-    CtrePIDController getPIDController();
+    PIDController getPIDController();
 }

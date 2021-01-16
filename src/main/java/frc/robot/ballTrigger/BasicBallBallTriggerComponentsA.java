@@ -8,17 +8,7 @@ import pid.CtrePIDController;
 import pid.PIDControlMode;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.MASTER_MOTOR_ID;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.SOLENOID_CHANNEL;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.VELOCITY_P;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.VELOCITY_I;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.VELOCITY_D;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.VELOCITY_F;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.PEAK_AMP;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.PEAK_AMP_DURATION;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.CONTINUOUS_CURRENT_LIMIT;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.OPEN_LOOP_RAMP;
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.CLOSED_LOOP_RAMP;
+import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*;
 
 public class BasicBallBallTriggerComponentsA implements BallTriggerComponents {
 
@@ -30,12 +20,13 @@ public class BasicBallBallTriggerComponentsA implements BallTriggerComponents {
     public BasicBallBallTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
+        masterMotor.configAllSettings(getConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Brake);
-        masterMotor.enableCurrentLimit(true);
+        masterMotor.enableCurrentLimit(SUPPLY_CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
 
-        encoder = new CtreEncoder(masterMotor, 0);
+        encoder = new CtreEncoder(masterMotor);
 
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
