@@ -21,27 +21,31 @@ public class Turret extends SubsystemBase {
     }
 
     public void disableController() {
-        components.getPIDController().disable();
+        components.getController().disable();
     }
 
     public void initMoveToAngle(double angle) {
-        components.getPIDController().setSetpoint(angleToEncoderUnits(angle));
-        components.getPIDController().enable();
+        angle = getAngleByLimits(angle);
+        components.getController().setSetpoint(angleToEncoderUnits(angle));
+        components.getController().enable();
     }
 
     public void updateMoveToAngle(double angle) {
-        components.getPIDController().update(angleToEncoderUnits(angle));
+        angle = getAngleByLimits(angle);
+        components.getController().update(angleToEncoderUnits(angle));
     }
 
 
     public void initMoveByAngle(double angle) {
+        angle = getAngleByLimits(angle);
         startingAngle = getAngle();
-        components.getPIDController().setSetpoint(angleToEncoderUnits(startingAngle + angle));
-        components.getPIDController().enable();
+        components.getController().setSetpoint(angleToEncoderUnits(startingAngle + angle));
+        components.getController().enable();
     }
 
     public void updateMoveByAngle(double angle) {
-        components.getPIDController().update(angleToEncoderUnits(angle + startingAngle));
+        angle = getAngleByLimits(angle);
+        components.getController().update(angleToEncoderUnits(angle + startingAngle));
     }
 
     public double getAngle() {
@@ -50,6 +54,16 @@ public class Turret extends SubsystemBase {
 
     public double encoderUnitsToAngle(double encoderUnits) {
         return encoderUnits / (ENCODER_UNITS * RATIO) * DEGREES_IN_CIRCLE;
+    }
+
+    public double getAngleByLimits(double angle){
+        angle = angle % 360;
+        if(angle > MAX_DEGREE){
+            angle = (angle - FLIP_POINT);
+        } else if (angle < MIN_DEGREE){
+            angle = (angle + FLIP_POINT);
+        }
+        return angle;
     }
 
     public double angleToEncoderUnits(double angle) {
