@@ -13,6 +13,6 @@ public class DriverShooterOiBinder {
         shootByRPM.whileActiveContinuous(new ShootByRPM(shooter, () -> 4800));
 
         NetworkTableEntry entry = Shuffleboard.getTab("Shooter").add("angle", 0).getEntry();
-        changeAngle.whenActive(new ChangeAngleByPosition(shooter,()-> entry.getDouble(0)));
+        changeAngle.whenActive(new ChangeAngleByPosition(shooter,()-> entry.getDouble(30)));
     }
 }

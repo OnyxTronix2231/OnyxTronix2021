@@ -24,10 +24,8 @@ public class Shooter extends SubsystemBase {
                 () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
                 () -> components.getMasterMotor().getSelectedSensorVelocity());
-        Shuffleboard.getTab("Shooter").addNumber("current angle Velocity", () ->
-                components.getAngleMotor().getSelectedSensorVelocity());
-        Shuffleboard.getTab("Shooter").addNumber("current angle RPM", () ->
-                encoderUnitsToRPM(components.getAngleMotor().getSelectedSensorVelocity()));
+        Shuffleboard.getTab("Shooter").addNumber("current angle position", () ->
+                components.getAngleMotor().getSelectedSensorPosition());
     }
 
     public void moveShooterBySpeed(double speed) {
@@ -81,6 +79,10 @@ public class Shooter extends SubsystemBase {
         return (angle / ANGLE_TO_ENCODER_UNITS) * ENCODER_UNITS_PER_ROTATION;
     }
 
+    public double encoderUnitsToAngle(double encoderUnits){
+        return encoderUnits / (ENCODER_UNITS_PER_ROTATION * ANGLE_TO_ENCODER_UNITS);
+    }
+
     public void startChecking() {
         lastRPMError = Integer.MAX_VALUE;
     }
@@ -107,7 +109,14 @@ public class Shooter extends SubsystemBase {
         components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
                 RPMToEncoderUnits(components.getFlyWheelSim().getAngularVelocityRPM()));
         components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
+
+        components.getLinearSystemSim().setInput(components.getAngleMotor().getMotorOutputPercent()
+                * RobotController.getBatteryVoltage());
+        components.getLinearSystemSim().update(0.02);
+        components.getAngleMotor().getSimCollection().setQuadratureRawPosition((int)
+                angleToEncoderUnits(components.getLinearSystemSim().getOutput(0)));
+        components.getAngleMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-                components.getFlyWheelSim().getCurrentDrawAmps()));
+                components.getLinearSystemSim().getCurrentDrawAmps(),components.getFlyWheelSim().getCurrentDrawAmps()));
     }
 }
