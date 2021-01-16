@@ -135,6 +135,10 @@ public class DriveTrain extends SubsystemBase {
         DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
     getRightMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(rightVelocity),
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
+    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(leftVelocity),
+        DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
+    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(rightVelocity),
+        DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
   }
 
   public void driveTrainVelocityReverse(double leftVelocity, double rightVelocity) {
@@ -145,20 +149,37 @@ public class DriveTrain extends SubsystemBase {
     return getTargetFromDistance(getRightMaster(), distance);
   }
 
+  public double getSimRightTargetFromDistance(double distance) {
+    return getSimTargetFromDistance(getSimRightMaster(), distance);
+  }
+
   public double getLeftTargetFromDistance(double distance) {
     return getTargetFromDistance(getLeftMaster(), distance);
   }
 
+  public double getSimLeftTargetFromDistance(double distance) {
+    return getSimTargetFromDistance(getSimLeftMaster(), distance);
+  }
+
   public void stopDrive() {
     vComponents.getDifferentialDrive().stopMotor();
+    simComponents.getDifferentialDrive().stopMotor();
   }
 
   public DriveTrainComponents getComponents() {
     return components;
   }
 
+  public SimulationDriveTrainComponents getVirtualComponents() {
+    return simComponents;
+  }
+
   public double getOdometryHeading() {
     return components.getPigeonIMU().getNormalizedYaw();
+  }
+
+  public double getSimOdometryHeading() {
+    return simComponents.getAnalogGyroSim().getAngle();
   }
 
   public double getRawRobotHeading() {
@@ -191,6 +212,10 @@ public class DriveTrain extends SubsystemBase {
     components.getPigeonIMU().setYaw(angle);
   }
 
+  public void setSimGyroAngle(double angle) {
+    simComponents.getAnalogGyroSim().setAngle(angle);
+  }
+
   private void driveMotorByMotionMagic(WPI_TalonFX motor, double target) {
     motor.set(ControlMode.MotionMagic, target, DemandType.ArbitraryFeedForward, ARB_FEED_FORWARD);
   }
@@ -215,6 +240,10 @@ public class DriveTrain extends SubsystemBase {
     return cmToEncoderUnits(distance) + motor.getSelectedSensorPosition();
   }
 
+  private double getSimTargetFromDistance(WPI_TalonSRX motor, double distance) {
+    return cmToEncoderUnits(distance) + motor.getSelectedSensorPosition();
+  }
+
   private double getLeftDistance() {
     return ((double) getLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER;
   }
@@ -223,9 +252,22 @@ public class DriveTrain extends SubsystemBase {
     return ((double) getRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER;
   }
 
+  private double geSimtLeftDistance() {
+    return ((double) getSimLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER;
+  }
+
+  private double getSimRightDistance() {
+    return ((double) getSimRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER;
+  }
+
   private void resetOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
     resetEncoders();
     vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
+  }
+
+  private void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
+    resetEncoders();
+    simComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
   }
 
   private List<Pose2d> getPoseFromVision() {//For future Vision integration - will delete comment pre-merge
@@ -251,5 +293,6 @@ public class DriveTrain extends SubsystemBase {
   private void resetEncoders() {
     getLeftMaster().setSelectedSensorPosition(0);
     getRightMaster().setSelectedSensorPosition(0);
+    getSimLeftMaster().setSelectedSensorPosition(0);
   }
 }
