@@ -10,7 +10,7 @@ public class ChangeAngleByPosition extends CommandBase {
     private final DoubleSupplier angleSupplier;
     private final Shooter shooter;
     
-    public ChangeAngleByPosition(final Shooter shooter, final DoubleSupplier angleSupplier){
+    public ChangeAngleByPosition(Shooter shooter, DoubleSupplier angleSupplier){
         this.angleSupplier = angleSupplier;
         this.shooter = shooter;
         addRequirements(shooter);

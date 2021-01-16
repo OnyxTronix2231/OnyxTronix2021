@@ -35,10 +35,10 @@ public final class ShooterConstants {
     // y = -0.0121x2 +26.707x + 24130 > 450
     // y = 0.1912x2 - 161.44x +67791 < 450
     public static final class ShooterCalculation{ //TODO change to close and far
-        static final double SHOOTER_FORMULA1(double distance){
+        static double SHOOTER_FORMULA_FAR(double distance){
             return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }
-        static final double SHOOTER_FORMULA2(double distance){
+        static double SHOOTER_FORMULA_CLOSE(double distance){
             return 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
         }
     }

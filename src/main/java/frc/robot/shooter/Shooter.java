@@ -15,7 +15,7 @@ public class Shooter extends SubsystemBase {
     private final ShooterComponents components;
     private double lastRPMError;
 
-    public Shooter(final ShooterComponents components) {
+    public Shooter(ShooterComponents components) {
         this.components = components;
         lastRPMError = Integer.MAX_VALUE;
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
@@ -30,11 +30,11 @@ public class Shooter extends SubsystemBase {
                 encoderUnitsToRPM(components.getAngleMotor().getSelectedSensorVelocity()));
     }
 
-    public void moveShooterBySpeed(final double speed) {
+    public void moveShooterBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
-    public void changeAngleBySpeed(final double speed) {
+    public void changeAngleBySpeed(double speed) {
         components.getAngleMotor().set(ControlMode.PercentOutput, speed);
     }
 
@@ -51,7 +51,7 @@ public class Shooter extends SubsystemBase {
         components.getCtreMotionMagicController().enable();
     }
 
-    public void setRPM(final double RPM) {
+    public void setRPM(double RPM) {
         components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
         components.getCtrePIDController().enable();
     }
@@ -59,9 +59,9 @@ public class Shooter extends SubsystemBase {
     public double distanceToEncoderUnits(double distance) { //TODO Change and add angle
         double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA1(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA_FAR(distance);
         } else {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA2(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA_CLOSE(distance);
         }
         if (encoderUnitsTarget <= SHOOTER_MOTOR_MAX_VELOCITY) {
             return encoderUnitsTarget;
@@ -77,7 +77,7 @@ public class Shooter extends SubsystemBase {
         return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
     }
 
-    public double angleToEncoderUnits(final double angle) {
+    public double angleToEncoderUnits(double angle) {
         return (angle / ANGLE_TO_ENCODER_UNITS) * ENCODER_UNITS_PER_ROTATION;
     }
 

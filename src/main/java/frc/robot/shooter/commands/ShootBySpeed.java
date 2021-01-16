@@ -10,7 +10,7 @@ public class ShootBySpeed extends CommandBase {
     private final DoubleSupplier speedSupplier;
     private final Shooter shooter;
 
-    public ShootBySpeed(final Shooter shooter, final DoubleSupplier speedSupplier) {
+    public ShootBySpeed(Shooter shooter, DoubleSupplier speedSupplier) {
         this.shooter = shooter;
         this.speedSupplier = speedSupplier;
         addRequirements(shooter);
@@ -22,7 +22,7 @@ public class ShootBySpeed extends CommandBase {
     }
 
     @Override
-    public void end(final boolean interrupted) {
+    public void end(boolean interrupted) {
         shooter.stopShooterMotor();
     }
 }

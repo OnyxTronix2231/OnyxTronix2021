@@ -7,7 +7,7 @@ public class StopShooter extends InstantCommand {
 
     private Shooter shooter;
 
-    public StopShooter(final Shooter shooter) {
+    public StopShooter(Shooter shooter) {
         this.shooter = shooter;
     }
 

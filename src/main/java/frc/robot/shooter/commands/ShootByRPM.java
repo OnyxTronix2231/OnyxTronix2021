@@ -10,7 +10,7 @@ public class ShootByRPM extends CommandBase {
     private final Shooter shooter;
     private final DoubleSupplier RPMSupplier;
 
-    public ShootByRPM(final Shooter shooter, final DoubleSupplier RPMSupplier) {
+    public ShootByRPM(Shooter shooter, DoubleSupplier RPMSupplier) {
         this.shooter = shooter;
         this.RPMSupplier = RPMSupplier;
         addRequirements(shooter);
@@ -22,7 +22,7 @@ public class ShootByRPM extends CommandBase {
     }
 
     @Override
-    public void end(final boolean interrupted) {
+    public void end(boolean interrupted) {
         shooter.stopShooterMotor();
     }
 }

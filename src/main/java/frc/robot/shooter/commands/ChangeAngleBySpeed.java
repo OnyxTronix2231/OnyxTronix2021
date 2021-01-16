@@ -7,8 +7,8 @@ import java.util.function.DoubleSupplier;
 
 public class ChangeAngleBySpeed extends CommandBase {
 
-    private DoubleSupplier speedSupplier;
-    private Shooter shooter;
+    private final DoubleSupplier speedSupplier;
+    private final Shooter shooter;
 
     public ChangeAngleBySpeed(DoubleSupplier speedSupplier, Shooter shooter){
         this.speedSupplier = speedSupplier;

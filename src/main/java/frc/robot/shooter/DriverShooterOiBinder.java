@@ -5,11 +5,10 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.shooter.commands.ChangeAngleByPosition;
 import frc.robot.shooter.commands.ShootByRPM;
-import frc.robot.shooter.commands.ShootBySpeed;
 
 public class DriverShooterOiBinder {
 
-    public DriverShooterOiBinder(final Shooter shooter, final Trigger shootByRPM, final Trigger changeAngle ) {
+    public DriverShooterOiBinder(Shooter shooter, Trigger shootByRPM, Trigger changeAngle ) {
 
         shootByRPM.whileActiveContinuous(new ShootByRPM(shooter, () -> 4800));
 

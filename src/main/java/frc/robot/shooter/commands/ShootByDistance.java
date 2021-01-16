@@ -6,7 +6,7 @@ import java.util.function.DoubleSupplier;
 
 public class ShootByDistance extends ShootByRPM {
 
-    public ShootByDistance(final Shooter shooter, final DoubleSupplier distanceSupplier) {
+    public ShootByDistance(Shooter shooter, DoubleSupplier distanceSupplier) {
         super(shooter, () -> shooter.encoderUnitsToRPM(shooter.distanceToEncoderUnits(distanceSupplier.getAsDouble())));
     }
 }

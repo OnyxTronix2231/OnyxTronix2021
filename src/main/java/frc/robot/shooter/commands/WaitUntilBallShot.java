@@ -7,7 +7,7 @@ public class WaitUntilBallShot extends CommandBase {
 
     private final Shooter shooter;
 
-    public WaitUntilBallShot(final Shooter shooter) {
+    public WaitUntilBallShot(Shooter shooter) {
         this.shooter = shooter;
     }
 
