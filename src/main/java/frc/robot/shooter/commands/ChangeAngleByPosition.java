@@ -18,7 +18,7 @@ public class ChangeAngleByPosition extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.changeAngleByPosition(angleSupplier.getAsDouble());
+        shooter.initMoveToAngle(angleSupplier.getAsDouble());
     }
 
     @Override

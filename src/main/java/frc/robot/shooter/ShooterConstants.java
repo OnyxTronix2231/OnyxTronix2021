@@ -16,11 +16,11 @@ public final class ShooterConstants {
         static final double SHOOTER_VELOCITY_I = 0;
         static final double SHOOTER_VELOCITY_D = 0.1;
         static final double SHOOTER_VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT  / SHOOTER_MOTOR_MAX_VELOCITY;
-        static final int ANGLE_MOTOR_CRUISE_VELOCITY = 19000; // Encoder Units
-        static final int ANGLE_MOTOR_MAX_ACCELERATION = 6000; // Encoder Units //TODO check
+        static final int ANGLE_MOTOR_CRUISE_VELOCITY = 300; // Encoder Units
+        static final int ANGLE_MOTOR_MAX_ACCELERATION = 10; // Encoder Units //TODO check
         static final int ANGLE_MOTOR_ACCELERATION_SMOOTHING = 0; // Encoder Units //TODO check
         static final double SHOOTER_MOTOR_OPEN_LOOP_RAMP = 0;//TODO: check and change
-        static final double ANGLE_MOTOR_VELOCITY_P = 0;
+        static final double ANGLE_MOTOR_VELOCITY_P = 0.5;
         static final double ANGLE_MOTOR_VELOCITY_I = 0;
         static final double ANGLE_MOTOR_VELOCITY_D = 0;
         static final double ANGLE_MOTOR_VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / ANGLE_MOTOR_CRUISE_VELOCITY;
@@ -44,8 +44,10 @@ public final class ShooterConstants {
     }
 
     static final int MIDDLE_DISTANCE = 450;
-    static final double ANGLE_TO_ENCODER_UNITS = 20; /** one encoder units spin to angle */
-    static final double ENCODER_UNITS_PER_ROTATION = 2047;
+    static final double ANGLE_PER_ROTATION = 360; /** one encoder units spin to angle */
+    static final double MAX_ANGLE = 90; /** one encoder units spin to angle */
+    static final double MIN_ANGLE = 60; /** one encoder units spin to angle */
+    static final double ENCODER_UNITS_PER_ROTATION = 2048;
     static final double MILLISECOND_TO_MINUTE = 600;
     static final double MIN_ERROR_RPM = 1000;
     static final double AT_SHOOTING_RPM = 400;

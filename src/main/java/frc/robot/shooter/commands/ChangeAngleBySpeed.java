@@ -10,7 +10,7 @@ public class ChangeAngleBySpeed extends CommandBase {
     private final DoubleSupplier speedSupplier;
     private final Shooter shooter;
 
-    public ChangeAngleBySpeed(DoubleSupplier speedSupplier, Shooter shooter){
+    public ChangeAngleBySpeed(Shooter shooter, DoubleSupplier speedSupplier){
         this.speedSupplier = speedSupplier;
         this.shooter = shooter;
         addRequirements(shooter);

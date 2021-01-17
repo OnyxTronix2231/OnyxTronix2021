@@ -2,8 +2,10 @@ package frc.robot.shooter;
 
 import static frc.robot.shooter.ShooterConstants.*;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_MOTOR_MAX_VELOCITY;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_VELOCITY_F;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
@@ -14,6 +16,15 @@ public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
     private double lastRPMError;
+    NetworkTableEntry shooterKp;
+    NetworkTableEntry shooterKi;
+    NetworkTableEntry shooterKd;
+    NetworkTableEntry shooterKf;
+
+    NetworkTableEntry angleKp;
+    NetworkTableEntry angleKi;
+    NetworkTableEntry angleKd;
+    NetworkTableEntry angleKf;
 
     public Shooter(ShooterComponents components) {
         this.components = components;
@@ -23,9 +34,40 @@ public class Shooter extends SubsystemBase {
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
-                () -> components.getMasterMotor().getSelectedSensorVelocity());
+                () -> components.getAngleMotor().getSelectedSensorVelocity());
         Shuffleboard.getTab("Shooter").addNumber("current angle position", () ->
-                components.getAngleMotor().getSelectedSensorPosition());
+                encoderUnitsToAngle(components.getAngleMotor().getSelectedSensorPosition()));
+
+        shooterKp = Shuffleboard.getTab("Shooter").add("shooterKp",
+                components.getCtrePIDController().getPIDFTerms().getKp()).getEntry();
+        shooterKi = Shuffleboard.getTab("Shooter").add("shooterKi",
+                components.getCtrePIDController().getPIDFTerms().getKi()).getEntry();
+        shooterKd = Shuffleboard.getTab("Shooter").add("shooterKd",
+                components.getCtrePIDController().getPIDFTerms().getKd()).getEntry();
+        shooterKf = Shuffleboard.getTab("Shooter").add("shooterKf",
+                components.getCtrePIDController().getPIDFTerms().getKf()).getEntry();
+        angleKp = Shuffleboard.getTab("Shooter").add("angleKp",
+                components.getCtreMotionMagicController().getPIDFTerms().getKp()).getEntry();
+        angleKi = Shuffleboard.getTab("Shooter").add("angleKi",
+                components.getCtreMotionMagicController().getPIDFTerms().getKi()).getEntry();
+        angleKd = Shuffleboard.getTab("Shooter").add("angleKd",
+                components.getCtreMotionMagicController().getPIDFTerms().getKd()).getEntry();
+        angleKf = Shuffleboard.getTab("Shooter").add("angleKf",
+                components.getCtreMotionMagicController().getPIDFTerms().getKf()).getEntry();
+    }
+
+    @Override
+    public void periodic() {
+        components.getCtrePIDController().setPIDFTerms(shooterKp.getDouble
+                        (components.getCtrePIDController().getPIDFTerms().getKp()),
+                shooterKi.getDouble(components.getCtrePIDController().getPIDFTerms().getKi()),
+                shooterKd.getDouble(components.getCtrePIDController().getPIDFTerms().getKd()),
+                shooterKf.getDouble(components.getCtrePIDController().getPIDFTerms().getKf()));
+        components.getCtreMotionMagicController().setPIDFTerms(shooterKp.getDouble
+                        (components.getCtreMotionMagicController().getPIDFTerms().getKp()),
+                shooterKi.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKi()),
+                shooterKd.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKd()),
+                shooterKf.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKf()));
     }
 
     public void moveShooterBySpeed(double speed) {
@@ -44,15 +86,33 @@ public class Shooter extends SubsystemBase {
         changeAngleBySpeed(0);
     }
 
-    public void changeAngleByPosition(double angle) {
-        components.getCtreMotionMagicController().update(angleToEncoderUnits(angle));
+    public double checkAngle(double angle) {
+        if (angle > MAX_ANGLE) {
+            return MAX_ANGLE;
+        }
+        if (angle < MIN_ANGLE) {
+            return MIN_ANGLE;
+        }
+        return angle;
+    }
+
+    public void initMoveToAngle(double angle) {
+        angle = checkAngle(angle);
+        components.getCtreMotionMagicController().setSetpoint(angleToEncoderUnits(angle));
         components.getCtreMotionMagicController().enable();
     }
+
+    public void updateMoveToAngle(double angle) {
+        angle = checkAngle(angle);
+        components.getCtreMotionMagicController().update(angleToEncoderUnits(angle));
+    }
+
 
     public void setRPM(double RPM) {
         components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
         components.getCtrePIDController().enable();
     }
+
 
     public double distanceToEncoderUnits(double distance) { //TODO Change and add angle
         double encoderUnitsTarget;
@@ -76,11 +136,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public double angleToEncoderUnits(double angle) {
-        return (angle / ANGLE_TO_ENCODER_UNITS) * ENCODER_UNITS_PER_ROTATION;
+        return (angle / ANGLE_PER_ROTATION) * ENCODER_UNITS_PER_ROTATION;
     }
 
-    public double encoderUnitsToAngle(double encoderUnits){
-        return encoderUnits / (ENCODER_UNITS_PER_ROTATION * ANGLE_TO_ENCODER_UNITS);
+    public double encoderUnitsToAngle(double encoderUnits) {
+        return (encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_ROTATION;
     }
 
     public void startChecking() {
@@ -101,6 +161,11 @@ public class Shooter extends SubsystemBase {
         return components.getCtrePIDController().getCurrentError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
     }
 
+    int counter = 0;
+    int totalMovement = 0;
+    int prevTotalMovement = 0;
+    double lastPos = 0;
+
     @Override
     public void simulationPeriodic() {
         components.getFlyWheelSim().setInputVoltage(components.getMasterMotor().getMotorOutputPercent()
@@ -115,8 +180,17 @@ public class Shooter extends SubsystemBase {
         components.getLinearSystemSim().update(0.02);
         components.getAngleMotor().getSimCollection().setQuadratureRawPosition((int)
                 angleToEncoderUnits(components.getLinearSystemSim().getOutput(0)));
+        totalMovement += components.getAngleMotor().getSelectedSensorPosition();
+        if (counter == 5) {
+            components.getAngleMotor().getSimCollection().setQuadratureVelocity(totalMovement - prevTotalMovement);
+            prevTotalMovement = totalMovement;
+            totalMovement = 0;
+            counter = 0;
+        } else {
+            counter++;
+        }
         components.getAngleMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-                components.getLinearSystemSim().getCurrentDrawAmps(),components.getFlyWheelSim().getCurrentDrawAmps()));
+                components.getLinearSystemSim().getCurrentDrawAmps(), components.getFlyWheelSim().getCurrentDrawAmps()));
     }
 }
