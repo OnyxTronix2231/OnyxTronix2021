@@ -7,7 +7,7 @@ public class TurretConstants {
     static final double DEGREES_IN_CIRCLE = 360;
     static final double MAX_DEGREE = 225;
     static final double MIN_DEGREE = -135;
-    static final int TOLERANCE = 3;
+    static final int TOLERANCE_DEGREE = 3;
     static final int FLIP_POINT = 360;
     public static final class TurretComponentsA{
         static final int PID_IDX = 0;

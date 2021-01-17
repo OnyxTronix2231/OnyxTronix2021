@@ -37,15 +37,13 @@ public class Turret extends SubsystemBase {
 
 
     public void initMoveByAngle(double angle) {
-        angle = getAngleByLimits(angle);
         startingAngle = getAngle();
-        components.getController().setSetpoint(angleToEncoderUnits(startingAngle + angle));
-        components.getController().enable();
+        initMoveToAngle(startingAngle+angle);
     }
 
     public void updateMoveByAngle(double angle) {
         angle = getAngleByLimits(angle);
-        components.getController().update(angleToEncoderUnits(angle + startingAngle));
+        updateMoveToAngle(startingAngle+angle);
     }
 
     public double getAngle() {
@@ -68,5 +66,9 @@ public class Turret extends SubsystemBase {
 
     public double angleToEncoderUnits(double angle) {
         return ((ENCODER_UNITS * RATIO) / DEGREES_IN_CIRCLE) * angle;
+    }
+
+    public boolean isOnTarget(){
+        return components.getController().isOnTarget(TOLERANCE_DEGREE);
     }
 }
