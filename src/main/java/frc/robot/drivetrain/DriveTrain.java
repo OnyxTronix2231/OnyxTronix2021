@@ -11,6 +11,10 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.List;
@@ -30,25 +34,41 @@ public class DriveTrain extends SubsystemBase {
     this.components = components;
     this.vComponents = vComponents;
     this.simComponents = simComponents;
+    Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
+    SmartDashboard.putData("Field2", simComponents.getField2d());
     resetEncoders();
   }
 
   @Override
   public void periodic() {
     vComponents.getOdometry().update(Rotation2d.fromDegrees(getOdometryHeading()),
-        getLeftDistance() / CM_TO_METERS, getRightDistance() / CM_TO_METERS);
+        getLeftDistance(), getRightDistance());
+    simComponents.getOdometry().update(Rotation2d.fromDegrees(getOdometryHeading()),
+        getLeftDistance(), getRightDistance());
+
+    simComponents.getField2d().setRobotPose(simComponents.getOdometry().getPoseMeters());
   }
 
   @Override
   public void simulationPeriodic() {
     simComponents.getDriveTrainSim().setInputs(simComponents.getLeftMasterMotor().
-        getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents.getRightMasterMotor().
-        getMotorOutputPercent() * RobotController.getBatteryVoltage());
+        getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents
+        .getRightMasterMotor().getMotorOutputPercent() * RobotController.getBatteryVoltage());
     simComponents.getDriveTrainSim().update(0.02);
-    simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition((int)simComponents.
-        getDriveTrainSim().getLeftPositionMeters());
-    simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition((int)simComponents.
-        getDriveTrainSim().getLeftPositionMeters());
+
+    simComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(
+        (int)metersPerSecToEncoderUnitsPer100ms(simComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
+    simComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(
+        (int)metersPerSecToEncoderUnitsPer100ms(simComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
+    simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition(
+        (int)metersToEncoderUnits(simComponents.getDriveTrainSim().getLeftPositionMeters()));
+    simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
+        (int)metersToEncoderUnits(simComponents.getDriveTrainSim().getLeftPositionMeters()));
+
+    simComponents.getAnalogGyroSim().setAngle(-simComponents.getDriveTrainSim().getHeading().getDegrees());
+
+    RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
+        simComponents.getDriveTrainSim().getCurrentDrawAmps()));
   }
 
   public void initMotionProfileSlot(int slot) {
@@ -115,13 +135,13 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public boolean isDriveOnTarget(double leftTarget, double rightTarget) {
-    return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE) &&
-        Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE);
+    return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
+        Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public boolean isSimDriveOnTarget(double leftTarget, double rightTarget) {
-    return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE) &&
-        Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < cmToEncoderUnits(TOLERANCE);
+    return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
+        Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public void driveTrainVelocity(double leftVelocity, double rightVelocity) {
@@ -131,13 +151,13 @@ public class DriveTrain extends SubsystemBase {
     final double rightSimFeedForwardVolts = simComponents.getMotorFeedForward().calculate(rightVelocity, 0);
 
     initMotionProfileSlot(TRAJECTORY_PID_SLOT);
-    getLeftMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(leftVelocity),
+    getLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(leftVelocity),
         DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getRightMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(rightVelocity),
+    getRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(rightVelocity),
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(leftVelocity),
+    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(leftVelocity),
         DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToStepsPer100ms(rightVelocity),
+    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(rightVelocity),
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
   }
 
@@ -237,27 +257,27 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private double getTargetFromDistance(WPI_TalonFX motor, double distance) {
-    return cmToEncoderUnits(distance) + motor.getSelectedSensorPosition();
+    return metersToEncoderUnits(distance) + motor.getSelectedSensorPosition();
   }
 
   private double getSimTargetFromDistance(WPI_TalonSRX motor, double distance) {
-    return cmToEncoderUnits(distance) + motor.getSelectedSensorPosition();
+    return metersToEncoderUnits(distance) + motor.getSelectedSensorPosition();
   }
 
   private double getLeftDistance() {
-    return ((double) getLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER;
+    return ((double) getLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER_METER;
   }
 
   private double getRightDistance() {
-    return ((double) getRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER;
+    return ((double) getRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER_METER;
   }
 
   private double geSimtLeftDistance() {
-    return ((double) getSimLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER;
+    return ((double) getSimLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER_METER;
   }
 
   private double getSimRightDistance() {
-    return ((double) getSimRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER;
+    return ((double) getSimRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER_METER;
   }
 
   private void resetOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
@@ -274,20 +294,16 @@ public class DriveTrain extends SubsystemBase {
     return List.of(new Pose2d());
   }
 
-  private double cmToEncoderUnits(double cm) {
-    return CONVERSION_RATE * ENCODER_CPR * cm / PERIMETER;
+  private double metersToEncoderUnits(double meters) {
+    return ENCODER_CPR * meters / PERIMETER_METER;
   }
 
-  private double metersToSteps(double meters) {
-    return (ENCODER_CPR / PERIMETER_IN_METERS) * meters;
-  }
-
-  private double metersPerSecToStepsPer100ms(double metersPerSec) {
-    return metersToSteps(metersPerSec / SEC_TO_100MS);
+  private double metersPerSecToEncoderUnitsPer100ms(double metersPerSec) {
+    return metersToEncoderUnits(metersPerSec / SEC_TO_100MS);
   }
 
   private double encoderUnitsToMeter(double encoder) {
-    return encoder / ENCODER_CPR * PERIMETER_IN_METERS;
+    return encoder / ENCODER_CPR * PERIMETER_METER;
   }
 
   private void resetEncoders() {

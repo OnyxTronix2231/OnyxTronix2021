@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
@@ -40,4 +41,6 @@ public interface SimulationDriveTrainComponents {
   TrajectoryConfig getTrajectoryConfig();
 
   OnyxTrajectoryGenerator getTrajectoryGenerator();
+
+  Field2d getField2d();
 }

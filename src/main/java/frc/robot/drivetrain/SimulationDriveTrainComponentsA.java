@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
@@ -51,6 +52,7 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
   private final TrajectoryConfig trajectoryConfig;
   private final OnyxTrajectoryGenerator trajectoryGenerator;
   private final DifferentialDrivetrainSim driveTrainSim;
+  private final Field2d field2d;
 
   public SimulationDriveTrainComponentsA(){
     rightMaster = new WPI_TalonSRX(RIGHT_MASTER_PORT);
@@ -97,8 +99,10 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
 
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
 
-    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getAndymarkRs775_125(4), CONVERSION_RATE,
-        1, 10, 0.1524, 0.6, null);
+    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), CONVERSION_RATE,
+        6, 50, 0.1524, 0.6, null);
+
+    field2d = new Field2d();
   }
 
   @Override
@@ -175,5 +179,9 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
     config.peakCurrentDuration = PEAK_CURRENT_DURATION;
     return config;
+  }
+
+  public Field2d getField2d() {
+    return field2d;
   }
 }
