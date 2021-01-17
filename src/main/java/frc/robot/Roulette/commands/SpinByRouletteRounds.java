@@ -6,7 +6,7 @@ import frc.robot.Roulette.Roulette;
 import java.util.function.DoubleSupplier;
 
 public class SpinByRouletteRounds extends CommandBase {
-    private Roulette roulette;
+    protected Roulette roulette;
     private DoubleSupplier rouletteRounds;
 
     public SpinByRouletteRounds(Roulette roulette, DoubleSupplier rouletteRounds) {

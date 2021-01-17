@@ -1,11 +1,11 @@
 package frc.robot.Roulette;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.function.DoubleSupplier;
 
 import static frc.robot.Roulette.RouletteConstants.*;
 
@@ -55,8 +55,56 @@ public class Roulette extends SubsystemBase {
                 getSelectedSensorPosition()) * (1 / RATIO_ROULETTE_TO_WHEEL);
     }
 
-    public DoubleSupplier remainingRouletteRounds() {
-        return () -> REQUIRED_AMOUNT_OF_ROUNDS - encoderUnitsToRouletteRounds(); // ? calculations
+    public RouletteColor getGameRequiredColor() {
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if (gameData.isBlank()) {
+            return null;
+        }
+        switch (gameData.charAt(0)) {
+            case 'B':
+                return ROULETTE_BLUE;
+            case 'R':
+                return ROULETTE_RED;
+            case 'G':
+                return ROULETTE_GREEN;
+            case 'Y':
+                return ROULETTE_YELLOW;
+            default:
+                return null;
+        }
+    }
+
+    public RouletteColor getCurrentColor() {
+        return colorMatching(new RouletteColor(components.getColorSensor().getColor()));
+    }
+
+    public double getRoundsToColor(RouletteColor requiredColor) {
+        RouletteColor currentColor = getCurrentColor();
+        int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
+        int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
+        switch (Math.abs(requiredColorIndex - currentColorIndex)) {
+            case 0:
+                return (4 * ROULETTE_COLOR_DISTANCE) / WHEEL_CIRCUMFERENCE;
+            case 1:
+            case 3:
+                return ROULETTE_COLOR_DISTANCE / WHEEL_CIRCUMFERENCE;
+            case 2:
+                return (2 * ROULETTE_COLOR_DISTANCE) / WHEEL_CIRCUMFERENCE;
+            default:
+                return 0;
+        }
+    }
+
+    public void getTurningDirection(RouletteColor requiredColor) {
+        RouletteColor currentColor = getCurrentColor();
+        int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
+        int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
+        if (requiredColorIndex - currentColorIndex <= 0) {
+            components.getMasterMotor().setInverted(right);//?
+        } else {
+            if (requiredColorIndex - currentColorIndex > 0)
+                components.getMasterMotor().setInverted(left);//?
+        }
     }
 
     public double wheelRotationToEncoderUnits(double rotations) {

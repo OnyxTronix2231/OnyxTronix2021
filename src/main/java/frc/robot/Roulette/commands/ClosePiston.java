@@ -7,9 +7,7 @@ public class ClosePiston extends InstantCommand {
 
     public ClosePiston(Roulette roulette) {
         super(roulette::closePiston);
+        super.addRequirements(roulette);
     }
-
-    // how do you make sure the engine is off when the pistol is turned off
-
 
 }
