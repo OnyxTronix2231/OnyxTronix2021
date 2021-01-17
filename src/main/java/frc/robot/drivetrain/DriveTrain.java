@@ -20,8 +20,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.List;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.ENCODER_CPR;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.TRAJECTORY_PID_SLOT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -43,8 +42,8 @@ public class DriveTrain extends SubsystemBase {
   public void periodic() {
     vComponents.getOdometry().update(Rotation2d.fromDegrees(getOdometryHeading()),
         getLeftDistance(), getRightDistance());
-    simComponents.getOdometry().update(Rotation2d.fromDegrees(getOdometryHeading()),
-        getLeftDistance(), getRightDistance());
+    simComponents.getOdometry().update(Rotation2d.fromDegrees(getSimOdometryHeading()),
+            geSimLeftDistance(), getSimRightDistance());
 
     simComponents.getField2d().setRobotPose(simComponents.getOdometry().getPoseMeters());
   }
@@ -63,12 +62,12 @@ public class DriveTrain extends SubsystemBase {
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int)metersToEncoderUnits(simComponents.getDriveTrainSim().getLeftPositionMeters()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
-        (int)metersToEncoderUnits(simComponents.getDriveTrainSim().getLeftPositionMeters()));
+        (int)metersToEncoderUnits(simComponents.getDriveTrainSim().getRightPositionMeters()));
 
     simComponents.getAnalogGyroSim().setAngle(-simComponents.getDriveTrainSim().getHeading().getDegrees());
 
-    RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-        simComponents.getDriveTrainSim().getCurrentDrawAmps()));
+//    RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
+//        simComponents.getDriveTrainSim().getCurrentDrawAmps()));
   }
 
   public void initMotionProfileSlot(int slot) {
@@ -82,7 +81,7 @@ public class DriveTrain extends SubsystemBase {
     vComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
         rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
     simComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-        rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
   public void driveByMotionMagic(double leftTarget, double rightTarget) {
@@ -265,19 +264,19 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private double getLeftDistance() {
-    return ((double) getLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER_METER;
+    return getLeftMaster().getSelectedSensorPosition(); //TODO: Fix later
   }
 
   private double getRightDistance() {
-    return ((double) getRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER_METER;
+    return getRightMaster().getSelectedSensorPosition(); //TODO: Fix later
   }
 
-  private double geSimtLeftDistance() {
-    return ((double) getSimLeftMaster().getSelectedSensorPosition()) / ENCODER_CPR * PERIMETER_METER;
+  private double geSimLeftDistance() {
+    return encoderUnitsToMeter(getSimLeftMaster().getSelectedSensorPosition());
   }
 
   private double getSimRightDistance() {
-    return ((double) getSimRightMaster().getSelectedSensorPosition() / ENCODER_CPR) * PERIMETER_METER;
+    return encoderUnitsToMeter(getSimRightMaster().getSelectedSensorPosition());
   }
 
   private void resetOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge

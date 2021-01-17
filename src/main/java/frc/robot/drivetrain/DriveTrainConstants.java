@@ -47,8 +47,8 @@ public final class DriveTrainConstants {
     static final double VELOCITY_CONTROLLER_P = 0; // TODO: Calibration with A
     static final double VELOCITY_CONTROLLER_I = 0; // TODO: Calibration with A
     static final double VELOCITY_CONTROLLER_D = 0; // TODO: Calibration with A
-    static final double MAX_OUTPUT_FORWARD = 0.6; // TODO: Calibration with A
-    static final double MAX_OUTPUT_REVERSE = -0.6; // TODO: Calibration with A
+    static final double MAX_OUTPUT_FORWARD = 1; // TODO: Calibration with A
+    static final double MAX_OUTPUT_REVERSE = -1; // TODO: Calibration with A
     static final int CONTINUOUS_CURRENT_LIMIT = 10; // TODO: Calibration with A
     static final int PEAK_CURRENT_DURATION = 1000; // TODO: Calibration with A
     public static final double TRAJECTORY_P = 0.4; // TODO: Calibration with A

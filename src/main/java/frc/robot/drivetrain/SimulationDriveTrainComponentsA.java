@@ -58,13 +58,13 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     rightMaster = new WPI_TalonSRX(RIGHT_MASTER_PORT);
     rightMaster.configFactoryDefault();
     rightMaster.configAllSettings(getSRXConfiguration());
-    rightMaster.setInverted(true);
+    rightMaster.setInverted(false);
     rightMaster.setNeutralMode(NeutralMode.Brake);
 
     rightSlave = new WPI_TalonSRX(RIGHT_SLAVE_PORT);
     rightSlave.configFactoryDefault();
     rightSlave.configAllSettings(getSRXConfiguration());
-    rightSlave.setInverted(true);
+    rightSlave.setInverted(false);
     rightSlave.setNeutralMode(NeutralMode.Brake);
     rightSlave.follow(rightMaster);
 
@@ -100,7 +100,7 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
 
     driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), CONVERSION_RATE,
-        6, 50, 0.1524, 0.6, null);
+        8, 50, 0.1524, 0.6, null);
 
     field2d = new Field2d();
   }
