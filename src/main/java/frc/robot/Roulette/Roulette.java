@@ -77,13 +77,17 @@ public class Roulette extends SubsystemBase {
         RouletteColor currentColor = getCurrentColor();
         int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
         int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
-        double distance = (requiredColorIndex - currentColorIndex);
+        int distance = (requiredColorIndex - currentColorIndex);
         if (distance == 3) {
             distance = -1;
         } else if (distance == -3) {
             distance = 1;
         }
-        return distance * RATIO_ROULETTE_TO_ROULETTE_COLOR;
+        return colorCountToRouletteRounds(distance);
+    }
+
+    public double colorCountToRouletteRounds(int count){
+        return count * RATIO_ROULETTE_TO_ROULETTE_COLOR;
     }
 
     public double rouletteRoundsToEncoderUnits(double rouletteRounds) {
