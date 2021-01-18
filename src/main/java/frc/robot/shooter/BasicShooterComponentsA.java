@@ -22,23 +22,21 @@ import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
 
-    private final WPI_TalonSRX masterMotor;
-    private final WPI_TalonSRX slaveMotor;
+    private final WPI_TalonFX masterMotor;
+    private final WPI_TalonFX slaveMotor;
     private final WPI_TalonSRX angleMotor;
     private final CtreMotionMagicController ctreMotionMagicController;
     private final CtrePIDController ctrePIDController;
-    private final FlywheelSim flywheelSim;
-    private final LinearSystemSim<N2, N1, N1> linearSystemSim;
 
     public BasicShooterComponentsA() {
-        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-       // masterMotor.configAllSettings(getFalconConfiguration());
+        masterMotor.configAllSettings(getFalconConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Coast);
         masterMotor.setInverted(false);
 
-        slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
-       // slaveMotor.configAllSettings(getFalconConfiguration());
+        slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
+        slaveMotor.configAllSettings(getFalconConfiguration());
         slaveMotor.configFactoryDefault();
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
@@ -48,27 +46,25 @@ public class BasicShooterComponentsA implements ShooterComponents {
         angleMotor.setNeutralMode(NeutralMode.Brake);
         angleMotor.configAllSettings(getTalonSRXConfiguration());
 
-         ctreMotionMagicController = new CtreMotionMagicController(angleMotor,
+        ctreMotionMagicController = new CtreMotionMagicController(angleMotor,
                 new CtreEncoder(angleMotor),
                 new PIDFTerms(ANGLE_MOTOR_VELOCITY_P, ANGLE_MOTOR_VELOCITY_I, ANGLE_MOTOR_VELOCITY_D, ANGLE_MOTOR_VELOCITY_F),
                 ANGLE_MOTOR_MAX_ACCELERATION, ANGLE_MOTOR_CRUISE_VELOCITY, ANGLE_MOTOR_ACCELERATION_SMOOTHING);
-         ctrePIDController = new CtrePIDController(masterMotor,
+        ctrePIDController = new CtrePIDController(masterMotor,
                 new CtreEncoder(masterMotor),
                 new PIDFTerms(SHOOTER_VELOCITY_P, SHOOTER_VELOCITY_I, SHOOTER_VELOCITY_D, SHOOTER_VELOCITY_F), PIDControlMode.Velocity);
-        flywheelSim = new FlywheelSim(DCMotor.getFalcon500(2), 1, 0.01 );
-        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyPositionSystem(0.1,1));
     }
 
-//    private TalonFXConfiguration getFalconConfiguration() {
-//        final TalonFXConfiguration config = new TalonFXConfiguration();
-//        config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
-//        config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
-//        config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
-//        config.closedloopRamp = SHOOTER_MOTOR_CLOSE_LOOP_RAMP;
-//        config.openloopRamp = SHOOTER_MOTOR_OPEN_LOOP_RAMP;
-//        config.supplyCurrLimit.enable = true;
-//        return config;
-//    }
+    private TalonFXConfiguration getFalconConfiguration() {
+        final TalonFXConfiguration config = new TalonFXConfiguration();
+        config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
+        config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
+        config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
+        config.closedloopRamp = SHOOTER_MOTOR_CLOSE_LOOP_RAMP;
+        config.openloopRamp = SHOOTER_MOTOR_OPEN_LOOP_RAMP;
+        config.supplyCurrLimit.enable = true;
+        return config;
+    }
 
     private TalonSRXConfiguration getTalonSRXConfiguration() {
         final TalonSRXConfiguration config = new TalonSRXConfiguration();
@@ -81,7 +77,7 @@ public class BasicShooterComponentsA implements ShooterComponents {
     }
 
     @Override
-    public WPI_TalonSRX getMasterMotor() {
+    public WPI_TalonFX getMasterMotor() {
         return masterMotor;
     }
 
@@ -104,15 +100,4 @@ public class BasicShooterComponentsA implements ShooterComponents {
     public IMotorController getSlaveMotor() {
         return slaveMotor;
     }
-
-    @Override
-    public FlywheelSim getFlyWheelSim() {
-        return flywheelSim;
-    }
-
-    @Override
-    public LinearSystemSim getLinearSystemSim() {
-        return linearSystemSim;
-    }
-
 }

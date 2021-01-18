@@ -2,14 +2,10 @@ package frc.robot.shooter;
 
 import static frc.robot.shooter.ShooterConstants.*;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_MOTOR_MAX_VELOCITY;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SHOOTER_VELOCITY_F;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.simulation.BatterySim;
-import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -163,38 +159,5 @@ public class Shooter extends SubsystemBase {
 
     public boolean isReadyToShoot() {
         return components.getCtrePIDController().getCurrentError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
-    }
-
-    int counter = 0;
-    int totalMovement = 0;
-    int prevTotalMovement = 0;
-    double lastPos = 0;
-
-    @Override
-    public void simulationPeriodic() {
-        components.getFlyWheelSim().setInputVoltage(components.getMasterMotor().getMotorOutputPercent()
-                * RobotController.getBatteryVoltage());
-        components.getFlyWheelSim().update(0.02);
-        components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
-                RPMToEncoderUnits(components.getFlyWheelSim().getAngularVelocityRPM()));
-        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
-
-        components.getLinearSystemSim().setInput(components.getAngleMotor().getMotorOutputPercent()
-                * RobotController.getBatteryVoltage());
-        components.getLinearSystemSim().update(0.02);
-        components.getAngleMotor().getSimCollection().setQuadratureRawPosition((int)
-                angleToEncoderUnits(components.getLinearSystemSim().getOutput(0)));
-        totalMovement += components.getAngleMotor().getSelectedSensorPosition();
-        if (counter == 5) {
-            components.getAngleMotor().getSimCollection().setQuadratureVelocity(totalMovement - prevTotalMovement);
-            prevTotalMovement = totalMovement;
-            totalMovement = 0;
-            counter = 0;
-        } else {
-            counter++;
-        }
-        components.getAngleMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
-        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-                components.getLinearSystemSim().getCurrentDrawAmps(), components.getFlyWheelSim().getCurrentDrawAmps()));
     }
 }
