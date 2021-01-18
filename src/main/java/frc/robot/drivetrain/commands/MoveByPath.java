@@ -1,25 +1,22 @@
-//package frc.robot.drivetrain.commands;
-// package robot.drivetrain.commands;
-//
-//import static robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_B;
-//import static robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_ZETA;
-//
-//import edu.wpi.first.wpilibj.controller.RamseteController;
-//import robot.drivetrain.DriveTrain;
-//import robot.drivetrain.OnyxTrajectoryGenerator;
-//import robot.drivetrain.Path;
+package frc.robot.drivetrain.commands;
 
-//public class MoveByPath extends OnyxRamseteCommand {
-//  public MoveByPath(final DriveTrain driveTrain,
-//                    final Path path) {
-//    super(() -> driveTrain.getTrajectoryGenerator().getTrajectoryFromPoseList(path,
-//        driveTrain.getComponents(), path.getPoseAt()),
-//        driveTrain::getPose,
-//        new RamseteController(RAMSETE_B, RAMSETE_ZETA),
-//        driveTrain.getKinematics(),
-//        driveTrain::getWheelSpeeds,
-//        driveTrain::tankDriveVolts,
-//        driveTrain.getFeedForward(),
-//        driveTrain);
-//  }
-//}
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import frc.robot.drivetrain.DriveTrain;
+import frc.robot.drivetrain.Path;
+
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_B;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_ZETA;
+
+public class MoveByPath extends OnyxRamseteCommand {
+  public MoveByPath(final DriveTrain driveTrain,
+                    final Path path) {
+    super(() -> driveTrain.getTrajectoryGenerator().getTrajectoryFromPoseList(path.getPoses(), path.isReversed()),
+        driveTrain::getPose,
+        new RamseteController(RAMSETE_B, RAMSETE_ZETA),
+        driveTrain.getKinematics(),
+        driveTrain::getWheelSpeeds,
+        driveTrain::driveTrainVelocity,
+        driveTrain.getFeedForward(),
+        driveTrain);
+  }
+}

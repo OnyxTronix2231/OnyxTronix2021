@@ -26,7 +26,7 @@ public class Pose {
 
   public Pose(double x, double y, double deg) {
     pose2d = new Pose2d(x, y, Rotation2d.fromDegrees(deg));
-    isForward = true;
+    this.isForward = true;
   }
 
   public Pose(Waypoint waypoint, double deg, boolean isForward) {
@@ -36,7 +36,7 @@ public class Pose {
 
   public Pose(Waypoint waypoint, double deg) {
     pose2d = waypoint.getPose2dFromRotation(deg);
-    isForward = true;
+    this.isForward = true;
   }
 
   public Pose2d getPose2d() {

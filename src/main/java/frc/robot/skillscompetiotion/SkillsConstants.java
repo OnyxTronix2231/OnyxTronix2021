@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import frc.robot.drivetrain.Pose;
 
 import java.util.List;
-import java.math.*;
 
 public final class SkillsConstants {
   public static final class Waypoints {
@@ -60,55 +59,59 @@ public final class SkillsConstants {
 
     private static final double OFFSET = 4.58;
 
-    public static final List<Pose> GALACTIC_RED_FIRST_PATH = List.of( //C3->D5->A6
-        new Pose(0.3, 2.5, 0),
-        new Pose(Waypoints.C3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.164, -0.315))),
-        new Pose(Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.549, 0.5))),
-        new Pose(Waypoints.A6.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.912, 0.518))),
-        new Pose(8.1, 4.3, 0)
+    private static Pose2d getPose2dFromXYDeg(double x, double y, double deg) {
+      return new Pose2d(x, y, Rotation2d.fromDegrees(deg));
+    }
+
+    public static final List<Pose2d> GALACTIC_RED_FIRST_PATH = List.of( //C3->D5->A6
+        getPose2dFromXYDeg(0.3, 2.5, 0),
+        Waypoints.C3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.164, -0.315)),
+        Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.549, 0.5)),
+        Waypoints.A6.getPose2dFromRotation(Calculations.angleFromTangentVectors(0.912, 0.518)),
+        getPose2dFromXYDeg(8.1, 4.3, 0)
     );
 
-    public static final List<Pose> GALACTIC_RED_SECOND_PATH = List.of( //B3->D5-B7
-        new Pose(0.3, 3.5, 0),
-        new Pose(Waypoints.B3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.132, -0.635))),
-        new Pose(Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.318, -0.571))),
-        new Pose(Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.278, 0.708))),
-        new Pose(8.1, 3.5,0)
+    public final List<Pose2d> GALACTIC_RED_SECOND_PATH = List.of( //B3->D5-B7
+        getPose2dFromXYDeg(0.3, 3.5, 0),
+        Waypoints.B3.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.132, -0.635)),
+        Waypoints.D5.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.318, -0.571)),
+        Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.278, 0.708)),
+        getPose2dFromXYDeg(8.1, 3.5,0)
     );
 
-    public static final List<Pose> GALACTIC_BLUE_FIRST_PATH = List.of( //E6->B7->C9
-        new Pose(0.3, 4.5, 0),
-        new Pose(Waypoints.E6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.052, 0.872))),
-        new Pose(Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(-0.067, 2.75))),
-        new Pose(Waypoints.C9.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.269, -0.56))),
-        new Pose(8.1, 1.74, Calculations.angleFromTangentVectors(1.269, -0.56))
+    public static final List<Pose2d> GALACTIC_BLUE_FIRST_PATH = List.of( //E6->B7->C9
+        getPose2dFromXYDeg(0.3, 4.5, 0),
+        Waypoints.E6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.052, 0.872)),
+        Waypoints.B7.getPose2dFromRotation(Calculations.angleFromTangentVectors(-0.067, 2.75)),
+        Waypoints.C9.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.269, -0.56)),
+        getPose2dFromXYDeg(8.1, 1.74, Calculations.angleFromTangentVectors(1.269, -0.56))
     );
 
-    public static final List<Pose> GALACTIC_BLUE_SECOND_PATH = List.of( //D6->B8->D10
-        new Pose(0.3, 1, 0),
-        new Pose(Waypoints.D6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.145, 0.734))),
-        new Pose(Waypoints.B8.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.484, 0.291))),
-        new Pose(Waypoints.D10.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.229, -0.916))),
-        new Pose(8.1, 1.2, Calculations.angleFromTangentVectors(1.229, -0.916))
+    public static final List<Pose2d> GALACTIC_BLUE_SECOND_PATH = List.of( //D6->B8->D10
+        getPose2dFromXYDeg(0.3, 1, 0),
+        Waypoints.D6.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.145, 0.734)),
+        Waypoints.B8.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.484, 0.291)),
+        Waypoints.D10.getPose2dFromRotation(Calculations.angleFromTangentVectors(1.229, -0.916)),
+        getPose2dFromXYDeg(8.1, 1.2, Calculations.angleFromTangentVectors(1.229, -0.916))
     );
 
-    public static final List<Pose> AUTONAV_FIRST = List.of( //D6->B8->D10
-        new Pose(1.2, OFFSET - 2.5, Calculations.angleFromTangentVectors(1.2, -0.4)),
-        new Pose(1.85, OFFSET - 2.3, Calculations.angleFromTangentVectors(1.043, -0.204)),
-        new Pose(4.3, OFFSET - 2.85, Calculations.angleFromTangentVectors(0.326, 1.39)),
-        new Pose(4, OFFSET - 3.5, Calculations.angleFromTangentVectors(-0.295, 0.208)),
-        new Pose(3.4, OFFSET - 3.5, Calculations.angleFromTangentVectors(-0.255, -0.228)),
-        new Pose(3.5, OFFSET - 2.7, Calculations.angleFromTangentVectors(0.284, -0.635)),
-        new Pose(5, OFFSET - 2.35, Calculations.angleFromTangentVectors(0.998, -0.275)),
-        new Pose(6.5, OFFSET - 1.9, Calculations.angleFromTangentVectors(0.505, -0.517)),
-        new Pose(6.9, OFFSET - 1.53, Calculations.angleFromTangentVectors(-0.034, -0.314)),
-        new Pose(6.2, OFFSET - 1, Calculations.angleFromTangentVectors(-0.427, 0.059)),
-        new Pose(5.6, OFFSET - 1.5, Calculations.angleFromTangentVectors(-0.704, 0.753)),
-        new Pose(6.9, OFFSET - 3.3, Calculations.angleFromTangentVectors(0.922, 0.426)),
-        new Pose(7.8, OFFSET - 3.5, Calculations.angleFromTangentVectors(0.472, -0.169)),
-        new Pose(8.3, OFFSET - 2.75, Calculations.angleFromTangentVectors(1.233, -2.11)),
-        new Pose(4.15, OFFSET - 1.9, Calculations.angleFromTangentVectors(-2.363, -0.22)),
-        new Pose(0, OFFSET - 1.7, Calculations.angleFromTangentVectors(-0.5, -0.05))
+    public static final List<Pose2d> AUTONAV_FIRST = List.of( //D6->B8->D10
+        getPose2dFromXYDeg(1.2, OFFSET - 2.5, Calculations.angleFromTangentVectors(1.2, -0.4)),
+        getPose2dFromXYDeg(1.85, OFFSET - 2.3, Calculations.angleFromTangentVectors(1.043, -0.204)),
+        getPose2dFromXYDeg(4.3, OFFSET - 2.85, Calculations.angleFromTangentVectors(0.326, 1.39)),
+        getPose2dFromXYDeg(4, OFFSET - 3.5, Calculations.angleFromTangentVectors(-0.295, 0.208)),
+        getPose2dFromXYDeg(3.4, OFFSET - 3.5, Calculations.angleFromTangentVectors(-0.255, -0.228)),
+        getPose2dFromXYDeg(3.5, OFFSET - 2.7, Calculations.angleFromTangentVectors(0.284, -0.635)),
+        getPose2dFromXYDeg(5, OFFSET - 2.35, Calculations.angleFromTangentVectors(0.998, -0.275)),
+        getPose2dFromXYDeg(6.5, OFFSET - 1.9, Calculations.angleFromTangentVectors(0.505, -0.517)),
+        getPose2dFromXYDeg(6.9, OFFSET - 1.53, Calculations.angleFromTangentVectors(-0.034, -0.314)),
+        getPose2dFromXYDeg(6.2, OFFSET - 1, Calculations.angleFromTangentVectors(-0.427, 0.059)),
+        getPose2dFromXYDeg(5.6, OFFSET - 1.5, Calculations.angleFromTangentVectors(-0.704, 0.753)),
+        getPose2dFromXYDeg(6.9, OFFSET - 3.3, Calculations.angleFromTangentVectors(0.922, 0.426)),
+        getPose2dFromXYDeg(7.8, OFFSET - 3.5, Calculations.angleFromTangentVectors(0.472, -0.169)),
+        getPose2dFromXYDeg(8.3, OFFSET - 2.75, Calculations.angleFromTangentVectors(1.233, -2.11)),
+        getPose2dFromXYDeg(4.15, OFFSET - 1.9, Calculations.angleFromTangentVectors(-2.363, -0.22)),
+        getPose2dFromXYDeg(0, OFFSET - 1.7, Calculations.angleFromTangentVectors(-0.5, -0.05))
         //Start between B2 and d2
         //around d5
         //around b8
@@ -116,18 +119,18 @@ public final class SkillsConstants {
         //back to the line between B2 and D2
     );
 
-    public static final List<Pose> AUTONAV_SECOND = List.of( //E6->B7->C9
-        new Pose(1.2, OFFSET - 3.4, Calculations.angleFromTangentVectors(0.3, -0.2)),
-        new Pose(3.1, OFFSET - 2.2, Calculations.angleFromTangentVectors(0.898, -0.61)),
-        new Pose(4.69, OFFSET - 1.75, Calculations.angleFromTangentVectors(1.119, 0.054)),
-        new Pose(6.4, OFFSET - 2.6, Calculations.angleFromTangentVectors(0.979, 0.742)),
-        new Pose(7.6, OFFSET - 3.95, Calculations.angleFromTangentVectors(0.819, 0.053)),
-        new Pose(8.8, OFFSET - 3, Calculations.angleFromTangentVectors(0.069, -0.622)),
-        new Pose(7.69, OFFSET - 2, Calculations.angleFromTangentVectors(0.868, -0.206)),
-        new Pose(6.3, OFFSET - 3.69, Calculations.angleFromTangentVectors(-1.049, 0.533)),
-        new Pose(4.69, OFFSET - 4, Calculations.angleFromTangentVectors(-1.114, 0.019)),
-        new Pose(3, OFFSET - 3.69, Calculations.angleFromTangentVectors(-1.715, -0.54)),
-        new Pose(0, OFFSET - 1.5, Calculations.angleFromTangentVectors(-0.1, -0.2))
+    public static final List<Pose2d> AUTONAV_SECOND = List.of( //E6->B7->C9
+        getPose2dFromXYDeg(1.2, OFFSET - 3.4, Calculations.angleFromTangentVectors(0.3, -0.2)),
+        getPose2dFromXYDeg(3.1, OFFSET - 2.2, Calculations.angleFromTangentVectors(0.898, -0.61)),
+        getPose2dFromXYDeg(4.69, OFFSET - 1.75, Calculations.angleFromTangentVectors(1.119, 0.054)),
+        getPose2dFromXYDeg(6.4, OFFSET - 2.6, Calculations.angleFromTangentVectors(0.979, 0.742)),
+        getPose2dFromXYDeg(7.6, OFFSET - 3.95, Calculations.angleFromTangentVectors(0.819, 0.053)),
+        getPose2dFromXYDeg(8.8, OFFSET - 3, Calculations.angleFromTangentVectors(0.069, -0.622)),
+        getPose2dFromXYDeg(7.69, OFFSET - 2, Calculations.angleFromTangentVectors(0.868, -0.206)),
+        getPose2dFromXYDeg(6.3, OFFSET - 3.69, Calculations.angleFromTangentVectors(-1.049, 0.533)),
+        getPose2dFromXYDeg(4.69, OFFSET - 4, Calculations.angleFromTangentVectors(-1.114, 0.019)),
+        getPose2dFromXYDeg(3, OFFSET - 3.69, Calculations.angleFromTangentVectors(-1.715, -0.54)),
+        getPose2dFromXYDeg(0, OFFSET - 1.5, Calculations.angleFromTangentVectors(-0.1, -0.2))
         //Start between D2 and (60,0)
         //up and over d4-d8
         //under and around d10
@@ -135,19 +138,19 @@ public final class SkillsConstants {
         //finish at d2-b2
     );
 
-    public static final List<Pose> AUTONAV_THIRD_A = List.of(
-        new Pose(1.2, OFFSET - 2.3, 0),
-        new Pose(Waypoints.A3, 90)
+    public static final List<Pose2d> AUTONAV_THIRD_A = List.of(
+        getPose2dFromXYDeg(1.2, OFFSET - 2.3, 0),
+        Waypoints.A3.getPose2dFromRotation(90)
         //Start between B2 and D2
         //Finish in A3
     );
 
-    public static final List<Pose> AUTONAV_THIRD_B = List.of(
-        new Pose(Waypoints.A3, 90, false),
-        new Pose(2.69, OFFSET - 2.5, Calculations.angleFromTangentVectors(0.552, 0.968), false),
-        new Pose(4, OFFSET - 3.8, Calculations.angleFromTangentVectors(0.554, -0.311), false),
-        new Pose(4, OFFSET - 2.35, Calculations.angleFromTangentVectors(0.192, -0.982), false),
-        new Pose(Waypoints.A6, 270, false)
+    public static final List<Pose2d> AUTONAV_THIRD_B = List.of( //reverse
+        Waypoints.A3.getPose2dFromRotation(90),
+        getPose2dFromXYDeg(2.69, OFFSET - 2.5, Calculations.angleFromTangentVectors(0.552, 0.968)),
+        getPose2dFromXYDeg(4, OFFSET - 3.8, Calculations.angleFromTangentVectors(0.554, -0.311)),
+        getPose2dFromXYDeg(4, OFFSET - 2.35, Calculations.angleFromTangentVectors(0.192, -0.982)),
+        Waypoints.A6.getPose2dFromRotation(270)
         //Start in A3
         //Go between b2 and b4
         //go between b4 and d3
@@ -155,20 +158,20 @@ public final class SkillsConstants {
         //Finish in a6
     );
 
-    public static final List<Pose> AUTONAV_THIRD_C = List.of(
-        new Pose(Waypoints.A6, 270),
-        new Pose(5.2, OFFSET - 3.6, Calculations.angleFromTangentVectors(1.289, 0.273)),
-        new Pose(6.3, OFFSET - 3.6, Calculations.angleFromTangentVectors(1.283, -0.272)),
-        new Pose(Waypoints.A9, 90)
+    public static final List<Pose2d> AUTONAV_THIRD_C = List.of(
+        Waypoints.A6.getPose2dFromRotation(270),
+        getPose2dFromXYDeg(5.2, OFFSET - 3.6, Calculations.angleFromTangentVectors(1.289, 0.273)),
+        getPose2dFromXYDeg(6.3, OFFSET - 3.6, Calculations.angleFromTangentVectors(1.283, -0.272)),
+        Waypoints.A9.getPose2dFromRotation(90)
         //Start in A6
         //between b5 and b7
         //around d7 and d8
         //Finish in a9
     );
 
-    public static final List<Pose> AUTONAV_THIRD_D = List.of(
-        new Pose(Waypoints.A9, 90, false),
-        new Pose(7.9, OFFSET - 2.3, 0, false)
+    public static final List<Pose2d> AUTONAV_THIRD_D = List.of( //reverse
+        Waypoints.A9.getPose2dFromRotation(90),
+        getPose2dFromXYDeg(7.9, OFFSET - 2.3, 0)
         //Start in A9
         //between b8 and b10
         //finish between b10 and d10
