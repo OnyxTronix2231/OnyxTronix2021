@@ -18,6 +18,11 @@ public class Path {
     this.isReversed = isReversed;
   }
 
+  public Path(List<Pose2d> poses, boolean isReversed) {
+    this.poses = poses;
+    this.isReversed = isReversed;
+  }
+
   public Pose2d getPoseAt(int i) {
     return poses.get(i);
   }
