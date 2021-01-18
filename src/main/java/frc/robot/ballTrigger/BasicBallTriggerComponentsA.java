@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.system.plant.DCMotor;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import sensors.counter.CtreEncoder;
@@ -16,6 +18,7 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     private final Solenoid solenoid;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
+    private final FlywheelSim flywheelSim;
 
     public BasicBallTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -30,6 +33,8 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
 
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
+
+        flywheelSim = new FlywheelSim(DCMotor.getVex775Pro(1), 1, 0.01);
     }
 
     private TalonSRXConfiguration getConfiguration() {
@@ -60,5 +65,10 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     @Override
     public CtrePIDController getPIDController() {
         return pidController;
+    }
+
+    @Override
+    public FlywheelSim getFlyWheelSim() {
+        return flywheelSim;
     }
 }
