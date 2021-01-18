@@ -11,10 +11,10 @@ import static frc.robot.ballTrigger.BallTriggerConstants.OPEN_PISTON;
 public class BallTrigger extends SubsystemBase {
 
     private final BallTriggerComponents components;
-    NetworkTableEntry kP;
-    NetworkTableEntry kI;
-    NetworkTableEntry kD;
-    NetworkTableEntry kF;
+    private NetworkTableEntry kP;
+    private NetworkTableEntry kI;
+    private NetworkTableEntry kD;
+    private NetworkTableEntry kF;
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
@@ -60,7 +60,7 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public double RPMToEncoderUnits(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILISECS_IN_MIN;
+        return (RPM * ENCODER_UNITS_PER_ROTATION) / HUNDREDS_OF_MILISECS_IN_MIN;
     }
 
     public double encoderUnitsToRPM(double encoderUnits) {

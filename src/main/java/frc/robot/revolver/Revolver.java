@@ -11,10 +11,10 @@ import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 public class Revolver extends SubsystemBase {
 
     private final RevolverComponents components;
-    NetworkTableEntry kP;
-    NetworkTableEntry kI;
-    NetworkTableEntry kD;
-    NetworkTableEntry kF;
+    private NetworkTableEntry kP;
+    private NetworkTableEntry kI;
+    private NetworkTableEntry kD;
+    private NetworkTableEntry kF;
 
     public Revolver(RevolverComponents components) {
         this.components = components;
