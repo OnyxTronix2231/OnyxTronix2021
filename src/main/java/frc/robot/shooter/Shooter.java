@@ -12,15 +12,15 @@ public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
     private double lastRPMError;
-    NetworkTableEntry shooterKp;
-    NetworkTableEntry shooterKi;
-    NetworkTableEntry shooterKd;
-    NetworkTableEntry shooterKf;
+    private NetworkTableEntry shooterKp;
+    private NetworkTableEntry shooterKi;
+    private NetworkTableEntry shooterKd;
+    private NetworkTableEntry shooterKf;
 
-    NetworkTableEntry angleKp;
-    NetworkTableEntry angleKi;
-    NetworkTableEntry angleKd;
-    NetworkTableEntry angleKf;
+    private NetworkTableEntry angleKp;
+    private NetworkTableEntry angleKi;
+    private NetworkTableEntry angleKd;
+    private NetworkTableEntry angleKf;
 
     public Shooter(ShooterComponents components) {
         this.components = components;
@@ -70,26 +70,21 @@ public class Shooter extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void changeAngleBySpeed(double speed) {
-        components.getAngleMotor().set(ControlMode.PercentOutput, speed);
-    }
-
     public void stopShooterMotor() {
         moveShooterBySpeed(0);
     }
 
-    public void stopAngleMotor() {
-        changeAngleBySpeed(0);
+    public void setShooterRPM(double RPM) {
+        components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
+        components.getCtrePIDController().enable();
     }
 
-    public double checkAngle(double angle) {
-        if (angle > MAX_ANGLE) {
-            return MAX_ANGLE;
-        }
-        if (angle < MIN_ANGLE) {
-            return MIN_ANGLE;
-        }
-        return angle;
+    public void changeAngleBySpeed(double speed) {
+        components.getAngleMotor().set(ControlMode.PercentOutput, speed);
+    }
+
+    public void stopAngleMotor() {
+        changeAngleBySpeed(0);
     }
 
     public void initMoveToAngle(double angle) {
@@ -103,11 +98,13 @@ public class Shooter extends SubsystemBase {
         components.getCtreMotionMagicController().update(angleToEncoderUnits(angle));
     }
 
-
-    public void setRPM(double RPM) {
-        components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
-        components.getCtrePIDController().enable();
+    public double checkAngle(double angle) {
+        if (angle > MAX_ANGLE) {
+            return MAX_ANGLE;
+        }
+        return Math.max(angle, MIN_ANGLE);
     }
+
 
     public boolean angleMotorOnTarget(){
         return Math.abs(components.getCtreMotionMagicController().getCurrentError()) < angleToEncoderUnits(TOLERANCE);
@@ -121,10 +118,7 @@ public class Shooter extends SubsystemBase {
         } else {
             encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA_CLOSE(distance);
         }
-        if (encoderUnitsTarget <= SHOOTER_MOTOR_MAX_VELOCITY) {
-            return encoderUnitsTarget;
-        }
-        return SHOOTER_MOTOR_MAX_VELOCITY;
+        return Math.min(encoderUnitsTarget, SHOOTER_MOTOR_MAX_VELOCITY);
     }
 
     public double RPMToEncoderUnits(double RPM) {

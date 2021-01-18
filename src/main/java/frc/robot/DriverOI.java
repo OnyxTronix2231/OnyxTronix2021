@@ -17,9 +17,8 @@ public class DriverOI {
 
         new DriveTrainOiBinder(driveTrain, xboxController);
 
-        Trigger kAShootByRPM = new JoystickButton(xboxController, XboxController.Button.kA.value);
         Trigger kXChangeAngle = new JoystickButton(xboxController, XboxController.Button.kX.value);
 
-        new DriverShooterOiBinder(shooter, kAShootByRPM, kXChangeAngle);
+        new DriverShooterOiBinder(shooter, kXChangeAngle);
     }
 }

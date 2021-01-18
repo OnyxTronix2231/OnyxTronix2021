@@ -18,7 +18,7 @@ public class ShootByRPM extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.setRPM(RPMSupplier.getAsDouble());
+        shooter.setShooterRPM(RPMSupplier.getAsDouble());
     }
 
     @Override
