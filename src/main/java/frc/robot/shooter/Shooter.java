@@ -130,11 +130,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public double angleToEncoderUnits(double angle) {
-        return (angle / ANGLE_PER_ROTATION) * ENCODER_UNITS_PER_ROTATION;
+        return ((angle / ANGLE_PER_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGLE_MOTOR_CONVERSION;
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return (encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_ROTATION;
+        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_ROTATION) / ANGLE_MOTOR_CONVERSION;
     }
 
     public void startChecking() {
