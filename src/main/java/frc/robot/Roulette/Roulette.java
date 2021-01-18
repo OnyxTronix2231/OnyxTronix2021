@@ -35,24 +35,19 @@ public class Roulette extends SubsystemBase {
         return closestColor.orElse(null);
     }
 
-    public void initMoveByRotation(double rotations) {
+    public void initMoveByRotation(double rouletteRounds) {
         reset();
-        components.getController().setSetpoint(wheelRotationToEncoderUnits(rotations));
+        components.getController().setSetpoint(rouletteRoundsToEncoderUnits(rouletteRounds));
         components.getController().enable();
     }
 
-    public void updateMoveByRotations(double wheelRotations) {
-        this.components.getController().update(wheelRotationToEncoderUnits(wheelRotations));
+    public void updateMoveByRotations(double rouletteRounds) {
+        this.components.getController().update(rouletteRoundsToEncoderUnits(rouletteRounds));
     }
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(PERCENT_TOLERANCE
-                * wheelRotationToEncoderUnits(1));
-    }
-
-    public double encoderUnitsToRouletteRounds() {
-        return encoderUnitsToRotation(components.getMasterMotor().
-                getSelectedSensorPosition()) * (1 / RATIO_ROULETTE_TO_WHEEL);
+                * rouletteRoundsToEncoderUnits(1));
     }
 
     public RouletteColor getGameRequiredColor() {
@@ -78,41 +73,25 @@ public class Roulette extends SubsystemBase {
         return colorMatching(new RouletteColor(components.getColorSensor().getColor()));
     }
 
-    public double getRoundsToColor(RouletteColor requiredColor) {
+    public double getRoundsToColor(RouletteColor requiredColor) {//
         RouletteColor currentColor = getCurrentColor();
         int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
         int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
-        switch (Math.abs(requiredColorIndex - currentColorIndex)) {
-            case 0:
-                return (4 * ROULETTE_COLOR_DISTANCE) / WHEEL_CIRCUMFERENCE;
-            case 1:
-            case 3:
-                return ROULETTE_COLOR_DISTANCE / WHEEL_CIRCUMFERENCE;
-            case 2:
-                return (2 * ROULETTE_COLOR_DISTANCE) / WHEEL_CIRCUMFERENCE;
-            default:
-                return 0;
+        double distance = (requiredColorIndex - currentColorIndex);
+        if (distance == 3) {
+            distance = -1;
+        } else if (distance == -3) {
+            distance = 1;
         }
+        return distance * RATIO_ROULETTE_TO_ROULETTE_COLOR;
     }
 
-    public void getTurningDirection(RouletteColor requiredColor) {
-        RouletteColor currentColor = getCurrentColor();
-        int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
-        int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
-        if (requiredColorIndex - currentColorIndex <= 0) {
-            components.getMasterMotor().setInverted(right);//?
-        } else {
-            if (requiredColorIndex - currentColorIndex > 0)
-                components.getMasterMotor().setInverted(left);//?
-        }
+    public double rouletteRoundsToEncoderUnits(double rouletteRounds) {
+        return rouletteRounds * ENCODER_UNITS_PER_WHEEL_ROUND * RATIO_ROULETTE_TO_WHEEL;
     }
 
-    public double wheelRotationToEncoderUnits(double rotations) {
-        return rotations * ENCODER_UNITS_PER_ROUND;
-    }
-
-    public double encoderUnitsToRotation(double encoderUnits) {
-        return encoderUnits / ENCODER_UNITS_PER_ROUND;
+    public double encoderUnitsToRouletteRounds(double encoderUnits) {
+        return encoderUnits / ENCODER_UNITS_PER_WHEEL_ROUND / RATIO_ROULETTE_TO_WHEEL;
     }
 
     public void reset() {
