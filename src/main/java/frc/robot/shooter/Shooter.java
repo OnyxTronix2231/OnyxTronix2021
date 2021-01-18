@@ -113,6 +113,10 @@ public class Shooter extends SubsystemBase {
         components.getCtrePIDController().enable();
     }
 
+    public boolean angleMotorOnTarget(){
+        return Math.abs(components.getCtreMotionMagicController().getCurrentError()) < angleToEncoderUnits(TOLERANCE);
+    }
+
 
     public double distanceToEncoderUnits(double distance) { //TODO Change and add angle
         double encoderUnitsTarget;

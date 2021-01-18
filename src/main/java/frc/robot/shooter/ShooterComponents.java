@@ -5,9 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
-import edu.wpi.first.wpilibj.system.LinearSystem;
-import pid.CtreMotionMagicController;
-import pid.CtrePIDController;
+import pid.interfaces.MotionMagicController;
+import pid.interfaces.PIDController;
 
 public interface ShooterComponents {
 
@@ -15,11 +14,11 @@ public interface ShooterComponents {
 
     WPI_TalonSRX getAngleMotor();
 
-    CtreMotionMagicController getCtreMotionMagicController();
-
-    CtrePIDController getCtrePIDController();
-
     IMotorController getSlaveMotor();
+
+    MotionMagicController getCtreMotionMagicController();
+
+    PIDController getCtrePIDController();
 
     FlywheelSim getFlyWheelSim();
 

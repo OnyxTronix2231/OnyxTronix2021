@@ -9,7 +9,7 @@ public class ChangeAngleByPosition extends CommandBase {
 
     private final DoubleSupplier angleSupplier;
     private final Shooter shooter;
-    
+
     public ChangeAngleByPosition(Shooter shooter, DoubleSupplier angleSupplier){
         this.angleSupplier = angleSupplier;
         this.shooter = shooter;
@@ -24,5 +24,10 @@ public class ChangeAngleByPosition extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         shooter.stopAngleMotor();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return shooter.angleMotorOnTarget();
     }
 }

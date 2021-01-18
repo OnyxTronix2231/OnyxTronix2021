@@ -51,4 +51,5 @@ public final class ShooterConstants {
     static final double MILLISECOND_TO_MINUTE = 600;
     static final double MIN_ERROR_RPM = 1000;
     static final double AT_SHOOTING_RPM = 400;
+    static final double TOLERANCE = 3;//degree
 }
