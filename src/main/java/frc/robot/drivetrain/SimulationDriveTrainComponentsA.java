@@ -44,14 +44,6 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
   private final WPI_TalonSRX leftSlave;
   private final AnalogGyroSim analogGyroSim;
 
-  private final DifferentialDrive differentialDrive;
-  private final DifferentialDriveOdometry odometry;
-  private final SimpleMotorFeedforward motorFeedforward;
-  private final DifferentialDriveKinematics driveKinematics;
-  private final DifferentialDriveVoltageConstraint autonomousVoltage;
-  private final TrajectoryConfig trajectoryConfig;
-  private final OnyxTrajectoryGenerator trajectoryGenerator;
-  private final DifferentialDrivetrainSim driveTrainSim;
   private final Field2d field2d;
 
   public SimulationDriveTrainComponentsA(){
@@ -81,27 +73,6 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
 
     analogGyroSim = new AnalogGyroSim(0);
 
-    differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-    differentialDrive.setRightSideInverted(false);
-    differentialDrive.setSafetyEnabled(false);
-
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
-    odometry.resetPosition(new Pose2d(), new Rotation2d());
-
-    motorFeedforward = new SimpleMotorFeedforward(VOLTS, VOLT_SECONDS_PER_METER, VOLT_SECONDS_SQUARED_PER_METER);
-
-    driveKinematics = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
-
-    autonomousVoltage = new DifferentialDriveVoltageConstraint(motorFeedforward, driveKinematics, MAX_VOLTAGE);
-
-    trajectoryConfig = new TrajectoryConfig(MAX_SPEED_METERS_PER_SECOND, MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
-        .setKinematics(driveKinematics).addConstraint(autonomousVoltage);
-
-    trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
-
-    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), CONVERSION_RATE,
-        8, 50, 0.1524, 0.6, null);
-
     field2d = new Field2d();
   }
 
@@ -128,46 +99,6 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
   @Override
   public IMotorController getLeftSlaveMotor() {
     return leftSlave;
-  }
-
-  @Override
-  public DifferentialDrivetrainSim getDriveTrainSim() {
-    return driveTrainSim;
-  }
-
-  @Override
-  public DifferentialDrive getDifferentialDrive() {
-    return differentialDrive;
-  }
-
-  @Override
-  public DifferentialDriveOdometry getOdometry() {
-    return odometry;
-  }
-
-  @Override
-  public SimpleMotorFeedforward getMotorFeedForward() {
-    return motorFeedforward;
-  }
-
-  @Override
-  public DifferentialDriveKinematics getDriveKinematics() {
-    return driveKinematics;
-  }
-
-  @Override
-  public DifferentialDriveVoltageConstraint getAutonomousVoltage() {
-    return autonomousVoltage;
-  }
-
-  @Override
-  public TrajectoryConfig getTrajectoryConfig() {
-    return trajectoryConfig;
-  }
-
-  @Override
-  public OnyxTrajectoryGenerator getTrajectoryGenerator(){
-    return trajectoryGenerator;
   }
 
   private TalonSRXConfiguration getSRXConfiguration() {

@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpiutil.math.Matrix;
 
+import static frc.robot.drivetrain.DriveTrainConstants.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
 
 public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents {
   private final DifferentialDrive differentialDrive;
+  private final DifferentialDrive simDifferentialDrive;
   private final DifferentialDriveOdometry odometry;
   private final SimpleMotorFeedforward motorFeedforward;
   private final DifferentialDriveKinematics driveKinematics;
@@ -24,10 +25,14 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
   private final OnyxTrajectoryGenerator trajectoryGenerator;
   private final DifferentialDrivetrainSim driveTrainSim;
 
-  public DriveTrainVirtualComponentsA(DriveTrainComponents componentsA) {
-    differentialDrive = new DifferentialDrive(componentsA.getLeftMasterMotor(), componentsA.getRightMasterMotor());
+  public DriveTrainVirtualComponentsA(DriveTrainComponents components, SimulationDriveTrainComponents simComponents) {
+    differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
     differentialDrive.setRightSideInverted(false);
     differentialDrive.setSafetyEnabled(false);
+
+    simDifferentialDrive = new DifferentialDrive(simComponents.getLeftMasterMotor(), simComponents.getRightMasterMotor());
+    simDifferentialDrive.setRightSideInverted(false);
+    simDifferentialDrive.setSafetyEnabled(false);
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
     odometry.resetPosition(new Pose2d(), new Rotation2d());
@@ -44,13 +49,23 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
 
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
 
-    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), 9.5, 1, 10,
-        0.1524, 0.6, null);
+    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(4), CONVERSION_RATE,
+        8, 50, 0.1524, 0.6, null);
   }
 
   @Override
   public DifferentialDrive getDifferentialDrive() {
     return differentialDrive;
+  }
+
+  @Override
+  public DifferentialDrive getSimDifferentialDrive() {
+    return simDifferentialDrive;
+  }
+
+  @Override
+  public DifferentialDrivetrainSim getDriveTrainSim() {
+    return driveTrainSim;
   }
 
   @Override

@@ -26,21 +26,5 @@ public interface SimulationDriveTrainComponents {
 
   IMotorController getLeftSlaveMotor();
 
-  DifferentialDrivetrainSim getDriveTrainSim();
-
-  DifferentialDrive getDifferentialDrive();
-
-  DifferentialDriveOdometry getOdometry();
-
-  SimpleMotorFeedforward getMotorFeedForward();
-
-  DifferentialDriveKinematics getDriveKinematics();
-
-  DifferentialDriveVoltageConstraint getAutonomousVoltage();
-
-  TrajectoryConfig getTrajectoryConfig();
-
-  OnyxTrajectoryGenerator getTrajectoryGenerator();
-
   Field2d getField2d();
 }
