@@ -38,13 +38,14 @@ public class DriveTrain extends SubsystemBase {
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
     simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
+    vComponents.getOdometry().resetPosition(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     resetEncoders();
   }
 
   @Override
   public void periodic() {
     vComponents.getOdometry().update(Rotation2d.fromDegrees((isMainSim ? getSimOdometryHeading() : getOdometryHeading())),
-        (isMainSim ? getLeftDistance() : getSimLeftDistance()), (isMainSim ? getRightDistance() : getSimRightDistance()));
+        (isMainSim ? getSimLeftDistance() : getLeftDistance()), (isMainSim ? getSimRightDistance() : getRightDistance()));
 
     simComponents.getField2d().setRobotPose(vComponents.getOdometry().getPoseMeters());
   }
@@ -91,10 +92,6 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return vComponents.getOdometry().getPoseMeters();
-  }
-
-  public Pose2d getSimPose() {
     return vComponents.getOdometry().getPoseMeters();
   }
 
@@ -273,7 +270,14 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
     resetEncoders();
-    vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
+    vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(0));
+    simComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(0);
+    simComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(0);
+    simComponents.getAnalogGyroSim().setRate(0);
+    simComponents.getAnalogGyroSim().setAngle(0);
+    simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
+    vComponents.getDriveTrainSim().setPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
+    vComponents.getDriveTrainSim().setInputs(0, 0);
   }
 
   private List<Pose2d> getPoseFromVision() {//For future Vision integration - will delete comment pre-merge

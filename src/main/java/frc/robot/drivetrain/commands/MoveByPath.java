@@ -14,7 +14,7 @@ public class MoveByPath extends OnyxRamseteCommand {
         driveTrain::getPose,
         new RamseteController(RAMSETE_B, RAMSETE_ZETA),
         driveTrain.getKinematics(),
-        driveTrain::getWheelSpeeds,
+        driveTrain::getSimWheelSpeeds,
         driveTrain::driveTrainVelocity,
         driveTrain.getFeedForward(),
         driveTrain);
