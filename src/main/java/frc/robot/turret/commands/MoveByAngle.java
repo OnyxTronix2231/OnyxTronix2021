@@ -7,22 +7,27 @@ import java.util.function.DoubleSupplier;
 
 public class MoveByAngle extends CommandBase {
     private final Turret turret;
-    private final DoubleSupplier getAngle;
+    private final DoubleSupplier angleSupplier;
 
-    public MoveByAngle(Turret turret, DoubleSupplier getAngle) {
+    public MoveByAngle(Turret turret, DoubleSupplier angleSupplier) {
         this.turret = turret;
-        this.getAngle = getAngle;
+        this.angleSupplier = angleSupplier;
         addRequirements(turret);
     }
 
     @Override
     public void initialize() {
-        turret.initMoveByAngle(getAngle.getAsDouble());
+        turret.initMoveByAngle(angleSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        turret.updateMoveByAngle(getAngle.getAsDouble());
+        turret.updateMoveByAngle(angleSupplier.getAsDouble());
+    }
+
+    @Override
+    public boolean isFinished() {
+        return turret.isOnTarget();
     }
 
     @Override
