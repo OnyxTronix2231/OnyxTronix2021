@@ -44,12 +44,12 @@ public final class ShooterConstants {
     }
 
     static final int MIDDLE_DISTANCE = 450;
-    static final double ANGLE_PER_ROTATION = 360; /** one encoder units spin to angle */
-    static final double MAX_ANGLE = 90; /** one encoder units spin to angle */
-    static final double MIN_ANGLE = 60; /** one encoder units spin to angle */
+    static final double ANGLE_PER_ROTATION = 360; // one encoder units spin to angle
+    static final double MAX_ANGLE = 90; // one encoder units spin to angle
+    static final double MIN_ANGLE = 60; // one encoder units spin to angle
     static final double ENCODER_UNITS_PER_ROTATION = 2048;
     static final double MILLISECOND_TO_MINUTE = 600;
     static final double MIN_ERROR_RPM = 1000;
     static final double AT_SHOOTING_RPM = 400;
-    static final double TOLERANCE = 3;//degree
+    static final double TOLERANCE = 3; //degree
 }
