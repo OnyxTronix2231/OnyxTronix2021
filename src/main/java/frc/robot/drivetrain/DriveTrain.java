@@ -37,6 +37,7 @@ public class DriveTrain extends SubsystemBase {
     this.isMainSim = isMainSim;
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
+    simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
     resetEncoders();
   }
 
@@ -270,7 +271,7 @@ public class DriveTrain extends SubsystemBase {
     vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
   }
 
-  private void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
+  public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
     resetEncoders();
     vComponents.getOdometry().resetPosition(pose, Rotation2d.fromDegrees(getOdometryHeading()));
   }
@@ -295,5 +296,6 @@ public class DriveTrain extends SubsystemBase {
     getLeftMaster().setSelectedSensorPosition(0);
     getRightMaster().setSelectedSensorPosition(0);
     getSimLeftMaster().setSelectedSensorPosition(0);
+    getSimRightMaster().setSelectedSensorPosition(0);
   }
 }
