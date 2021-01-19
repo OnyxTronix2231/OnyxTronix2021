@@ -8,9 +8,9 @@ import frc.robot.drivetrain.DriveTrainOiBinder;
 
 public class DriverOI {
 
-  public DriverOI(DriveTrain driveTrain) {
-    XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
+    public DriverOI(DriveTrain driveTrain) {
+        XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
 
-    new DriveTrainOiBinder(driveTrain, xboxController);
-  }
+        new DriveTrainOiBinder(driveTrain, xboxController);
+    }
 }
