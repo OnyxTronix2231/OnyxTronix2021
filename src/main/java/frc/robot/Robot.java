@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain,new Pose(4, 2.2, 0) ));
   }
 
   /**
@@ -93,6 +94,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override

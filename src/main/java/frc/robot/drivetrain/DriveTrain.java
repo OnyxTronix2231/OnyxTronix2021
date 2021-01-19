@@ -66,7 +66,7 @@ public class DriveTrain extends SubsystemBase {
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int)metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
 
-    simComponents.getAnalogGyroSim().setAngle(-vComponents.getDriveTrainSim().getHeading().getDegrees());
+    simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
 
 //    RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
 //        simComponents.getDriveTrainSim().getCurrentDrawAmps()));
