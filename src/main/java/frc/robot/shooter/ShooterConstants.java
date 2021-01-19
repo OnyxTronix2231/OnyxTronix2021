@@ -50,7 +50,7 @@ public final class ShooterConstants {
     static final double ENCODER_UNITS_PER_ROTATION = 2048;
     static final double MILLISECOND_TO_MINUTE = 600;
     static final double MIN_ERROR_RPM = 1000;
-    static final double AT_SHOOTING_RPM = 400;
-    static final double TOLERANCE = 3; //degree
+    static final double SHOOTING_TOLERANCE = 400; //RPM
+    static final double ANGLE_TOLERANCE = 3; //degree
     static final int ANGLE_MOTOR_CONVERSION = 1080; // 1/1080
 }

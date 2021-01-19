@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase {
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInMillisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
                 () -> components.getAngleMotor().getSelectedSensorVelocity());
         Shuffleboard.getTab("Shooter").addNumber("current angle position", () ->
@@ -75,7 +75,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setShooterRPM(double RPM) {
-        components.getCtrePIDController().update(RPMToEncoderUnits(RPM));
+        components.getCtrePIDController().update(RPMToEncoderUnitsInMillisecond(RPM));
         components.getCtrePIDController().enable();
     }
 
@@ -99,16 +99,9 @@ public class Shooter extends SubsystemBase {
     }
 
     public double checkAngle(double angle) {
-        if (angle > MAX_ANGLE) {
-            return MAX_ANGLE;
-        }
-        return Math.max(angle, MIN_ANGLE);
+        return Math.min(MAX_ANGLE, Math.max(angle, MIN_ANGLE));
     }
 
-
-    public boolean angleMotorOnTarget(){
-        return Math.abs(components.getCtreMotionMagicController().getCurrentError()) < angleToEncoderUnits(TOLERANCE);
-    }
 
 
     public double distanceToEncoderUnits(double distance) { //TODO Change and add angle
@@ -121,11 +114,11 @@ public class Shooter extends SubsystemBase {
         return Math.min(encoderUnitsTarget, SHOOTER_MOTOR_MAX_VELOCITY);
     }
 
-    public double RPMToEncoderUnits(double RPM) {
+    public double RPMToEncoderUnitsInMillisecond(double RPM) {
         return (RPM * ENCODER_UNITS_PER_ROTATION) / MILLISECOND_TO_MINUTE;
     }
 
-    public double encoderUnitsToRPM(double encoderUnits) {
+    public double encoderUnitsInMillisecondToRPM(double encoderUnits) {
         return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
     }
 
@@ -151,7 +144,11 @@ public class Shooter extends SubsystemBase {
         return isBallShot;
     }
 
-    public boolean isReadyToShoot() {
-        return components.getCtrePIDController().getCurrentError() < RPMToEncoderUnits(AT_SHOOTING_RPM);
+    public boolean isShooterMotorOnTarget() {
+        return Math.abs(components.getCtrePIDController().getCurrentError()) < RPMToEncoderUnitsInMillisecond(SHOOTING_TOLERANCE);
+    }
+
+    public boolean angleMotorOnTarget(){
+        return Math.abs(components.getCtreMotionMagicController().getCurrentError()) < angleToEncoderUnits(ANGLE_TOLERANCE);
     }
 }

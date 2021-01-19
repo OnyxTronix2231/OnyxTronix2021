@@ -7,6 +7,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.shooter.DriverShooterOiBinder;
 import frc.robot.shooter.Shooter;
+import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
@@ -19,6 +20,8 @@ public class DriverOI {
 
         Trigger kXChangeAngle = new JoystickButton(xboxController, XboxController.Button.kX.value);
 
-        new DriverShooterOiBinder(shooter, kXChangeAngle);
+        JoystickAxis shootByPresentOutPout = new JoystickAxis(xboxController, XboxController.Axis.kRightX.value);
+
+        new DriverShooterOiBinder(shooter, kXChangeAngle, shootByPresentOutPout);
     }
 }

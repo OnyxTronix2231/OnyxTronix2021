@@ -54,6 +54,7 @@ public class BasicShooterComponentsA implements ShooterComponents {
         config.closedloopRamp = SHOOTER_MOTOR_CLOSE_LOOP_RAMP;
         config.openloopRamp = SHOOTER_MOTOR_OPEN_LOOP_RAMP;
         config.supplyCurrLimit.enable = true;
+        config.statorCurrLimit.enable = false;
         return config;
     }
 
