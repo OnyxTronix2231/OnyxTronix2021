@@ -9,6 +9,7 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
+import frc.robot.drivetrain.commands.MoveToPose;
 
 import java.util.Timer;
 import java.util.TimerTask;
