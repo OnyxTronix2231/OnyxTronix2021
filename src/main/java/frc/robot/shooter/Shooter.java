@@ -12,97 +12,95 @@ public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
     private double lastRPMError;
-    private NetworkTableEntry shooterKp;
-    private NetworkTableEntry shooterKi;
-    private NetworkTableEntry shooterKd;
-    private NetworkTableEntry shooterKf;
+    private final NetworkTableEntry shooterKp;
+    private final NetworkTableEntry shooterKi;
+    private final NetworkTableEntry shooterKd;
+    private final NetworkTableEntry shooterKf;
 
-    private NetworkTableEntry angleKp;
-    private NetworkTableEntry angleKi;
-    private NetworkTableEntry angleKd;
-    private NetworkTableEntry angleKf;
+    private final NetworkTableEntry angularKp;
+    private final NetworkTableEntry angularKi;
+    private final NetworkTableEntry angularKd;
+    private final NetworkTableEntry angularKf;
 
     public Shooter(ShooterComponents components) {
         this.components = components;
         lastRPMError = Integer.MAX_VALUE;
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
-                () -> components.getMasterMotor().getClosedLoopError());
+                () -> components.getMasterShooterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsInMillisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterShooterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
-                () -> components.getAngleMotor().getSelectedSensorVelocity());
+                () -> components.getAngularMotor().getSelectedSensorVelocity());
         Shuffleboard.getTab("Shooter").addNumber("current angle position", () ->
-                encoderUnitsToAngle(components.getAngleMotor().getSelectedSensorPosition()));
+                encoderUnitsToAngle(components.getAngularMotor().getSelectedSensorPosition()));
 
         shooterKp = Shuffleboard.getTab("Shooter").add("shooterKp",
-                components.getCtrePIDController().getPIDFTerms().getKp()).getEntry();
+                components.getShooterController().getPIDFTerms().getKp()).getEntry();
         shooterKi = Shuffleboard.getTab("Shooter").add("shooterKi",
-                components.getCtrePIDController().getPIDFTerms().getKi()).getEntry();
+                components.getShooterController().getPIDFTerms().getKi()).getEntry();
         shooterKd = Shuffleboard.getTab("Shooter").add("shooterKd",
-                components.getCtrePIDController().getPIDFTerms().getKd()).getEntry();
+                components.getShooterController().getPIDFTerms().getKd()).getEntry();
         shooterKf = Shuffleboard.getTab("Shooter").add("shooterKf",
-                components.getCtrePIDController().getPIDFTerms().getKf()).getEntry();
-        angleKp = Shuffleboard.getTab("Shooter").add("angleKp",
-                components.getCtreMotionMagicController().getPIDFTerms().getKp()).getEntry();
-        angleKi = Shuffleboard.getTab("Shooter").add("angleKi",
-                components.getCtreMotionMagicController().getPIDFTerms().getKi()).getEntry();
-        angleKd = Shuffleboard.getTab("Shooter").add("angleKd",
-                components.getCtreMotionMagicController().getPIDFTerms().getKd()).getEntry();
-        angleKf = Shuffleboard.getTab("Shooter").add("angleKf",
-                components.getCtreMotionMagicController().getPIDFTerms().getKf()).getEntry();
+                components.getShooterController().getPIDFTerms().getKf()).getEntry();
+        angularKp = Shuffleboard.getTab("Shooter").add("angularKp",
+                components.getAngularController().getPIDFTerms().getKp()).getEntry();
+        angularKi = Shuffleboard.getTab("Shooter").add("angularKi",
+                components.getAngularController().getPIDFTerms().getKi()).getEntry();
+        angularKd = Shuffleboard.getTab("Shooter").add("angularKd",
+                components.getAngularController().getPIDFTerms().getKd()).getEntry();
+        angularKf = Shuffleboard.getTab("Shooter").add("angularKf",
+                components.getAngularController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
     public void periodic() {
-        components.getCtrePIDController().setPIDFTerms(shooterKp.getDouble
-                        (components.getCtrePIDController().getPIDFTerms().getKp()),
-                shooterKi.getDouble(components.getCtrePIDController().getPIDFTerms().getKi()),
-                shooterKd.getDouble(components.getCtrePIDController().getPIDFTerms().getKd()),
-                shooterKf.getDouble(components.getCtrePIDController().getPIDFTerms().getKf()));
-        components.getCtreMotionMagicController().setPIDFTerms(shooterKp.getDouble
-                        (components.getCtreMotionMagicController().getPIDFTerms().getKp()),
-                shooterKi.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKi()),
-                shooterKd.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKd()),
-                shooterKf.getDouble(components.getCtreMotionMagicController().getPIDFTerms().getKf()));
+        components.getShooterController().setPIDFTerms(
+                shooterKp.getDouble(components.getShooterController().getPIDFTerms().getKp()),
+                shooterKi.getDouble(components.getShooterController().getPIDFTerms().getKi()),
+                shooterKd.getDouble(components.getShooterController().getPIDFTerms().getKd()),
+                shooterKf.getDouble(components.getShooterController().getPIDFTerms().getKf()));
+        components.getAngularController().setPIDFTerms(
+                angularKp.getDouble(components.getAngularController().getPIDFTerms().getKp()),
+                angularKi.getDouble(components.getAngularController().getPIDFTerms().getKi()),
+                angularKd.getDouble(components.getAngularController().getPIDFTerms().getKd()),
+                angularKf.getDouble(components.getAngularController().getPIDFTerms().getKf()));
     }
 
     public void moveShooterBySpeed(double speed) {
-        components.getMasterMotor().set(speed);
+        components.getMasterShooterMotor().set(speed);
     }
 
     public void stopShooterMotor() {
         moveShooterBySpeed(0);
     }
 
-    public void setShooterRPM(double RPM) {
-        components.getCtrePIDController().update(RPMToEncoderUnitsInMillisecond(RPM));
-        components.getCtrePIDController().enable();
+    public void initMoveShooterByRPM(double RPM) {
+        components.getShooterController().setSetpoint(RPMToEncoderUnitsInDecisecond(RPM));
+        components.getShooterController().enable();
     }
 
-    public void changeAngleBySpeed(double speed) {
-        components.getAngleMotor().set(ControlMode.PercentOutput, speed);
+    public void updateMoveShooterByRPM(double RPM) {
+        components.getShooterController().update(RPMToEncoderUnitsInDecisecond(RPM));
     }
 
-    public void stopAngleMotor() {
-        changeAngleBySpeed(0);
+    public void moveAngularMotorByAngle(double speed) {
+        components.getAngularMotor().set(ControlMode.PercentOutput, speed);
+    }
+
+    public void stopAngularMotor() {
+        moveAngularMotorByAngle(0);
     }
 
     public void initMoveToAngle(double angle) {
-        angle = checkAngle(angle);
-        components.getCtreMotionMagicController().setSetpoint(angleToEncoderUnits(angle));
-        components.getCtreMotionMagicController().enable();
+        angle = getValidAngle(angle);
+        components.getAngularController().setSetpoint(angleToEncoderUnits(angle));
+        components.getAngularController().enable();
     }
 
     public void updateMoveToAngle(double angle) {
-        angle = checkAngle(angle);
-        components.getCtreMotionMagicController().update(angleToEncoderUnits(angle));
+        angle = getValidAngle(angle);
+        components.getAngularController().update(angleToEncoderUnits(angle));
     }
-
-    public double checkAngle(double angle) {
-        return Math.min(MAX_ANGLE, Math.max(angle, MIN_ANGLE));
-    }
-
-
 
     public double distanceToEncoderUnits(double distance) { //TODO Change and add angle
         double encoderUnitsTarget;
@@ -114,20 +112,24 @@ public class Shooter extends SubsystemBase {
         return Math.min(encoderUnitsTarget, SHOOTER_MOTOR_MAX_VELOCITY);
     }
 
-    public double RPMToEncoderUnitsInMillisecond(double RPM) {
+    public double RPMToEncoderUnitsInDecisecond(double RPM) {
         return (RPM * ENCODER_UNITS_PER_ROTATION) / MILLISECOND_TO_MINUTE;
     }
 
-    public double encoderUnitsInMillisecondToRPM(double encoderUnits) {
+    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
     }
 
     public double angleToEncoderUnits(double angle) {
-        return ((angle / ANGLE_PER_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGLE_MOTOR_CONVERSION;
+        return ((angle / ANGLE_PER_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGULAR_MOTOR_CONVERSION;
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_ROTATION) / ANGLE_MOTOR_CONVERSION;
+        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_ROTATION) / ANGULAR_MOTOR_CONVERSION;
+    }
+
+    public double getValidAngle(double angle) {
+        return Math.min(MAX_POSSIBLE_ANGLE, Math.max(angle, MIN_POSSIBLE_ANGLE));
     }
 
     public void startChecking() {
@@ -136,19 +138,19 @@ public class Shooter extends SubsystemBase {
 
     public boolean isBallShot() {
         boolean isBallShot = false;
-        if (components.getCtrePIDController().getCurrentError() >
-                MIN_ERROR_RPM && components.getCtrePIDController().getCurrentError() > lastRPMError) {
+        if (components.getShooterController().getCurrentError() >
+                MIN_ERROR_RPM && components.getShooterController().getCurrentError() > lastRPMError) {
             isBallShot = true;
         }
-        lastRPMError = components.getCtrePIDController().getCurrentError();
+        lastRPMError = components.getShooterController().getCurrentError();
         return isBallShot;
     }
 
     public boolean isShooterMotorOnTarget() {
-        return Math.abs(components.getCtrePIDController().getCurrentError()) < RPMToEncoderUnitsInMillisecond(SHOOTING_TOLERANCE);
+        return Math.abs(components.getShooterController().getCurrentError()) < RPMToEncoderUnitsInDecisecond(SHOOTER_TOLERANCE_RPM);
     }
 
-    public boolean angleMotorOnTarget(){
-        return Math.abs(components.getCtreMotionMagicController().getCurrentError()) < angleToEncoderUnits(ANGLE_TOLERANCE);
+    public boolean isAngularMotorOnTarget(){
+        return Math.abs(components.getAngularController().getCurrentError()) < angleToEncoderUnits(ANGULAR_TOLERANCE_DEGREE);
     }
 }

@@ -10,11 +10,8 @@ import onyxTronix.JoystickAxis;
 public class DriverShooterOiBinder {
 
     public DriverShooterOiBinder(Shooter shooter, Trigger changeAngle, JoystickAxis shootByPresentOutput ) {
-
         NetworkTableEntry entry = Shuffleboard.getTab("Shooter").add("angle", 0).getEntry();
         changeAngle.whenActive(new ChangeAngleByPosition(shooter,()-> entry.getDouble(0)));
-
         shootByPresentOutput.whileActiveContinuous(new ShootBySpeed(shooter, () -> shootByPresentOutput.getRawAxis()));
-
     }
 }

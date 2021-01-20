@@ -8,14 +8,14 @@ import pid.interfaces.PIDController;
 
 public interface ShooterComponents {
 
-    WPI_TalonFX getMasterMotor();
+    WPI_TalonFX getMasterShooterMotor();
 
-    WPI_TalonSRX getAngleMotor();
+    IMotorController getSlaveShooterMotor();
 
-    IMotorController getSlaveMotor();
+    WPI_TalonSRX getAngularMotor();
 
-    MotionMagicController getCtreMotionMagicController();
+    PIDController getShooterController();
 
-    PIDController getCtrePIDController();
+    MotionMagicController getAngularController();
 
 }

@@ -7,8 +7,8 @@ import java.util.function.DoubleSupplier;
 
 public class ChangeAngleByPosition extends CommandBase {
 
-    private final DoubleSupplier angleSupplier;
     private final Shooter shooter;
+    private final DoubleSupplier angleSupplier;
 
     public ChangeAngleByPosition(Shooter shooter, DoubleSupplier angleSupplier){
         this.angleSupplier = angleSupplier;
@@ -23,11 +23,11 @@ public class ChangeAngleByPosition extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        shooter.stopAngleMotor();
+        shooter.stopAngularMotor();
     }
 
     @Override
     public boolean isFinished() {
-        return shooter.angleMotorOnTarget();
+        return shooter.isAngularMotorOnTarget();
     }
 }

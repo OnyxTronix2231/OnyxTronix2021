@@ -7,8 +7,8 @@ import java.util.function.DoubleSupplier;
 
 public class ShootBySpeed extends CommandBase {
 
-    private final DoubleSupplier speedSupplier;
     private final Shooter shooter;
+    private final DoubleSupplier speedSupplier;
 
     public ShootBySpeed(Shooter shooter, DoubleSupplier speedSupplier) {
         this.shooter = shooter;

@@ -7,8 +7,8 @@ import java.util.function.DoubleSupplier;
 
 public class ChangeAngleBySpeed extends CommandBase {
 
-    private final DoubleSupplier speedSupplier;
     private final Shooter shooter;
+    private final DoubleSupplier speedSupplier;
 
     public ChangeAngleBySpeed(Shooter shooter, DoubleSupplier speedSupplier){
         this.speedSupplier = speedSupplier;
@@ -18,11 +18,11 @@ public class ChangeAngleBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.changeAngleBySpeed(speedSupplier.getAsDouble());
+        shooter.moveAngularMotorByAngle(speedSupplier.getAsDouble());
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.stopAngleMotor();
+        shooter.stopAngularMotor();
     }
 }
