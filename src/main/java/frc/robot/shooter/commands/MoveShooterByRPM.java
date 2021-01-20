@@ -17,7 +17,8 @@ public class MoveShooterByRPM extends CommandBase {
     }
 
     @Override
-    public void initialize() { shooter.initMoveShooterByRPM(RPMSupplier.getAsDouble());
+    public void initialize() {
+        shooter.initMoveShooterByRPM(RPMSupplier.getAsDouble());
     }
 
     @Override
