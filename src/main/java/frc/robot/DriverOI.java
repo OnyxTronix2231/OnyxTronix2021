@@ -8,10 +8,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import onyxTronix.JoystickAxis;
-import onyxTronix.UniqueAxisCache;
-import onyxTronix.UniqueTriggerCache;
-
-import java.util.function.DoubleSupplier;
 
 public class DriverOI {
 

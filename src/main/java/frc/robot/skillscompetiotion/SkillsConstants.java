@@ -3,7 +3,6 @@ package frc.robot.skillscompetiotion;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import frc.robot.drivetrain.Path;
-import frc.robot.drivetrain.Pose;
 
 import java.util.List;
 
