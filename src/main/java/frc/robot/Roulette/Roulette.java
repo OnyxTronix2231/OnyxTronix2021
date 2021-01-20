@@ -1,6 +1,9 @@
 package frc.robot.Roulette;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import java.util.Arrays;
@@ -12,9 +15,51 @@ import static frc.robot.Roulette.RouletteConstants.*;
 public class Roulette extends SubsystemBase {
 
     private final RouletteComponents components;
+    private final NetworkTableEntry shuffleboardEntryKP;
+    private final NetworkTableEntry shuffleboardEntryKI;
+    private final NetworkTableEntry shuffleboardEntryKD;
+    private final NetworkTableEntry shuffleboardEntryKF;
+    private final NetworkTableEntry shuffleboardEntryCruiseVelocity ;
+    private final NetworkTableEntry shuffleboardEntryAcceleration ;
+    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing ;
+
+
 
     public Roulette(RouletteComponents components) {
         this.components = components;
+        Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
+                , this::getCurrentRouletteRotations);
+        Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
+                getCurrentColor().getName());
+        shuffleboardEntryKP = Shuffleboard.getTab("Roulette").add("kP",
+                components.getController().getPIDFTerms().getKp()).getEntry();
+        shuffleboardEntryKI = Shuffleboard.getTab("Roulette").add("kI",
+                components.getController().getPIDFTerms().getKi()).getEntry();
+        shuffleboardEntryKD = Shuffleboard.getTab("Roulette").add("kD",
+                components.getController().getPIDFTerms().getKd()).getEntry();
+        shuffleboardEntryKF = Shuffleboard.getTab("Roulette").add("kF",
+                components.getController().getPIDFTerms().getKf()).getEntry();
+        shuffleboardEntryCruiseVelocity = Shuffleboard.getTab("Roulette").add("entry",
+                components.getController().getCruiseVelocity()).getEntry();
+        shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("velocity",
+                components.getController().getAcceleration()).getEntry();
+        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("entry",
+                components.getController().getAccelerationSmoothing()).getEntry();
+    }
+
+    @Override
+    public void periodic() {
+        components.getController().setPIDFTerms(
+                shuffleboardEntryKP.getDouble(components.getController().getPIDFTerms().getKp()),
+                shuffleboardEntryKI.getDouble(components.getController().getPIDFTerms().getKi()),
+                shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
+                shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
+        components.getController().setCruiseVelocity((int)shuffleboardEntryCruiseVelocity.
+                getDouble(components.getController().getCruiseVelocity()));
+        components.getController().setAcceleration((int)shuffleboardEntryAcceleration.
+                getDouble(components.getController().getAcceleration()));
+        components.getController().setAccelerationSmoothing((int)shuffleboardEntryAccelerationSmoothing.
+                getDouble(components.getController().getAccelerationSmoothing()));
     }
 
     public void openPiston() {
@@ -29,7 +74,11 @@ public class Roulette extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public RouletteColor colorMatching(RouletteColor color) {
+    public double getCurrentRouletteRotations() {
+        return encoderUnitsToRouletteRounds(components.getEncoder().getCount());
+    }
+
+    public RouletteColor colorMatching(Color color) {
         Optional<RouletteColor> closestColor = Arrays.stream(ROULETTE_COLORS).
                 max(Comparator.comparing(c -> c.howCloseTo(color)));
         return closestColor.orElse(null);
@@ -70,7 +119,7 @@ public class Roulette extends SubsystemBase {
     }
 
     public RouletteColor getCurrentColor() {
-        return colorMatching(new RouletteColor(components.getColorSensor().getColor()));
+        return colorMatching(components.getColorSensor().getColor());
     }
 
     public double getRoundsToColor(RouletteColor requiredColor) {//
@@ -86,7 +135,7 @@ public class Roulette extends SubsystemBase {
         return colorCountToRouletteRounds(distance);
     }
 
-    public double colorCountToRouletteRounds(int count){
+    public double colorCountToRouletteRounds(int count) {
         return count * RATIO_ROULETTE_TO_ROULETTE_COLOR;
     }
 
