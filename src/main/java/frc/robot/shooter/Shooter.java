@@ -31,7 +31,7 @@ public class Shooter extends SubsystemBase {
                 () -> encoderUnitsInDecisecondToRPM(components.getMasterShooterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
                 () -> components.getAngularMotor().getSelectedSensorVelocity());
-        Shuffleboard.getTab("Shooter").addNumber("current angle position", () ->
+        Shuffleboard.getTab("Shooter").addNumber("current angular motor position", () ->
                 encoderUnitsToAngle(components.getAngularMotor().getSelectedSensorPosition()));
 
         shooterKp = Shuffleboard.getTab("Shooter").add("shooterKp",
