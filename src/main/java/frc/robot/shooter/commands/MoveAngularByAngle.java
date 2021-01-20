@@ -17,8 +17,12 @@ public class MoveAngularByAngle extends CommandBase {
     }
 
     @Override
+    public void initialize() { shooter.initAngualrMoveToAngle(angleSupplier.getAsDouble());
+    }
+
+    @Override
     public void execute() {
-        shooter.initAngualrMoveToAngle(angleSupplier.getAsDouble());
+        shooter.updateAngularMoveToAngle(angleSupplier.getAsDouble());
     }
 
     @Override

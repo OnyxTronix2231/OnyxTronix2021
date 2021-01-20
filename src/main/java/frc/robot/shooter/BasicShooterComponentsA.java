@@ -9,6 +9,7 @@ import pid.PIDControlMode;
 import pid.PIDFTerms;
 import pid.interfaces.MotionMagicController;
 import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
@@ -17,7 +18,9 @@ public class BasicShooterComponentsA implements ShooterComponents {
 
     private final WPI_TalonFX masterShooterMotor;
     private final WPI_TalonFX slaveShooterMotor;
+    private final CtreEncoder shooterMotorEncoder;
     private final WPI_TalonSRX angularMotor;
+    private final CtreEncoder angularMotorEncoder;
     private final CtreMotionMagicController angularController;
     private final CtrePIDController ShooterController;
 
@@ -33,11 +36,15 @@ public class BasicShooterComponentsA implements ShooterComponents {
         slaveShooterMotor.setNeutralMode(NeutralMode.Coast);
         slaveShooterMotor.follow(masterShooterMotor);
 
+        shooterMotorEncoder = new CtreEncoder(masterShooterMotor);
+
         angularMotor = new WPI_TalonSRX(ANGULAR_MOTOR_ID);
         angularMotor.configFactoryDefault();
         angularMotor.configAllSettings(getTalonSRXConfiguration());
         angularMotor.setNeutralMode(NeutralMode.Brake);
         angularMotor.enableCurrentLimit(false);
+
+        angularMotorEncoder = new CtreEncoder(angularMotor);
 
         angularController = new CtreMotionMagicController(angularMotor,
                 new CtreEncoder(angularMotor),
@@ -84,8 +91,18 @@ public class BasicShooterComponentsA implements ShooterComponents {
     }
 
     @Override
+    public Counter getShooterMotorEncoder() {
+        return shooterMotorEncoder;
+    }
+
+    @Override
     public WPI_TalonSRX getAngularMotor() {
         return angularMotor;
+    }
+
+    @Override
+    public Counter getAngularMotorEncoder() {
+        return angularMotorEncoder;
     }
 
     @Override

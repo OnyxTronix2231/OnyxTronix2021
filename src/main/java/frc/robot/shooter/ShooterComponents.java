@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import pid.interfaces.MotionMagicController;
 import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 
 public interface ShooterComponents {
 
@@ -12,10 +13,13 @@ public interface ShooterComponents {
 
     IMotorController getSlaveShooterMotor();
 
+    Counter getShooterMotorEncoder();
+
     WPI_TalonSRX getAngularMotor();
+
+    Counter getAngularMotorEncoder();
 
     PIDController getShooterController();
 
     MotionMagicController getAngularController();
-
 }

@@ -28,11 +28,11 @@ public class Shooter extends SubsystemBase {
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterShooterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterShooterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getShooterMotorEncoder().getRate()));
         Shuffleboard.getTab("Shooter").addNumber("Current velocity",
-                () -> components.getAngularMotor().getSelectedSensorVelocity());
-        Shuffleboard.getTab("Shooter").addNumber("current angular motor position", () ->
-                encoderUnitsToAngle(components.getAngularMotor().getSelectedSensorPosition()));
+                () -> components.getAngularMotorEncoder().getRate());
+        Shuffleboard.getTab("Shooter").addNumber("current angular motor position",
+                () -> encoderUnitsToAngle(components.getAngularMotorEncoder().getCount()));
 
         shooterKp = Shuffleboard.getTab("Shooter").add("shooterKp",
                 components.getShooterController().getPIDFTerms().getKp()).getEntry();
@@ -153,4 +153,9 @@ public class Shooter extends SubsystemBase {
     public boolean isAngularMotorOnTarget(){
         return components.getAngularController().isOnTarget(angleToEncoderUnits(ANGULAR_TOLERANCE_DEGREE));
     }
+
+    public boolean isShooterReady(){
+        return isAngularMotorOnTarget() && isShooterMotorOnTarget();
+    }
+
 }

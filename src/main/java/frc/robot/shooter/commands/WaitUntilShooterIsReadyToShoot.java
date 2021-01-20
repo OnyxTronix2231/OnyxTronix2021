@@ -13,6 +13,6 @@ public class WaitUntilShooterIsReadyToShoot extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return shooter.isShooterMotorOnTarget() && shooter.isAngularMotorOnTarget();
+        return shooter.isShooterReady();
     }
 }
