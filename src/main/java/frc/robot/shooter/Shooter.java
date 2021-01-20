@@ -83,21 +83,21 @@ public class Shooter extends SubsystemBase {
         components.getShooterController().update(RPMToEncoderUnitsInDecisecond(RPM));
     }
 
-    public void moveAngularMotorByAngle(double speed) {
+    public void moveAngularMotorBySpeed(double speed) {
         components.getAngularMotor().set(ControlMode.PercentOutput, speed);
     }
 
     public void stopAngularMotor() {
-        moveAngularMotorByAngle(0);
+        moveAngularMotorBySpeed(0);
     }
 
-    public void initMoveToAngle(double angle) {
+    public void initAngualrMoveToAngle(double angle) {
         angle = getValidAngle(angle);
         components.getAngularController().setSetpoint(angleToEncoderUnits(angle));
         components.getAngularController().enable();
     }
 
-    public void updateMoveToAngle(double angle) {
+    public void updateAngularMoveToAngle(double angle) {
         angle = getValidAngle(angle);
         components.getAngularController().update(angleToEncoderUnits(angle));
     }
@@ -132,11 +132,11 @@ public class Shooter extends SubsystemBase {
         return Math.min(MAX_POSSIBLE_ANGLE, Math.max(angle, MIN_POSSIBLE_ANGLE));
     }
 
-    public void startChecking() {
+    public void initIsBallShot() {
         lastRPMError = Integer.MAX_VALUE;
     }
 
-    public boolean isBallShot() {
+    public boolean updateIsBallShot() {
         boolean isBallShot = false;
         if (components.getShooterController().getCurrentError() >
                 MIN_ERROR_RPM && components.getShooterController().getCurrentError() > lastRPMError) {
@@ -147,10 +147,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public boolean isShooterMotorOnTarget() {
-        return Math.abs(components.getShooterController().getCurrentError()) < RPMToEncoderUnitsInDecisecond(SHOOTER_TOLERANCE_RPM);
+        return components.getShooterController().isOnTarget(RPMToEncoderUnitsInDecisecond(SHOOTER_TOLERANCE_RPM));
     }
 
     public boolean isAngularMotorOnTarget(){
-        return Math.abs(components.getAngularController().getCurrentError()) < angleToEncoderUnits(ANGULAR_TOLERANCE_DEGREE);
+        return components.getAngularController().isOnTarget(angleToEncoderUnits(ANGULAR_TOLERANCE_DEGREE));
     }
 }

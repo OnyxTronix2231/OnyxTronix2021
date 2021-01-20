@@ -5,24 +5,24 @@ import frc.robot.shooter.Shooter;
 
 import java.util.function.DoubleSupplier;
 
-public class ShootBySpeed extends CommandBase {
+public class MoveAngularBySpeed extends CommandBase {
 
     private final Shooter shooter;
     private final DoubleSupplier speedSupplier;
 
-    public ShootBySpeed(Shooter shooter, DoubleSupplier speedSupplier) {
-        this.shooter = shooter;
+    public MoveAngularBySpeed(Shooter shooter, DoubleSupplier speedSupplier){
         this.speedSupplier = speedSupplier;
+        this.shooter = shooter;
         addRequirements(shooter);
     }
 
     @Override
     public void execute() {
-        shooter.moveShooterBySpeed(speedSupplier.getAsDouble());
+        shooter.moveAngularMotorBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.stopShooterMotor();
+        shooter.stopAngularMotor();
     }
 }

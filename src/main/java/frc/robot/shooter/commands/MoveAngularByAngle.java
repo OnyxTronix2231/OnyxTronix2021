@@ -5,12 +5,12 @@ import frc.robot.shooter.Shooter;
 
 import java.util.function.DoubleSupplier;
 
-public class ChangeAngleByPosition extends CommandBase {
+public class MoveAngularByAngle extends CommandBase {
 
     private final Shooter shooter;
     private final DoubleSupplier angleSupplier;
 
-    public ChangeAngleByPosition(Shooter shooter, DoubleSupplier angleSupplier){
+    public MoveAngularByAngle(Shooter shooter, DoubleSupplier angleSupplier){
         this.angleSupplier = angleSupplier;
         this.shooter = shooter;
         addRequirements(shooter);
@@ -18,7 +18,7 @@ public class ChangeAngleByPosition extends CommandBase {
 
     @Override
     public void execute() {
-        shooter.initMoveToAngle(angleSupplier.getAsDouble());
+        shooter.initAngualrMoveToAngle(angleSupplier.getAsDouble());
     }
 
     @Override

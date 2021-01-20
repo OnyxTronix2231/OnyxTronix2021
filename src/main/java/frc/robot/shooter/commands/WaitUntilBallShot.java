@@ -13,11 +13,11 @@ public class WaitUntilBallShot extends CommandBase {
 
     @Override
     public void initialize() {
-        shooter.startChecking();
+        shooter.initIsBallShot();
     }
 
     @Override
     public boolean isFinished() {
-        return shooter.isBallShot();
+        return shooter.updateIsBallShot();
     }
 }
