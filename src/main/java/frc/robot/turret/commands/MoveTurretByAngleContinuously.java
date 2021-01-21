@@ -8,34 +8,34 @@ import java.util.function.DoubleSupplier;
 public class MoveTurretByAngleContinuously extends CommandBase {
     private final Turret turret;
     private final DoubleSupplier doubleSupplier;
-    private final MoveByAngle moveByAngle;
+    private final MoveTurretToAngle moveTurretToAngle;
     private double totalAngle;
 
     public MoveTurretByAngleContinuously(Turret turret, DoubleSupplier doubleSupplier) {
         this.turret = turret;
         this.doubleSupplier = doubleSupplier;
-        moveByAngle = new MoveByAngle(turret, () -> totalAngle);
+        moveTurretToAngle = new MoveTurretToAngle(turret, () -> totalAngle);
     }
 
     @Override
     public void initialize() {
-        moveByAngle.initialize();
-
+        moveTurretToAngle.initialize();
+        totalAngle = turret.getAngle();
     }
 
     @Override
     public void execute() {
         totalAngle += doubleSupplier.getAsDouble();
-        moveByAngle.execute();
+        moveTurretToAngle.execute();
     }
 
     @Override
     public boolean isFinished() {
-        return moveByAngle.isFinished();
+        return moveTurretToAngle.isFinished();
     }
 
     @Override
     public void end(boolean interrupted) {
-        moveByAngle.end(interrupted);
+        moveTurretToAngle.end(interrupted);
     }
 }

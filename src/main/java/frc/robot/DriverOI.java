@@ -17,8 +17,5 @@ public class DriverOI {
 
     new DriveTrainOiBinder(driveTrain, xboxController);
 
-
-    JoystickAxis joystickAxis = new JoystickAxis(xboxController,XboxController.Axis.kLeftX.value);
-    new DriverTurretOiBinder(turret, joystickAxis);
   }
 }

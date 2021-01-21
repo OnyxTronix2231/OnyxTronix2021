@@ -7,11 +7,11 @@ import onyxTronix.JoystickAxis;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
-public class MoveBySpeed extends CommandBase {
+public class MoveTurretBySpeed extends CommandBase {
     private Turret turret;
     private DoubleSupplier speed;
 
-    public MoveBySpeed(Turret turret, DoubleSupplier speed) {
+    public MoveTurretBySpeed(Turret turret, DoubleSupplier speed) {
         this.turret = turret;
         this.speed = speed;
         addRequirements(turret);

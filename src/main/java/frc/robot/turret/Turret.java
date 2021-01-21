@@ -36,7 +36,6 @@ public class Turret extends SubsystemBase {
         components.getController().update(angleToEncoderUnits(angle));
     }
 
-
     public void initMoveByAngle(double angle) {
         startingAngle = getAngle();
         targetAngle = angle;
