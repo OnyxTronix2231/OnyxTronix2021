@@ -13,7 +13,7 @@ public final class DriveTrainConstants {
   static final int VELOCITY_CONTROLLER_PID_SLOT = 2;
   static final int CM_TO_METERS = 100;
   static final int SEC_TO_100MS = 10;
-  static final double CONVERSION_RATE = 9.5;
+  static final double CONVERSION_RATE = 9;
   static final double TOLERANCE_METERS = 0.03; // TODO: tuning is required
   static final double ARB_FEED_FORWARD = 0.04; // TODO: tuning is required
   private static final double INCH_TO_METER = 0.0254;
