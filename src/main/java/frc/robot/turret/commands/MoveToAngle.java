@@ -12,7 +12,7 @@ public class MoveToAngle extends MoveToAngleAndKeep {
 
     @Override
     public boolean isFinished() {
-        return getTurret().isOnTarget();
+        return turret.isOnTarget();
     }
 
 

@@ -7,6 +7,7 @@ import static frc.robot.turret.TurretConstants.*;
 public class Turret extends SubsystemBase {
     private final TurretComponents components;
     private double startingAngle;
+    private double targetAngle;
 
     public Turret(TurretComponents turretComponents) {
         this.components = turretComponents;
@@ -38,10 +39,15 @@ public class Turret extends SubsystemBase {
 
     public void initMoveByAngle(double angle) {
         startingAngle = getAngle();
+        targetAngle = angle;
         initMoveToAngle(startingAngle + angle);
     }
 
     public void updateMoveByAngle(double angle) {
+        if (targetAngle != angle){
+            startingAngle = getAngle();
+            targetAngle = angle;
+        }
         updateMoveToAngle(startingAngle + angle);
     }
 
