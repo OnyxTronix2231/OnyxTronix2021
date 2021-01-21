@@ -71,7 +71,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void stopShooterMotor() {
-        moveShooterBySpeed(0);
+        components.getShooterController().disable();
     }
 
     public void initMoveShooterByRPM(double RPM) {
@@ -88,7 +88,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void stopAngularMotor() {
-        moveAngularMotorBySpeed(0);
+        components.getShooterController().disable();
     }
 
     public void initAngualrMoveToAngle(double angle) {
