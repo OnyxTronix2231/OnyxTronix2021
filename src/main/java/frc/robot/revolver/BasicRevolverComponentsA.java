@@ -25,7 +25,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
         //masterMotor.configAllSettings(getConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Brake);
 
-        encoder = new CtreEncoder(masterMotor, PID_SLOT);
+        encoder = new CtreEncoder(masterMotor);
 
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);

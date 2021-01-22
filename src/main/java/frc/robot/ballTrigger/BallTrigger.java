@@ -3,6 +3,8 @@ package frc.robot.ballTrigger;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.ENCODER_UNITS_PER_ROTATION;
@@ -12,26 +14,56 @@ import static frc.robot.ballTrigger.BallTriggerConstants.OPEN_PISTON;
 public class BallTrigger extends SubsystemBase {
 
     private final BallTriggerComponents components;
+    private NetworkTableEntry kP;
+    private NetworkTableEntry kI;
+    private NetworkTableEntry kD;
+    private NetworkTableEntry kF;
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
+        Shuffleboard.getTab("Trigger").addNumber("Current error",
+                () -> components.getMasterMotor().getClosedLoopError());
+        Shuffleboard.getTab("Trigger").addNumber("Current RPM",
+                () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+        Shuffleboard.getTab("Trigger").addNumber("Current velocity in encoder units",
+                () -> components.getMasterMotor().getSelectedSensorVelocity());
+
+        kP = Shuffleboard.getTab("Trigger").add("kP",
+                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+
+        kI = Shuffleboard.getTab("Trigger").add("kI",
+                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+
+        kD = Shuffleboard.getTab("Trigger").add("kD",
+                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+
+        kF = Shuffleboard.getTab("Trigger").add("kF",
+                components.getPIDController().getPIDFTerms().getKp()).getEntry();
     }
 
-    public void moveBallTriggerBySpeed(double speed) {
+    @Override
+    public void periodic() {
+        components.getPIDController().setPIDFTerms(kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+                kI.getDouble(components.getPIDController().getPIDFTerms().getKi()),
+                kD.getDouble(components.getPIDController().getPIDFTerms().getKd()),
+                kF.getDouble(components.getPIDController().getPIDFTerms().getKf()));
+    }
+
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
-    public void initBallTriggerByRPM(double RPM) {
+    public void initMoveByRPM(double RPM) {
         components.getPIDController().setSetpoint(RPMToEncoderUnits(RPM));
         components.getPIDController().enable();
     }
 
-    public void updateBallTriggerRPM(double RPM) {
+    public void updateMoveByRPM(double RPM) {
         components.getPIDController().update(RPMToEncoderUnits(RPM));
     }
 
     public double RPMToEncoderUnits(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILISECS_IN_MIN;
+        return (RPM * ENCODER_UNITS_PER_ROTATION) / HUNDREDS_OF_MILISECS_IN_MIN;
     }
 
     public double encoderUnitsToRPM(double encoderUnits) {
@@ -39,7 +71,7 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void stop() {
-        moveBallTriggerBySpeed(0);
+        moveBySpeed(0);
     }
 
     public void openPistons() {

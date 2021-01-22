@@ -12,7 +12,6 @@ public class CollectorConstants {
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value
         static final double OPEN_LOOP_RAMP = 0; //TODO: check value
         static final double CLOSED_LOOP_RAMP = 0; //TODO: check value
-        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true;
-        static final boolean SUPPLY_CURRENT_LIMIT_DISABLED = false;
+        static final boolean CURRENT_LIMIT_ENABLED = true;
     }
 }

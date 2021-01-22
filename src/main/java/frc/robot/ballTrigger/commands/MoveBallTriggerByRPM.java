@@ -18,12 +18,12 @@ public class MoveBallTriggerByRPM extends CommandBase {
 
     @Override
     public void initialize() {
-        ballTrigger.initBallTriggerByRPM(RPMSupplier.getAsDouble());
+        ballTrigger.initMoveByRPM(RPMSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        ballTrigger.updateBallTriggerRPM(RPMSupplier.getAsDouble());
+        ballTrigger.updateMoveByRPM(RPMSupplier.getAsDouble());
     }
 
     @Override

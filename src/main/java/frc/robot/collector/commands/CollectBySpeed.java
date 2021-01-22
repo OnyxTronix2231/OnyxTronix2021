@@ -18,7 +18,7 @@ public class CollectBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        collector.collectBySpeed(speedSupplier.getAsDouble());
+        collector.moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override

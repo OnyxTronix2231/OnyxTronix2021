@@ -17,7 +17,7 @@ public class BasicCollectorComponentsA implements CollectorComponents {
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Brake);
-        masterMotor.enableCurrentLimit(SUPPLY_CURRENT_LIMIT_ENABLED);
+        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
     }

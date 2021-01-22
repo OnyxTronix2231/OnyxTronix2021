@@ -18,7 +18,7 @@ public class MoveBallTriggerBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        ballTrigger.moveBallTriggerBySpeed(speedSupplier.getAsDouble());
+        ballTrigger.moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override

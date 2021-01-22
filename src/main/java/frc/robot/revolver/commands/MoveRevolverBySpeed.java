@@ -18,7 +18,7 @@ public class MoveRevolverBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        revolver.moveRevolverBySpeed(speedSupplier.getAsDouble());
+        revolver.moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override
