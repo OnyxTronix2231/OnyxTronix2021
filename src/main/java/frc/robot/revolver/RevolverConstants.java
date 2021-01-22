@@ -25,9 +25,7 @@ public final class RevolverConstants {
         static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check value
         static final double PEAK_OUTPUT_REVERSE = -1; //TODO: check value
         static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true;
-        static final boolean SUPPLY_CURRENT_LIMIT_DISABLED = false;
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = true;
-        static final boolean STATOR_CURRENT_LIMIT_DISABLED = false;
         public static final double RPM_WHILE_COLLECTING = 1394.53125;
         public static final double RPM_WHILE_SHOOTING = 3187.5;
     }

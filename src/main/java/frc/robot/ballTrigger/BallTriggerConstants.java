@@ -10,7 +10,7 @@ public final class BallTriggerConstants {
         static final int MASTER_MOTOR_ID = 0; //TODO: check value
         static final int SOLENOID_CHANNEL = 1; //TODO: check value
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_RPM = 3000; //TODO: check value
+        static final double MAX_RPM = 20480; //TODO: check value
         static final double VELOCITY_P = 0; //TODO: check value
         static final double VELOCITY_I = 0; //TODO: check value
         static final double VELOCITY_D = 0; //TODO: check value
@@ -20,7 +20,6 @@ public final class BallTriggerConstants {
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value
         static final int OPEN_LOOP_RAMP = 0; //TODO: check value
         static final int CLOSED_LOOP_RAMP = 0; //TODO: check value
-        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true;
-        static final boolean SUPPLY_CURRENT_LIMIT_DISABLED = false;
+        static final boolean CURRENT_LIMIT_ENABLED = true;
     }
 }
