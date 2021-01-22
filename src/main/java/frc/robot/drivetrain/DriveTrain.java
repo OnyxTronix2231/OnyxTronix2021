@@ -77,11 +77,11 @@ public class DriveTrain extends SubsystemBase {
     DoubleSupplier insertVoltageSupplier = () -> insertVoltage.getDouble(0);
     move(insertVoltageSupplier);
     actualVoltageUsed.setDouble(simComponents.getLeftMasterMotor().getMotorOutputVoltage());
-    robotVelocityMetPerSec.setDouble(encoderUnitsToMeterSecond(simComponents.getLeftMasterMotor().getSelectedSensorVelocity()));
+    robotVelocityMetPerSec.setDouble(encoderUnitsDeciSecondToMeterSecond(simComponents.getLeftMasterMotor().getSelectedSensorVelocity()));
   } //ks = 0.480938416422287
 
-  public double encoderUnitsToMeterSecond(double encoderUnits) {
-    return encoderUnits / 4063.672668;
+  public double encoderUnitsDeciSecondToMeterSecond(double encoderUnits) {
+    return encoderUnitsToMeter(encoderUnits) * 10;
   }
 
   private void move(DoubleSupplier voltageSupplier) {
