@@ -3,11 +3,9 @@ package frc.robot.shooter;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
-import pid.CtreMotionMagicController;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.PIDFTerms;
-import pid.interfaces.MotionMagicController;
 import pid.interfaces.PIDController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
@@ -16,102 +14,61 @@ import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
 
-    private final WPI_TalonFX masterShooterMotor;
-    private final WPI_TalonFX slaveShooterMotor;
-    private final CtreEncoder shooterMotorEncoder;
-    private final WPI_TalonSRX angularMotor;
-    private final CtreEncoder angularMotorEncoder;
-    private final CtreMotionMagicController angularController;
+    private final WPI_TalonFX masterMotor;
+    private final WPI_TalonFX slaveMotor;
+    private final CtreEncoder shooterEncoder;
     private final CtrePIDController ShooterController;
 
     public BasicShooterComponentsA() {
-        masterShooterMotor = new WPI_TalonFX(MASTER_SHOOTER_MOTOR_ID);
-        masterShooterMotor.configFactoryDefault();
-        masterShooterMotor.configAllSettings(getFalconConfiguration());
-        masterShooterMotor.setNeutralMode(NeutralMode.Coast);
+        masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
+        masterMotor.configFactoryDefault();
+        masterMotor.configAllSettings(getFalconConfiguration());
+        masterMotor.setNeutralMode(NeutralMode.Coast);
 
-        slaveShooterMotor = new WPI_TalonFX(SLAVE_SHOOTER_MOTOR_ID);
-        slaveShooterMotor.configFactoryDefault();
-        slaveShooterMotor.configAllSettings(getFalconConfiguration());
-        slaveShooterMotor.setNeutralMode(NeutralMode.Coast);
-        slaveShooterMotor.follow(masterShooterMotor);
+        slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
+        slaveMotor.configFactoryDefault();
+        slaveMotor.configAllSettings(getFalconConfiguration());
+        slaveMotor.setNeutralMode(NeutralMode.Coast);
+        slaveMotor.follow(masterMotor);
 
-        shooterMotorEncoder = new CtreEncoder(masterShooterMotor);
-
-        angularMotor = new WPI_TalonSRX(ANGULAR_MOTOR_ID);
-        angularMotor.configFactoryDefault();
-        angularMotor.configAllSettings(getTalonSRXConfiguration());
-        angularMotor.setNeutralMode(NeutralMode.Brake);
-        angularMotor.enableCurrentLimit(false);
-
-        angularMotorEncoder = new CtreEncoder(angularMotor);
-
-        angularController = new CtreMotionMagicController(angularMotor,
-                new CtreEncoder(angularMotor),
-                new PIDFTerms(ANGULAR_MOTOR_VELOCITY_P, ANGULAR_MOTOR_VELOCITY_I, ANGULAR_MOTOR_VELOCITY_D, ANGULAR_MOTOR_VELOCITY_F),
-                ANGULAR_MOTOR_MAX_ACCELERATION, ANGULAR_MOTOR_CRUISE_VELOCITY, ANGULAR_MOTOR_ACCELERATION_SMOOTHING);
-        ShooterController = new CtrePIDController(masterShooterMotor,
-                new CtreEncoder(masterShooterMotor),
+        shooterEncoder = new CtreEncoder(masterMotor);
+        ShooterController = new CtrePIDController(masterMotor,
+                new CtreEncoder(masterMotor),
                 new PIDFTerms(SHOOTER_VELOCITY_P, SHOOTER_VELOCITY_I, SHOOTER_VELOCITY_D, SHOOTER_VELOCITY_F), PIDControlMode.Velocity);
     }
 
     private TalonFXConfiguration getFalconConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
-        config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
-        config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
-        config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
-        config.supplyCurrLimit.enable = true;
+        config.supplyCurrLimit.currentLimit = SUPPLY_CURRENT_LIMIT;
+        config.supplyCurrLimit.triggerThresholdCurrent = SUPPLY_TRIGGER_THRESHOLD_CURRENT;
+        config.supplyCurrLimit.triggerThresholdTime = SUPPLY_TRIGGER_THRESHOLD_TIME;
+        config.supplyCurrLimit.enable = ENABLE_SUPPLY_CURRENT_LIMIT;
         config.statorCurrLimit.currentLimit = STATOR_CURRENT_LIMIT;
         config.statorCurrLimit.triggerThresholdCurrent = STATOR_TRIGGER_THRESHOLD_CURRENT;
         config.statorCurrLimit.triggerThresholdTime = STATOR_TRIGGER_THRESHOLD_TIME;
-        config.statorCurrLimit.enable = false;
-        config.openloopRamp = SHOOTER_MOTOR_OPEN_LOOP_RAMP;
-        config.closedloopRamp = SHOOTER_MOTOR_CLOSE_LOOP_RAMP;
-        return config;
-    }
-
-    private TalonSRXConfiguration getTalonSRXConfiguration() {
-        final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.continuousCurrentLimit = ANGULAR_MOTOR_CONTINUOUS_CURRENT_LIMIT;
-        config.peakCurrentDuration = ANGULAR_MOTOR_PEAK_AMP_DURATION;
-        config.peakCurrentLimit = ANGULAR_MOTOR_PEAK_AMP;
-        config.openloopRamp = ANGULAR_MOTOR_OPEN_LOOP_RAMP;
-        config.closedloopRamp = ANGULAR_MOTOR_CLOSE_LOOP_RAMP;
+        config.statorCurrLimit.enable = ENABLE_STATOR_CURRENT_LIMIT;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        config.closedloopRamp = CLOSE_LOOP_RAMP;
         return config;
     }
 
     @Override
-    public WPI_TalonFX getMasterShooterMotor() {
-        return masterShooterMotor;
+    public WPI_TalonFX getMasterMotor() {
+        return masterMotor;
     }
 
     @Override
-    public IMotorController getSlaveShooterMotor() {
-        return slaveShooterMotor;
+    public IMotorController getSlaveMotor() {
+        return slaveMotor;
     }
 
     @Override
-    public Counter getShooterMotorEncoder() {
-        return shooterMotorEncoder;
-    }
-
-    @Override
-    public WPI_TalonSRX getAngularMotor() {
-        return angularMotor;
-    }
-
-    @Override
-    public Counter getAngularMotorEncoder() {
-        return angularMotorEncoder;
+    public Counter getShooterEncoder() {
+        return shooterEncoder;
     }
 
     @Override
     public PIDController getShooterController() {
         return ShooterController;
-    }
-
-    @Override
-    public MotionMagicController getAngularController() {
-        return angularController;
     }
 }

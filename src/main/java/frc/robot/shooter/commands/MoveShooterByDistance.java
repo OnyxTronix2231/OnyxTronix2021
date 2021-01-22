@@ -7,6 +7,6 @@ import java.util.function.DoubleSupplier;
 public class MoveShooterByDistance extends MoveShooterByRPM {
 
     public MoveShooterByDistance(Shooter shooter, DoubleSupplier distanceSupplier) {
-        super(shooter, () -> shooter.encoderUnitsInDecisecondToRPM(shooter.distanceToEncoderUnits(distanceSupplier.getAsDouble())));
+        super(shooter, () -> shooter.encoderUnitsInDecisecondToRPM(shooter.distanceMeterToEncoderUnitInDecisecond(distanceSupplier.getAsDouble())));
     }
 }
