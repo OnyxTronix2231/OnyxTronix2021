@@ -19,11 +19,9 @@ public class Roulette extends SubsystemBase {
     private final NetworkTableEntry shuffleboardEntryKI;
     private final NetworkTableEntry shuffleboardEntryKD;
     private final NetworkTableEntry shuffleboardEntryKF;
-    private final NetworkTableEntry shuffleboardEntryCruiseVelocity ;
-    private final NetworkTableEntry shuffleboardEntryAcceleration ;
-    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing ;
-
-
+    private final NetworkTableEntry shuffleboardEntryCruiseVelocity;
+    private final NetworkTableEntry shuffleboardEntryAcceleration;
+    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing;
 
     public Roulette(RouletteComponents components) {
         this.components = components;
@@ -54,11 +52,11 @@ public class Roulette extends SubsystemBase {
                 shuffleboardEntryKI.getDouble(components.getController().getPIDFTerms().getKi()),
                 shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
                 shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
-        components.getController().setCruiseVelocity((int)shuffleboardEntryCruiseVelocity.
+        components.getController().setCruiseVelocity((int) shuffleboardEntryCruiseVelocity.
                 getDouble(components.getController().getCruiseVelocity()));
-        components.getController().setAcceleration((int)shuffleboardEntryAcceleration.
+        components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
                 getDouble(components.getController().getAcceleration()));
-        components.getController().setAccelerationSmoothing((int)shuffleboardEntryAccelerationSmoothing.
+        components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
                 getDouble(components.getController().getAccelerationSmoothing()));
     }
 
@@ -104,7 +102,7 @@ public class Roulette extends SubsystemBase {
         if (gameData.isBlank()) {
             return null;
         }
-        switch (gameData.charAt(0)) {
+        switch (gameData.charAt(MIN_COLOR_INDEX)) {
             case 'B':
                 return ROULETTE_BLUE;
             case 'R':
@@ -119,18 +117,24 @@ public class Roulette extends SubsystemBase {
     }
 
     public RouletteColor getCurrentColor() {
-        return colorMatching(components.getColorSensor().getColor());
+        return colorMatching(components.
+                getColorSensor().getColor());
     }
 
-    public double getRoundsToColor(RouletteColor requiredColor) {//
+    public double getRoundsToColor(RouletteColor requiredColor) {
         RouletteColor currentColor = getCurrentColor();
         int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
         int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
+        if (currentColorIndex + COLOR_OFFSET > MAX_COLOR_INDEX) {
+            currentColorIndex = currentColorIndex - COLOR_OFFSET;
+        } else {
+            currentColorIndex = currentColorIndex + COLOR_OFFSET;
+        }
         int distance = (requiredColorIndex - currentColorIndex);
-        if (distance == 3) {
-            distance = -1;
-        } else if (distance == -3) {
-            distance = 1;
+        if (distance == INEFFICIENT_DISTANCE) {
+            distance = -OPTIMIZED_DISTANCE;
+        } else if (distance == -INEFFICIENT_DISTANCE) {
+            distance = OPTIMIZED_DISTANCE;
         }
         return colorCountToRouletteRounds(distance);
     }
@@ -152,7 +156,7 @@ public class Roulette extends SubsystemBase {
     }
 
     public void stop() {
-        components.getMasterMotor().set(0);
+        components.getController().disable();
     }
 
 }
