@@ -65,11 +65,11 @@ public class Arc extends SubsystemBase {
     }
 
     public double angleToEncoderUnits(double angle) {
-        return ((angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGULAR_MOTOR_CONVERSION;
+        return ((angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION);
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_MOTOR_ROTATION) / ANGULAR_MOTOR_CONVERSION;
+        return ((encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION);
     }
 
     public double getValidAngle(double angle) {
@@ -80,27 +80,12 @@ public class Arc extends SubsystemBase {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
     }
 
-    int counter = 0;
-    int totalMovement = 0;
-    int prevTotalMovement = 0;
-    double lastPos = 0;
-
     @Override
     public void simulationPeriodic() {
         components.getLinearSystemSim().setInput(components.getMasterMotor().getMotorOutputPercent()
                 * RobotController.getBatteryVoltage());
         components.getLinearSystemSim().update(0.02);
-        components.getMasterMotor().getSimCollection().setQuadratureRawPosition((int)
-                angleToEncoderUnits(components.getLinearSystemSim().getOutput(0)));
-        totalMovement += components.getMasterMotor().getSelectedSensorPosition();
-        if (counter == 5) {
-            components.getMasterMotor().getSimCollection().setQuadratureVelocity(totalMovement - prevTotalMovement);
-            prevTotalMovement = totalMovement;
-            totalMovement = 0;
-            counter = 0;
-        } else {
-            counter++;
-        }
+        components.getMasterMotor().getSimCollection().setQuadratureRawPosition((int) components.getLinearSystemSim().getOutput(0));
         components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
                 components.getLinearSystemSim().getCurrentDrawAmps()));
