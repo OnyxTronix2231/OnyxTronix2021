@@ -2,14 +2,15 @@ package frc.robot.skillscompetiotion;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.util.Units;
 
 public class Waypoint {
   private final double x;
   private final double y;
 
   public Waypoint(double x, double y) {
-    this.x = x * 0.0254;
-    this.y = y * 0.0254;
+    this.x = Units.inchesToMeters(x);
+    this.y = Units.inchesToMeters(y);
   }
 
   public Pose2d getPose2dFromRotation(double deg){

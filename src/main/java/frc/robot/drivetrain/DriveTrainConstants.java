@@ -17,9 +17,8 @@ public final class DriveTrainConstants {
   static final double CONVERSION_RATE = 9;
   static final double TOLERANCE_METERS = 0.03; // TODO: tuning is required
   static final double ARB_FEED_FORWARD = 0.04; // TODO: tuning is required
-  private static final double INCH_TO_METER = 0.0254;
   public static final double WHEEL_DIAMETER = 6;
-  public static final double PERIMETER_METER = Units.inchesToMeters(6) * Math.PI; //TODO: tuning is required
+  public static final double PERIMETER_METER = Units.inchesToMeters(WHEEL_DIAMETER) * Math.PI; //TODO: tuning is required
   private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainComponentsA {
