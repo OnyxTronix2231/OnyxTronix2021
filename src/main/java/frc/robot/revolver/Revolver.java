@@ -24,7 +24,7 @@ public class Revolver extends SubsystemBase {
         Shuffleboard.getTab("Revolver").addNumber("Current error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Revolver").addNumber("Current RPM",
-                () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
                 () -> components.getMasterMotor().getSelectedSensorVelocity());
 
@@ -54,27 +54,28 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double RPM) {
-        components.getPIDController().setSetpoint(RPMToEncoderUnit(RPM));
+        components.getPIDController().setSetpoint(RPMToEncoderUnitInDecisecond(RPM));
         components.getPIDController().enable();
     }
 
     public void updateMoveByRPM(double RPM) {
-        components.getPIDController().update(RPMToEncoderUnit(RPM));
+        components.getPIDController().update(RPMToEncoderUnitInDecisecond(RPM));
     }
 
     public void stop() {
         moveBySpeed(0);
+        components.getPIDController().disable();
     }
 
     public boolean isOnTarget() {
-        return components.getPIDController().isOnTarget(RPMToEncoderUnit(TOLERANCE_IN_RPM));
+        return components.getPIDController().isOnTarget(RPMToEncoderUnitInDecisecond(TOLERANCE_IN_RPM));
     }
 
-    public double RPMToEncoderUnit(double RPM) {
+    public double RPMToEncoderUnitInDecisecond(double RPM) {
         return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILLISECS_IN_MIN;
     }
 
-    public double encoderUnitsToRPM(double encoderUnits) {
+    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * HUNDREDS_OF_MILLISECS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 

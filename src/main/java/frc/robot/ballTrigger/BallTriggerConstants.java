@@ -15,7 +15,7 @@ public final class BallTriggerConstants {
         static final int OPEN_LOOP_RAMP = 0; //TODO: check value
         static final int CLOSED_LOOP_RAMP = 0; //TODO: check value
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_ENCODER_UNITS = 20480; //TODO: check value
+        static final double MAX_ENCODER_UNITS = 0; //TODO: check value
         static final double VELOCITY_P = 0; //TODO: check value
         static final double VELOCITY_I = 0; //TODO: check value
         static final double VELOCITY_D = 0; //TODO: check value
