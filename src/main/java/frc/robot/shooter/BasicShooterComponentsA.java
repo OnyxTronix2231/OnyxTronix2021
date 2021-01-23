@@ -82,4 +82,14 @@ public class BasicShooterComponentsA implements ShooterComponents {
     public PIDController getShooterController() {
         return ShooterController;
     }
+
+    @Override
+    public FlywheelSim getFlyWheelSim() {
+        return flywheelSim;
+    }
+
+    @Override
+    public LinearSystemSim getLinearSystemSim() {
+        return linearSystemSim;
+    }
 }
