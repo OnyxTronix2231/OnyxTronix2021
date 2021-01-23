@@ -10,6 +10,10 @@ public final class ShooterConstants {
 
     public static final class ShooterConstantsA {
 
+        static final int PEAK_AMP_DURATION = 0; // TODO: check and change
+        static final int CONTINUOUS_CURRENT_LIMIT = 0; // TODO: check and change
+        static final boolean CURRENT_LIMIT_ENABLED = false;
+        static final int PEAK_AMP = 0; // TODO: check and change
         static final int MASTER_MOTOR_ID = 7; // TODO: check and change
         static final int SLAVE_MOTOR_ID = 8; // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;

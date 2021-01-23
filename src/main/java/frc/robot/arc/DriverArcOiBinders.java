@@ -8,7 +8,7 @@ import frc.robot.arc.commands.MoveArcByAngle;
 public class DriverArcOiBinders {
 
     public DriverArcOiBinders(Arc arc, Trigger changeAngle) {
-        NetworkTableEntry entry = Shuffleboard.getTab("Shooter").add("angle", 0).getEntry();
+        NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
         changeAngle.whenActive(new MoveArcByAngle(arc, () -> entry.getDouble(0)));
     }
 }

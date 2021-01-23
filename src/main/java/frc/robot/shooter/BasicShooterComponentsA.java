@@ -25,12 +25,13 @@ public class BasicShooterComponentsA implements ShooterComponents {
     public BasicShooterComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-        //masterMotor.configAllSettings(getFalconConfiguration());
+        masterMotor.configAllSettings(getTalonSRXConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Coast);
+        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
         slaveMotor.configFactoryDefault();
-        //slaveMotor.configAllSettings(getFalconConfiguration());
+        slaveMotor.configAllSettings(getTalonSRXConfiguration());
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
 
@@ -40,6 +41,16 @@ public class BasicShooterComponentsA implements ShooterComponents {
                 new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
 
         flywheelSim = new FlywheelSim(DCMotor.getFalcon500(2), 1, 0.01 );
+    }
+
+    private TalonSRXConfiguration getTalonSRXConfiguration() {
+        final TalonSRXConfiguration config = new TalonSRXConfiguration();
+        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
+        config.peakCurrentDuration = PEAK_AMP_DURATION;
+        config.peakCurrentLimit = PEAK_AMP;
+        config.openloopRamp = ShooterConstants.ShooterConstantsA.OPEN_LOOP_RAMP;
+        config.closedloopRamp = CLOSE_LOOP_RAMP;
+        return config;
     }
 
     /*private TalonFXConfiguration getFalconConfiguration() {
