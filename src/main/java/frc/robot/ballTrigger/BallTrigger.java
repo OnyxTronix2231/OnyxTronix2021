@@ -70,6 +70,7 @@ public class BallTrigger extends SubsystemBase {
 
     public void stop() {
         moveBySpeed(0);
+        components.getPIDController().disable();
     }
 
     public void openPistons() {
