@@ -10,15 +10,17 @@ import frc.robot.arc.DriverArcOiBinders;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.shooter.DriverShooterOiBinder;
 import frc.robot.shooter.Shooter;
+import onyxTronix.JoystickAxis;
 
 public class DriverOI {
 
     public DriverOI(DriveTrain driveTrain, Shooter shooter, Arc arc) {
         XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
         Trigger kAShootByRPM = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        JoystickAxis kLeftXShootByPresentOutput = new JoystickAxis(xboxController, XboxController.Axis.kLeftX.value);
         Trigger kXChangeAngle = new JoystickButton(xboxController, XboxController.Button.kX.value);
 
-        new DriverShooterOiBinder(shooter, kAShootByRPM);
+        new DriverShooterOiBinder(shooter,kLeftXShootByPresentOutput, kAShootByRPM);
         new DriverArcOiBinders(arc, kXChangeAngle);
     }
 }
