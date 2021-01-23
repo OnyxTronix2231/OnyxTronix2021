@@ -6,9 +6,10 @@ import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import pid.interfaces.Controller;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.ballTrigger.BallTriggerConstants.HUNDREDS_OF_MILISECS_IN_MIN;
+import static frc.robot.ballTrigger.BallTriggerConstants.DECISECOND_IN_MIN;
 import static frc.robot.ballTrigger.BallTriggerConstants.OPEN_PISTON;
 
 public class BallTrigger extends SubsystemBase {
@@ -24,7 +25,7 @@ public class BallTrigger extends SubsystemBase {
         Shuffleboard.getTab("Trigger").addNumber("Current error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Trigger").addNumber("Current RPM",
-                () -> encoderUnitsToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Trigger").addNumber("Current velocity in encoder units",
                 () -> components.getMasterMotor().getSelectedSensorVelocity());
 
@@ -54,20 +55,20 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void initMoveByRPM(double RPM) {
-        components.getPIDController().setSetpoint(RPMToEncoderUnits(RPM));
+        components.getPIDController().setSetpoint(RPMToEncoderUnitsInDecisecond(RPM));
         components.getPIDController().enable();
     }
 
     public void updateMoveByRPM(double RPM) {
-        components.getPIDController().update(RPMToEncoderUnits(RPM));
+        components.getPIDController().update(RPMToEncoderUnitsInDecisecond(RPM));
     }
 
-    public double RPMToEncoderUnits(double RPM) {
-        return (RPM * ENCODER_UNITS_PER_ROTATION) / HUNDREDS_OF_MILISECS_IN_MIN;
+    public double RPMToEncoderUnitsInDecisecond(double RPM) {
+        return (RPM * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
 
-    public double encoderUnitsToRPM(double encoderUnits) {
-        return (encoderUnits * HUNDREDS_OF_MILISECS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
     public void stop() {
