@@ -5,6 +5,8 @@
 package frc.robot;
 
 import static frc.robot.RobotConstants.ROBOT_TYPE;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.ENCODER_CPR;
+import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -23,6 +25,13 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
+  private edu.wpi.first.wpilibj.Timer timer;
+  private double maxAcc;
+  private double prevVel;
+  private double prevTime;
+  DriveTrainComponents driveTrainComponents;
+  DriveTrainVirtualComponents driveTrainVirtualComponents;
+  SimulationDriveTrainComponents simulationDriveTrainComponents;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,10 +39,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    DriveTrainComponents driveTrainComponents;
-    DriveTrainVirtualComponents driveTrainVirtualComponents;
-    SimulationDriveTrainComponents simulationDriveTrainComponents;
-
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
       simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
@@ -48,6 +53,12 @@ public class Robot extends TimedRobot {
 
     new DriverOI(driveTrain);
     new DeputyOI();
+
+    timer = new edu.wpi.first.wpilibj.Timer();
+    timer.start();
+    prevVel = 0;
+    prevTime = 0;
+    maxAcc = 0;
   }
 
   /**
@@ -108,6 +119,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    double currVel = simulationDriveTrainComponents.getLeftMasterMotor().getSelectedSensorVelocity();
+    double deltaV = currVel - prevVel;
+    prevVel = currVel;
+
+    double currTime = timer.get();
+    double deltaT = currTime - prevTime;
+    prevTime = currTime;
+
+    double acc = encoderUnitsToMeter(deltaV) / deltaT;
+    if (acc > maxAcc) maxAcc = acc;
+    System.out.println(acc);
   }
 
   @Override
@@ -120,5 +142,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  private double encoderUnitsToMeter(double encoder) {
+    return encoder / ENCODER_CPR * PERIMETER_METER;
   }
 }

@@ -17,7 +17,7 @@ public final class DriveTrainConstants {
   static final double TOLERANCE_METERS = 0.03; // TODO: tuning is required
   static final double ARB_FEED_FORWARD = 0.04; // TODO: tuning is required
   private static final double INCH_TO_METER = 0.0254;
-  static final double PERIMETER_METER = 6 * INCH_TO_METER * Math.PI; //TODO: tuning is required
+  public static final double PERIMETER_METER = 6 * INCH_TO_METER * Math.PI; //TODO: tuning is required
   private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainComponentsA {
@@ -61,7 +61,7 @@ public final class DriveTrainConstants {
       public static final double RAMSETE_ZETA = 0.7;
       static final int TRAJECTORY_PID_SLOT = 1;
       static final int DEGREES_IN_FULL_ROTATION = 360;
-      static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
+      public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
       static final double VOLTS = 0.480938; // TODO: This is Sim value, Calibration with A
       static final double VOLT_SECONDS_PER_METER = 0.9483; // TODO: This is Sim value, Calibration with A
       static final double VOLT_SECONDS_SQUARED_PER_METER = 0.333; // TODO: Calibration with A
