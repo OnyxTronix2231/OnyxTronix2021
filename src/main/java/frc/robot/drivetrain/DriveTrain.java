@@ -314,7 +314,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private double encoderUnitsToMeter(double encoder) {
-    return 1 / metersToEncoderUnits(encoder);
+    return encoder / ENCODER_CPR * PERIMETER_METER;
   }
 
   private void resetEncoders() {
