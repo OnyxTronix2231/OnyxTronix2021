@@ -3,12 +3,18 @@ package frc.robot.climber;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Solenoid;
+import pid.CtreController;
+import pid.CtreMotionMagicController;
+import pid.PIDFTerms;
+import sensors.counter.CtreEncoder;
+
 
 public class BasicClimberComponentsA implements ClimberComponents {
     private final WPI_TalonFX masterMotor;
     private final WPI_TalonFX slaveMotor;
-    private final Solenoid solenoid;
+    private final CtreMotionMagicController controller;
+    private final CtreEncoder encoder;
+
 
     public BasicClimberComponentsA() {
 
@@ -23,22 +29,34 @@ public class BasicClimberComponentsA implements ClimberComponents {
         slaveMotor.setNeutralMode(NeutralMode.Brake);
         slaveMotor.follow(masterMotor);
 
-        solenoid = new Solenoid(0);
+        encoder = new CtreEncoder(masterMotor);
+
+        controller = new CtreMotionMagicController(masterMotor, encoder,new PIDFTerms(0,0,0,0)
+                ,0,0,0);
+
     }
 
 
     @Override
     public WPI_TalonFX getMasterMotor() {
-        return null;
+        return masterMotor;
     }
+
 
     @Override
     public WPI_TalonFX getSlaveMotor() {
+        return slaveMotor;
+    }
+
+    @Override
+    public CtreController getController() {
         return null;
     }
 
     @Override
-    public Solenoid getSolenoid() {return null; }
+    public CtreEncoder getEncoder() {
+        return null;
+    }
 
     private TalonFXConfiguration getFalconConfig;
 
