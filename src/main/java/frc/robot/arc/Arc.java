@@ -66,7 +66,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_MOTOR_ROTATION) / ANGULAR_MOTOR_CONVERSION;
+        return ((encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGULAR_MOTOR_CONVERSION;
     }
 
     public double getValidAngle(double angle) {
