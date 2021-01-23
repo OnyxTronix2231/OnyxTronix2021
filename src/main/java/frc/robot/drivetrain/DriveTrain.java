@@ -3,6 +3,7 @@ package frc.robot.drivetrain;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -27,17 +29,15 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
   private final SimulationDriveTrainComponents simComponents;
-  private final boolean isMainSim;
   private final NetworkTableEntry insertVoltage;
   private final NetworkTableEntry actualVoltageUsed;
   private final NetworkTableEntry robotVelocityMetPerSec;
 
   public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
-                    SimulationDriveTrainComponents simComponents, boolean isMainSim) {
+                    SimulationDriveTrainComponents simComponents) {
     this.components = components;
     this.vComponents = vComponents;
     this.simComponents = simComponents;
-    this.isMainSim = isMainSim;
     insertVoltage = Shuffleboard.getTab("kV").add("Insert Voltage", 0).getEntry();
     actualVoltageUsed = Shuffleboard.getTab("kV").add("Actual Voltage Used", 0).getEntry();
     robotVelocityMetPerSec = Shuffleboard.getTab("kV").add("Speed m/s", 0).getEntry();
@@ -46,12 +46,16 @@ public class DriveTrain extends SubsystemBase {
     simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
     vComponents.getOdometry().resetPosition(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     resetEncoders();
+    if (Robot.isSimulation()) {
+      simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+      simComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+    }
   }
 
   @Override
   public void periodic() {
-    vComponents.getOdometry().update(Rotation2d.fromDegrees((isMainSim ? getSimOdometryHeading() : getOdometryHeading())),
-        (isMainSim ? getSimLeftDistance() : getLeftDistance()), (isMainSim ? getSimRightDistance() : getRightDistance()));
+    vComponents.getOdometry().update(Rotation2d.fromDegrees((Robot.isSimulation() ? getSimOdometryHeading() : getOdometryHeading())),
+        (Robot.isSimulation() ? getSimLeftDistance() : getLeftDistance()), (Robot.isSimulation() ? getSimRightDistance() : getRightDistance()));
 
     simComponents.getField2d().setRobotPose(vComponents.getOdometry().getPoseMeters());
   }
@@ -64,9 +68,9 @@ public class DriveTrain extends SubsystemBase {
     vComponents.getDriveTrainSim().update(0.02);
 
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(
-        (int)metersPerSecToEncoderUnitsPer100ms(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
+        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(
-        (int)metersPerSecToEncoderUnitsPer100ms(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
+        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int)metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
@@ -151,13 +155,13 @@ public class DriveTrain extends SubsystemBase {
     final double rightFeedForwardVolts = vComponents.getMotorFeedForward().calculate(rightVelocity, 0);
 
     initMotionProfileSlot(TRAJECTORY_PID_SLOT);
-    getLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(leftVelocity),
+    getLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(leftVelocity),
         DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(rightVelocity),
+    getRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(rightVelocity),
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(leftVelocity),
+    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(leftVelocity),
         DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPer100ms(rightVelocity),
+    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(rightVelocity),
         DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
   }
 
@@ -305,7 +309,7 @@ public class DriveTrain extends SubsystemBase {
     return ENCODER_CPR * meters / PERIMETER_METER;
   }
 
-  private double metersPerSecToEncoderUnitsPer100ms(double metersPerSec) {
+  private double metersPerSecToEncoderUnitsPerDeciSecond(double metersPerSec) {
     return metersToEncoderUnits(metersPerSec / SEC_TO_100MS);
   }
 
