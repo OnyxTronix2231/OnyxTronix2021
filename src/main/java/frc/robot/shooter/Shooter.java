@@ -14,6 +14,7 @@ public class Shooter extends SubsystemBase {
     private final NetworkTableEntry KI;
     private final NetworkTableEntry KD;
     private final NetworkTableEntry KF;
+
     public Shooter(ShooterComponents components) {
         this.components = components;
         lastRPMError = Integer.MAX_VALUE;
@@ -93,7 +94,7 @@ public class Shooter extends SubsystemBase {
         return isBallShot;
     }
 
-    public boolean isShooterOnTarget() {
+    public boolean isOnTarget() {
         return components.getShooterController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
     }
 }
