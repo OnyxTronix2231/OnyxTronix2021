@@ -5,7 +5,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
 import edu.wpi.first.wpilibj.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.system.plant.LinearSystemId;
+import edu.wpi.first.wpiutil.math.numbers.N1;
+import edu.wpi.first.wpiutil.math.numbers.N2;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import sensors.counter.CtreEncoder;
@@ -17,7 +21,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
     private final WPI_TalonSRX masterMotor; //TODO: set back to TalonFX once simulation is supported
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
-    private final FlywheelSim flywheelSim;
+    private final LinearSystemSim<N1, N1, N1> linearSystemSim;
 
     public BasicRevolverComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -30,7 +34,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
 
-        flywheelSim = new FlywheelSim(DCMotor.getFalcon500(1), 26.5625, 0.01);
+        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(0.1,1));
     }
 
     public TalonFXConfiguration getConfiguration() {
@@ -66,7 +70,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
     }
 
     @Override
-    public FlywheelSim getFlyWheelSim() {
-        return flywheelSim;
+    public LinearSystemSim<N1, N1, N1> getLinearSystemSim() {
+        return linearSystemSim;
     }
 }

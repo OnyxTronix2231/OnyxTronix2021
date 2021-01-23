@@ -81,13 +81,13 @@ public class Revolver extends SubsystemBase {
 
     @Override
     public void simulationPeriodic() {
-        components.getFlyWheelSim().setInputVoltage(components.getMasterMotor().getMotorOutputPercent()
+        components.getLinearSystemSim().setInput(components.getMasterMotor().getMotorOutputPercent()
                 * RobotController.getBatteryVoltage());
-        components.getFlyWheelSim().update(0.02);
+        components.getLinearSystemSim().update(0.02);
         components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
-                RPMToEncoderUnitInDecisecond(components.getFlyWheelSim().getAngularVelocityRPM()));
-        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
+                RPMToEncoderUnitInDecisecond(components.getLinearSystemSim().getOutput(0)));
+        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-                components.getFlyWheelSim().getCurrentDrawAmps()));
+                components.getLinearSystemSim().getCurrentDrawAmps()));
     }
 }
