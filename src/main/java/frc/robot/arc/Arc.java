@@ -23,7 +23,7 @@ public class Arc extends SubsystemBase {
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current position",
-                () -> encoderUnitsToAngle(components.getEncoder().getCount()));
+                () -> components.getEncoder().getCount());
 
         KP = Shuffleboard.getTab("Arc").add("KP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
@@ -55,12 +55,14 @@ public class Arc extends SubsystemBase {
 
     public void initMoveArcToAngle(double angle) {
         angle = getValidAngle(angle);
+        System.out.println(angleToEncoderUnits(angle));
         components.getController().setSetpoint(angleToEncoderUnits(angle));
         components.getController().enable();
     }
 
     public void updateMoveArcToAngle(double angle) {
         angle = getValidAngle(angle);
+        System.out.println(angleToEncoderUnits(angle));
         components.getController().update(angleToEncoderUnits(angle));
     }
 
@@ -69,7 +71,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return ((encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION);
+        return ((encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_MOTOR_ROTATION);
     }
 
     public double getValidAngle(double angle) {
@@ -77,7 +79,10 @@ public class Arc extends SubsystemBase {
     }
 
     public boolean isOnTarget() {
-        return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
+        System.out.println(components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE)));
+        System.out.println(components.getController().getCurrentError());
+        //return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
+        return false;
     }
 
     @Override

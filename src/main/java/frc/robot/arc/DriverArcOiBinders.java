@@ -9,6 +9,6 @@ public class DriverArcOiBinders {
 
     public DriverArcOiBinders(Arc arc, Trigger changeAngle) {
         NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
-        changeAngle.whenActive(new MoveArcByAngle(arc, () -> entry.getDouble(0)));
+        changeAngle.whileActiveContinuous(new MoveArcByAngle(arc, () -> entry.getDouble(0)));
     }
 }

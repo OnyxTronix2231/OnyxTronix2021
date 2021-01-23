@@ -11,7 +11,7 @@ public class ArcConstants {
 
     public static final class ArcConstantsA {
         static final int MASTER_MOTOR_ID = 5; // TODO: check and change
-        static final double MAX_VELOCITY = 500; // Encoder Units // TODO: check and change
+        static final double MAX_VELOCITY = 5; // Encoder Units // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final int CRUISE_VELOCITY = 300; // Encoder Units // TODO: check and change
         static final int PEAK_AMP = 0; // TODO: check and change
@@ -20,7 +20,7 @@ public class ArcConstants {
         static final int PEAK_AMP_DURATION = 0; // TODO: check and change
         static final int CONTINUOUS_CURRENT_LIMIT = 0; // TODO: check and change
         static final boolean CURRENT_LIMIT_ENABLED = false;
-        static final double VELOCITY_P = 0.5; // TODO: check and change
+        static final double VELOCITY_P = 0; // TODO: check and change
         static final double VELOCITY_I = 0; // TODO: check and change
         static final double VELOCITY_D = 0; // TODO: check and change
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
