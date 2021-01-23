@@ -8,9 +8,15 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.arc.Arc;
+import frc.robot.arc.ArcComponents;
+import frc.robot.arc.BasicArcComponentsA;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.shooter.BasicShooterComponentsA;
+import frc.robot.shooter.Shooter;
+import frc.robot.shooter.ShooterComponents;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +30,8 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
+    Shooter shooter;
+    Arc arc;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -32,16 +40,24 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrainComponents driveTrainComponents;
+        ShooterComponents shooterComponents;
+        ArcComponents arcComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new BasicDriveTrainComponentsA();
+            shooterComponents = new BasicShooterComponentsA();
+            arcComponents = new BasicArcComponentsA();
         } else {
             driveTrainComponents = null;
+            shooterComponents = null;
+            arcComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents);
+        shooter = new Shooter(shooterComponents);
+        arc = new Arc(arcComponents);
 
-        new DriverOI(driveTrain);
+        new DriverOI(driveTrain,shooter,arc);
         new DeputyOI();
     }
 
