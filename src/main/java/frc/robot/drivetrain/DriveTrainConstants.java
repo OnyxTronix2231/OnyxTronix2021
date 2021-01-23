@@ -2,6 +2,7 @@ package frc.robot.drivetrain;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.util.Units;
 
 import java.util.List;
 
@@ -17,7 +18,8 @@ public final class DriveTrainConstants {
   static final double TOLERANCE_METERS = 0.03; // TODO: tuning is required
   static final double ARB_FEED_FORWARD = 0.04; // TODO: tuning is required
   private static final double INCH_TO_METER = 0.0254;
-  public static final double PERIMETER_METER = 6 * INCH_TO_METER * Math.PI; //TODO: tuning is required
+  public static final double WHEEL_DIAMETER = 6;
+  public static final double PERIMETER_METER = Units.inchesToMeters(6) * Math.PI; //TODO: tuning is required
   private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainComponentsA {
