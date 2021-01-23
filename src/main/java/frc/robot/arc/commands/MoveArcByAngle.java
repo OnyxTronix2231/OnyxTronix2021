@@ -33,6 +33,6 @@ public class MoveArcByAngle extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        arc.stopArc();
+        arc.stop();
     }
 }

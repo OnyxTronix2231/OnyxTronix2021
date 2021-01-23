@@ -23,6 +23,6 @@ public class MoveArcBySpeed extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        arc.stopArc();
+        arc.stop();
     }
 }

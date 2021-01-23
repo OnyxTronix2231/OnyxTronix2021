@@ -8,7 +8,7 @@ public interface ArcComponents {
 
     WPI_TalonSRX getMasterMotor();
 
-    Counter getArcMotorEncoder();
+    Counter getEncoder();
 
-    MotionMagicController getArcController();
+    MotionMagicController getController();
 }

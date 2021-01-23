@@ -14,8 +14,6 @@ public class Shooter extends SubsystemBase {
     private final NetworkTableEntry KI;
     private final NetworkTableEntry KD;
     private final NetworkTableEntry KF;
-    private double lastRPMError;
-
     public Shooter(ShooterComponents components) {
         this.components = components;
         lastRPMError = Integer.MAX_VALUE;
@@ -63,9 +61,9 @@ public class Shooter extends SubsystemBase {
     public double distanceMeterToEncoderUnitInDecisecond(double distance) { //TODO Change and add angle
         double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA_FAR(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
         } else {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.SHOOTER_FORMULA_CLOSE(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
         }
         return Math.min(encoderUnitsTarget, MAX_VELOCITY);
     }
@@ -77,6 +75,8 @@ public class Shooter extends SubsystemBase {
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
     }
+
+    private double lastRPMError;
 
     public void initIsBallShot() {
         lastRPMError = Integer.MAX_VALUE;

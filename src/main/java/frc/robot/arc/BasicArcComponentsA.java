@@ -9,36 +9,36 @@ import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.arc.arcConstants.ArcConstantsA.*;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.*;
 
 public class BasicArcComponentsA implements ArcComponents {
 
     private final WPI_TalonSRX masterMotor;
-    private final CtreEncoder arcMotorEncoder;
-    private final CtreMotionMagicController arcController;
+    private final CtreEncoder encoder;
+    private final CtreMotionMagicController controller;
 
     public BasicArcComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getTalonSRXConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Brake);
-        masterMotor.enableCurrentLimit(ENABLE_CURRENT_LIMIT);
+        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
-        arcMotorEncoder = new CtreEncoder(masterMotor);
+        encoder = new CtreEncoder(masterMotor);
 
-        arcController = new CtreMotionMagicController(masterMotor,
+        controller = new CtreMotionMagicController(masterMotor,
                 new CtreEncoder(masterMotor),
-                new PIDFTerms(ARC_VELOCITY_P, ARC_VELOCITY_I, ARC_VELOCITY_D, ARC_VELOCITY_F),
-                ARC_MAX_ACCELERATION, ARC_CRUISE_VELOCITY, ARC_ACCELERATION_SMOOTHING);
+                new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F),
+                MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
     }
 
     private TalonSRXConfiguration getTalonSRXConfiguration() {
         final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.continuousCurrentLimit = ARC_CONTINUOUS_CURRENT_LIMIT;
-        config.peakCurrentDuration = ARC_PEAK_AMP_DURATION;
-        config.peakCurrentLimit = ARC_PEAK_AMP;
-        config.openloopRamp = ARC_OPEN_LOOP_RAMP;
-        config.closedloopRamp = ARC_CLOSE_LOOP_RAMP;
+        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
+        config.peakCurrentDuration = PEAK_AMP_DURATION;
+        config.peakCurrentLimit = PEAK_AMP;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        config.closedloopRamp = CLOSE_LOOP_RAMP;
         return config;
     }
 
@@ -48,12 +48,12 @@ public class BasicArcComponentsA implements ArcComponents {
     }
 
     @Override
-    public Counter getArcMotorEncoder() {
-        return arcMotorEncoder;
+    public Counter getEncoder() {
+        return encoder;
     }
 
     @Override
-    public MotionMagicController getArcController() {
-        return arcController;
+    public MotionMagicController getController() {
+        return controller;
     }
 }

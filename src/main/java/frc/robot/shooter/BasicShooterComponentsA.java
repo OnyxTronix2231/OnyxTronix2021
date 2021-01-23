@@ -34,7 +34,7 @@ public class BasicShooterComponentsA implements ShooterComponents {
         shooterEncoder = new CtreEncoder(masterMotor);
         ShooterController = new CtrePIDController(masterMotor,
                 new CtreEncoder(masterMotor),
-                new PIDFTerms(SHOOTER_VELOCITY_P, SHOOTER_VELOCITY_I, SHOOTER_VELOCITY_D, SHOOTER_VELOCITY_F), PIDControlMode.Velocity);
+                new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
     }
 
     private TalonFXConfiguration getFalconConfiguration() {
@@ -42,11 +42,11 @@ public class BasicShooterComponentsA implements ShooterComponents {
         config.supplyCurrLimit.currentLimit = SUPPLY_CURRENT_LIMIT;
         config.supplyCurrLimit.triggerThresholdCurrent = SUPPLY_TRIGGER_THRESHOLD_CURRENT;
         config.supplyCurrLimit.triggerThresholdTime = SUPPLY_TRIGGER_THRESHOLD_TIME;
-        config.supplyCurrLimit.enable = ENABLE_SUPPLY_CURRENT_LIMIT;
+        config.supplyCurrLimit.enable = SUPPLY_CURRENT_LIMIT_ENABLED;
         config.statorCurrLimit.currentLimit = STATOR_CURRENT_LIMIT;
         config.statorCurrLimit.triggerThresholdCurrent = STATOR_TRIGGER_THRESHOLD_CURRENT;
         config.statorCurrLimit.triggerThresholdTime = STATOR_TRIGGER_THRESHOLD_TIME;
-        config.statorCurrLimit.enable = ENABLE_STATOR_CURRENT_LIMIT;
+        config.statorCurrLimit.enable = STATOR_CURRENT_LIMIT_ENABLED;
         config.openloopRamp = OPEN_LOOP_RAMP;
         config.closedloopRamp = CLOSE_LOOP_RAMP;
         return config;
