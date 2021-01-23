@@ -23,6 +23,6 @@ public class MoveShooterBySpeed extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        shooter.stopShooter();
+        shooter.stop();
     }
 }

@@ -45,7 +45,8 @@ public class Shooter extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void stopShooter() {
+    public void stop() {
+        moveShooterBySpeed(0);
         components.getShooterController().disable();
     }
 
