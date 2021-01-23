@@ -4,7 +4,10 @@ import static frc.robot.shooter.ShooterConstants.*;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
@@ -96,5 +99,17 @@ public class Shooter extends SubsystemBase {
 
     public boolean isOnTarget() {
         return components.getShooterController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
+    }
+
+    @Override
+    public void simulationPeriodic() {
+        components.getFlyWheelSim().setInputVoltage(components.getMasterMotor().getMotorOutputPercent()
+                * RobotController.getBatteryVoltage());
+        components.getFlyWheelSim().update(0.02);
+        components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
+                RPMToEncoderUnitsInDecisecond(components.getFlyWheelSim().getAngularVelocityRPM()));
+        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
+
+        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(components.getFlyWheelSim().getCurrentDrawAmps()));
     }
 }

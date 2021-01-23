@@ -4,11 +4,7 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
-import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
 import edu.wpi.first.wpilibj.system.plant.DCMotor;
-import edu.wpi.first.wpilibj.system.plant.LinearSystemId;
-import edu.wpi.first.wpiutil.math.numbers.N1;
-import edu.wpi.first.wpiutil.math.numbers.N2;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.PIDFTerms;
@@ -20,22 +16,21 @@ import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
 
-    private final WPI_TalonFX masterMotor;
-    private final WPI_TalonFX slaveMotor;
+    private final WPI_TalonSRX masterMotor;
+    private final WPI_TalonSRX slaveMotor;
     private final CtreEncoder shooterEncoder;
     private final CtrePIDController ShooterController;
     private final FlywheelSim flywheelSim;
-    private final LinearSystemSim<N2, N1, N1> linearSystemSim;
 
     public BasicShooterComponentsA() {
-        masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
+        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-        masterMotor.configAllSettings(getFalconConfiguration());
+        //masterMotor.configAllSettings(getFalconConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Coast);
 
-        slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
+        slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
         slaveMotor.configFactoryDefault();
-        slaveMotor.configAllSettings(getFalconConfiguration());
+        //slaveMotor.configAllSettings(getFalconConfiguration());
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
 
@@ -45,10 +40,9 @@ public class BasicShooterComponentsA implements ShooterComponents {
                 new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
 
         flywheelSim = new FlywheelSim(DCMotor.getFalcon500(2), 1, 0.01 );
-        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyPositionSystem(0.1,1));
     }
 
-    private TalonFXConfiguration getFalconConfiguration() {
+    /*private TalonFXConfiguration getFalconConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
         config.supplyCurrLimit.currentLimit = SUPPLY_CURRENT_LIMIT;
         config.supplyCurrLimit.triggerThresholdCurrent = SUPPLY_TRIGGER_THRESHOLD_CURRENT;
@@ -61,10 +55,10 @@ public class BasicShooterComponentsA implements ShooterComponents {
         config.openloopRamp = OPEN_LOOP_RAMP;
         config.closedloopRamp = CLOSE_LOOP_RAMP;
         return config;
-    }
+    }*/
 
     @Override
-    public WPI_TalonFX getMasterMotor() {
+    public WPI_TalonSRX getMasterMotor() {
         return masterMotor;
     }
 
@@ -86,10 +80,5 @@ public class BasicShooterComponentsA implements ShooterComponents {
     @Override
     public FlywheelSim getFlyWheelSim() {
         return flywheelSim;
-    }
-
-    @Override
-    public LinearSystemSim getLinearSystemSim() {
-        return linearSystemSim;
     }
 }

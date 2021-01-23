@@ -2,7 +2,10 @@ package frc.robot.arc;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.BatterySim;
+import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.arc.ArcConstants.*;
@@ -75,5 +78,31 @@ public class Arc extends SubsystemBase {
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
+    }
+
+    int counter = 0;
+    int totalMovement = 0;
+    int prevTotalMovement = 0;
+    double lastPos = 0;
+
+    @Override
+    public void simulationPeriodic() {
+        components.getLinearSystemSim().setInput(components.getMasterMotor().getMotorOutputPercent()
+                * RobotController.getBatteryVoltage());
+        components.getLinearSystemSim().update(0.02);
+        components.getMasterMotor().getSimCollection().setQuadratureRawPosition((int)
+                angleToEncoderUnits(components.getLinearSystemSim().getOutput(0)));
+        totalMovement += components.getMasterMotor().getSelectedSensorPosition();
+        if (counter == 5) {
+            components.getMasterMotor().getSimCollection().setQuadratureVelocity(totalMovement - prevTotalMovement);
+            prevTotalMovement = totalMovement;
+            totalMovement = 0;
+            counter = 0;
+        } else {
+            counter++;
+        }
+        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getLinearSystemSim().getCurrentDrawAmps());
+        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
+                components.getLinearSystemSim().getCurrentDrawAmps()));
     }
 }
