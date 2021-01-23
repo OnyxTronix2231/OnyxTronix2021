@@ -85,7 +85,7 @@ public class Revolver extends SubsystemBase {
                 * RobotController.getBatteryVoltage());
         components.getFlyWheelSim().update(0.02);
         components.getMasterMotor().getSimCollection().setQuadratureVelocity((int)
-                RPMToEncoderUnit(components.getFlyWheelSim().getAngularVelocityRPM()));
+                RPMToEncoderUnitInDecisecond(components.getFlyWheelSim().getAngularVelocityRPM()));
         components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getFlyWheelSim().getCurrentDrawAmps());
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
                 components.getFlyWheelSim().getCurrentDrawAmps()));

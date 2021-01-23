@@ -1,6 +1,7 @@
 package frc.robot.ballTrigger;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -24,7 +25,7 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getConfiguration());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
+        masterMotor.setNeutralMode(NeutralMode.Coast);
         masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
@@ -34,7 +35,7 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
 
-        flywheelSim = new FlywheelSim(DCMotor.getVex775Pro(1), 1, 0.01);
+        flywheelSim = new FlywheelSim(DCMotor.getVex775Pro(1), 6.25, 0.1);
     }
 
     private TalonSRXConfiguration getConfiguration() {
