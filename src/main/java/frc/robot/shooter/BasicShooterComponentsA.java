@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
+import edu.wpi.first.wpilibj.system.plant.DCMotor;
+import edu.wpi.first.wpilibj.system.plant.LinearSystemId;
 import edu.wpi.first.wpiutil.math.numbers.N1;
 import edu.wpi.first.wpiutil.math.numbers.N2;
 import pid.CtrePIDController;
@@ -41,6 +43,9 @@ public class BasicShooterComponentsA implements ShooterComponents {
         ShooterController = new CtrePIDController(masterMotor,
                 new CtreEncoder(masterMotor),
                 new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
+
+        flywheelSim = new FlywheelSim(DCMotor.getFalcon500(2), 1, 0.01 );
+        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyPositionSystem(0.1,1));
     }
 
     private TalonFXConfiguration getFalconConfiguration() {
