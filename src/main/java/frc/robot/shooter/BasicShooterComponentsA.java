@@ -3,6 +3,10 @@ package frc.robot.shooter;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.simulation.LinearSystemSim;
+import edu.wpi.first.wpiutil.math.numbers.N1;
+import edu.wpi.first.wpiutil.math.numbers.N2;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.PIDFTerms;
@@ -18,6 +22,8 @@ public class BasicShooterComponentsA implements ShooterComponents {
     private final WPI_TalonFX slaveMotor;
     private final CtreEncoder shooterEncoder;
     private final CtrePIDController ShooterController;
+    private final FlywheelSim flywheelSim;
+    private final LinearSystemSim<N2, N1, N1> linearSystemSim;
 
     public BasicShooterComponentsA() {
         masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
