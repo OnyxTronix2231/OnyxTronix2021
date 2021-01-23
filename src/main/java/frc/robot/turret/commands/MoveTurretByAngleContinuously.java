@@ -20,7 +20,7 @@ public class MoveTurretByAngleContinuously extends CommandBase {
     @Override
     public void initialize() {
         moveTurretToAngle.initialize();
-        totalAngle = turret.getAngle();
+        totalAngle = turret.getAngleRTR();
     }
 
     @Override
