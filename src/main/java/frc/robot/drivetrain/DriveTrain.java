@@ -83,6 +83,11 @@ public class DriveTrain extends SubsystemBase {
     actualVoltageUsed.setDouble(simComponents.getLeftMasterMotor().getMotorOutputVoltage());
     robotVelocityMetPerSec.setDouble(encoderUnitsDeciSecondToMeterSecond(simComponents.getLeftMasterMotor().getSelectedSensorVelocity()));
   } //ks = 0.480938416422287
+  /* How to find ka:
+  * a = (1/ka)*(V - ks - v * kv)
+  * Make t and v table
+  * calculate a (deltaV / delta T)
+  * */
 
   public double encoderUnitsDeciSecondToMeterSecond(double encoderUnits) {
     return encoderUnitsToMeter(encoderUnits) * 10;
