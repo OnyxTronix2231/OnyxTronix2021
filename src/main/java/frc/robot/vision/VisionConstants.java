@@ -20,7 +20,15 @@ public class VisionConstants {
     public static final double LIMELIGHT_TURRET_CENTER_CM =0; //TODO: check and change // mechanical parameter
     public static final Vector2dEx VECTOR_LIMELIGHT_TURRET_CENTER = new Vector2dEx(LIMELIGHT_TURRET_CENTER_CM, 0);
 
+    public static final double HEIGHT_OFFSET_INNER_OUTER_CENTER = 0; //TODO: check and change // mechanical parameter
+    public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET = 29.25; //TODO: check and change // mechanical parameter
+
+    public static final Vector2dEx VECTOR_OUTER_INNER_TARGET =
+        new Vector2dEx(DISTANCE_BETWEEN_OUTER_INNER_TARGET, 0);
+
     public static final double ROBOT_CENTER_TURRET_DISTANCE = 0; // TODO: Check and change
+
+
 
 
 
