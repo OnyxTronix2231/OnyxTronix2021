@@ -75,7 +75,7 @@ public class Roulette extends SubsystemBase {
         RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
                 components.getSimulator().getCurrentDrawAmps()));
     }
-
+    
     public void openPiston() {
         components.getSolenoid().set(true);
     }
@@ -86,6 +86,7 @@ public class Roulette extends SubsystemBase {
 
     public void setSpeed(double speed) {
         components.getMasterMotor().set(speed);
+        System.out.println(components.getMasterMotor().getMotorOutputPercent());
     }
 
     public double getCurrentRouletteRotations() {

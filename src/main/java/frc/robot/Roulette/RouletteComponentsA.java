@@ -33,7 +33,7 @@ public class RouletteComponentsA implements RouletteComponents {
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
                 new PIDFTerms(K_P, K_I, K_D, K_F), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
-        simulator = new LinearSystemSim<>(LinearSystemId.identifyPositionSystem(0.1, 0.1));
+        simulator = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(1, 0.1));
     }
 
     @Override
