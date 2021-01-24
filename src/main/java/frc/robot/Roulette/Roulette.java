@@ -37,11 +37,11 @@ public class Roulette extends SubsystemBase {
                 components.getController().getPIDFTerms().getKd()).getEntry();
         shuffleboardEntryKF = Shuffleboard.getTab("Roulette").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
-        shuffleboardEntryCruiseVelocity = Shuffleboard.getTab("Roulette").add("entry",
+        shuffleboardEntryCruiseVelocity = Shuffleboard.getTab("Roulette").add("cruiseVelocity",
                 components.getController().getCruiseVelocity()).getEntry();
-        shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("velocity",
+        shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("acceleration",
                 components.getController().getAcceleration()).getEntry();
-        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("entry",
+        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("accelerationSmoothing",
                 components.getController().getAccelerationSmoothing()).getEntry();
     }
 
