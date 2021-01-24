@@ -57,7 +57,8 @@ public class OuterTarget {
             double targetToLimelightHeight = TARGET_HEIGHT - limelightHeight;
 
             /*calculating air distance (horizontal) from limelight to target using simple formula and trigonometry*/
-            double airDistanceLimelightToTarget = targetToLimelightHeight / Math.tan(Math.toRadians(verticalAngleOffsetFloorToTarget));
+            double airDistanceLimelightToTarget =
+                    targetToLimelightHeight / Math.tan(Math.toRadians(verticalAngleOffsetFloorToTarget));
 
             /*we want to have the vector from the shooting spot on the turret to the target
              * so we create a vector from the limelight to the target and then we add a fixed vector
@@ -73,10 +74,13 @@ public class OuterTarget {
              * from the turret to the target*/
             airDistanceTurretToTarget = airTurretToTargetVector.magnitude();
 
-            /*as a result from creating the vector we got a new angle, from the turret center to the target*/
+            /*as a result from creating the vector we got a new angle, from the turret center to the target
+            * this is a very important parameter, this is the value the turret needs to turn to look at the target*/
             angleOffsetTargetToTurret = airTurretToTargetVector.direction();
 
-            /*summing the two horizontal angles (from the TargetToFieldHorizontalAngleOffset center to target and from the turret to field)
+            /*summing the two horizontal angles
+             * (from the TargetToFieldHorizontalAngleOffset center to target and from the turret to field)
+             *
              * the angle offset from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
             TargetToFieldHorizontalAngleOffset = angleOffsetTargetToTurret + turretAngleRTF % 360;
@@ -87,11 +91,13 @@ public class OuterTarget {
             *
             * we create it with the distance from the turret center to target and an angle offset from the
             * target to the field (the starting angle of the robot, with gyro)*/
-            turretToTargetVectorRTF = Vector2dEx.fromMagnitudeDirection(airDistanceTurretToTarget, TargetToFieldHorizontalAngleOffset);
+            turretToTargetVectorRTF = Vector2dEx.fromMagnitudeDirection
+                    (airDistanceTurretToTarget, TargetToFieldHorizontalAngleOffset);
 
             /*we create a vector that connects the turret center to the robot it has a fixed magnitude (size)
              and the direction of the robot relative to the field (we get it from the driveTrain subsystem, gyro)*/
-            Vector2dEx turretToRobotCenterVector = Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, robotGyroYawAngleRTF);
+            Vector2dEx turretToRobotCenterVector =
+                    Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, robotGyroYawAngleRTF);
 
             /*to get the vector from the robot center to the target we do some more vector math
             * we subtract the turret to robot vector from the turret to target one and that
