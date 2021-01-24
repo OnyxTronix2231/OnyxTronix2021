@@ -4,10 +4,6 @@
 
 package frc.robot;
 
-import static frc.robot.RobotConstants.ROBOT_TYPE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.ENCODER_CPR;
-import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
@@ -15,6 +11,10 @@ import frc.robot.drivetrain.commands.MoveToPose;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static frc.robot.RobotConstants.ROBOT_TYPE;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
+import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,13 +25,12 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
-  private edu.wpi.first.wpilibj.Timer timer;
-  private double maxAcc;
-  private double prevVel;
-  private double prevTime;
   DriveTrainComponents driveTrainComponents;
   DriveTrainVirtualComponents driveTrainVirtualComponents;
   SimulationDriveTrainComponents simulationDriveTrainComponents;
+  private edu.wpi.first.wpilibj.Timer timer;
+  private double prevVel;
+  private double prevTime;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -55,10 +54,8 @@ public class Robot extends TimedRobot {
     new DeputyOI();
 
     timer = new edu.wpi.first.wpilibj.Timer();
-    timer.start();
     prevVel = 0;
     prevTime = 0;
-    maxAcc = 0;
   }
 
   /**
@@ -98,7 +95,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain,new Pose(4, 2.2, 0) ));
+    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain, new Pose(4, 2.2, 0)));
   }
 
   /**
@@ -112,6 +109,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     driveTrain.setNeutralModeToBrake();
+    timer.reset();
+    timer.start();
+    // To make ka testing csv file, simply copy all subsequent prints to a text file and change extension to .csv
+    System.out.println("Voltage, Time, Calculated ka"); // Headers for csv file.
   }
 
   /**
@@ -123,13 +124,18 @@ public class Robot extends TimedRobot {
     double deltaV = currVel - prevVel;
     prevVel = currVel;
 
+
     double currTime = timer.get();
     double deltaT = currTime - prevTime;
     prevTime = currTime;
 
-    double acc = encoderUnitsToMeter(deltaV) / deltaT;
-    if (acc > maxAcc) maxAcc = acc;
-    System.out.println(acc);
+    double voltage = simulationDriveTrainComponents.getLeftMasterMotor().getMotorOutputVoltage();
+
+    double ka = (deltaT / deltaV) * (voltage - VOLTS - VOLT_SECONDS_PER_METER * encoderUnitsToMeter(currVel)); // needs optimization
+
+    if (currVel < 1) ka = 0;
+
+    System.out.println(currVel + "," + currTime + "," + ka); // Input for csv file.
   }
 
   @Override
