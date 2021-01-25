@@ -28,9 +28,6 @@ public class Robot extends TimedRobot {
   DriveTrainComponents driveTrainComponents;
   DriveTrainVirtualComponents driveTrainVirtualComponents;
   SimulationDriveTrainComponents simulationDriveTrainComponents;
-  private edu.wpi.first.wpilibj.Timer timer;
-  private double prevVel;
-  private double prevTime;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -52,10 +49,6 @@ public class Robot extends TimedRobot {
 
     new DriverOI(driveTrain);
     new DeputyOI();
-
-    timer = new edu.wpi.first.wpilibj.Timer();
-    prevVel = 0;
-    prevTime = 0;
   }
 
   /**
@@ -94,8 +87,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-
-    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain, new Pose(4, 2.2, 0)));
+    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain, new Pose(5, 2.28, 0)));
   }
 
   /**
@@ -109,10 +101,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     driveTrain.setNeutralModeToBrake();
-    timer.reset();
-    timer.start();
-    // To make ka testing csv file, simply copy all subsequent prints to a text file and change extension to .csv
-    System.out.println("Voltage, Time, Calculated ka"); // Headers for csv file.
   }
 
   /**
@@ -120,22 +108,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    double currVel = simulationDriveTrainComponents.getLeftMasterMotor().getSelectedSensorVelocity();
-    double deltaV = currVel - prevVel;
-    prevVel = currVel;
-
-
-    double currTime = timer.get();
-    double deltaT = currTime - prevTime;
-    prevTime = currTime;
-
-    double voltage = simulationDriveTrainComponents.getLeftMasterMotor().getMotorOutputVoltage();
-
-    double ka = (deltaT / deltaV) * (voltage - VOLTS - VOLT_SECONDS_PER_METER * encoderUnitsToMeter(currVel)); // needs optimization
-
-    if (currVel < 1) ka = 0;
-
-    System.out.println(currVel + "," + currTime + "," + ka); // Input for csv file.
   }
 
   @Override
@@ -148,9 +120,5 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-  }
-
-  private double encoderUnitsToMeter(double encoder) {
-    return encoder / ENCODER_CPR * PERIMETER_METER;
   }
 }

@@ -52,7 +52,7 @@ public final class DriveTrainConstants {
     static final double MAX_OUTPUT_REVERSE = -1; // TODO: Calibration with A
     static final int CONTINUOUS_CURRENT_LIMIT = 10; // TODO: Calibration with A
     static final int PEAK_CURRENT_DURATION = 1000; // TODO: Calibration with A
-    public static final double TRAJECTORY_P = 0.4; // TODO: Calibration with A
+    public static final double TRAJECTORY_P = -10; // TODO: Calibration with A
     static final double TRAJECTORY_I = 0; // TODO: Calibration with A
     static final double TRAJECTORY_D = 4; // TODO: Calibration with A
 
@@ -64,8 +64,8 @@ public final class DriveTrainConstants {
       static final int DEGREES_IN_FULL_ROTATION = 360;
       public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
       public static final double VOLTS = 0.480938; // TODO: This is Sim value, Calibration with A
-      public static final double VOLT_SECONDS_PER_METER = 0.9483; // TODO: This is Sim value, Calibration with A
-      static final double VOLT_SECONDS_SQUARED_PER_METER = 0.333; // TODO: Calibration with A
+      public static final double VOLT_SECONDS_PER_METER = 0.5673; // TODO: This is Sim value, Calibration with A
+      static final double VOLT_SECONDS_SQUARED_PER_METER = 0.2909; // TODO: Calibration with A
       static final double MAX_VOLTAGE = 10; // TODO: Calibration with A
       static final double MAX_SPEED_METERS_PER_SECOND = 3; // TODO: Calibration with A
       static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A

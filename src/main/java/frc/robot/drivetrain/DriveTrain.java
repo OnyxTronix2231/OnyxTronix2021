@@ -29,18 +29,12 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
   private final SimulationDriveTrainComponents simComponents;
-  private final NetworkTableEntry insertVoltage;
-  private final NetworkTableEntry actualVoltageUsed;
-  private final NetworkTableEntry robotVelocityMetPerSec;
 
   public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
                     SimulationDriveTrainComponents simComponents) {
     this.components = components;
     this.vComponents = vComponents;
     this.simComponents = simComponents;
-    insertVoltage = Shuffleboard.getTab("kV").add("Insert Voltage", 0).getEntry();
-    actualVoltageUsed = Shuffleboard.getTab("kV").add("Actual Voltage Used", 0).getEntry();
-    robotVelocityMetPerSec = Shuffleboard.getTab("kV").add("Speed m/s", 0).getEntry();
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
     simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
@@ -75,13 +69,7 @@ public class DriveTrain extends SubsystemBase {
         (int)metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int)metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
-
     simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
-
-    DoubleSupplier insertVoltageSupplier = () -> insertVoltage.getDouble(0);
-    move(insertVoltageSupplier);
-    actualVoltageUsed.setDouble(simComponents.getLeftMasterMotor().getMotorOutputVoltage());
-    robotVelocityMetPerSec.setDouble(encoderUnitsDeciSecondToMeterSecond(simComponents.getLeftMasterMotor().getSelectedSensorVelocity()));
   } //ks = 0.480938416422287
   /* How to find ka:
   * a = (1/ka)*(V - ks - v * kv)

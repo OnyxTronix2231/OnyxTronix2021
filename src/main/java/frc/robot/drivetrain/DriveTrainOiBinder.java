@@ -13,6 +13,6 @@ public class DriveTrainOiBinder {
   public DriveTrainOiBinder(DriveTrain driveTrain, JoystickAxis forwardAxis, JoystickAxis rotateAxis, Trigger moveByPathButton, Trigger reset) {
     //driveTrain.setDefaultCommand(new DriveBySpeed(driveTrain, () -> -forwardAxis.getRawAxis(), rotateAxis::getRawAxis));
     moveByPathButton.whileActiveOnce(new MoveToPose(driveTrain, new Pose(SkillsConstants.Waypoints.A3.getPose2dFromRotation(90))));
-    reset.whenActive(new InstantCommand(() -> driveTrain.resetSimOdometryToPose(new Pose2d(0, 0, Rotation2d.fromDegrees(0)))));
+    reset.whenActive(new InstantCommand(() -> driveTrain.resetSimOdometryToPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)))));
   }
 }
