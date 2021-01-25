@@ -25,7 +25,7 @@ public class RouletteComponentsA implements RouletteComponents {
     private CtreEncoder encoder;
     private CtreMotionMagicController controller;
     private ColorSensorV3 colorSensor;
-    private final LinearSystemSim<N2, N1, N1> simulator;
+    private final LinearSystemSim<N1, N1, N1> simulator;
 
     public RouletteComponentsA() {
         masterMotor = new WPI_TalonSRX(DEVICE_NUMBER);
