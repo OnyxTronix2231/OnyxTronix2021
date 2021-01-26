@@ -87,7 +87,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    CommandScheduler.getInstance().schedule(new MoveToPose(driveTrain, new Pose(5, 2.28, 0)));
   }
 
   /**

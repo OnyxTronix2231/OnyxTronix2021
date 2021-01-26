@@ -16,9 +16,10 @@ public class DriverOI {
 
     JoystickAxis forwardAxis = new JoystickAxis(xboxController, XboxController.Axis.kLeftX.value);
     JoystickAxis rotateAxis = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
-    Trigger moveByPathButton = new JoystickButton(xboxController, XboxController.Button.kA.value);
-    Trigger reset = new JoystickButton(xboxController, XboxController.Button.kB.value);
+    Trigger moveByPathButton = new JoystickButton(xboxController, XboxController.Button.kX.value);
+    Trigger moveToPoseButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
+    Trigger reset = new JoystickButton(xboxController, XboxController.Button.kA.value);
 
-    new DriveTrainOiBinder(driveTrain, forwardAxis, rotateAxis, moveByPathButton, reset);
+    new DriveTrainOiBinder(driveTrain, forwardAxis, rotateAxis, moveByPathButton, moveToPoseButton, reset);
   }
 }
