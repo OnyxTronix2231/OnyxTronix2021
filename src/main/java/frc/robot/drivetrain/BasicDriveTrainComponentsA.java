@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.*;
 
 
 public class BasicDriveTrainComponentsA implements DriveTrainComponents {

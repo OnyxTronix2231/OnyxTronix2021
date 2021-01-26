@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -19,10 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 import java.util.List;
-import java.util.function.DoubleSupplier;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.*;
 
 public class DriveTrain extends SubsystemBase {
 

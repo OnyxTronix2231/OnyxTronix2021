@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.Path;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_B;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_ZETA;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.RAMSETE_B;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.RAMSETE_ZETA;
 
 public class MoveByPath extends OnyxRamseteCommand {
   public MoveByPath(final DriveTrain driveTrain,

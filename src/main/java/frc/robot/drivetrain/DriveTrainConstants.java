@@ -21,7 +21,12 @@ public final class DriveTrainConstants {
   public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI; //TODO: tuning is required
   private static final double ENCODER_UNITS = 2048;
 
-  public static final class DriveTrainComponentsA {
+  public static final class DriveTrainSimConstantsA {
+    static final double DRIVE_TRAIN_MASS = 15;
+    static final double MOMENT_OF_INERTIA = 6;
+  }
+
+  public static final class DriveTrainConstantsA {
 
     static final int LEFT_MASTER_PORT = 2;
     static final int LEFT_SLAVE_PORT = 3;

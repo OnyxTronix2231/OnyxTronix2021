@@ -7,14 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
-import frc.robot.drivetrain.commands.MoveToPose;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static frc.robot.RobotConstants.ROBOT_TYPE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
-import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to

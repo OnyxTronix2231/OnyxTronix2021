@@ -16,7 +16,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRAJECTORY_P;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TRAJECTORY_P;
 
 public class OnyxRamseteCommand extends CommandBase {
   public final Timer timer = new Timer();

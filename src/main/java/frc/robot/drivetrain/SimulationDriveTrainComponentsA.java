@@ -1,15 +1,15 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CLOSED_LOOP_RAMP;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONTINUOUS_CURRENT_LIMIT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_SLAVE_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_FORWARD;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_REVERSE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.OPEN_LOOP_RAMP;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.PEAK_CURRENT_DURATION;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_SLAVE_PORT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.CLOSED_LOOP_RAMP;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.CONTINUOUS_CURRENT_LIMIT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.LEFT_MASTER_PORT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.LEFT_SLAVE_PORT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.MAX_OUTPUT_FORWARD;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.MAX_OUTPUT_REVERSE;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.OPEN_LOOP_RAMP;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.PEAK_CURRENT_DURATION;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.RIGHT_MASTER_PORT;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.RIGHT_SLAVE_PORT;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;

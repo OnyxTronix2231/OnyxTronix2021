@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
 import static frc.robot.drivetrain.DriveTrainConstants.CONVERSION_RATE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.*;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.*;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainSimConstantsA.DRIVE_TRAIN_MASS;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainSimConstantsA.MOMENT_OF_INERTIA;
 import static frc.robot.drivetrain.DriveTrainConstants.WHEEL_DIAMETER_METER;
 
 public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents {
@@ -51,7 +53,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
 
     driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(2), CONVERSION_RATE,
-        8, 50, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
+        MOMENT_OF_INERTIA, DRIVE_TRAIN_MASS, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
   }
 
   @Override

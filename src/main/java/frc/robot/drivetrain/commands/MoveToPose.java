@@ -6,8 +6,8 @@ import frc.robot.drivetrain.Pose;
 
 import java.util.List;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_B;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TrajectoryParams.RAMSETE_ZETA;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.RAMSETE_B;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.RAMSETE_ZETA;
 
 public class MoveToPose extends OnyxRamseteCommand {
   public MoveToPose(DriveTrain driveTrain,
