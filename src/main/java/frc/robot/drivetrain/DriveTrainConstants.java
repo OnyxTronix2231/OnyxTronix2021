@@ -69,7 +69,7 @@ public final class DriveTrainConstants {
       static final double MAX_VOLTAGE = 10; // TODO: Calibration with A
       static final double MAX_SPEED_METERS_PER_SECOND = 3; // TODO: Calibration with A
       static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-      static final double TRACKWIDTH_METERS = 0.679; // TODO: Calibration with A
+      static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
     }
 
   }
