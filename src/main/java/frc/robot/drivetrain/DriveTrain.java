@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -18,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 import java.util.List;
+import java.util.function.DoubleSupplier;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.*;
@@ -27,6 +29,9 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
   private final SimulationDriveTrainComponents simComponents;
+  private final NetworkTableEntry insertPercentOutput;
+  private final NetworkTableEntry actualVoltageUsed;
+  private final NetworkTableEntry robotVelocityMetPerSec;
 
   public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
                     SimulationDriveTrainComponents simComponents) {
@@ -42,6 +47,9 @@ public class DriveTrain extends SubsystemBase {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
       simComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
     }
+    insertPercentOutput = Shuffleboard.getTab("kV").add("Insert Percent", 0).getEntry();
+    actualVoltageUsed = Shuffleboard.getTab("kV").add("Actual Voltage Used", 0).getEntry();
+    robotVelocityMetPerSec = Shuffleboard.getTab("kV").add("Speed", 0).getEntry();
   }
 
   @Override
@@ -68,20 +76,30 @@ public class DriveTrain extends SubsystemBase {
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int)metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
     simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
+
+    DoubleSupplier insertVoltageSupplier = () -> insertPercentOutput.getDouble(0);
+    moveByVoltageSupplier(insertVoltageSupplier, insertVoltageSupplier);
+    actualVoltageUsed.setDouble(simComponents.getLeftMasterMotor().getMotorOutputVoltage());
+    robotVelocityMetPerSec.setDouble(encoderUnitsDeciSecondToMeterSecond(simComponents.getLeftMasterMotor().getSelectedSensorVelocity()));
   } //ks = 0.480938416422287
   /* How to find ka:
   * a = (1/ka)*(V - ks - v * kv)
   * Make t and v table
   * calculate a (deltaV / delta T)
-  * */
+  */
 
   public double encoderUnitsDeciSecondToMeterSecond(double encoderUnits) {
     return encoderUnitsToMeter(encoderUnits) * 10;
   }
 
   public void moveByVoltage(double voltageRight, double voltageLeft) {
-    simComponents.getRightMasterMotor().set(voltageRight * 10 / 12);
-    simComponents.getLeftMasterMotor().set(voltageLeft * 10 / 12);
+    simComponents.getRightMasterMotor().set(voltageRight / 12);
+    simComponents.getLeftMasterMotor().set(voltageLeft / 12);
+  }
+
+  public void moveByVoltageSupplier(DoubleSupplier voltageRight, DoubleSupplier voltageLeft) {
+    simComponents.getRightMasterMotor().set(voltageRight.getAsDouble());
+    simComponents.getLeftMasterMotor().set(voltageLeft.getAsDouble());
   }
 
   public void initMotionProfileSlot(int slot) {
