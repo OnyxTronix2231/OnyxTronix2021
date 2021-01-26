@@ -29,4 +29,8 @@ public class VisionGSC {
         }
         return GSCOption.Red;
     }
+
+    public void update(){
+        System.out.println("Hello there, I am the update function, I have no purpose! (poop)");
+    }
 }

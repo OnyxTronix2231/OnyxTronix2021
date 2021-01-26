@@ -1,33 +1,32 @@
 package frc.robot.vision;
 
-import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import vision.limelight.Limelight;
-import vision.limelight.target.LimelightTarget;
 
 import java.util.function.DoubleSupplier;
-
-import static frc.robot.vision.VisionConstants.*;
-import static frc.robot.vision.VisionConstants.AREA_TOLARANCE;
 
 
 public class Vision {
     private Limelight limelight;
     private OuterTarget outerTarget;
     private InnerTarget innerTarget;
+    private DoubleSupplier gyroYawAngle;
+    private DoubleSupplier turretAngleRTF;
 
-    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRelativeToTarget){
+    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF){
+        this.gyroYawAngle = gyroYawAngle;
+        this.turretAngleRTF = turretAngleRTF;
         this.limelight = Limelight.getInstance();
-        this.outerTarget = new OuterTarget(gyroYawAngle.getAsDouble(),
-                turretAngleRelativeToTarget.getAsDouble(),
+        this.outerTarget = new OuterTarget(this.gyroYawAngle.getAsDouble(),
+                turretAngleRTF.getAsDouble(),
                 this.limelight.getTarget());
-        this.innerTarget = new InnerTarget(gyroYawAngle.getAsDouble(),
+        this.innerTarget = new InnerTarget(this.gyroYawAngle.getAsDouble(),
                 this.outerTarget);
     }
 
-    public void update(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRelativeToTarget){
+    public void update(){
         this.limelight = Limelight.getInstance();
         this.outerTarget.update(gyroYawAngle.getAsDouble(),
-                turretAngleRelativeToTarget.getAsDouble(),
+                turretAngleRTF.getAsDouble(),
                 this.limelight.getTarget());
         this.innerTarget.update(gyroYawAngle.getAsDouble(),
                 this.outerTarget);
