@@ -34,7 +34,7 @@ public class BasicRevolverComponentsA implements RevolverComponents {
         pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
 
-        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(0.1,1));
+        linearSystemSim = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(0.005,0.01));
     }
 
     public TalonFXConfiguration getConfiguration() {
