@@ -22,7 +22,7 @@ public final class DriveTrainConstants {
   private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainSimConstantsA {
-    static final double DRIVE_TRAIN_MASS = 15;
+    static final double DRIVE_TRAIN_MASS = 54;
     static final double MOMENT_OF_INERTIA = 6;
   }
 
@@ -69,10 +69,10 @@ public final class DriveTrainConstants {
       static final int DEGREES_IN_FULL_ROTATION = 360;
       public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
       public static final double VOLTS = 0.480938; // TODO: This is Sim value, Calibration with A
-      public static final double VOLT_SECONDS_PER_METER = 0.5673; // TODO: This is Sim value, Calibration with A
-      static final double VOLT_SECONDS_SQUARED_PER_METER = 0.2909; // TODO: Calibration with A
+      public static final double VOLT_SECONDS_PER_METER = 0.4742; // TODO: This is Sim value, Calibration with A
+      static final double VOLT_SECONDS_SQUARED_PER_METER = 0.022609; // TODO: Calibration with A
       static final double MAX_VOLTAGE = 10; // TODO: Calibration with A
-      static final double MAX_SPEED_METERS_PER_SECOND = 3; // TODO: Calibration with A
+      static final double MAX_SPEED_METERS_PER_SECOND = 5.6896; // TODO: Calibration with A
       static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
       static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
     }
