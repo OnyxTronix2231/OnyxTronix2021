@@ -81,9 +81,9 @@ public class DriveTrain extends SubsystemBase {
     return encoderUnitsToMeter(encoderUnits) * 10;
   }
 
-  private void move(DoubleSupplier voltageSupplier) {
-    simComponents.getRightMasterMotor().set(voltageSupplier.getAsDouble());
-    simComponents.getLeftMasterMotor().set(voltageSupplier.getAsDouble());
+  public void moveByVoltage(double voltageRight, double voltageLeft) {
+    simComponents.getRightMasterMotor().set(voltageRight * 10 / 12);
+    simComponents.getLeftMasterMotor().set(voltageLeft * 10 / 12);
   }
 
   public void initMotionProfileSlot(int slot) {
@@ -141,25 +141,6 @@ public class DriveTrain extends SubsystemBase {
   public boolean isSimDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
         Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
-  }
-
-  public void driveTrainVelocity(double leftVelocity, double rightVelocity) {
-    final double leftFeedForwardVolts = vComponents.getMotorFeedForward().calculate(leftVelocity, 0);
-    final double rightFeedForwardVolts = vComponents.getMotorFeedForward().calculate(rightVelocity, 0);
-
-    initMotionProfileSlot(TRAJECTORY_PID_SLOT);
-    getLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(leftVelocity),
-        DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(rightVelocity),
-        DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimLeftMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(leftVelocity),
-        DemandType.ArbitraryFeedForward, leftFeedForwardVolts / RobotController.getBatteryVoltage());
-    getSimRightMaster().set(ControlMode.Velocity, metersPerSecToEncoderUnitsPerDeciSecond(rightVelocity),
-        DemandType.ArbitraryFeedForward, rightFeedForwardVolts / RobotController.getBatteryVoltage());
-  }
-
-  public void driveTrainVelocityReverse(double leftVelocity, double rightVelocity) {
-    driveTrainVelocity(-leftVelocity, -rightVelocity);
   }
 
   public double getRightTargetFromDistance(double distance) {
