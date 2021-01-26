@@ -27,7 +27,7 @@ public class InnerTarget {
         update(gyroYaw, outerTarget);
     }
 
-    public void update(double gyroYaw ,OuterTarget outerTarget){
+    public void update(double gyroYawAngle ,OuterTarget outerTarget){
 
         /*calculating the vector that connects the turret center to the inner target
         * we are connecting the vector from the turret center to the outer target
@@ -78,7 +78,7 @@ public class InnerTarget {
         /*we create a vector that connects the turret center to the robot it has a fixed magnitude (size)
          and the direction of the robot relative to the field (we get it from the driveTrain subsystem, gyro)*/
         Vector2dEx turretToRobotCenterVector =
-                Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, gyroYaw);
+                Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, gyroYawAngle);
 
         /*to get the vector from the robot center to the target we do some more vector math
          * we subtract the turret to robot vector from the turret to target one and that

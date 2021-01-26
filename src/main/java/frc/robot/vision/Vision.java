@@ -4,6 +4,8 @@ import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
 
+import java.util.function.DoubleSupplier;
+
 import static frc.robot.vision.VisionConstants.*;
 import static frc.robot.vision.VisionConstants.AREA_TOLARANCE;
 
@@ -13,51 +15,30 @@ public class Vision {
     private OuterTarget outerTarget;
     private InnerTarget innerTarget;
 
-    public Vision(){
+    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRelativeToTarget){
         this.limelight = Limelight.getInstance();
+        this.outerTarget = new OuterTarget(gyroYawAngle.getAsDouble(),
+                turretAngleRelativeToTarget.getAsDouble(),
+                this.limelight.getTarget());
+        this.innerTarget = new InnerTarget(gyroYawAngle.getAsDouble(),
+                this.outerTarget);
+    }
+
+    public void update(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRelativeToTarget){
+        this.limelight = Limelight.getInstance();
+        this.outerTarget.update(gyroYawAngle.getAsDouble(),
+                turretAngleRelativeToTarget.getAsDouble(),
+                this.limelight.getTarget());
+        this.innerTarget.update(gyroYawAngle.getAsDouble(),
+                this.outerTarget);
+    }
+
+    public double getAbsoluteDistanceToOuterTargetWall(){
+        return outerTarget.getAirDistanceTurretToTarget() *
+                Math.cos(Math.toRadians(outerTarget.getTargetToFieldHorizontalAngleOffset()));
     }
 
     public boolean hasTarget(){
         return this.limelight.targetFound();
-    }
-
-    public double getHorizontalAngleToTarget(){
-        if(this.hasTarget()){
-            return this.limelight.getTarget().getHorizontalOffsetToCrosshair() + HORIZONTAL_OFFSET;
-        }
-        return DEFAULT_HORIZONTAL_OFFSET;
-    }
-
-    public double getVerticalAngleToTarget(){
-        if(this.hasTarget()){
-            return this.limelight.getTarget().getVerticalOffsetToCrosshair() + VERTICAL_OFFSET;
-        }
-        return DEFAULT_VERTICAL_OFFSET;
-    }
-
-    public double getTargetAreaPercentage(){
-        if(this.hasTarget()){
-            return this.limelight.getTarget().getTargetArea();
-        }
-        return DEFAULT_TARGET_AREA;
-    }
-
-    public double getTargetDistance(){
-        if(hasTarget()){
-            double sumAngle = getVerticalAngleToTarget() + LIMELIGHT_ANGLE_TO_HORIZON;
-            double trueHeight = TARGET_HEIGHT - LIMELIGHT_HEIGHT_TO_FLOOR;
-            return trueHeight / Math.tan(sumAngle);
-        }
-        else{
-            return DEFAULT_TARGET_DISTANCE;
-        }
-    }
-
-    public GSCOption determineBlueOrRed(){
-        if(Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
-                Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            return GSCOption.Blue;
-        }
-        return GSCOption.Red;
     }
 }
