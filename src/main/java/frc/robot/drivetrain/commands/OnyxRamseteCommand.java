@@ -70,6 +70,7 @@ public class OnyxRamseteCommand extends CommandBase {
     timer.start();
     leftController.reset();
     rightController.reset();
+    controller.setEnabled(false);
   }
 
   @Override

@@ -51,7 +51,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
     trajectoryGenerator = new OnyxTrajectoryGenerator(trajectoryConfig);
 
     driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(2), CONVERSION_RATE,
-        8, 50, WHEEL_DIAMETER_METER / 2, 0.6, null);
+        8, 50, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
   }
 
   @Override

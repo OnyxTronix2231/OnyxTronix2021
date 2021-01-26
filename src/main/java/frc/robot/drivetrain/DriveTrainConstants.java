@@ -52,7 +52,7 @@ public final class DriveTrainConstants {
     static final double MAX_OUTPUT_REVERSE = -1; // TODO: Calibration with A
     static final int CONTINUOUS_CURRENT_LIMIT = 10; // TODO: Calibration with A
     static final int PEAK_CURRENT_DURATION = 1000; // TODO: Calibration with A
-    public static final double TRAJECTORY_P = -10; // TODO: Calibration with A
+    public static final double TRAJECTORY_P = 0; // TODO: Calibration with A
     static final double TRAJECTORY_I = 0; // TODO: Calibration with A
     static final double TRAJECTORY_D = 4; // TODO: Calibration with A
 
