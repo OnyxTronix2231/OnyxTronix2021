@@ -36,8 +36,8 @@ public class DriveTrain extends SubsystemBase {
     this.simComponents = simComponents;
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
-    simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
-    vComponents.getOdometry().resetPosition(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
+    simComponents.getField2d().setRobotPose(new PathWeaverPose2d(1.2, 2.28, 0));
+    vComponents.getOdometry().resetPosition(new PathWeaverPose2d(1.2, 2.28, 0), Rotation2d.fromDegrees(0));
     resetEncoders();
     if (Robot.isSimulation()) {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
