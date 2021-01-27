@@ -1,5 +1,6 @@
 package frc.robot.Roulette;
 
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.simulation.BatterySim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -24,12 +26,15 @@ public class Roulette extends SubsystemBase {
     private final NetworkTableEntry shuffleboardEntryKF;
     private final NetworkTableEntry shuffleboardEntryCruiseVelocity;
     private final NetworkTableEntry shuffleboardEntryAcceleration;
-    //private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing;
+    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing;
 
     public Roulette(RouletteComponents components) {
         this.components = components;
         Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
                 , this::getCurrentRouletteRotations);
+        if(Robot.isSimulation()){
+            components.getMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 1000);
+        }
         //Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
           //      getCurrentColor().getName());
         shuffleboardEntryKP = Shuffleboard.getTab("Roulette").add("kP",
@@ -44,8 +49,8 @@ public class Roulette extends SubsystemBase {
                 components.getController().getCruiseVelocity()).getEntry();
         shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("velocity",
                 components.getController().getAcceleration()).getEntry();
-       // shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("entry",
-         //       components.getController().getAccelerationSmoothing()).getEntry();
+        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("entry",
+                components.getController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override
@@ -59,8 +64,8 @@ public class Roulette extends SubsystemBase {
                 getDouble(components.getController().getCruiseVelocity()));
         components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
                 getDouble(components.getController().getAcceleration()));
-     //   components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
-     //           getDouble(components.getController().getAccelerationSmoothing()));
+        components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
+                getDouble(components.getController().getAccelerationSmoothing()));
     }
 
     @Override
