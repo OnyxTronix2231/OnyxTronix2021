@@ -57,7 +57,7 @@ public final class SkillsConstants {
 
   public static final class Paths {
 
-    private static final double OFFSET = 4.58;
+    public static final double OFFSET = 8.21055;
 
     private static Pose2d getPose2dFromXYDeg(double x, double y, double deg) {
       return new Pose2d(x, y, Rotation2d.fromDegrees(deg));
@@ -156,7 +156,7 @@ public final class SkillsConstants {
         //go between b4 and d3
         //around d5
         //Finish in a6
-    ), false);
+    ), true);
 
     public static final Path AUTONAV_THIRD_C = new Path(List.of(
         Waypoints.A6.getPose2dFromRotation(270),

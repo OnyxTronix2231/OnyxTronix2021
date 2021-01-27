@@ -22,6 +22,7 @@ import java.util.function.DoubleSupplier;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.ENCODER_CPR;
+import static frc.robot.skillscompetiotion.SkillsConstants.Paths.OFFSET;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -36,8 +37,8 @@ public class DriveTrain extends SubsystemBase {
     this.simComponents = simComponents;
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
-    simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
-    vComponents.getOdometry().resetPosition(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
+    simComponents.getField2d().setRobotPose(new Pose2d(1.2, OFFSET - 2.3, Rotation2d.fromDegrees(0)));
+    vComponents.getOdometry().resetPosition(new Pose2d(1.2, OFFSET - 2.3, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     resetEncoders();
     if (Robot.isSimulation()) {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
