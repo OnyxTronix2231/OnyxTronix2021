@@ -61,7 +61,7 @@ public class OnyxRamseteCommand extends CommandBase {
       System.out.println(e);
       this.cancel();
     }
-    prevTime = 0;
+    prevTime = -1;
     var initialState = trajectory.sample(0);
     prevSpeeds = kinematics.toWheelSpeeds(
         new ChassisSpeeds(initialState.velocityMetersPerSecond, 0,

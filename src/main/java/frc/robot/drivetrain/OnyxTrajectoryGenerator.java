@@ -15,8 +15,9 @@ public class OnyxTrajectoryGenerator {
     this.trajectoryConfig = trajectoryConfig;
   }
 
-  public Trajectory getTrajectoryFromPoseList(List<Pose2d> poses, boolean isForward) {
-    trajectoryConfig.setReversed(!isForward);
+  public Trajectory getTrajectoryFromPoseList(List<Pose2d> poses, boolean isReversed) {
+    System.out.println(poses.get(poses.size() - 1));
+    trajectoryConfig.setReversed(isReversed);
     return TrajectoryGenerator.generateTrajectory(poses, trajectoryConfig);
   }
 }
