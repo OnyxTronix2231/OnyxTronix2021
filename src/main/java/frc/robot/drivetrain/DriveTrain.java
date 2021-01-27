@@ -6,7 +6,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.*;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.ENCODER_CPR;
 
 public class DriveTrain extends SubsystemBase {
@@ -28,6 +31,10 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
   private final SimulationDriveTrainComponents simComponents;
+  public static PIDController pidController;
+  NetworkTableEntry p;
+  NetworkTableEntry i;
+  NetworkTableEntry d;
 
   public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
                     SimulationDriveTrainComponents simComponents) {
@@ -43,6 +50,9 @@ public class DriveTrain extends SubsystemBase {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
       simComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
     }
+    p = Shuffleboard.getTab("pid").add("p", TRAJECTORY_P).getEntry();
+    i = Shuffleboard.getTab("pid").add("i", TRAJECTORY_I).getEntry();
+    d = Shuffleboard.getTab("pid").add("d", TRAJECTORY_D).getEntry();
   }
 
   @Override
@@ -69,6 +79,7 @@ public class DriveTrain extends SubsystemBase {
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
         (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
     simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
+    pidController = new PIDController(p.getDouble(0), i.getDouble(0), d.getDouble(0));
   } //ks = 0.480938416422287
   /* How to find ka:
    * a = (1/ka)*(V - ks - v * kv)
