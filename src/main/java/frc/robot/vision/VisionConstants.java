@@ -28,6 +28,11 @@ public class VisionConstants {
 
     public static final double ROBOT_CENTER_TURRET_DISTANCE = 0; // TODO: Check and change
 
+    public static final double MAX_AIR_DISTANCE_OUTER = 0; // TODO: Calculate and change
+
+    public static final double MIN_AIR_DISTANCE_OUTER = 0; // TODO: Calculate and change
+
+    public static final double MAX_ABS_OFFSET_TARGET_TO_FIELD = 0; // TODO: Calculate and change
 
 
 

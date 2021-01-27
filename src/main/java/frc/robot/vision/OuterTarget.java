@@ -4,7 +4,7 @@ import vision.limelight.target.LimelightTarget;
 
 import static frc.robot.vision.VisionConstants.*;
 
-public class OuterTarget {
+public class OuterTarget extends VisionTarget {
 
     /*a fixed mechanical value- the angle to the floor that the limelight is mounted in*/
     private final double limelightAngle;
@@ -14,24 +14,6 @@ public class OuterTarget {
 
     /*a value given by the limelight itself- the horizontal angle offset from the target to the crosshair*/
     private double horizontalAngleOffsetLimelightToTarget;
-
-    /*a value given by the limelight itself- the vertical angle offset from the target to the crosshair*/
-    private double verticalAngleOffsetLimelightToTarget;
-
-    /*a calculated value- the horizontal angle offset between the target direction to the field (gyro 0)*/
-    private double TargetToFieldHorizontalAngleOffset;
-
-    /*a calculated value- the horizontal air distance from the turret center to the target*/
-    private double airDistanceTurretToTarget;
-
-    /*a calculated value- the horizontal angle offset from the vector of the target to the turret direction*/
-    private double angleOffsetTargetToTurret;
-
-    /*a calculated vector- the vector that is connected from the turret center to the target*/
-    private Vector2dEx turretToTargetVectorRTF;
-
-    /*a calculated vector- the vector that is connected from the robot center to the target*/
-    private Vector2dEx robotToTargetVector;
 
     public OuterTarget(double gyroYawAngle, double turretAngleRelativeToTarget, LimelightTarget target){
         this.limelightAngle = LIMELIGHT_ANGLE_TO_HORIZON;
