@@ -10,10 +10,11 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.Traj
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.RAMSETE_ZETA;
 
 public class MoveToPose extends OnyxRamseteCommand {
+
   public MoveToPose(DriveTrain driveTrain,
                     Pose finishPose) {
     super(() -> driveTrain.getTrajectoryGenerator().getTrajectoryFromPoseList(List.of(driveTrain.getPose(),
-        finishPose.getPose2d()), finishPose.isForward()),
+        finishPose.getPose2d()), !finishPose.isForward()),
         driveTrain::getPose,
         new RamseteController(RAMSETE_B, RAMSETE_ZETA),
         driveTrain.getKinematics(),

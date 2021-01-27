@@ -28,7 +28,7 @@ public final class DriveTrainConstants {
 
   public static final class DriveTrainConstantsA {
 
-    public static final double TRAJECTORY_P = 0.01; // TODO: Calibration with A
+    public static final double TRAJECTORY_P = 0; // TODO: Calibration with A
     public static final double TRAJECTORY_I = 0; // TODO: Calibration with A
     public static final double TRAJECTORY_D = 0; // TODO: Calibration with A
     static final int LEFT_MASTER_PORT = 2;

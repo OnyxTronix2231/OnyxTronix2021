@@ -43,13 +43,14 @@ public class DriveTrain extends SubsystemBase {
     this.simComponents = simComponents;
     Shuffleboard.getTab("DriveTrain").add("Field", simComponents.getField2d());
     SmartDashboard.putData("Field2", simComponents.getField2d());
-    simComponents.getField2d().setRobotPose(new PathWeaverPose2d(1.2, 2.28, 0));
-    vComponents.getOdometry().resetPosition(new PathWeaverPose2d(1.2, 2.28, 0), Rotation2d.fromDegrees(0));
+    simComponents.getField2d().setRobotPose(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)));
+    vComponents.getOdometry().resetPosition(new Pose2d(1.2, 2.28, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     resetEncoders();
     if (Robot.isSimulation()) {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
       simComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
     }
+    pidController = new PIDController(0, 0, 0);
     p = Shuffleboard.getTab("pid").add("p", TRAJECTORY_P).getEntry();
     i = Shuffleboard.getTab("pid").add("i", TRAJECTORY_I).getEntry();
     d = Shuffleboard.getTab("pid").add("d", TRAJECTORY_D).getEntry();
@@ -58,7 +59,7 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     vComponents.getOdometry().update(Rotation2d.fromDegrees((Robot.isSimulation() ? getSimOdometryHeading() : getOdometryHeading())),
-        (Robot.isSimulation() ? getSimLeftDistance() : getLeftDistance()), (Robot.isSimulation() ? getSimRightDistance() : getRightDistance()));
+            (Robot.isSimulation() ? getSimLeftDistance() : getLeftDistance()), (Robot.isSimulation() ? getSimRightDistance() : getRightDistance()));
 
     simComponents.getField2d().setRobotPose(vComponents.getOdometry().getPoseMeters());
   }
@@ -66,20 +67,20 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     vComponents.getDriveTrainSim().setInputs(simComponents.getLeftMasterMotor().
-        getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents
-        .getRightMasterMotor().getMotorOutputPercent() * RobotController.getBatteryVoltage());
+            getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents
+            .getRightMasterMotor().getMotorOutputPercent() * RobotController.getBatteryVoltage());
     vComponents.getDriveTrainSim().update(0.02);
 
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(
-        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
+            (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(
-        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
+            (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition(
-        (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
+            (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
-        (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
+            (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
     simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
-    pidController = new PIDController(p.getDouble(0), i.getDouble(0), d.getDouble(0));
+    pidController.setPID(p.getDouble(0), i.getDouble(0), d.getDouble(0));
   } //ks = 0.480938416422287
   /* How to find ka:
    * a = (1/ka)*(V - ks - v * kv)
@@ -110,9 +111,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double forwardSpeed, double rotationSpeed) {
     vComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-        rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+            rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
     vComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-        -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+            -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
   public void driveByMotionMagic(double leftTarget, double rightTarget) {
@@ -138,24 +139,24 @@ public class DriveTrain extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(encoderUnitsToMeter(getLeftMaster().getSelectedSensorVelocity()
-        * 10),
-        encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
+            * 10),
+            encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
   }
 
   public DifferentialDriveWheelSpeeds getSimWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(encoderUnitsToMeter(getSimLeftMaster().getSelectedSensorVelocity()
-        * 10),
-        encoderUnitsToMeter(getSimRightMaster().getSelectedSensorVelocity() * 10));
+            * 10),
+            encoderUnitsToMeter(getSimRightMaster().getSelectedSensorVelocity() * 10));
   }
 
   public boolean isDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
-        Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
+            Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public boolean isSimDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
-        Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
+            Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public double getRightTargetFromDistance(double distance) {
