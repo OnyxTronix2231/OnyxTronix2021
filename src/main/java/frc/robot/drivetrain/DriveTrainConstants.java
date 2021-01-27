@@ -9,6 +9,8 @@ import java.util.List;
 public final class DriveTrainConstants {
 
   public static final int DRIVE_BY_DISTANCE_SLOT = 0;
+  public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
+  public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI; //TODO: tuning is required
   static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6;
   static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 0.8;
   static final int VELOCITY_CONTROLLER_PID_SLOT = 2;
@@ -17,8 +19,6 @@ public final class DriveTrainConstants {
   static final double CONVERSION_RATE = 9;
   static final double TOLERANCE_METERS = 0.03; // TODO: tuning is required
   static final double ARB_FEED_FORWARD = 0.04; // TODO: tuning is required
-  public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
-  public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI; //TODO: tuning is required
   private static final double ENCODER_UNITS = 2048;
 
   public static final class DriveTrainSimConstantsA {
@@ -28,6 +28,7 @@ public final class DriveTrainConstants {
 
   public static final class DriveTrainConstantsA {
 
+    public static final double TRAJECTORY_P = 0; // TODO: Calibration with A
     static final int LEFT_MASTER_PORT = 2;
     static final int LEFT_SLAVE_PORT = 3;
     static final int RIGHT_MASTER_PORT = 0;
@@ -57,7 +58,6 @@ public final class DriveTrainConstants {
     static final double MAX_OUTPUT_REVERSE = -1; // TODO: Calibration with A
     static final int CONTINUOUS_CURRENT_LIMIT = 10; // TODO: Calibration with A
     static final int PEAK_CURRENT_DURATION = 1000; // TODO: Calibration with A
-    public static final double TRAJECTORY_P = 0; // TODO: Calibration with A
     static final double TRAJECTORY_I = 0; // TODO: Calibration with A
     static final double TRAJECTORY_D = 4; // TODO: Calibration with A
 
@@ -65,11 +65,11 @@ public final class DriveTrainConstants {
 
       public static final double RAMSETE_B = 2;
       public static final double RAMSETE_ZETA = 0.7;
-      static final int TRAJECTORY_PID_SLOT = 1;
-      static final int DEGREES_IN_FULL_ROTATION = 360;
       public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
       public static final double VOLTS = 0.480938; // TODO: This is Sim value, Calibration with A
       public static final double VOLT_SECONDS_PER_METER = 2.1073; // TODO: This is Sim value, Calibration with A
+      static final int TRAJECTORY_PID_SLOT = 1;
+      static final int DEGREES_IN_FULL_ROTATION = 360;
       static final double VOLT_SECONDS_SQUARED_PER_METER = 0.3123; // TODO: Calibration with A
       static final double MAX_VOLTAGE = 12; // TODO: Calibration with A
       static final double MAX_SPEED_METERS_PER_SECOND = 5.6896; // TODO: Calibration with A

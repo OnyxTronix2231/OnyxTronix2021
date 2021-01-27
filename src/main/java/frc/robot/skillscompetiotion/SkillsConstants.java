@@ -56,10 +56,6 @@ public final class SkillsConstants {
 
   public static final class Paths {
 
-    private static PathWeaverPose2d getPWPose2dFromXYDeg(double x, double y, double deg) {
-      return new PathWeaverPose2d(x, y, deg);
-    }
-
     public static final Path GALACTIC_RED_FIRST_PATH = new Path(List.of( //C3->D5->A6
         getPWPose2dFromXYDeg(0.3, 2.5, 0),
         Waypoints.C3.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.164, -0.315)),
@@ -67,15 +63,6 @@ public final class SkillsConstants {
         Waypoints.A6.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(0.912, 0.518)),
         getPWPose2dFromXYDeg(8.1, 4.3, 0)
     ), false);
-
-    public final Path GALACTIC_RED_SECOND_PATH = new Path(List.of( //B3->D5-B7
-        getPWPose2dFromXYDeg(0.3, 3.5, 0),
-        Waypoints.B3.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.132, -0.635)),
-        Waypoints.D5.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.318, -0.571)),
-        Waypoints.B7.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.278, 0.708)),
-        getPWPose2dFromXYDeg(8.1, 3.5,0)
-    ), false);
-
     public static final Path GALACTIC_BLUE_FIRST_PATH = new Path(List.of( //E6->B7->C9
         getPWPose2dFromXYDeg(0.3, 4.5, 0),
         Waypoints.E6.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.052, 0.872)),
@@ -83,7 +70,6 @@ public final class SkillsConstants {
         Waypoints.C9.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.269, -0.56)),
         getPWPose2dFromXYDeg(8.1, 1.74, Calculations.angleFromTangentVectors(1.269, -0.56))
     ), false);
-
     public static final Path GALACTIC_BLUE_SECOND_PATH = new Path(List.of( //D6->B8->D10
         getPWPose2dFromXYDeg(0.3, 1, 0),
         Waypoints.D6.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.145, 0.734)),
@@ -91,7 +77,6 @@ public final class SkillsConstants {
         Waypoints.D10.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.229, -0.916)),
         getPWPose2dFromXYDeg(8.1, 1.2, Calculations.angleFromTangentVectors(1.229, -0.916))
     ), false);
-
     public static final Path AUTONAV_FIRST = new Path(List.of( //D6->B8->D10
         getPWPose2dFromXYDeg(1.2, 2.5, Calculations.angleFromTangentVectors(1.2, -0.4)),
         getPWPose2dFromXYDeg(1.85, 2.3, Calculations.angleFromTangentVectors(1.043, -0.204)),
@@ -115,7 +100,6 @@ public final class SkillsConstants {
         //around d10
         //back to the line between B2 and D2
     ), false);
-
     public static final Path AUTONAV_SECOND = new Path(List.of( //E6->B7->C9
         getPWPose2dFromXYDeg(1.2, 3.4, Calculations.angleFromTangentVectors(0.3, -0.2)),
         getPWPose2dFromXYDeg(3.1, 2.2, Calculations.angleFromTangentVectors(0.898, -0.61)),
@@ -134,14 +118,12 @@ public final class SkillsConstants {
         //under d8-d4
         //finish at d2-b2
     ), false);
-
     public static final Path AUTONAV_THIRD_A = new Path(List.of(
         getPWPose2dFromXYDeg(1.2, 2.3, 0),
         Waypoints.A3.getPWPose2dFromRotation(270)
         //Start between B2 and D2
         //Finish in A3
     ), false);
-
     public static final Path AUTONAV_THIRD_B = new Path(List.of( //reverse
         Waypoints.A3.getPWPose2dFromRotation(90),
         getPWPose2dFromXYDeg(2.69, 2.5, Calculations.angleFromTangentVectors(0.552, 0.968)),
@@ -154,7 +136,6 @@ public final class SkillsConstants {
         //around d5
         //Finish in a6
     ), false);
-
     public static final Path AUTONAV_THIRD_C = new Path(List.of(
         Waypoints.A6.getPWPose2dFromRotation(270),
         getPWPose2dFromXYDeg(5.2, 3.6, Calculations.angleFromTangentVectors(1.289, 0.273)),
@@ -165,7 +146,6 @@ public final class SkillsConstants {
         //around d7 and d8
         //Finish in a9
     ), false);
-
     public static final Path AUTONAV_THIRD_D = new Path(List.of( //reverse
         Waypoints.A9.getPWPose2dFromRotation(90),
         getPWPose2dFromXYDeg(7.9, 2.3, 0)
@@ -173,6 +153,17 @@ public final class SkillsConstants {
         //between b8 and b10
         //finish between b10 and d10
     ), false);
+    public final Path GALACTIC_RED_SECOND_PATH = new Path(List.of( //B3->D5-B7
+        getPWPose2dFromXYDeg(0.3, 3.5, 0),
+        Waypoints.B3.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.132, -0.635)),
+        Waypoints.D5.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.318, -0.571)),
+        Waypoints.B7.getPWPose2dFromRotation(Calculations.angleFromTangentVectors(1.278, 0.708)),
+        getPWPose2dFromXYDeg(8.1, 3.5, 0)
+    ), false);
+
+    private static PathWeaverPose2d getPWPose2dFromXYDeg(double x, double y, double deg) {
+      return new PathWeaverPose2d(x, y, deg);
+    }
   }
 
   public static final class Calculations {

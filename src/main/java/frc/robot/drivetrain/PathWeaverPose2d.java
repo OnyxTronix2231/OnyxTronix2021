@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 
 public class PathWeaverPose2d extends Pose2d {
   private static final double OFFSET = 8.21055;
+
   public PathWeaverPose2d() {
     super();
   }
