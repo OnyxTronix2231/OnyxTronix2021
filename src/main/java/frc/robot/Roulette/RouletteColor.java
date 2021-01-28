@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.util.Color;
 
 public class RouletteColor extends Color {
 
-    private String name;
+    private final String name;
 
     public RouletteColor(double red, double green, double blue, String name) {
         super(red, green, blue);

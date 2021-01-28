@@ -10,9 +10,13 @@ import sensors.counter.Counter;
 public interface RouletteComponents {
 
     WPI_TalonSRX getMasterMotor();
+
     Solenoid getSolenoid();
+
     MotionMagicController getController();
+
     Counter getEncoder();
+
     ColorSensorV3 getColorSensor();
 
 

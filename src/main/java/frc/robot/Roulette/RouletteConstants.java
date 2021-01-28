@@ -1,7 +1,5 @@
 package frc.robot.Roulette;
 
-import edu.wpi.first.wpilibj.util.Color;
-
 public class RouletteConstants {
 
     static final int DEVICE_NUMBER = 0; // TODO: check real value
