@@ -79,8 +79,8 @@ public class DriveTrain extends SubsystemBase {
         FEEDFORWARD,
         driveKinematics,
         this::getWheelSpeeds,
-        new PIDController(0, 0, 0),
-        new PIDController(0, 0, 0),
+        new PIDController(TRAJECTORY_P, 0, 0),
+        new PIDController(TRAJECTORY_P, 0, 0),
         this::tankDriveVolts,
         this
     );

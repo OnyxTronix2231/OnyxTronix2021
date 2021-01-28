@@ -29,7 +29,7 @@ public final class DriveTrainConstants {
 
   public static final class TrajectoryConstants {
 
-    public static final double TRAJECTORY_P = 0;
+    public static final double TRAJECTORY_P = 0.00201;
     public static final double TRAJECTORY_I = 0;
     public static final double TRAJECTORY_D = 0;
     public static final double RAMSETE_B = 2;
