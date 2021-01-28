@@ -6,7 +6,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
@@ -19,7 +18,6 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
   private final WPI_TalonFX rightSlave;
   private final SpeedController leftMotors;
   private final SpeedController rightMotors;
-  private final DifferentialDrive differentialDrive;
   private final NormalizedPigeonIMU pigeonIMU;
 
   public BasicDriveTrainComponentsA() {
@@ -50,10 +48,6 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
     leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
 
     rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
-
-    differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
-    differentialDrive.setRightSideInverted(false);
-    differentialDrive.setSafetyEnabled(false);
 
     pigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);
   }
@@ -86,11 +80,6 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
   @Override
   public IMotorController getRightSlaveMotor() {
     return rightSlave;
-  }
-
-  @Override
-  public DifferentialDrive getDifferentialDrive() {
-    return differentialDrive;
   }
 
   @Override

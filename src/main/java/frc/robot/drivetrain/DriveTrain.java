@@ -4,16 +4,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -44,24 +40,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
-    components.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+    virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
         rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
   public Command getAutonomousCommand() {
-    DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
-
-    DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(FEEDFORWARD.ks, FEEDFORWARD.kv, FEEDFORWARD.ka),
-        driveKinematics,
-        10
-    );
-
-    TrajectoryConfig config = new TrajectoryConfig(
-        MAX_SPEED_METERS_PER_SECOND, MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
-        .setKinematics(driveKinematics)
-        .addConstraint(autoVoltageConstraint);
-
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(),
         List.of(
@@ -69,7 +52,7 @@ public class DriveTrain extends SubsystemBase {
             new Translation2d(2, -1)
         ),
         new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
-        config
+        TRAJECTORY_CONFIG
     );
 
     RamseteCommand ramseteCommand = new RamseteCommand(
@@ -77,7 +60,7 @@ public class DriveTrain extends SubsystemBase {
         this::getPose,
         new RamseteController(RAMSETE_B, RAMSETE_ZETA),
         FEEDFORWARD,
-        driveKinematics,
+        DRIVE_KINEMATICS,
         this::getWheelSpeeds,
         new PIDController(TRAJECTORY_P, 0, 0),
         new PIDController(TRAJECTORY_P, 0, 0),
@@ -107,7 +90,7 @@ public class DriveTrain extends SubsystemBase {
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     components.getLeftMotors().setVoltage(leftVolts);
     components.getRightMotors().setVoltage(rightVolts);
-    components.getDifferentialDrive().feed();
+    virtualComponents.getDifferentialDrive().feed();
   }
 
   public double getAverageEncoderDistance() {
@@ -116,7 +99,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setMaxOutput(double maxOutput) {
-    components.getDifferentialDrive().setMaxOutput(maxOutput);
+    virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
   }
 
   public void zeroHeading() {
@@ -134,7 +117,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void stopDrive() {
-    components.getDifferentialDrive().stopMotor();
+    virtualComponents.getDifferentialDrive().stopMotor();
   }
 
   public void setNeutralModeToCoast() {

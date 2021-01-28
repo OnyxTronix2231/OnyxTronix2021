@@ -30,11 +30,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     DriveTrainComponents driveTrainComponents;
+    SimulationDriveTrainComponents simulationDriveTrainComponents;
     DriveTrainVirtualComponents driveTrainVirtualComponents;
 
     if (ROBOT_TYPE == RobotType.A) {
       driveTrainComponents = new BasicDriveTrainComponentsA();
-      driveTrainVirtualComponents = new DriveTrainVirtualComponentsA();
+      simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+      driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
     } else {
       driveTrainComponents = null;
       driveTrainVirtualComponents = null;
