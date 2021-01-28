@@ -17,4 +17,11 @@ public final class DriveTrainConstants {
         static final double MAX_OUTPUT_REVERSE = 1; // TODO: check value
         static final double CURRENT_LIMIT = 40; // TODO: check value
     }
+
+    public static final class TrajectoryConstants {
+
+        static final double VOLTS = 0.48;
+        static final double VOLTS_PER_METER = 0;
+        
+    }
 }
