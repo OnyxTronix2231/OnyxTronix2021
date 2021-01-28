@@ -5,6 +5,7 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEF
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_SLAVE_PORT;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_FORWARD;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_REVERSE;
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.PIGEON_PORT;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_MASTER_PORT;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_SLAVE_PORT;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRIGGER_THRESHOLD_CURRENT;
@@ -14,16 +15,21 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 
 public class BasicDriveTrainComponentsA implements DriveTrainComponents {
 
-    private final WPI_TalonFX rightMaster;
-    private final WPI_TalonFX rightSlave;
     private final WPI_TalonFX leftMaster;
     private final WPI_TalonFX leftSlave;
+    private final WPI_TalonFX rightMaster;
+    private final WPI_TalonFX rightSlave;
+    private final SpeedController leftMotors;
+    private final SpeedController rightMotors;
     private final DifferentialDrive differentialDrive;
+    private final NormalizedPigeonIMU pigeonIMU;
 
     public BasicDriveTrainComponentsA() {
         rightMaster = new WPI_TalonFX(RIGHT_MASTER_PORT);
@@ -50,19 +56,25 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
         leftSlave.setNeutralMode(NeutralMode.Brake);
         leftSlave.follow(leftMaster);
 
+        leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
+
+        rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
+
         differentialDrive = new DifferentialDrive(leftMaster, rightMaster);
         differentialDrive.setRightSideInverted(false);
         differentialDrive.setSafetyEnabled(false);
+
+        pigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);
     }
 
     @Override
-    public WPI_TalonFX getRightMasterMotor() {
-        return rightMaster;
+    public SpeedController getLeftMotors() {
+        return leftMotors;
     }
 
     @Override
-    public IMotorController getRightSlaveMotor() {
-        return rightSlave;
+    public SpeedController getRightMotors() {
+        return rightMotors;
     }
 
     @Override
@@ -76,8 +88,23 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
     }
 
     @Override
+    public WPI_TalonFX getRightMasterMotor() {
+        return rightMaster;
+    }
+
+    @Override
+    public IMotorController getRightSlaveMotor() {
+        return rightSlave;
+    }
+
+    @Override
     public DifferentialDrive getDifferentialDrive() {
         return differentialDrive;
+    }
+
+    @Override
+    public NormalizedPigeonIMU getNormelizedPigeonIMU() {
+        return pigeonIMU;
     }
 
     private TalonFXConfiguration getFalconConfiguration() {

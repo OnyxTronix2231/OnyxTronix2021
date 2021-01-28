@@ -5,21 +5,75 @@ import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_ROTATION_SEN
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
 
     private final DriveTrainComponents components;
+    private final DriveTrainVirtualComponents virtualComponents;
 
-    public DriveTrain(DriveTrainComponents components) {
+    public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents virtualComponents) {
         this.components = components;
+        this.virtualComponents = virtualComponents;
         resetEncoders();
+    }
+
+    @Override
+    public void periodic() {
+        virtualComponents.getOdometry().update(
+                Rotation2d.fromDegrees(getHeading()),
+                getLeftMaster().getSelectedSensorPosition(),
+                getRightMaster().getSelectedSensorPosition());
     }
 
     public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
         components.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
                 rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
     }
+
+    public Pose2d getPose(){
+        return virtualComponents.getOdometry().getPoseMeters();
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+        return new DifferentialDriveWheelSpeeds(getLeftMaster().getSelectedSensorVelocity(),
+                getLeftMaster().getSelectedSensorVelocity());
+    }
+
+    public void resetOdometry(Pose2d pose){
+        virtualComponents.getOdometry().resetPosition(pose,
+                Rotation2d.fromDegrees(getHeading()));
+    }
+
+    public void tankDriveVolts(double leftVolts, double rightVolts){
+        components.getLeftMotors().setVoltage(leftVolts);
+        components.getRightMotors().setVoltage(rightVolts);
+        components.getDifferentialDrive().feed();
+    }
+
+    public double getAverageEncoderDistance(){
+        return (getLeftMaster().getSelectedSensorPosition() +
+                getRightMaster().getSelectedSensorPosition()) / 2;
+    }
+
+    public void setMaxOutput(double maxOutput) {
+        components.getDifferentialDrive().setMaxOutput(maxOutput);
+    }
+
+    public void zeroHeading() {
+        components.getNormelizedPigeonIMU().setYaw(0);
+    }
+
+    public double getHeading() {
+        return components.getNormelizedPigeonIMU().getNormalizedYaw();
+    }
+
+//    public double getTurnRate() {
+//        return -components.getNormelizedPigeonIMU().getRawGyro(new double[]);
+//    }
 
     public void stopDrive() {
         components.getDifferentialDrive().stopMotor();
