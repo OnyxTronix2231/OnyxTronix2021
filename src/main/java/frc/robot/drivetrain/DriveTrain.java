@@ -2,13 +2,27 @@ package frc.robot.drivetrain;
 
 import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_FORWARD_SENSITIVITY;
 import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_ROTATION_SENSITIVITY;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.List;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -32,6 +46,48 @@ public class DriveTrain extends SubsystemBase {
     public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
         components.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
                 rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+    }
+
+    public Command getAutonomousCommand(){
+        DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
+
+        DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(FEEDFORWARD.ks, FEEDFORWARD.kv, FEEDFORWARD.ka),
+            driveKinematics,
+            10
+        );
+
+        TrajectoryConfig config = new TrajectoryConfig(
+            MAX_SPEED_METERS_PER_SECOND, MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
+            .setKinematics(driveKinematics)
+            .addConstraint(autoVoltageConstraint);
+
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+            new Pose2d(),
+            List.of(
+                new Translation2d(1, 1),
+                new Translation2d(2, -1)
+            ),
+            new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
+            config
+        );
+
+        RamseteCommand ramseteCommand = new RamseteCommand(
+            trajectory,
+            this::getPose,
+            new RamseteController(RAMSETE_B, RAMSETE_ZETA),
+            FEEDFORWARD,
+            driveKinematics,
+            this::getWheelSpeeds,
+            new PIDController(0, 0, 0),
+            new PIDController(0, 0, 0),
+            this::tankDriveVolts,
+            this
+        );
+
+        resetOdometry(trajectory.getInitialPose());
+
+        return ramseteCommand.andThen(() -> tankDriveVolts(0, 0));
     }
 
     public Pose2d getPose(){
@@ -71,9 +127,11 @@ public class DriveTrain extends SubsystemBase {
         return components.getNormelizedPigeonIMU().getNormalizedYaw();
     }
 
-//    public double getTurnRate() {
-//        return -components.getNormelizedPigeonIMU().getRawGyro(new double[]);
-//    }
+    public double getTurnRate() {
+        double[] rawPigeon = new double[3];
+        components.getNormelizedPigeonIMU().getRawGyro(rawPigeon);
+        return rawPigeon[0];
+    }
 
     public void stopDrive() {
         components.getDifferentialDrive().stopMotor();

@@ -1,5 +1,7 @@
 package frc.robot.drivetrain;
 
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
 
@@ -32,10 +34,11 @@ public final class DriveTrainConstants {
         public static final double TRAJECTORY_D = 0;
         public static final double RAMSETE_B = 2;
         public static final double RAMSETE_ZETA = 0.7;
+        private static final double kS = 0.480938; // TODO: This is Sim value, Calibration with A
+        private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
+        private static final double kA = 0.3123; // TODO: Calibration with A
+        public static final SimpleMotorFeedforward FEEDFORWARD= new SimpleMotorFeedforward(0.480938, 2.1073, 0.3123);
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
-        public static final double VOLTS = 0.480938; // TODO: This is Sim value, Calibration with A
-        public static final double VOLT_SECONDS_PER_METER = 2.1073; // TODO: This is Sim value, Calibration with A
-        static final double VOLT_SECONDS_SQUARED_PER_METER = 0.3123; // TODO: Calibration with A
         static final int TRAJECTORY_PID_SLOT = 1;
         static final double MAX_VOLTAGE = 12; // TODO: Calibration with A
         static final double MAX_SPEED_METERS_PER_SECOND = 4; // TODO: Calibration with A
