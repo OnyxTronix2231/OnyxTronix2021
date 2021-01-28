@@ -74,6 +74,11 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     return leftSlave;
   }
 
+  @Override
+  public Field2d getField2d() {
+    return field2d;
+  }
+
   private TalonSRXConfiguration getSRXConfiguration() {
     final TalonSRXConfiguration config = new TalonSRXConfiguration();
     config.peakOutputForward = MAX_OUTPUT_FORWARD;
@@ -83,9 +88,5 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
     config.peakCurrentDuration = PEAK_CURRENT_DURATION;
     return config;
-  }
-
-  public Field2d getField2d() {
-    return field2d;
   }
 }
