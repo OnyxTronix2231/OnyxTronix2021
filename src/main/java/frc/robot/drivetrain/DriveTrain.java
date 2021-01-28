@@ -23,10 +23,13 @@ import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 public class DriveTrain extends SubsystemBase {
 
   private final DriveTrainComponents components;
+  private final SimulationDriveTrainComponents simulationComponents;
   private final DriveTrainVirtualComponents virtualComponents;
 
-  public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents virtualComponents) {
+  public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
+                    DriveTrainVirtualComponents virtualComponents) {
     this.components = components;
+    this.simulationComponents = simulationComponents;
     this.virtualComponents = virtualComponents;
     resetEncoders();
   }

@@ -39,10 +39,11 @@ public class Robot extends TimedRobot {
       driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
     } else {
       driveTrainComponents = null;
+      simulationDriveTrainComponents = null;
       driveTrainVirtualComponents = null;
     }
 
-    driveTrain = new DriveTrain(driveTrainComponents, driveTrainVirtualComponents);
+    driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
 
     new DriverOI(driveTrain);
     new DeputyOI();
