@@ -1,23 +1,30 @@
 package frc.robot.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 
 import java.util.List;
 
-import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_FORWARD_SENSITIVITY;
-import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_ROTATION_SENSITIVITY;
+import static frc.robot.drivetrain.DriveTrainConstants.*;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
 public class DriveTrain extends SubsystemBase {
@@ -31,7 +38,15 @@ public class DriveTrain extends SubsystemBase {
     this.components = components;
     this.simulationComponents = simulationComponents;
     this.virtualComponents = virtualComponents;
+    Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
+    SmartDashboard.putData("Field2d", getField2d());
+    getField2d().setRobotPose(new Pose2d());
+    virtualComponents.getOdometry().resetPosition(new Pose2d(), new Rotation2d());
     resetEncoders();
+    if (Robot.isSimulation()) {
+      simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+      simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+    }
   }
 
   @Override
@@ -40,6 +55,32 @@ public class DriveTrain extends SubsystemBase {
         Rotation2d.fromDegrees(getHeading()),
         getLeftMaster().getSelectedSensorPosition(),
         getRightMaster().getSelectedSensorPosition());
+
+    getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    getDriveTrainSim().setInputs(
+        getSimLeftMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage(),
+        getSimRightMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage());
+    getDriveTrainSim().update(0.02);
+
+    getSimLeftMaster().getSimCollection().setQuadratureVelocity(
+        (int) metersSecToEncoderUnitsDeciSec(getDriveTrainSim().getLeftVelocityMetersPerSecond())
+    );
+    getSimRightMaster().getSimCollection().setQuadratureVelocity(
+        (int) metersSecToEncoderUnitsDeciSec(getDriveTrainSim().getRightVelocityMetersPerSecond())
+    );
+
+    getSimLeftMaster().getSimCollection().setQuadratureRawPosition(
+        (int) metersToEncoderUnits(getDriveTrainSim().getLeftPositionMeters())
+    );
+    getSimRightMaster().getSimCollection().setQuadratureRawPosition(
+        (int) metersToEncoderUnits(getDriveTrainSim().getRightPositionMeters())
+    );
+
+    simulationComponents.getAnalogGyroSim().setAngle(getDriveTrainSim().getHeading().getDegrees());
   }
 
   public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
@@ -137,12 +178,44 @@ public class DriveTrain extends SubsystemBase {
     components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
   }
 
+  private double metersToEncoderUnits(double meters) {
+    return meters * ENCODER_CPR / PERIMETER_METER;
+  }
+
+  private double metersSecToEncoderUnitsDeciSec(double metersSec) {
+    return metersToEncoderUnits(metersSec / 10);
+  }
+
+  private double encoderUnitsToMeters(double units) {
+    return units * PERIMETER_METER / ENCODER_CPR;
+  }
+
+  private double encoderUnitsDeciSecToMetersSec(double unitsDeciSec) {
+    return encoderUnitsToMeters(unitsDeciSec * 10);
+  }
+
   private WPI_TalonFX getLeftMaster() {
     return components.getLeftMasterMotor();
   }
 
+  private WPI_TalonSRX getSimLeftMaster() {
+    return simulationComponents.getLeftMasterMotor();
+  }
+
   private WPI_TalonFX getRightMaster() {
     return components.getRightMasterMotor();
+  }
+
+  private WPI_TalonSRX getSimRightMaster() {
+    return simulationComponents.getRightMasterMotor();
+  }
+
+  private Field2d getField2d() {
+    return simulationComponents.getField2d();
+  }
+
+  private DifferentialDrivetrainSim getDriveTrainSim() {
+    return virtualComponents.getDriveTrainSim();
   }
 
   private void resetEncoders() {

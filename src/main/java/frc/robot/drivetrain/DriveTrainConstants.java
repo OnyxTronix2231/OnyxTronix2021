@@ -11,7 +11,8 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENC
 
 public final class DriveTrainConstants {
 
-  static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
+  public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
+  public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
   static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 1; // TODO: check value
   static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 1; // TODO: check value
   static final int DEGREES_IN_FULL_ROTATION = 360;
