@@ -6,9 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -23,7 +21,6 @@ import java.util.List;
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.*;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.TrajectoryParams.ENCODER_CPR;
 
 public class DriveTrain extends SubsystemBase {
@@ -31,10 +28,6 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final DriveTrainVirtualComponents vComponents;
   private final SimulationDriveTrainComponents simComponents;
-  public static PIDController pidController;
-  NetworkTableEntry p;
-  NetworkTableEntry i;
-  NetworkTableEntry d;
 
   public DriveTrain(DriveTrainComponents components, DriveTrainVirtualComponents vComponents,
                     SimulationDriveTrainComponents simComponents) {
@@ -50,16 +43,12 @@ public class DriveTrain extends SubsystemBase {
       simComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
       simComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
     }
-    pidController = new PIDController(0, 0, 0);
-    p = Shuffleboard.getTab("pid").add("p", TRAJECTORY_P).getEntry();
-    i = Shuffleboard.getTab("pid").add("i", TRAJECTORY_I).getEntry();
-    d = Shuffleboard.getTab("pid").add("d", TRAJECTORY_D).getEntry();
   }
 
   @Override
   public void periodic() {
     vComponents.getOdometry().update(Rotation2d.fromDegrees((Robot.isSimulation() ? getSimOdometryHeading() : getOdometryHeading())),
-            (Robot.isSimulation() ? getSimLeftDistance() : getLeftDistance()), (Robot.isSimulation() ? getSimRightDistance() : getRightDistance()));
+        (Robot.isSimulation() ? getSimLeftDistance() : getLeftDistance()), (Robot.isSimulation() ? getSimRightDistance() : getRightDistance()));
 
     simComponents.getField2d().setRobotPose(vComponents.getOdometry().getPoseMeters());
   }
@@ -67,20 +56,19 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void simulationPeriodic() {
     vComponents.getDriveTrainSim().setInputs(simComponents.getLeftMasterMotor().
-            getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents
-            .getRightMasterMotor().getMotorOutputPercent() * RobotController.getBatteryVoltage());
+        getMotorOutputPercent() * RobotController.getBatteryVoltage(), simComponents
+        .getRightMasterMotor().getMotorOutputPercent() * RobotController.getBatteryVoltage());
     vComponents.getDriveTrainSim().update(0.02);
 
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(
-            (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
+        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getLeftVelocityMetersPerSecond()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(
-            (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
+        (int) metersPerSecToEncoderUnitsPerDeciSecond(vComponents.getDriveTrainSim().getRightVelocityMetersPerSecond()));
     simComponents.getLeftMasterMotor().getSimCollection().setQuadratureRawPosition(
-            (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
+        (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getLeftPositionMeters()));
     simComponents.getRightMasterMotor().getSimCollection().setQuadratureRawPosition(
-            (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
+        (int) metersToEncoderUnits(vComponents.getDriveTrainSim().getRightPositionMeters()));
     simComponents.getAnalogGyroSim().setAngle(vComponents.getDriveTrainSim().getHeading().getDegrees());
-    pidController.setPID(p.getDouble(0), i.getDouble(0), d.getDouble(0));
   } //ks = 0.480938416422287
   /* How to find ka:
    * a = (1/ka)*(V - ks - v * kv)
@@ -111,9 +99,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double forwardSpeed, double rotationSpeed) {
     vComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-            rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
     vComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-            -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
   public void driveByMotionMagic(double leftTarget, double rightTarget) {
@@ -139,24 +127,23 @@ public class DriveTrain extends SubsystemBase {
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(encoderUnitsToMeter(getLeftMaster().getSelectedSensorVelocity()
-            * 10),
-            encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
+        * 10),
+        encoderUnitsToMeter(getRightMaster().getSelectedSensorVelocity() * 10));
   }
 
   public DifferentialDriveWheelSpeeds getSimWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(encoderUnitsToMeter(getSimLeftMaster().getSelectedSensorVelocity()
-            * 10),
-            encoderUnitsToMeter(getSimRightMaster().getSelectedSensorVelocity() * 10));
+    return new DifferentialDriveWheelSpeeds(encoderUnitsDeciSecondToMeterSecond(getSimLeftMaster().getSelectedSensorVelocity()),
+        encoderUnitsDeciSecondToMeterSecond(getSimRightMaster().getSelectedSensorVelocity()));
   }
 
   public boolean isDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
-            Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
+        Math.abs(rightTarget - getRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public boolean isSimDriveOnTarget(double leftTarget, double rightTarget) {
     return Math.abs(leftTarget - getSimLeftMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS) &&
-            Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
+        Math.abs(rightTarget - getSimRightMaster().getSelectedSensorPosition()) < metersToEncoderUnits(TOLERANCE_METERS);
   }
 
   public double getRightTargetFromDistance(double distance) {
