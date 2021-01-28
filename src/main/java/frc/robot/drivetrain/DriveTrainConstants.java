@@ -25,6 +25,10 @@ public final class DriveTrainConstants {
     static final double MAX_OUTPUT_REVERSE = 1; // TODO: check value
     static final double CURRENT_LIMIT = 40; // TODO: check value
     static final double CONVERSION_RATE = 9;
+    static final double CLOSED_LOOP_RAMP = 0;
+    static final double OPEN_LOOP_RAMP = 0;
+    static final int CONTINUOUS_CURRENT_LIMIT = 10;
+    static final int PEAK_CURRENT_DURATION = 1000;
   }
 
   public static final class TrajectoryConstants {
