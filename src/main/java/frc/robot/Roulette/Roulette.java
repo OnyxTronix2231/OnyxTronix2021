@@ -53,11 +53,11 @@ public class Roulette extends SubsystemBase {
                 shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
                 shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
         components.getController().setCruiseVelocity((int) shuffleboardEntryCruiseVelocity.
-                getDouble(components.getController().getCruiseVelocity()));
+                getDouble(0));
         components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
-                getDouble(components.getController().getAcceleration()));
+                getDouble(0));
         components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
-                getDouble(components.getController().getAccelerationSmoothing()));
+                getDouble(0));
     }
 
     public void openPiston() {
