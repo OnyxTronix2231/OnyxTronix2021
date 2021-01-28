@@ -14,12 +14,9 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.drivetrain.DriveTrain;
 
 import java.util.function.BiConsumer;
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
-import static frc.robot.drivetrain.DriveTrain.*;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainConstantsA.*;
 
 public class OnyxRamseteCommand extends CommandBase {
   public final Timer timer = new Timer();
@@ -29,12 +26,14 @@ public class OnyxRamseteCommand extends CommandBase {
   private final RamseteController controller;
   private final DifferentialDriveKinematics kinematics;
   private final Supplier<DifferentialDriveWheelSpeeds> wheelSpeeds;
-  private final Supplier<PIDController> pidControllerSupplier;
+  private Supplier<PIDController> leftPIDControllerSupplier;
+  private Supplier<PIDController> rightPIDControllerSupplier;
   private final SimpleMotorFeedforward feedforward;
   private double prevTime;
   private Trajectory trajectory;
   private DifferentialDriveWheelSpeeds prevSpeeds;
-  private PIDController pidController;
+  private PIDController leftPIDController;
+  private PIDController rightPIDController;
 
   public OnyxRamseteCommand(Supplier<Trajectory> trajectorySupplier,
                             Supplier<Pose2d> pose2dSupplier,
@@ -51,7 +50,8 @@ public class OnyxRamseteCommand extends CommandBase {
     this.wheelSpeeds = requireNonNullParam(wheelSpeeds, "wheelSpeeds", "RamseteCommand");
     this.outputVoltage = requireNonNullParam(outputVoltage, "outputVolts", "RamseteCommand");
     this.feedforward = feedforward;
-    pidControllerSupplier = () -> DriveTrain.pidController;
+    leftPIDControllerSupplier = () -> DriveTrain.pidController;
+    rightPIDControllerSupplier = () -> DriveTrain.pidController;
   addRequirements(requirements);
   }
 
@@ -59,7 +59,7 @@ public class OnyxRamseteCommand extends CommandBase {
   public void initialize() {
     try {
       trajectory = trajectorySupplier.get();
-      pidController = pidControllerSupplier.get();
+      leftPIDController = leftPIDControllerSupplier.get();
     } catch (Exception e) {
       System.out.println(e);
       this.cancel();
@@ -71,7 +71,7 @@ public class OnyxRamseteCommand extends CommandBase {
             initialState.curvatureRadPerMeter * initialState.velocityMetersPerSecond));
     timer.reset();
     timer.start();
-    pidController.reset();
+    leftPIDController.reset();
     controller.setEnabled(false);
   }
 
@@ -95,11 +95,11 @@ public class OnyxRamseteCommand extends CommandBase {
             (rightSpeedSetpoint - prevSpeeds.rightMetersPerSecond) / deltaTime);
 
     final double leftOutput = leftFeedforward
-        + pidController.calculate(wheelSpeeds.get().leftMetersPerSecond,
+        + leftPIDController.calculate(wheelSpeeds.get().leftMetersPerSecond,
         leftSpeedSetpoint);
 
     final double rightOutput = rightFeedforward
-        + pidController.calculate(wheelSpeeds.get().rightMetersPerSecond,
+        + leftPIDController.calculate(wheelSpeeds.get().rightMetersPerSecond,
         rightSpeedSetpoint);
 
     outputVoltage.accept(leftOutput, rightOutput);
