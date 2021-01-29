@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.util.Units;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.OFFSET;
 
 public final class DriveTrainConstants {
 
@@ -56,6 +57,6 @@ public final class DriveTrainConstants {
         private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double kA = 0.3123; // TODO: Calibration with A
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(kS, kV, kA);
-        public static final Pose2d START_POSE = new Pose2d(3.2, 8.2 - 7.5, Rotation2d.fromDegrees(0));
+        public static final Pose2d START_POSE = new Pose2d(3.2, OFFSET - 7.5, Rotation2d.fromDegrees(0));
     }
 }
