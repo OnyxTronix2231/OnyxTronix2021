@@ -15,72 +15,72 @@ public class SkillsConstants {
             return new Translation2d(Units.inchesToMeters(x), Units.inchesToMeters(y));
         }
 
-        public static final Waypoint A1 = new Waypoint(30, 150);
-        public static final Waypoint A3 = new Waypoint(90, 150);
-        public static final Waypoint A4 = new Waypoint(120, 150);
-        public static final Waypoint A6 = new Waypoint(180, 150);
-        public static final Waypoint A7 = new Waypoint(210, 150);
-        public static final Waypoint A8 = new Waypoint(240, 150);
-        public static final Waypoint A9 = new Waypoint(270, 150);
-        public static final Waypoint A10 = new Waypoint(300, 150);
+        public static final Translation2d A1 = getWaypointFromInches(30, 150);
+        public static final Translation2d A3 = getWaypointFromInches(90, 150);
+        public static final Translation2d A4 = getWaypointFromInches(120, 150);
+        public static final Translation2d A6 = getWaypointFromInches(180, 150);
+        public static final Translation2d A7 = getWaypointFromInches(210, 150);
+        public static final Translation2d A8 = getWaypointFromInches(240, 150);
+        public static final Translation2d A9 = getWaypointFromInches(270, 150);
+        public static final Translation2d A10 = getWaypointFromInches(300, 150);
 
-        public static final Waypoint B1 = new Waypoint(30, 120);
-        public static final Waypoint B2 = new Waypoint(60, 120);
-        public static final Waypoint B3 = new Waypoint(90, 120);
-        public static final Waypoint B4 = new Waypoint(120, 120);
-        public static final Waypoint B5 = new Waypoint(150, 120);
-        public static final Waypoint B6 = new Waypoint(180, 120);
-        public static final Waypoint B7 = new Waypoint(210, 120);
-        public static final Waypoint B8 = new Waypoint(240, 120);
-        public static final Waypoint B9 = new Waypoint(270, 120);
-        public static final Waypoint B10 = new Waypoint(300, 120);
-        public static final Waypoint B11 = new Waypoint(330, 120);
+        public static final Translation2d B1 = getWaypointFromInches(30, 120);
+        public static final Translation2d B2 = getWaypointFromInches(60, 120);
+        public static final Translation2d B3 = getWaypointFromInches(90, 120);
+        public static final Translation2d B4 = getWaypointFromInches(120, 120);
+        public static final Translation2d B5 = getWaypointFromInches(150, 120);
+        public static final Translation2d B6 = getWaypointFromInches(180, 120);
+        public static final Translation2d B7 = getWaypointFromInches(210, 120);
+        public static final Translation2d B8 = getWaypointFromInches(240, 120);
+        public static final Translation2d B9 = getWaypointFromInches(270, 120);
+        public static final Translation2d B10 = getWaypointFromInches(300, 120);
+        public static final Translation2d B11 = getWaypointFromInches(330, 120);
 
-        public static final Waypoint C3 = new Waypoint(90, 90);
-        public static final Waypoint C9 = new Waypoint(270, 90);
+        public static final Translation2d C3 = getWaypointFromInches(90, 90);
+        public static final Translation2d C9 = getWaypointFromInches(270, 90);
 
-        public static final Waypoint D1 = new Waypoint(30, 60);
-        public static final Waypoint D2 = new Waypoint(60, 60);
-        public static final Waypoint D3 = new Waypoint(90, 60);
-        public static final Waypoint D4 = new Waypoint(120, 60);
-        public static final Waypoint D5 = new Waypoint(150, 60);
-        public static final Waypoint D6 = new Waypoint(180, 60);
-        public static final Waypoint D7 = new Waypoint(210, 60);
-        public static final Waypoint D8 = new Waypoint(240, 60);
-        public static final Waypoint D9 = new Waypoint(270, 60);
-        public static final Waypoint D10 = new Waypoint(300, 60);
-        public static final Waypoint D11 = new Waypoint(330, 60);
+        public static final Translation2d D1 = getWaypointFromInches(30, 60);
+        public static final Translation2d D2 = getWaypointFromInches(60, 60);
+        public static final Translation2d D3 = getWaypointFromInches(90, 60);
+        public static final Translation2d D4 = getWaypointFromInches(120, 60);
+        public static final Translation2d D5 = getWaypointFromInches(150, 60);
+        public static final Translation2d D6 = getWaypointFromInches(180, 60);
+        public static final Translation2d D7 = getWaypointFromInches(210, 60);
+        public static final Translation2d D8 = getWaypointFromInches(240, 60);
+        public static final Translation2d D9 = getWaypointFromInches(270, 60);
+        public static final Translation2d D10 = getWaypointFromInches(300, 60);
+        public static final Translation2d D11 = getWaypointFromInches(330, 60);
 
-        public static final Waypoint E1 = new Waypoint(30, 30);
-        public static final Waypoint E3 = new Waypoint(90, 30);
-        public static final Waypoint E4 = new Waypoint(120, 30);
-        public static final Waypoint E6 = new Waypoint(180, 30);
-        public static final Waypoint E7 = new Waypoint(210, 30);
-        public static final Waypoint E8 = new Waypoint(240, 30);
-        public static final Waypoint E9 = new Waypoint(270, 30);
-        public static final Waypoint E10 = new Waypoint(300, 30);
+        public static final Translation2d E1 = getWaypointFromInches(30, 30);
+        public static final Translation2d E3 = getWaypointFromInches(90, 30);
+        public static final Translation2d E4 = getWaypointFromInches(120, 30);
+        public static final Translation2d E6 = getWaypointFromInches(180, 30);
+        public static final Translation2d E7 = getWaypointFromInches(210, 30);
+        public static final Translation2d E8 = getWaypointFromInches(240, 30);
+        public static final Translation2d E9 = getWaypointFromInches(270, 30);
+        public static final Translation2d E10 = getWaypointFromInches(300, 30);
     }
 
     public static final class Paths {
         public static final List<Translation2d> GALACTIC_SEARCH_RED_FIRST =
-                List.of(new Translation2d(Waypoints.C3.getX(), Waypoints.C3.getY()),
-                        new Translation2d(Waypoints.D5.getX(), Waypoints.D5.getY()),
-                        new Translation2d(Waypoints.A6.getX(), Waypoints.A6.getY()));
+                List.of(Waypoints.C3,
+                        Waypoints.D5,
+                        Waypoints.A6);
 
         public static final List<Translation2d> GALACTIC_SEARCH_RED_SECOND =
-                List.of(new Translation2d(Waypoints.B3.getX(), Waypoints.B3.getY()),
-                        new Translation2d(Waypoints.D5.getX(), Waypoints.D5.getY()),
-                        new Translation2d(Waypoints.B7.getX(), Waypoints.B7.getY()));
+                List.of(Waypoints.B3,
+                        Waypoints.D5,
+                        Waypoints.B7);
 
         public static final List<Translation2d> GALACTIC_SEARCH_BLUE_FIRST =
-                List.of(new Translation2d(Waypoints.E6.getX(), Waypoints.E6.getY()),
-                        new Translation2d(Waypoints.B7.getX(), Waypoints.B7.getY()),
-                        new Translation2d(Waypoints.C9.getX(), Waypoints.C9.getY()));
+                List.of(Waypoints.E6,
+                        Waypoints.B7,
+                        Waypoints.C9);
 
         public static final List<Translation2d> GALACTIC_SEARCH_BLUE_SECOND =
-                List.of(new Translation2d(Waypoints.D6.getX(), Waypoints.D6.getY()),
-                        new Translation2d(Waypoints.B8.getX(), Waypoints.B8.getY()),
-                        new Translation2d(Waypoints.D10.getX(), Waypoints.D10.getY()));
+                List.of(Waypoints.D6,
+                        Waypoints.B8,
+                        Waypoints.D10);
 
         public static final Path TEST_PATH = new Path(false, List.of(),
                 new Pose2d(3, 2, Rotation2d.fromDegrees(90)));
