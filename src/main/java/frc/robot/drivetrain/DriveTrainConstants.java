@@ -43,13 +43,13 @@ public final class DriveTrainConstants {
 
   public static final class TrajectoryConstants {
 
-    public static final double TRAJECTORY_P = 0.00201;
+    public static final double TRAJECTORY_P = 0.0008;
     public static final double RAMSETE_B = 2;
     public static final double RAMSETE_ZETA = 0.7;
     public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
     static final double MAX_VOLTAGE = 12; // TODO: Calibration with A
-    static final double MAX_SPEED_METERS_PER_SECOND = 4; // TODO: Calibration with A
-    static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
+    static final double MAX_SPEED_METERS_PER_SECOND = 10; // TODO: Calibration with A
+    static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 10; // TODO: Calibration with A
     static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
     private static final double kS = 0.480938; // TODO: This is Sim value, Calibration with A
     private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A

@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 

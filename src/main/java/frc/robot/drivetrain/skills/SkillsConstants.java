@@ -1,11 +1,19 @@
-package frc.robot.drivetrain.Skills;
+package frc.robot.drivetrain.skills;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.util.Units;
+import frc.robot.drivetrain.utils.Path;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SkillsConstants {
     public static final class Waypoints {
+
+        private static Translation2d getWaypointFromInches(double x, double y) {
+            return new Translation2d(Units.inchesToMeters(x), Units.inchesToMeters(y));
+        }
 
         public static final Waypoint A1 = new Waypoint(30, 150);
         public static final Waypoint A3 = new Waypoint(90, 150);
@@ -54,5 +62,27 @@ public class SkillsConstants {
     }
 
     public static final class Paths {
+        public static final List<Translation2d> GALACTIC_SEARCH_RED_FIRST =
+                List.of(new Translation2d(Waypoints.C3.getX(), Waypoints.C3.getY()),
+                        new Translation2d(Waypoints.D5.getX(), Waypoints.D5.getY()),
+                        new Translation2d(Waypoints.A6.getX(), Waypoints.A6.getY()));
+
+        public static final List<Translation2d> GALACTIC_SEARCH_RED_SECOND =
+                List.of(new Translation2d(Waypoints.B3.getX(), Waypoints.B3.getY()),
+                        new Translation2d(Waypoints.D5.getX(), Waypoints.D5.getY()),
+                        new Translation2d(Waypoints.B7.getX(), Waypoints.B7.getY()));
+
+        public static final List<Translation2d> GALACTIC_SEARCH_BLUE_FIRST =
+                List.of(new Translation2d(Waypoints.E6.getX(), Waypoints.E6.getY()),
+                        new Translation2d(Waypoints.B7.getX(), Waypoints.B7.getY()),
+                        new Translation2d(Waypoints.C9.getX(), Waypoints.C9.getY()));
+
+        public static final List<Translation2d> GALACTIC_SEARCH_BLUE_SECOND =
+                List.of(new Translation2d(Waypoints.D6.getX(), Waypoints.D6.getY()),
+                        new Translation2d(Waypoints.B8.getX(), Waypoints.B8.getY()),
+                        new Translation2d(Waypoints.D10.getX(), Waypoints.D10.getY()));
+
+        public static final Path TEST_PATH = new Path(false, List.of(),
+                new Pose2d(3, 2, Rotation2d.fromDegrees(90)));
     }
 }
