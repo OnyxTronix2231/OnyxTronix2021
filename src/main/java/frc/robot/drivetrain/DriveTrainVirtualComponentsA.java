@@ -15,44 +15,44 @@ import static frc.robot.drivetrain.DriveTrainConstants.WHEEL_DIAMETER_METER;
 
 public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents {
 
-  private final DifferentialDrive differentialDrive;
-  private final DifferentialDrive simDifferentialDrive;
-  private final DifferentialDriveOdometry odometry;
-  private final DifferentialDrivetrainSim driveTrainSim;
+    private final DifferentialDrive differentialDrive;
+    private final DifferentialDrive simDifferentialDrive;
+    private final DifferentialDriveOdometry odometry;
+    private final DifferentialDrivetrainSim driveTrainSim;
 
-  public DriveTrainVirtualComponentsA(DriveTrainComponents components, SimulationDriveTrainComponents simComponents) {
-    differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
-    differentialDrive.setRightSideInverted(false);
-    differentialDrive.setSafetyEnabled(false);
+    public DriveTrainVirtualComponentsA(DriveTrainComponents components, SimulationDriveTrainComponents simComponents) {
+        differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
+        differentialDrive.setRightSideInverted(false);
+        differentialDrive.setSafetyEnabled(false);
 
-    simDifferentialDrive = new DifferentialDrive(simComponents.getLeftMasterMotor(), simComponents.getRightMasterMotor());
-    simDifferentialDrive.setRightSideInverted(false);
-    simDifferentialDrive.setSafetyEnabled(false);
+        simDifferentialDrive = new DifferentialDrive(simComponents.getLeftMasterMotor(), simComponents.getRightMasterMotor());
+        simDifferentialDrive.setRightSideInverted(false);
+        simDifferentialDrive.setSafetyEnabled(false);
 
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
-    odometry.resetPosition(new Pose2d(), new Rotation2d());
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+        odometry.resetPosition(new Pose2d(), new Rotation2d());
 
-    driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(2), CONVERSION_RATE,
-        MOMENT_OF_INERTIA, DRIVE_TRAIN_MASS, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
-  }
+        driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(2), CONVERSION_RATE,
+                MOMENT_OF_INERTIA, DRIVE_TRAIN_MASS, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
+    }
 
-  @Override
-  public DifferentialDrive getDifferentialDrive() {
-    return differentialDrive;
-  }
+    @Override
+    public DifferentialDrive getDifferentialDrive() {
+        return differentialDrive;
+    }
 
-  @Override
-  public DifferentialDrive getSimDifferentialDrive() {
-    return simDifferentialDrive;
-  }
+    @Override
+    public DifferentialDrive getSimDifferentialDrive() {
+        return simDifferentialDrive;
+    }
 
-  @Override
-  public DifferentialDrivetrainSim getDriveTrainSim() {
-    return driveTrainSim;
-  }
+    @Override
+    public DifferentialDrivetrainSim getDriveTrainSim() {
+        return driveTrainSim;
+    }
 
-  @Override
-  public DifferentialDriveOdometry getOdometry() {
-    return odometry;
-  }
+    @Override
+    public DifferentialDriveOdometry getOdometry() {
+        return odometry;
+    }
 }

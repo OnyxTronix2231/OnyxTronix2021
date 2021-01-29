@@ -11,10 +11,6 @@ import java.util.List;
 public class SkillsConstants {
     public static final class Waypoints {
 
-        private static Translation2d getWaypointFromInches(double x, double y) {
-            return new Translation2d(Units.inchesToMeters(x), Units.inchesToMeters(y));
-        }
-
         public static final Translation2d A1 = getWaypointFromInches(30, 150);
         public static final Translation2d A3 = getWaypointFromInches(90, 150);
         public static final Translation2d A4 = getWaypointFromInches(120, 150);
@@ -23,7 +19,6 @@ public class SkillsConstants {
         public static final Translation2d A8 = getWaypointFromInches(240, 150);
         public static final Translation2d A9 = getWaypointFromInches(270, 150);
         public static final Translation2d A10 = getWaypointFromInches(300, 150);
-
         public static final Translation2d B1 = getWaypointFromInches(30, 120);
         public static final Translation2d B2 = getWaypointFromInches(60, 120);
         public static final Translation2d B3 = getWaypointFromInches(90, 120);
@@ -35,10 +30,8 @@ public class SkillsConstants {
         public static final Translation2d B9 = getWaypointFromInches(270, 120);
         public static final Translation2d B10 = getWaypointFromInches(300, 120);
         public static final Translation2d B11 = getWaypointFromInches(330, 120);
-
         public static final Translation2d C3 = getWaypointFromInches(90, 90);
         public static final Translation2d C9 = getWaypointFromInches(270, 90);
-
         public static final Translation2d D1 = getWaypointFromInches(30, 60);
         public static final Translation2d D2 = getWaypointFromInches(60, 60);
         public static final Translation2d D3 = getWaypointFromInches(90, 60);
@@ -50,7 +43,6 @@ public class SkillsConstants {
         public static final Translation2d D9 = getWaypointFromInches(270, 60);
         public static final Translation2d D10 = getWaypointFromInches(300, 60);
         public static final Translation2d D11 = getWaypointFromInches(330, 60);
-
         public static final Translation2d E1 = getWaypointFromInches(30, 30);
         public static final Translation2d E3 = getWaypointFromInches(90, 30);
         public static final Translation2d E4 = getWaypointFromInches(120, 30);
@@ -59,6 +51,10 @@ public class SkillsConstants {
         public static final Translation2d E8 = getWaypointFromInches(240, 30);
         public static final Translation2d E9 = getWaypointFromInches(270, 30);
         public static final Translation2d E10 = getWaypointFromInches(300, 30);
+
+        private static Translation2d getWaypointFromInches(double x, double y) {
+            return new Translation2d(Units.inchesToMeters(x), Units.inchesToMeters(y));
+        }
     }
 
     public static final class Paths {

@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 
 public interface DriveTrainVirtualComponents {
 
-  DifferentialDrive getDifferentialDrive();
+    DifferentialDrive getDifferentialDrive();
 
-  DifferentialDrive getSimDifferentialDrive();
+    DifferentialDrive getSimDifferentialDrive();
 
-  DifferentialDrivetrainSim getDriveTrainSim();
+    DifferentialDrivetrainSim getDriveTrainSim();
 
-  DifferentialDriveOdometry getOdometry();
+    DifferentialDriveOdometry getOdometry();
 }

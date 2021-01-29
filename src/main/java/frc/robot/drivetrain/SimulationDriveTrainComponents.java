@@ -7,19 +7,19 @@ import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public interface SimulationDriveTrainComponents {
-  AnalogGyroSim getAnalogGyroSim();
+    AnalogGyroSim getAnalogGyroSim();
 
-  WPI_TalonSRX getRightMasterMotor();
+    WPI_TalonSRX getRightMasterMotor();
 
-  IMotorController getRightSlaveMotor();
+    IMotorController getRightSlaveMotor();
 
-  SpeedController getRightMotors();
+    SpeedController getRightMotors();
 
-  WPI_TalonSRX getLeftMasterMotor();
+    WPI_TalonSRX getLeftMasterMotor();
 
-  IMotorController getLeftSlaveMotor();
+    IMotorController getLeftSlaveMotor();
 
-  SpeedController getLeftMotors();
+    SpeedController getLeftMotors();
 
-  Field2d getField2d();
+    Field2d getField2d();
 }

@@ -21,101 +21,101 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
  */
 public class Robot extends TimedRobot {
 
-  DriveTrain driveTrain;
+    DriveTrain driveTrain;
 
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
-  @Override
-  public void robotInit() {
-    DriveTrainComponents driveTrainComponents;
-    SimulationDriveTrainComponents simulationDriveTrainComponents;
-    DriveTrainVirtualComponents driveTrainVirtualComponents;
+    /**
+     * This function is run when the robot is first started up and should be used for any
+     * initialization code.
+     */
+    @Override
+    public void robotInit() {
+        DriveTrainComponents driveTrainComponents;
+        SimulationDriveTrainComponents simulationDriveTrainComponents;
+        DriveTrainVirtualComponents driveTrainVirtualComponents;
 
-    if (ROBOT_TYPE == RobotType.A) {
-      driveTrainComponents = new BasicDriveTrainComponentsA();
-      simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
-      driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
-    } else {
-      driveTrainComponents = null;
-      simulationDriveTrainComponents = null;
-      driveTrainVirtualComponents = null;
+        if (ROBOT_TYPE == RobotType.A) {
+            driveTrainComponents = new BasicDriveTrainComponentsA();
+            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
+        } else {
+            driveTrainComponents = null;
+            simulationDriveTrainComponents = null;
+            driveTrainVirtualComponents = null;
+        }
+
+        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+
+        new DriverOI(driveTrain);
+        new DeputyOI();
     }
 
-    driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+    /**
+     * This function is called every robot packet, no matter the mode. Use this for items like
+     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+     *
+     * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+     * SmartDashboard integrated updating.
+     */
+    @Override
+    public void robotPeriodic() {
+        // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+        // commands, running already-scheduled commands, removing finished or interrupted commands,
+        // and running subsystem periodic() methods.  This must be called from the robot's periodic
+        // block in order for anything in the Command-based framework to work.
+        CommandScheduler.getInstance().run();
+    }
 
-    new DriverOI(driveTrain);
-    new DeputyOI();
-  }
+    /**
+     * This function is called once each time the robot enters Disabled mode.
+     */
+    @Override
+    public void disabledInit() {
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                driveTrain.setNeutralModeToCoast();
+            }
+        }, 3000);
+    }
 
-  /**
-   * This function is called every robot packet, no matter the mode. Use this for items like
-   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
-  @Override
-  public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-  }
-
-  /**
-   * This function is called once each time the robot enters Disabled mode.
-   */
-  @Override
-  public void disabledInit() {
-    new Timer().schedule(new TimerTask() {
-      @Override
-      public void run() {
-        driveTrain.setNeutralModeToCoast();
-      }
-    }, 3000);
-  }
-
-  @Override
-  public void disabledPeriodic() {
-  }
+    @Override
+    public void disabledPeriodic() {
+    }
 
 
-  @Override
-  public void autonomousInit() {
+    @Override
+    public void autonomousInit() {
 
-  }
+    }
 
-  /**
-   * This function is called periodically during autonomous.
-   */
-  @Override
-  public void autonomousPeriodic() {
-  }
+    /**
+     * This function is called periodically during autonomous.
+     */
+    @Override
+    public void autonomousPeriodic() {
+    }
 
-  @Override
-  public void teleopInit() {
-    driveTrain.setNeutralModeToBrake();
-  }
+    @Override
+    public void teleopInit() {
+        driveTrain.setNeutralModeToBrake();
+    }
 
-  /**
-   * This function is called periodically during operator control.
-   */
-  @Override
-  public void teleopPeriodic() {
-  }
+    /**
+     * This function is called periodically during operator control.
+     */
+    @Override
+    public void teleopPeriodic() {
+    }
 
-  @Override
-  public void testInit() {
-    CommandScheduler.getInstance().cancelAll();
-  }
+    @Override
+    public void testInit() {
+        CommandScheduler.getInstance().cancelAll();
+    }
 
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-  }
+    /**
+     * This function is called periodically during test mode.
+     */
+    @Override
+    public void testPeriodic() {
+    }
 }

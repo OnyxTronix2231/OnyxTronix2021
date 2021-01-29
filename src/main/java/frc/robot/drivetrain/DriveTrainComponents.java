@@ -7,17 +7,17 @@ import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
 
 public interface DriveTrainComponents {
 
-  SpeedController getLeftMotors();
+    SpeedController getLeftMotors();
 
-  SpeedController getRightMotors();
+    SpeedController getRightMotors();
 
-  WPI_TalonFX getLeftMasterMotor();
+    WPI_TalonFX getLeftMasterMotor();
 
-  IMotorController getLeftSlaveMotor();
+    IMotorController getLeftSlaveMotor();
 
-  WPI_TalonFX getRightMasterMotor();
+    WPI_TalonFX getRightMasterMotor();
 
-  IMotorController getRightSlaveMotor();
+    IMotorController getRightSlaveMotor();
 
-  NormalizedPigeonIMU getNormelizedPigeonIMU();
+    NormalizedPigeonIMU getNormelizedPigeonIMU();
 }

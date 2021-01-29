@@ -13,96 +13,96 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComponents {
 
-  private final SpeedController rightMotors;
-  private final SpeedController leftMotors;
-  private final WPI_TalonSRX rightMaster;
-  private final WPI_TalonSRX rightSlave;
-  private final WPI_TalonSRX leftMaster;
-  private final WPI_TalonSRX leftSlave;
-  private final AnalogGyroSim analogGyroSim;
+    private final SpeedController rightMotors;
+    private final SpeedController leftMotors;
+    private final WPI_TalonSRX rightMaster;
+    private final WPI_TalonSRX rightSlave;
+    private final WPI_TalonSRX leftMaster;
+    private final WPI_TalonSRX leftSlave;
+    private final AnalogGyroSim analogGyroSim;
 
-  private final Field2d field2d;
+    private final Field2d field2d;
 
-  public SimulationDriveTrainComponentsA() {
-    rightMaster = new WPI_TalonSRX(RIGHT_MASTER_PORT);
-    rightMaster.configFactoryDefault();
-    rightMaster.configAllSettings(getSRXConfiguration());
-    rightMaster.setInverted(false);
-    rightMaster.setNeutralMode(NeutralMode.Brake);
+    public SimulationDriveTrainComponentsA() {
+        rightMaster = new WPI_TalonSRX(RIGHT_MASTER_PORT);
+        rightMaster.configFactoryDefault();
+        rightMaster.configAllSettings(getSRXConfiguration());
+        rightMaster.setInverted(false);
+        rightMaster.setNeutralMode(NeutralMode.Brake);
 
-    rightSlave = new WPI_TalonSRX(RIGHT_SLAVE_PORT);
-    rightSlave.configFactoryDefault();
-    rightSlave.configAllSettings(getSRXConfiguration());
-    rightSlave.setInverted(false);
-    rightSlave.setNeutralMode(NeutralMode.Brake);
-    rightSlave.follow(rightMaster);
+        rightSlave = new WPI_TalonSRX(RIGHT_SLAVE_PORT);
+        rightSlave.configFactoryDefault();
+        rightSlave.configAllSettings(getSRXConfiguration());
+        rightSlave.setInverted(false);
+        rightSlave.setNeutralMode(NeutralMode.Brake);
+        rightSlave.follow(rightMaster);
 
-    rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
+        rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
 
-    leftMaster = new WPI_TalonSRX(LEFT_MASTER_PORT);
-    leftMaster.configFactoryDefault();
-    leftMaster.configAllSettings(getSRXConfiguration());
-    leftMaster.setNeutralMode(NeutralMode.Brake);
+        leftMaster = new WPI_TalonSRX(LEFT_MASTER_PORT);
+        leftMaster.configFactoryDefault();
+        leftMaster.configAllSettings(getSRXConfiguration());
+        leftMaster.setNeutralMode(NeutralMode.Brake);
 
-    leftSlave = new WPI_TalonSRX(LEFT_SLAVE_PORT);
-    leftSlave.configFactoryDefault();
-    leftSlave.configAllSettings(getSRXConfiguration());
-    leftSlave.setNeutralMode(NeutralMode.Brake);
-    leftSlave.follow(leftMaster);
+        leftSlave = new WPI_TalonSRX(LEFT_SLAVE_PORT);
+        leftSlave.configFactoryDefault();
+        leftSlave.configAllSettings(getSRXConfiguration());
+        leftSlave.setNeutralMode(NeutralMode.Brake);
+        leftSlave.follow(leftMaster);
 
-    leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
+        leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
 
-    analogGyroSim = new AnalogGyroSim(0);
+        analogGyroSim = new AnalogGyroSim(0);
 
-    field2d = new Field2d();
-  }
+        field2d = new Field2d();
+    }
 
-  @Override
-  public AnalogGyroSim getAnalogGyroSim() {
-    return analogGyroSim;
-  }
+    @Override
+    public AnalogGyroSim getAnalogGyroSim() {
+        return analogGyroSim;
+    }
 
-  @Override
-  public WPI_TalonSRX getRightMasterMotor() {
-    return rightMaster;
-  }
+    @Override
+    public WPI_TalonSRX getRightMasterMotor() {
+        return rightMaster;
+    }
 
-  @Override
-  public IMotorController getRightSlaveMotor() {
-    return rightSlave;
-  }
+    @Override
+    public IMotorController getRightSlaveMotor() {
+        return rightSlave;
+    }
 
-  @Override
-  public WPI_TalonSRX getLeftMasterMotor() {
-    return leftMaster;
-  }
+    @Override
+    public WPI_TalonSRX getLeftMasterMotor() {
+        return leftMaster;
+    }
 
-  @Override
-  public IMotorController getLeftSlaveMotor() {
-    return leftSlave;
-  }
+    @Override
+    public IMotorController getLeftSlaveMotor() {
+        return leftSlave;
+    }
 
-  @Override
-  public Field2d getField2d() {
-    return field2d;
-  }
+    @Override
+    public Field2d getField2d() {
+        return field2d;
+    }
 
-  public SpeedController getRightMotors() {
-    return rightMotors;
-  }
+    public SpeedController getRightMotors() {
+        return rightMotors;
+    }
 
-  public SpeedController getLeftMotors() {
-    return leftMotors;
-  }
+    public SpeedController getLeftMotors() {
+        return leftMotors;
+    }
 
-  private TalonSRXConfiguration getSRXConfiguration() {
-    final TalonSRXConfiguration config = new TalonSRXConfiguration();
-    config.peakOutputForward = MAX_OUTPUT_FORWARD;
-    config.peakOutputReverse = MAX_OUTPUT_REVERSE;
-    config.closedloopRamp = CLOSED_LOOP_RAMP;
-    config.openloopRamp = OPEN_LOOP_RAMP;
-    config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
-    config.peakCurrentDuration = PEAK_CURRENT_DURATION;
-    return config;
-  }
+    private TalonSRXConfiguration getSRXConfiguration() {
+        final TalonSRXConfiguration config = new TalonSRXConfiguration();
+        config.peakOutputForward = MAX_OUTPUT_FORWARD;
+        config.peakOutputReverse = MAX_OUTPUT_REVERSE;
+        config.closedloopRamp = CLOSED_LOOP_RAMP;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
+        config.peakCurrentDuration = PEAK_CURRENT_DURATION;
+        return config;
+    }
 }
