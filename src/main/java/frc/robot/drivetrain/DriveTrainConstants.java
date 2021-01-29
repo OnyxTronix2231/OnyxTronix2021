@@ -48,8 +48,8 @@ public final class DriveTrainConstants {
     public static final double RAMSETE_ZETA = 0.7;
     public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
     static final double MAX_VOLTAGE = 12; // TODO: Calibration with A
-    static final double MAX_SPEED_METERS_PER_SECOND = 10; // TODO: Calibration with A
-    static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 10; // TODO: Calibration with A
+    public static final double MAX_SPEED_METERS_PER_SECOND = 10; // TODO: Calibration with A
+    public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 10; // TODO: Calibration with A
     static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
     private static final double kS = 0.480938; // TODO: This is Sim value, Calibration with A
     private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
@@ -57,9 +57,5 @@ public final class DriveTrainConstants {
 
     public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
     public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(kS, kV, kA);
-    public static final TrajectoryConfig TRAJECTORY_CONFIG =
-        new TrajectoryConfig(MAX_SPEED_METERS_PER_SECOND, MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
-            .setKinematics(DRIVE_KINEMATICS)
-            .addConstraint(new DifferentialDriveVoltageConstraint(FEEDFORWARD, DRIVE_KINEMATICS, MAX_VOLTAGE));
   }
 }

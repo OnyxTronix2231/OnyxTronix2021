@@ -90,35 +90,6 @@ public class DriveTrain extends SubsystemBase {
         -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
-  public Command getAutonomousCommand() {
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(),
-        List.of(
-            new Translation2d(1, 1),
-            new Translation2d(2, -1)
-        ),
-        new Pose2d(3, 0, Rotation2d.fromDegrees(0)),
-        TRAJECTORY_CONFIG
-    );
-
-    RamseteCommand ramseteCommand = new RamseteCommand(
-        trajectory,
-        this::getPose,
-        new RamseteController(RAMSETE_B, RAMSETE_ZETA),
-        FEEDFORWARD,
-        DRIVE_KINEMATICS,
-        this::getWheelSpeeds,
-        new PIDController(0.00008, 0, 0),
-        new PIDController(0.00008, 0, 0),
-        this::tankDriveVolts,
-        this
-    );
-
-    resetOdometry(trajectory.getInitialPose());
-
-    return ramseteCommand.andThen(() -> tankDriveVolts(0, 0));
-  }
-
   public Pose2d getPose() {
     return virtualComponents.getOdometry().getPoseMeters();
   }

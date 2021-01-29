@@ -82,7 +82,6 @@ public class SkillsConstants {
                         Waypoints.B8,
                         Waypoints.D10);
 
-        public static final Path TEST_PATH = new Path(false, List.of(),
-                new Pose2d(3, 2, Rotation2d.fromDegrees(90)));
+        public static final Path TEST_PATH = new Path(List.of(), new Pose2d(3, 2, Rotation2d.fromDegrees(90)));
     }
 }
