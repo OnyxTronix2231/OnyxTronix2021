@@ -25,18 +25,6 @@ public class Path {
                 .addConstraints(Arrays.asList(constraints));
     }
 
-    public List<Translation2d> getMiddlePoints() {
-        return middlePoints;
-    }
-
-    public Pose2d getEndPose() {
-        return endPose;
-    }
-
-    public TrajectoryConfig getConfig() {
-        return config;
-    }
-
     public Path setReversed() {
         config.setReversed(true);
         return this;

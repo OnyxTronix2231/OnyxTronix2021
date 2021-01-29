@@ -28,8 +28,8 @@ public class MoveByPath extends CommandBase {
                 FEEDFORWARD,
                 DRIVE_KINEMATICS,
                 driveTrain::getWheelSpeeds,
-                new PIDController(0.000008, 0, 0.000001),
-                new PIDController(0.000008, 0, 0.000001),
+                new PIDController(0.00002, 0, 0),
+                new PIDController(0.00002, 0, 0),
                 driveTrain::tankDriveVolts,
                 driveTrain
         );

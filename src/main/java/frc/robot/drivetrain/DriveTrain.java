@@ -17,6 +17,7 @@ import frc.robot.Robot;
 
 import static frc.robot.drivetrain.DriveTrainConstants.*;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -31,8 +32,8 @@ public class DriveTrain extends SubsystemBase {
         this.virtualComponents = virtualComponents;
         Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
         SmartDashboard.putData("Field2d", getField2d());
-        getField2d().setRobotPose(new Pose2d());
-        virtualComponents.getOdometry().resetPosition(new Pose2d(), new Rotation2d());
+        getField2d().setRobotPose(START_POSE);
+        virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
         resetEncoders();
         if (Robot.isSimulation()) {
             simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
