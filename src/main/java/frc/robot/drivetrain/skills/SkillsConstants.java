@@ -68,22 +68,25 @@ public class SkillsConstants {
                 Waypoints.C3,
                 Waypoints.D5,
                 Waypoints.A6
-        ), new Pose2d(3.81, 10, Rotation2d.fromDegrees(45))).setReversed();
+        ), new Pose2d(3.81, 10, Rotation2d.fromDegrees(0)));
 
-        public static final List<Translation2d> GALACTIC_SEARCH_RED_SECOND =
-                List.of(Waypoints.B3,
-                        Waypoints.D5,
-                        Waypoints.B7);
+        public static final Path GALACTIC_SEARCH_RED_SECOND = new Path(List.of(
+                Waypoints.B3,
+                Waypoints.D5,
+                Waypoints.B7
+        ), new Pose2d(3.048, 10, Rotation2d.fromDegrees(0)));
 
-        public static final List<Translation2d> GALACTIC_SEARCH_BLUE_FIRST =
-                List.of(Waypoints.E6,
-                        Waypoints.B7,
-                        Waypoints.C9);
+        public static final Path GALACTIC_SEARCH_BLUE_FIRST = new Path(List.of(
+                Waypoints.E6,
+                Waypoints.B7,
+                Waypoints.C9
+        ), new Pose2d(2.286, 10, Rotation2d.fromDegrees(0)));
 
-        public static final List<Translation2d> GALACTIC_SEARCH_BLUE_SECOND =
-                List.of(Waypoints.D6,
-                        Waypoints.B8,
-                        Waypoints.D10);
+        public static final Path GALACTIC_SEARCH_BLUE_SECOND = new Path(List.of(
+                Waypoints.D6,
+                Waypoints.B8,
+                Waypoints.D10
+        ), new Pose2d(1.27, 10, Rotation2d.fromDegrees(0)));
 
         public static final Path TEST_PATH = new Path(List.of(
         ), new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
