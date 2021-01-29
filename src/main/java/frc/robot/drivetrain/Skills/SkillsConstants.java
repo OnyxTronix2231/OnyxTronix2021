@@ -1,5 +1,9 @@
 package frc.robot.drivetrain.Skills;
 
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+
+import java.util.ArrayList;
+
 public class SkillsConstants {
     public static final class Waypoints {
 
@@ -47,5 +51,8 @@ public class SkillsConstants {
         public static final Waypoint E8 = new Waypoint(240, 30);
         public static final Waypoint E9 = new Waypoint(270, 30);
         public static final Waypoint E10 = new Waypoint(300, 30);
+    }
+
+    public static final class Paths {
     }
 }
