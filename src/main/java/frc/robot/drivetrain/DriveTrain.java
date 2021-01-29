@@ -52,9 +52,9 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     virtualComponents.getOdometry().update(
-        Rotation2d.fromDegrees(getHeading()),
-        getLeftMaster().getSelectedSensorPosition(),
-        getRightMaster().getSelectedSensorPosition());
+        Rotation2d.fromDegrees(getSimHeading()),
+        encoderUnitsToMeters(getSimLeftMaster().getSelectedSensorPosition()),
+        encoderUnitsToMeters(getSimRightMaster().getSelectedSensorPosition()));
 
     getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
   }
@@ -86,6 +86,8 @@ public class DriveTrain extends SubsystemBase {
   public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
     virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
         rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+    virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+        -rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
   }
 
   public Command getAutonomousCommand() {
@@ -106,8 +108,8 @@ public class DriveTrain extends SubsystemBase {
         FEEDFORWARD,
         DRIVE_KINEMATICS,
         this::getWheelSpeeds,
-        new PIDController(TRAJECTORY_P, 0, 0),
-        new PIDController(TRAJECTORY_P, 0, 0),
+        new PIDController(0.00008, 0, 0),
+        new PIDController(0.00008, 0, 0),
         this::tankDriveVolts,
         this
     );
@@ -122,8 +124,8 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(getLeftMaster().getSelectedSensorVelocity(),
-        getLeftMaster().getSelectedSensorVelocity());
+    return new DifferentialDriveWheelSpeeds(getSimLeftMaster().getSelectedSensorVelocity(),
+        getSimRightMaster().getSelectedSensorVelocity());
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -132,9 +134,9 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    components.getLeftMotors().setVoltage(leftVolts);
-    components.getRightMotors().setVoltage(rightVolts);
-    virtualComponents.getDifferentialDrive().feed();
+    simulationComponents.getLeftMotors().setVoltage(leftVolts);
+    simulationComponents.getRightMotors().setVoltage(rightVolts);
+    virtualComponents.getSimDifferentialDrive().feed();
   }
 
   public double getAverageEncoderDistance() {
@@ -152,6 +154,10 @@ public class DriveTrain extends SubsystemBase {
 
   public double getHeading() {
     return components.getNormelizedPigeonIMU().getNormalizedYaw();
+  }
+
+  public double getSimHeading() {
+    return simulationComponents.getAnalogGyroSim().getAngle();
   }
 
   public double getTurnRate() {

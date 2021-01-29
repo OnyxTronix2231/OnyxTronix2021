@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
@@ -11,6 +13,8 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComponents {
 
+  private final SpeedController rightMotors;
+  private final SpeedController leftMotors;
   private final WPI_TalonSRX rightMaster;
   private final WPI_TalonSRX rightSlave;
   private final WPI_TalonSRX leftMaster;
@@ -33,6 +37,8 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     rightSlave.setNeutralMode(NeutralMode.Brake);
     rightSlave.follow(rightMaster);
 
+    rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
+
     leftMaster = new WPI_TalonSRX(LEFT_MASTER_PORT);
     leftMaster.configFactoryDefault();
     leftMaster.configAllSettings(getSRXConfiguration());
@@ -43,6 +49,8 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     leftSlave.configAllSettings(getSRXConfiguration());
     leftSlave.setNeutralMode(NeutralMode.Brake);
     leftSlave.follow(leftMaster);
+
+    leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
 
     analogGyroSim = new AnalogGyroSim(0);
 
@@ -77,6 +85,14 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
   @Override
   public Field2d getField2d() {
     return field2d;
+  }
+
+  public SpeedController getRightMotors() {
+    return rightMotors;
+  }
+
+  public SpeedController getLeftMotors() {
+    return leftMotors;
   }
 
   private TalonSRXConfiguration getSRXConfiguration() {
