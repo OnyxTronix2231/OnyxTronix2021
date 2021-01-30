@@ -9,6 +9,7 @@ public class WaitUntilBallShot extends CommandBase {
 
     public WaitUntilBallShot(Shooter shooter) {
         this.shooter = shooter;
+        addRequirements(shooter);
     }
 
     @Override
