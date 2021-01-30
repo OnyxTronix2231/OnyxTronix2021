@@ -1,10 +1,13 @@
 package frc.robot.Roulette;
 
+import com.ctre.phoenix.motorcontrol.StatusFrame;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
@@ -24,6 +27,9 @@ public class Roulette extends SubsystemBase {
 
     public Roulette(RouletteComponents components) {
         this.components = components;
+        if(Robot.isSimulation()){
+            components.getMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0,50);
+        }
         Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
                 , this::getCurrentRouletteRotations);
         Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
