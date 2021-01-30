@@ -4,16 +4,14 @@
 
 package frc.robot;
 
-import static frc.robot.RobotConstants.ROBOT_TYPE;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.drivetrain.BasicDriveTrainComponentsA;
-import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.drivetrain.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,14 +30,20 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrainComponents driveTrainComponents;
+        SimulationDriveTrainComponents simulationDriveTrainComponents;
+        DriveTrainVirtualComponents driveTrainVirtualComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            driveTrainComponents = new BasicDriveTrainComponentsA();
+            driveTrainComponents = new DriveTrainComponentsA();
+            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
         } else {
             driveTrainComponents = null;
+            simulationDriveTrainComponents = null;
+            driveTrainVirtualComponents = null;
         }
 
-        driveTrain = new DriveTrain(driveTrainComponents);
+        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
 
         new DriverOI(driveTrain);
         new DeputyOI();
