@@ -2,6 +2,7 @@ package frc.robot.collector;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.collector.CollectorConstants.CLOSE_PISTON;
 import static frc.robot.collector.CollectorConstants.OPEN_PISTON;
 
 public class Collector extends SubsystemBase {
@@ -25,6 +26,6 @@ public class Collector extends SubsystemBase {
     }
 
     public void closePistons() {
-        components.getSolenoid().set(!OPEN_PISTON);
+        components.getSolenoid().set(CLOSE_PISTON);
     }
 }
