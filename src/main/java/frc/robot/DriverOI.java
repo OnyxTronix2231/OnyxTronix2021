@@ -1,21 +1,19 @@
 package frc.robot;
 
-import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
-
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
-import frc.robot.turret.DriverTurretOiBinder;
-import frc.robot.turret.Turret;
-import onyxTronix.JoystickAxis;
+
+import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
 public class DriverOI {
 
-  public DriverOI(DriveTrain driveTrain, Turret turret) {
-    XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
+    public DriverOI(DriveTrain driveTrain) {
+        XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
+        Trigger resetButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
 
-
-    new DriveTrainOiBinder(driveTrain, xboxController);
-
-  }
+        new DriveTrainOiBinder(driveTrain, xboxController, resetButton);
+    }
 }
