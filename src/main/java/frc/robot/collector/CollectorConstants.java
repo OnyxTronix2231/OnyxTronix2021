@@ -3,7 +3,6 @@ package frc.robot.collector;
 public class CollectorConstants {
 
     static final boolean OPEN_PISTON = true;
-    static final boolean CLOSE_PISTON = false;
 
     public static final class BallCollectorConstantsA {
         static final int MASTER_MOTOR_ID = 2; //TODO: check value

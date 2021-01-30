@@ -2,10 +2,9 @@ package frc.robot.ballTrigger;
 
 public final class BallTriggerConstants {
 
-    static final int ENCODER_UNITS_PER_ROTATION = 4096;
-    static final int DECISECONDS_IN_MIN = 600;
     static final boolean OPEN_PISTON = true;
-    static final boolean CLOSE_PISTON = false;
+    static final int ENCODER_UNITS_PER_ROTATION = 4096;
+    static final int MILLISECONDS_IN_MIN = 600;
 
     public static final class BallTriggerConstantsA {
         static final int MASTER_MOTOR_ID = 0; //TODO: check value
