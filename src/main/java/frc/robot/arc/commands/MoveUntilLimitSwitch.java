@@ -4,15 +4,15 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class ResetArc extends MoveArcBySpeed {
+public class MoveUntilLimitSwitch extends MoveArcBySpeed {
 
-    public ResetArc(Arc arc, DoubleSupplier resetSpeed){
+    public MoveUntilLimitSwitch(Arc arc, DoubleSupplier resetSpeed){
         super(arc, resetSpeed);
     }
 
     @Override
     public boolean isFinished() {
-        return arc.limitReverse();
+        return arc.hasHitLowerLimit();
     }
 
     @Override
