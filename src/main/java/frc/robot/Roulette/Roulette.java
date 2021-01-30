@@ -33,7 +33,7 @@ public class Roulette extends SubsystemBase {
         Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
                 , this::getCurrentRouletteRotations);
         if(Robot.isSimulation()){
-            components.getMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 1000);
+            components.getMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0,50);
         }
         //Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
           //      getCurrentColor().getName());
