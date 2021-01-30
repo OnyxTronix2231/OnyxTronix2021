@@ -6,7 +6,7 @@ import frc.robot.turret.TurretComponents;
 import frc.robot.turret.commands.MoveTurretToAngleAndKeep;
 
 public class YawControl extends Turret {
-    private DriveTrain driveTrain;
+    private final DriveTrain driveTrain;
     public enum TurretState{
         RTR,
         RTF,
