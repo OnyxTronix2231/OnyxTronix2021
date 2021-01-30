@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.revolver.RevolverConstants.HUNDREDS_OF_MILLISECS_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.DECISECONDS_IN_MIN;
 import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 
 public class Revolver extends SubsystemBase {
@@ -72,11 +72,11 @@ public class Revolver extends SubsystemBase {
     }
 
     public double RPMToEncoderUnitInDecisecond(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / HUNDREDS_OF_MILLISECS_IN_MIN;
+        return RPM * ENCODER_UNITS_PER_ROTATION / DECISECONDS_IN_MIN;
     }
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * HUNDREDS_OF_MILLISECS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+        return (encoderUnits * DECISECONDS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
     @Override

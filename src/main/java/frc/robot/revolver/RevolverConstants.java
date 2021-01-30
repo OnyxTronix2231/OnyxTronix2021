@@ -2,7 +2,7 @@ package frc.robot.revolver;
 
 public final class RevolverConstants {
 
-    static final int HUNDREDS_OF_MILLISECS_IN_MIN = 600;
+    static final int DECISECONDS_IN_MIN = 600;
     static final int TOLERANCE_IN_RPM = 3; //TODO: check value
     static final double CONVERSION_RATE = 26.5625; //1:26.5625
     static final double ENCODER_UNITS_PER_ROTATION = 2048 * CONVERSION_RATE; //TODO: check value
