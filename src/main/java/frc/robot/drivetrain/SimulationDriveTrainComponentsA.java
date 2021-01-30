@@ -13,12 +13,12 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComponents {
 
-    private final SpeedController rightMotors;
-    private final SpeedController leftMotors;
     private final WPI_TalonSRX rightMaster;
     private final WPI_TalonSRX rightSlave;
     private final WPI_TalonSRX leftMaster;
     private final WPI_TalonSRX leftSlave;
+    private final SpeedControllerGroup rightMotors;
+    private final SpeedControllerGroup leftMotors;
     private final AnalogGyroSim analogGyroSim;
 
     private final Field2d field2d;
@@ -87,11 +87,11 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
         return field2d;
     }
 
-    public SpeedController getRightMotors() {
+    public SpeedControllerGroup getRightMotors() {
         return rightMotors;
     }
 
-    public SpeedController getLeftMotors() {
+    public SpeedControllerGroup getLeftMotors() {
         return leftMotors;
     }
 

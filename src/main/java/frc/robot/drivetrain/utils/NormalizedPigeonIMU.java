@@ -34,6 +34,12 @@ public class NormalizedPigeonIMU extends PigeonIMU implements Sendable {
         return rawYaw;
     }
 
+    public double getYawRate(){
+        double[] rawPigeon = new double[3];
+        this.getRawGyro(rawPigeon);
+        return rawPigeon[0];
+    }
+
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("Gyro");

@@ -11,17 +11,17 @@ import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 
-public class BasicDriveTrainComponentsA implements DriveTrainComponents {
+public class DriveTrainComponentsA implements DriveTrainComponents {
 
     private final WPI_TalonFX leftMaster;
     private final WPI_TalonFX leftSlave;
     private final WPI_TalonFX rightMaster;
     private final WPI_TalonFX rightSlave;
-    private final SpeedController leftMotors;
-    private final SpeedController rightMotors;
+    private final SpeedControllerGroup leftMotors;
+    private final SpeedControllerGroup rightMotors;
     private final NormalizedPigeonIMU pigeonIMU;
 
-    public BasicDriveTrainComponentsA() {
+    public DriveTrainComponentsA() {
         rightMaster = new WPI_TalonFX(RIGHT_MASTER_PORT);
         rightMaster.configFactoryDefault();
         rightMaster.configAllSettings(getFalconConfiguration());
@@ -54,12 +54,12 @@ public class BasicDriveTrainComponentsA implements DriveTrainComponents {
     }
 
     @Override
-    public SpeedController getLeftMotors() {
+    public SpeedControllerGroup getLeftMotors() {
         return leftMotors;
     }
 
     @Override
-    public SpeedController getRightMotors() {
+    public SpeedControllerGroup getRightMotors() {
         return rightMotors;
     }
 
