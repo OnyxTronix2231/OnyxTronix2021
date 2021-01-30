@@ -34,6 +34,7 @@ public class RouletteComponentsA implements RouletteComponents {
         controller = new CtreMotionMagicController(masterMotor, encoder,
                 new PIDFTerms(K_P, K_I, K_D, K_F), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
         simulator = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(1, 0.1));
+        colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     }
 
     @Override
