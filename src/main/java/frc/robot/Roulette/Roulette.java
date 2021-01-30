@@ -5,12 +5,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
-
 import static frc.robot.Roulette.RouletteConstants.*;
+import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
 
 public class Roulette extends SubsystemBase {
 
@@ -53,11 +52,11 @@ public class Roulette extends SubsystemBase {
                 shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
                 shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
         components.getController().setCruiseVelocity((int) shuffleboardEntryCruiseVelocity.
-                getDouble(0));
+                getDouble(CRUISE_VELOCITY_DEFAULT_VALUE));
         components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
-                getDouble(0));
+                getDouble(ACCELERATION_DEFAULT_VALUE));
         components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
-                getDouble(0));
+                getDouble(ACCELERATION_SMOOTHING_DEFAULT_VALUE));
     }
 
     public void openPiston() {
