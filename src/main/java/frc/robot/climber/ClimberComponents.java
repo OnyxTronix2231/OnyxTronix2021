@@ -13,4 +13,6 @@ public interface ClimberComponents {
     CtreController getController();
 
     CtreEncoder getEncoder();
+
+    Solenoid getSolenoid();
 }
