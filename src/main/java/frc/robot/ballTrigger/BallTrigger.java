@@ -5,9 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import pid.interfaces.Controller;
 
-import static frc.robot.ballTrigger.BallTriggerConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.ballTrigger.BallTriggerConstants.DECISECOND_IN_MIN;
-import static frc.robot.ballTrigger.BallTriggerConstants.OPEN_PISTON;
+import static frc.robot.ballTrigger.BallTriggerConstants.*;
 
 public class BallTrigger extends SubsystemBase {
 
@@ -78,6 +76,6 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void closePistons() {
-        components.getSolenoid().set(!OPEN_PISTON);
+        components.getSolenoid().set(CLOSE_PISTON);
     }
 }

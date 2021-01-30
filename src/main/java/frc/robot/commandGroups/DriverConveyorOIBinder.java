@@ -7,22 +7,21 @@ import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
 
-import static frc.robot.commandGroups.ConveyorConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
-import static frc.robot.commandGroups.ConveyorConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
+import static frc.robot.commandGroups.ConveyorConstants.ConveyorConstantsA.*;
 
 public class DriverConveyorOIBinder {
     public DriverConveyorOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver,
                                   Trigger collectAndLoadRevolver, Trigger spinRevolverAndTriggerWheels,
                                   Trigger spinRevolverAndTriggerThenOpenPiston) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
-                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> 0.8));
+                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
-        spinRevolverAndTriggerWheels.whileActiveOnce(new SpinRevolverAndTriggerWheels(ballTrigger, revolver, () -> 0.8,
-                () -> 0.8));
+        spinRevolverAndTriggerWheels.whileActiveOnce(new SpinRevolverAndTriggerWheels(ballTrigger, revolver,
+                () -> TESTING_SPEED, () -> TESTING_SPEED));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> REVOLVER_RPM_WHILE_SHOOTING, () -> 0.8));
+                revolver, ballTrigger, () -> REVOLVER_RPM_WHILE_SHOOTING, () -> TESTING_SPEED));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPistons(ballTrigger));
     }
 }
