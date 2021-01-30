@@ -12,9 +12,8 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.TEST_PATH;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.TEST_PATH2;
 
 public class DriveTrainOiBinder {
-    public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger pathButton, Trigger resetButton) {
+    public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger resetButton) {
         driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
-        pathButton.whileActiveOnce(new MoveByPath(driveTrain, TEST_PATH).andThen(new MoveByPath(driveTrain, TEST_PATH2)));
         resetButton.whenActive(new InstantCommand(() -> driveTrain.resetSimOdometryToPose(START_POSE)));
     }
 }

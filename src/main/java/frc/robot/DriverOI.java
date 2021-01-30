@@ -12,9 +12,8 @@ public class DriverOI {
 
     public DriverOI(DriveTrain driveTrain) {
         XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
-        Trigger pathButton = new JoystickButton(xboxController, XboxController.Button.kA.value);
         Trigger resetButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
 
-        new DriveTrainOiBinder(driveTrain, xboxController, pathButton, resetButton);
+        new DriveTrainOiBinder(driveTrain, xboxController, resetButton);
     }
 }
