@@ -28,7 +28,7 @@ public class MoveArcByAngle extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return arc.isOnTarget();
+        return arc.EndMovement();
     }
 
     @Override

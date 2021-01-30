@@ -1,6 +1,8 @@
 package frc.robot.arc;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -75,5 +77,29 @@ public class Arc extends SubsystemBase {
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
+    }
+
+    public boolean limitForward(){
+        return components.getForwardLimitSwitch().isOpen();
+    }
+
+    public boolean limitReverse(){
+        return components.getReverseLimitSwitch().isOpen();
+    }
+
+    public boolean EndMovement(){
+        return isOnTarget() || limitForward() || limitReverse();
+    }
+
+    public void resetEncoder(){
+        components.getEncoder().reset();
+    }
+
+    public void disableLimitSwitches(){
+        components.getMasterMotor().overrideLimitSwitchesEnable(false);
+    }
+
+    public void enableLimitSwitches(){
+        components.getMasterMotor().overrideLimitSwitchesEnable(true);
     }
 }

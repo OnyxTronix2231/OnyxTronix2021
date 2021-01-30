@@ -7,7 +7,7 @@ import java.util.function.DoubleSupplier;
 
 public class MoveArcBySpeed extends CommandBase {
 
-    private final Arc arc;
+    protected final Arc arc;
     private final DoubleSupplier speedSupplier;
 
     public MoveArcBySpeed(Arc arc, DoubleSupplier speedSupplier) {
