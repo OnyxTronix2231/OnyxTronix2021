@@ -154,7 +154,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     private double metersSecToEncoderUnitsDeciSec(double metersSec) {
-        return metersToEncoderUnits(metersSec / 10);
+        return metersToEncoderUnits(metersSec / DECISECOND_IN_SECOND);
     }
 
     private double encoderUnitsToMeters(double units) {
@@ -162,7 +162,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     private double encoderUnitsDeciSecToMetersSec(double unitsDeciSec) {
-        return encoderUnitsToMeters(unitsDeciSec * 10);
+        return encoderUnitsToMeters(unitsDeciSec * DECISECOND_IN_SECOND);
     }
 
     private WPI_TalonFX getLeftMaster() {
