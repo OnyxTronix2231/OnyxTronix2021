@@ -25,9 +25,9 @@ public class VisionGSC {
     public GSCOption determineBlueOrRed(){
         if(Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            return GSCOption.Blue;
+            return GSCOption.BLUE;
         }
-        return GSCOption.Red;
+        return GSCOption.RED;
     }
 
     public void update(){

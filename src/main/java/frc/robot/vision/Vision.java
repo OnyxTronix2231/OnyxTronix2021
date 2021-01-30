@@ -40,7 +40,7 @@ public class Vision {
     public void chooseTarget(){
         boolean condition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER &&
                             outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER &&
-                            Math.abs(outerTarget.getTargetToFieldHorizontalAngleOffset()) <
+                            Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
                                     MAX_ABS_OFFSET_TARGET_TO_FIELD;
         if (condition){
             this.chosenTarget = this.innerTarget;
@@ -51,7 +51,7 @@ public class Vision {
 
     public double getAbsoluteDistanceToOuterTargetWall(){
         return outerTarget.getAirDistanceTurretToTarget() *
-                Math.cos(Math.toRadians(outerTarget.getTargetToFieldHorizontalAngleOffset()));
+                Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
     }
 
     public boolean hasTarget(){
