@@ -15,7 +15,10 @@ public class ClimbBySpeed extends CommandBase {
     }
 
     @Override
-    public void execute() { climber.moveBySpeed(speedSupplier.getAsDouble()); }
+    public void execute() {
+        climber.moveRightMotorBySpeed(speedSupplier.getAsDouble());
+        climber.moveLeftMotorBySpeed(speedSupplier.getAsDouble());
+    }
 
     @Override
     public void end(boolean interrupted) {

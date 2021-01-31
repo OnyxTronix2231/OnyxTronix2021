@@ -3,7 +3,6 @@ package frc.robot.climber;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.Solenoid;
 import pid.CtreController;
 import pid.CtreMotionMagicController;
 import pid.PIDFTerms;
@@ -11,45 +10,39 @@ import sensors.counter.CtreEncoder;
 
 
 public class BasicClimberComponentsA implements ClimberComponents {
-    private final WPI_TalonFX masterMotor;
-    private final WPI_TalonFX slaveMotor;
+    private final WPI_TalonFX rightMotor;
+    private final WPI_TalonFX leftMotor;
     private final CtreMotionMagicController controller;
     private final CtreEncoder encoder;
-    private final Solenoid solenoid;
-
 
     public BasicClimberComponentsA() {
 
-        masterMotor = new WPI_TalonFX(0);
-        masterMotor.configFactoryDefault();
+        rightMotor = new WPI_TalonFX(0);
+        rightMotor.configFactoryDefault();
         //   masterMotor.configAllSettings(getMasterMotor());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
+        rightMotor.setNeutralMode(NeutralMode.Brake);
 
-        slaveMotor = new WPI_TalonFX(0);
-        slaveMotor.configFactoryDefault();
+        leftMotor = new WPI_TalonFX(0);
+        leftMotor.configFactoryDefault();
         //  slaveMotor.configAllSettings(getSlaveMotor());
-        slaveMotor.setNeutralMode(NeutralMode.Brake);
-        slaveMotor.follow(masterMotor);
+        leftMotor.setNeutralMode(NeutralMode.Brake);
 
-        encoder = new CtreEncoder(masterMotor);
+        encoder = new CtreEncoder(rightMotor);
 
-        controller = new CtreMotionMagicController(masterMotor, encoder,new PIDFTerms(0,0,0,0)
+        controller = new CtreMotionMagicController(rightMotor, encoder,new PIDFTerms(0,0,0,0)
                 ,0,0,0);
 
-        solenoid = new Solenoid(0);
 
     }
 
-
     @Override
-    public WPI_TalonFX getMasterMotor() {
-        return masterMotor;
+    public WPI_TalonFX getRightMotor() {
+        return rightMotor;
     }
 
-
     @Override
-    public WPI_TalonFX getSlaveMotor() {
-        return slaveMotor;
+    public WPI_TalonFX getLeftMotor() {
+        return leftMotor;
     }
 
     @Override
@@ -62,13 +55,6 @@ public class BasicClimberComponentsA implements ClimberComponents {
         return encoder;
     }
 
-    @Override
-    public Solenoid getSolenoid() {
-        return solenoid;
-    }
-
     private TalonFXConfiguration getFalconConfig;
-
-
 
 }

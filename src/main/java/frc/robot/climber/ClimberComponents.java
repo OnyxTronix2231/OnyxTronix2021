@@ -6,13 +6,15 @@ import pid.CtreController;
 import sensors.counter.CtreEncoder;
 
 public interface ClimberComponents {
-    WPI_TalonFX getMasterMotor();
+    WPI_TalonFX getRightMotor();
 
-    WPI_TalonFX getSlaveMotor();
+    WPI_TalonFX getLeftMotor();
 
     CtreController getController();
 
     CtreEncoder getEncoder();
 
-    Solenoid getSolenoid();
 }
+
+/// farfaW
+/// smileW
