@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Roulette.Roulette;
 import frc.robot.Roulette.RouletteColor;
-
 import java.util.function.DoubleSupplier;
 
 public class SmartSpinByRouletteRounds extends CommandBase {

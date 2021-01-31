@@ -16,7 +16,7 @@ import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.Roulette.RouletteConstants.CHANNEL;
-import static frc.robot.Roulette.RouletteConstants.CollectorConstantsA.*;
+import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
 import static frc.robot.Roulette.RouletteConstants.DEVICE_NUMBER;
 
 public class RouletteComponentsA implements RouletteComponents {

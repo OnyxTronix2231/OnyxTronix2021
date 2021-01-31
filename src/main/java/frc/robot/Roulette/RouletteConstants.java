@@ -23,14 +23,18 @@ public class RouletteConstants {
     static final int INEFFICIENT_DISTANCE = 3;
     static final int OPTIMIZED_DISTANCE = 1;
 
-    static class CollectorConstantsA {
-        final static double K_P = 0; //TODO: check real value
-        final static double K_I = 0; //TODO: check real value
-        final static double K_D = 0; //TODO: check real value
-        final static double K_F = 0; //TODO: check real value
-        final static int MAX_ACCELERATION = 0; //TODO: check real value
-        final static int MAX_VELOCITY = 0; //TODO: check real value
-        final static int ACCELERATION_SMOOTHING = 0; //TODO: check real value
+    static class RouletteConstantsA {
+        static final double K_P = 0; //TODO: check real value
+        static final double K_I = 0; //TODO: check real value
+        static final double K_D = 0; //TODO: check real value
+        static final double K_F = 0; //TODO: check real value
+        static final int MAX_ACCELERATION = 0; //TODO: check real value
+        static final int MAX_VELOCITY = 0; //TODO: check real value
+        static final int ACCELERATION_SMOOTHING = 0; //TODO: check real value
+        static final double CRUISE_VELOCITY_DEFAULT_VALUE = 0.0;
+        static final double ACCELERATION_SMOOTHING_DEFAULT_VALUE = 0.0;
+        static final double ACCELERATION_DEFAULT_VALUE = 0.0;
+
     }
 
 }
