@@ -45,8 +45,10 @@ public class DriveTrain extends SubsystemBase {
     public void periodic() {
         virtualComponents.getOdometry().update(
                 Rotation2d.fromDegrees(getHeading()),
-                encoderUnitsToMeters(getSimLeftMaster().getSelectedSensorPosition()),
-                encoderUnitsToMeters(getSimRightMaster().getSelectedSensorPosition()));
+                encoderUnitsToMeters(Robot.isSimulation() ? getSimLeftMaster().getSelectedSensorPosition() :
+                        getLeftMaster().getSelectedSensorPosition()),
+                encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
+                        getRightMaster().getSelectedSensorPosition()));
 
         getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
     }
@@ -96,12 +98,12 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        simulationComponents.getLeftMotors().setVoltage(leftVolts);
-        simulationComponents.getRightMotors().setVoltage(rightVolts);
-        virtualComponents.getSimDifferentialDrive().feed();
         components.getLeftMotors().setVoltage(leftVolts);
         components.getRightMotors().setVoltage(rightVolts);
         virtualComponents.getDifferentialDrive().feed();
+        simulationComponents.getLeftMotors().setVoltage(leftVolts);
+        simulationComponents.getRightMotors().setVoltage(rightVolts);
+        virtualComponents.getSimDifferentialDrive().feed();
     }
 
     public double getAverageEncoderDistance() {

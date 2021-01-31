@@ -64,6 +64,7 @@ public class SkillsConstants {
 
     public static final class Paths {
         private static final double OFFSET = 8.2;
+
         public static final Path GALACTIC_SEARCH_RED_FIRST = new Path(List.of(
                 Waypoints.C3,
                 Waypoints.D5,
