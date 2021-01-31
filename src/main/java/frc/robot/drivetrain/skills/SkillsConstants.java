@@ -89,10 +89,10 @@ public class SkillsConstants {
                 Waypoints.D10
         ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)));
 
-        public static final Path TEST_PATH = new Path(List.of(
+        public static final Path PRIORITY_PATH_A = new Path(List.of(
         ), new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
 
-        public static final Path TEST_PATH2 = new Path(List.of(
+        public static final Path PRIORITY_PATH_B = new Path(List.of(
                 new Translation2d(4.9, OFFSET - 2.1),
                 new Translation2d(7.69, OFFSET - 2.7),
                 new Translation2d(6.75, OFFSET - 4),

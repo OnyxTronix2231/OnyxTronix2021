@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drivetrain.commands.DriveByJoystick;
 import frc.robot.drivetrain.commands.MoveByPath;
+import frc.robot.drivetrain.skills.SkillsConstants;
 
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
 
