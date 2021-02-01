@@ -59,7 +59,7 @@ public final class DriveTrainConstants {
         private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double kA = 0.3123; // TODO: Calibration with A
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(kS, kV, kA);
-        public static final Pose2d START_POSE = new Pose2d(1, 2, Rotation2d.fromDegrees(35));
+        public static final Pose2d START_POSE = new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0));
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
     }

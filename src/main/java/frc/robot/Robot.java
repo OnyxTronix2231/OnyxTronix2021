@@ -5,13 +5,26 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
+import frc.robot.drivetrain.commands.MoveByPath;
+import frc.robot.drivetrain.skills.GSCOption;
+import frc.robot.drivetrain.utils.Path;
+import vision.limelight.enums.LimelightLedMode;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static frc.robot.RobotConstants.ROBOT_TYPE;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_SECOND_START;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_FIRST_START;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_SECOND_START;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,6 +35,8 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
+
+    private Path chosenAutonomousPath;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -85,7 +100,28 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-
+        GSCOption option = GSCOption.BLUE_FIRST;
+        if (option == GSCOption.BLUE_FIRST){
+            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);
+            chosenAutonomousPath = GALACTIC_SEARCH_BLUE_FIRST;
+        }
+        else {
+            if (option == GSCOption.RED_FIRST) {
+                driveTrain.resetSimOdometryToPose(GS_RED_FIRST_START);
+                chosenAutonomousPath = GALACTIC_SEARCH_RED_FIRST;
+            }
+            else {
+                if (option == GSCOption.BLUE_SECOND) {
+                    driveTrain.resetSimOdometryToPose(GS_BLUE_SECOND_START);
+                    chosenAutonomousPath = GALACTIC_SEARCH_BLUE_SECOND;
+                }
+                else {
+                    driveTrain.resetSimOdometryToPose(GS_RED_SECOND_START);
+                    chosenAutonomousPath = GALACTIC_SEARCH_RED_SECOND;
+                }
+            }
+        }
+        new MoveByPath(driveTrain, chosenAutonomousPath).schedule();
     }
 
     /**
@@ -93,6 +129,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        CommandScheduler.getInstance().run();
     }
 
     @Override

@@ -12,7 +12,7 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.*;
 
 public class DriveTrainOiBinder {
     public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger resetButton, Trigger pathButton) {
-        driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
+        //driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
         resetButton.whenActive(new InstantCommand(() -> driveTrain.resetSimOdometryToPose(START_POSE)));
         pathButton.whenActive(new MoveByPath(driveTrain, AUTONAV_FIRST));
     }

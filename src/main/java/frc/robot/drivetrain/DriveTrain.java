@@ -200,14 +200,19 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
-        resetEncoders();
-        virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
-        simulationComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(0);
-        simulationComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(0);
+        resetOdometryToPose(pose);
+        getSimRightMaster().getSimCollection().setQuadratureVelocity(0);
+        getSimLeftMaster().getSimCollection().setQuadratureVelocity(0);
         simulationComponents.getAnalogGyroSim().setRate(0);
         simulationComponents.getAnalogGyroSim().setAngle(0);
         simulationComponents.getField2d().setRobotPose(pose);
         virtualComponents.getDriveTrainSim().setPose(pose);
         virtualComponents.getDriveTrainSim().setInputs(0, 0);
+    }
+
+    public void resetOdometryToPose(Pose2d pose){
+        resetEncoders();
+        virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
+        components.getNormelizedPigeonIMU().setYaw(0);
     }
 }
