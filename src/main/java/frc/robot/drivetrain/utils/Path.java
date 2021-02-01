@@ -1,5 +1,9 @@
 package frc.robot.drivetrain.utils;
 
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.MAX_SPEED_METERS_PER_SECOND;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -9,8 +13,6 @@ import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
 public class Path {
     private final List<Translation2d> middlePoints;

@@ -1,10 +1,16 @@
 package frc.robot.drivetrain;
 
+import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_FORWARD_SENSITIVITY;
+import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_ROTATION_SENSITIVITY;
+import static frc.robot.drivetrain.DriveTrainConstants.DECISECOND_IN_SECOND;
+import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -12,13 +18,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-
-import static frc.robot.drivetrain.DriveTrainConstants.*;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -210,7 +211,7 @@ public class DriveTrain extends SubsystemBase {
         virtualComponents.getDriveTrainSim().setInputs(0, 0);
     }
 
-    public void resetOdometryToPose(Pose2d pose){
+    public void resetOdometryToPose(Pose2d pose) {
         resetEncoders();
         virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
         components.getNormelizedPigeonIMU().setYaw(0);

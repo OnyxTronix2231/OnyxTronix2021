@@ -1,13 +1,17 @@
 package frc.robot.drivetrain.commands;
 
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.FEEDFORWARD;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_B;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_ZETA;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.TRAJECTORY_P;
+
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.utils.Path;
-
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
 public class MoveByPath extends CommandBase {
     private final DriveTrain driveTrain;
