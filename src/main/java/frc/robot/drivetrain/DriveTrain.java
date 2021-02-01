@@ -34,6 +34,7 @@ public class DriveTrain extends SubsystemBase {
         Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
         getField2d().setRobotPose(START_POSE);
         virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
+        getDriveTrainSim().setPose(START_POSE);
         resetEncoders();
         if (Robot.isSimulation()) {
             simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);

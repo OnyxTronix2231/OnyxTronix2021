@@ -3,8 +3,12 @@ package frc.robot.drivetrain;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
+import frc.robot.drivetrain.utils.Path;
+
+import java.util.List;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
@@ -44,7 +48,7 @@ public final class DriveTrainConstants {
 
     public static final class TrajectoryConstants {
 
-        public static final double TRAJECTORY_P = 0.0002;
+        public static final double TRAJECTORY_P = 0;
         public static final double RAMSETE_B = 2;
         public static final double RAMSETE_ZETA = 0.7;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
@@ -55,8 +59,23 @@ public final class DriveTrainConstants {
         private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double kA = 0.3123; // TODO: Calibration with A
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(kS, kV, kA);
-        public static final Pose2d START_POSE = new Pose2d(3.2, 0.7, Rotation2d.fromDegrees(0));
+        public static final Pose2d START_POSE = new Pose2d(1, 2, Rotation2d.fromDegrees(35));
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
+    }
+
+    public static final class InfiniteRechargePaths {
+        private static final double OFFSET = 8.2;
+
+        public static final Path PRIORITY_PATH_A = new Path(List.of(
+        ), new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
+
+        public static final Path PRIORITY_PATH_B = new Path(List.of(
+                new Translation2d(4.9, OFFSET - 2.1),
+                new Translation2d(7.69, OFFSET - 2.7),
+                new Translation2d(6.75, OFFSET - 4),
+                new Translation2d(6.15, OFFSET - 3.7),
+                new Translation2d(7.1, OFFSET - 3)
+        ), new Pose2d(5.95, OFFSET - 2.3, Rotation2d.fromDegrees(0))).setReversed();
     }
 }
