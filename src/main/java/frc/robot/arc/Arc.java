@@ -61,6 +61,10 @@ public class Arc extends SubsystemBase {
         components.getController().update(angleToEncoderUnits(angle));
     }
 
+    public double distanceMeterToAngle(double distance) { //TODO add formula
+        return distance;
+    }
+
     public double angleToEncoderUnits(double angle) {
         return ((angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION) / ANGULAR_MOTOR_CONVERSION;
     }

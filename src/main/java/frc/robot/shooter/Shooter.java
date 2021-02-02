@@ -60,7 +60,7 @@ public class Shooter extends SubsystemBase {
         components.getShooterController().update(RPMToEncoderUnitsInDecisecond(RPM));
     }
 
-    public double distanceMeterToEncoderUnitInDecisecond(double distance) { //TODO Change and add angle
+    public double distanceMeterToEncoderUnitInDecisecond(double distance) { //TODO fix formula
         double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
             encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);

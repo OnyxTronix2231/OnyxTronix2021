@@ -2,7 +2,7 @@ package frc.robot.arc;
 
 public class ArcConstants {
 
-    static final int ANGULAR_MOTOR_CONVERSION = 1080; // 1/1080
+    static final int ANGULAR_MOTOR_CONVERSION = 1000; // 1/1000
     static final double ANGLE_PER_MOTOR_ROTATION = 360;
     static final double MAX_POSSIBLE_ANGLE = 70;
     static final double MIN_POSSIBLE_ANGLE = 20;
