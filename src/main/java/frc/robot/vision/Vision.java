@@ -6,7 +6,6 @@ import java.util.function.DoubleSupplier;
 
 import static frc.robot.vision.VisionConstants.*;
 
-
 public class Vision {
     private Limelight limelight;
     private OuterTarget outerTarget;
@@ -15,46 +14,45 @@ public class Vision {
     private DoubleSupplier turretAngleRTF;
     private VisionTarget chosenTarget;
 
-    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF){
-        this.gyroYawAngle = gyroYawAngle;
-        this.turretAngleRTF = turretAngleRTF;
-        this.limelight = Limelight.getInstance();
-        this.outerTarget = new OuterTarget(this.gyroYawAngle.getAsDouble(),
-                turretAngleRTF.getAsDouble(),
-                this.limelight.getTarget());
-        this.innerTarget = new InnerTarget(this.gyroYawAngle.getAsDouble(),
-                this.outerTarget);
-        this.chooseTarget();
+    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF) {
+        gyroYawAngle = gyroYawAngle;
+        turretAngleRTF = turretAngleRTF;
+        limelight = Limelight.getInstance();
+        outerTarget = new OuterTarget(gyroYawAngle.getAsDouble(),
+                turretAngleRTF.getAsDouble(), limelight.getTarget());
+        innerTarget = new InnerTarget(gyroYawAngle.getAsDouble(),
+                outerTarget);
+        chooseTarget();
     }
 
-    public void update(){
-        this.limelight = Limelight.getInstance();
-        this.outerTarget.update(gyroYawAngle.getAsDouble(),
+    public void update() {
+        limelight = Limelight.getInstance();
+        outerTarget.update(gyroYawAngle.getAsDouble(),
                 turretAngleRTF.getAsDouble(),
-                this.limelight.getTarget());
-        this.innerTarget.update(gyroYawAngle.getAsDouble(),
-                this.outerTarget);
-        this.chooseTarget();
+                limelight.getTarget());
+        innerTarget.update(gyroYawAngle.getAsDouble(),
+                outerTarget);
+        chooseTarget();
     }
 
-    public void chooseTarget(){
-        boolean condition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER &&
-                            outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER &&
-                            Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
-                                    MAX_ABS_OFFSET_TARGET_TO_FIELD;
-        if (condition){
-            this.chosenTarget = this.innerTarget;
+    public void chooseTarget() {
+        boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER &&
+                outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER &&
+                Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
+                        MAX_ABS_OFFSET_TARGET_TO_FIELD;
+        if (innerTargetCondition) {
+            chosenTarget = innerTarget;
         } else {
-            this.chosenTarget = this.outerTarget;
+            chosenTarget = outerTarget;
         }
     }
 
-    public double getAbsoluteDistanceToOuterTargetWall(){
+    public double getAbsoluteDistanceToOuterTargetWall() {
         return outerTarget.getAirDistanceTurretToTarget() *
                 Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
     }
 
-    public boolean hasTarget(){
-        return this.limelight.targetFound();
+    public boolean hasTarget() {
+        return limelight.targetFound();
     }
 }

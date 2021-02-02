@@ -1,6 +1,8 @@
 package frc.robot.vision;
 
 public enum GSCOption {
-    RED,
-    BLUE
+    RED1,
+    RED2,
+    BLUE1,
+    BLUE2
 }

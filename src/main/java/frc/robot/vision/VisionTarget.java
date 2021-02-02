@@ -11,7 +11,7 @@ public abstract class VisionTarget {
     protected double airDistanceTurretToTarget;
 
     /*a calculated value- the horizontal angle offset from the vector of the target to the turret direction*/
-    protected double horizonralAngleTargetToTurret;
+    protected double horizontalAngleTargetToTurret;
 
     /*a calculated vector- the vector that is connected from the turret center to the target*/
     protected Vector2dEx RTFVectorTurretToTarget;
@@ -19,7 +19,9 @@ public abstract class VisionTarget {
     /*a calculated vector- the vector that is connected from the robot center to the target*/
     protected Vector2dEx RTFVectorRobotToTarget;
 
-    public VisionTarget(){}
+
+    public VisionTarget() {
+    }
 
     public abstract double getVerticalAngleLimelightToTarget();
 
@@ -27,7 +29,7 @@ public abstract class VisionTarget {
 
     public abstract double getAirDistanceTurretToTarget();
 
-    public abstract double getHorizonralAngleTargetToTurret();
+    public abstract double getHorizontalAngleTargetToTurret();
 
     public abstract Vector2dEx getRTFVectorTurretToTarget();
 
