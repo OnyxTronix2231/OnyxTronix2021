@@ -7,8 +7,7 @@ import java.util.function.DoubleSupplier;
 
 public class MoveTurretToAngleAndKeep extends CommandBase {
     protected final Turret turret;
-    protected DoubleSupplier angle;
-
+    protected final DoubleSupplier angle;
 
     public MoveTurretToAngleAndKeep(Turret turret, DoubleSupplier angle) {
         this.turret = turret;
@@ -30,7 +29,5 @@ public class MoveTurretToAngleAndKeep extends CommandBase {
     public void end(boolean interrupted) {
         turret.stop();
     }
-
-
 }
 

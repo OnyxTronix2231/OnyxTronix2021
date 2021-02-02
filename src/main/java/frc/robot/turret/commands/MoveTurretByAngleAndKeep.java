@@ -29,5 +29,4 @@ public class MoveTurretByAngleAndKeep extends CommandBase {
     public void end(boolean interrupted) {
         turret.stop();
     }
-
 }

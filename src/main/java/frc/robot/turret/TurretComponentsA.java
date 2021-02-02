@@ -5,10 +5,8 @@ import pid.CtreMotionMagicController;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import sensors.counter.CtreEncoder;
-
 import static frc.robot.turret.TurretConstants.*;
 import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
-
 
 public class TurretComponentsA implements TurretComponents {
     private WPI_TalonSRX masterMotor;
@@ -17,10 +15,9 @@ public class TurretComponentsA implements TurretComponents {
 
     public TurretComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        encoder = new CtreEncoder(masterMotor, PID_IDX);
-
+        encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder, KP, KI, KD, KF, ACCELERATION,
-                CRUISE_VELOCITY, 0);
+                CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
     }
 
     @Override
@@ -34,7 +31,7 @@ public class TurretComponentsA implements TurretComponents {
     }
 
     @Override
-    public CtreMotionMagicController getController() {
+    public CtreMotionMagicController getTurretController() {
         return controller;
     }
 }

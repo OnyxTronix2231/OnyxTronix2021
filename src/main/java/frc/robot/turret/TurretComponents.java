@@ -12,5 +12,5 @@ public interface TurretComponents {
 
     CtreEncoder getEncoder();
 
-    CtreMotionMagicController getController();
+    CtreMotionMagicController getTurretController();
 }

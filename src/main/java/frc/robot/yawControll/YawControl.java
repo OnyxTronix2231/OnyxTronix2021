@@ -41,9 +41,8 @@ public class YawControl extends Turret {
                 break;
         }
     }
-
-
+    
     public double getRobotAngle(){
-        return 0;
+        return driveTrain.getHeading();
     }
 }

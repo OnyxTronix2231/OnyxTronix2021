@@ -13,27 +13,23 @@ public class Turret extends SubsystemBase {
         this.components = turretComponents;
     }
 
-    public void setSpeed(double speed) {
+    public void MoveTurretBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
     public void stop() {
-        setSpeed(0);
-    }
-
-    public void disableController() {
-        components.getController().disable();
+        components.getTurretController().disable();
     }
 
     public void initMoveToAngle(double angle) {
         angle = getAngleByLimits(angle);
-        components.getController().setSetpoint(angleToEncoderUnits(angle));
-        components.getController().enable();
+        components.getTurretController().setSetpoint(angleToEncoderUnits(angle));
+        components.getTurretController().enable();
     }
 
     public void updateMoveToAngle(double angle) {
         angle = getAngleByLimits(angle);
-        components.getController().update(angleToEncoderUnits(angle));
+        components.getTurretController().update(angleToEncoderUnits(angle));
     }
 
     public void initMoveByAngle(double angle) {
@@ -64,7 +60,7 @@ public class Turret extends SubsystemBase {
     }
 
     public double getAngleByLimits(double angle){
-        angle = angle % 360;
+        angle = angle % DEGREES_IN_CIRCLE;
         if(angle > MAX_DEGREE){
             angle = (angle - FLIP_POINT);
         } else if (angle < MIN_DEGREE){
@@ -74,6 +70,6 @@ public class Turret extends SubsystemBase {
     }
 
     public boolean isOnTarget(){
-        return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_DEGREE));
+        return components.getTurretController().isOnTarget(angleToEncoderUnits(TOLERANCE_DEGREE));
     }
 }
