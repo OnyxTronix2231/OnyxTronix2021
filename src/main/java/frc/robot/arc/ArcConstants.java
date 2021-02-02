@@ -7,7 +7,7 @@ public class ArcConstants {
     static final double MAX_POSSIBLE_ANGLE = 70;
     static final double MIN_POSSIBLE_ANGLE = 20;
     static final double TOLERANCE_ANGLE = 3; // TODO: check and change
-    static final double ENCODER_UNITS_PER_ROTATION = 2048;
+    static final double ENCODER_UNITS_PER_ROTATION = 2048 * ANGULAR_MOTOR_CONVERSION;
     static final double MOVING_TOLERANCE_ENCODER_UNITS = 3;
     public static final double MOVE_ARC_MECHANISM_LIMIT_SPEED = 0.1;
     public static final double MOVE_ARC_SWITCH_LIMIT_SPEED = 0.2;
