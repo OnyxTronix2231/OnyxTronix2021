@@ -8,5 +8,4 @@ public class OpenPiston extends InstantCommand {
     public OpenPiston(Roulette roulette) {
         super(roulette::openPiston);
     }
-
 }
