@@ -10,5 +10,4 @@ public class SpinToColor extends SpinByRouletteRounds {
     public SpinToColor(Roulette roulette, Supplier<RouletteColor> colorSupplier) {
         super(roulette, () -> roulette.getRoundsToColor(colorSupplier.get()));
     }
-
 }

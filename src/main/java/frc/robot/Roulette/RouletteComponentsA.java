@@ -10,9 +10,8 @@ import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.Roulette.RouletteConstants.CHANNEL;
+import static frc.robot.Roulette.RouletteConstants.*;
 import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
-import static frc.robot.Roulette.RouletteConstants.DEVICE_NUMBER;
 
 public class RouletteComponentsA implements RouletteComponents {
 
@@ -23,12 +22,12 @@ public class RouletteComponentsA implements RouletteComponents {
     private final ColorSensorV3 colorSensor;
 
     public RouletteComponentsA() {
-        masterMotor = new WPI_TalonSRX(DEVICE_NUMBER);
+        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-        solenoid = new Solenoid(CHANNEL);
+        solenoid = new Solenoid(SOLENOID_ID);
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
-                new PIDFTerms(K_P, K_I, K_D, K_F), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
+                new PIDFTerms(KP, KI, KD, KF), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
         colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     }
 
@@ -56,5 +55,4 @@ public class RouletteComponentsA implements RouletteComponents {
     public ColorSensorV3 getColorSensor() {
         return colorSensor;
     }
-
 }

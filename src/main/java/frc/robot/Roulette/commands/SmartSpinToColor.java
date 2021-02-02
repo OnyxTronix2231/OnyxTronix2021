@@ -10,5 +10,4 @@ public class SmartSpinToColor extends SmartSpinByRouletteRounds {
     public SmartSpinToColor(Roulette roulette, Supplier<RouletteColor> colorSupplier) {
         super(roulette, () -> roulette.getRoundsToColor(colorSupplier.get()));
     }
-
 }

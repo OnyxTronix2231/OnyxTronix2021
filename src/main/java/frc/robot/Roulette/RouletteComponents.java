@@ -19,5 +19,4 @@ public interface RouletteComponents {
 
     ColorSensorV3 getColorSensor();
 
-
 }

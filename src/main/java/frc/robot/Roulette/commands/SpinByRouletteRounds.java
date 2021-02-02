@@ -7,7 +7,7 @@ import java.util.function.DoubleSupplier;
 
 public class SpinByRouletteRounds extends CommandBase {
 
-    protected Roulette roulette;
+    protected final Roulette roulette;
     private final DoubleSupplier rouletteRounds;
 
     public SpinByRouletteRounds(Roulette roulette, DoubleSupplier rouletteRounds) {
