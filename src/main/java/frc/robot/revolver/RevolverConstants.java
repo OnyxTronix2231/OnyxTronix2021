@@ -8,6 +8,7 @@ public final class RevolverConstants {
     static final double ENCODER_UNITS_PER_ROTATION = 2048 * CONVERSION_RATE; //TODO: check value
 
     public static final class RevolverComponentsA {
+
         static final int MASTER_MOTOR_ID = 9; //TODO: check value
         static final int SUPPLY_CURRENT_LIMIT = 0; //TODO: check value
         static final int SUPPLY_TRIGGER_THRESHOLD_TIME = 0; //TODO: check value

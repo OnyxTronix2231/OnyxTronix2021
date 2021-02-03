@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
@@ -50,12 +52,12 @@ public class BasicRevolverComponentsA implements RevolverComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
     @Override
-    public CtrePIDController getPIDController() {
+    public PIDController getPIDController() {
         return pidController;
     }
 }

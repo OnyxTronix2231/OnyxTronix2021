@@ -6,6 +6,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*;
@@ -14,8 +16,8 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
     private final Solenoid solenoid;
-    private final CtrePIDController pidController;
     private final CtreEncoder encoder;
+    private final CtrePIDController pidController;
 
     public BasicBallTriggerComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -53,12 +55,12 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
     @Override
-    public CtrePIDController getPIDController() {
+    public PIDController getPIDController() {
         return pidController;
     }
 }
