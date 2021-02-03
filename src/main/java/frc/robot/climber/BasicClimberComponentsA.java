@@ -8,41 +8,43 @@ import pid.CtreMotionMagicController;
 import pid.PIDFTerms;
 import sensors.counter.CtreEncoder;
 
+import static frc.robot.climber.ClimberConstants.ClimberConstantsA.*;
+
 
 public class BasicClimberComponentsA implements ClimberComponents {
-    private final WPI_TalonFX rightMotor;
-    private final WPI_TalonFX leftMotor;
+
+    private final WPI_TalonFX masterMotor;
+    private final WPI_TalonFX slaveMotor;
     private final CtreMotionMagicController controller;
     private final CtreEncoder encoder;
 
     public BasicClimberComponentsA() {
 
-        rightMotor = new WPI_TalonFX(0);
-        rightMotor.configFactoryDefault();
-        //   masterMotor.configAllSettings(getMasterMotor());
-        rightMotor.setNeutralMode(NeutralMode.Brake);
+        masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
+        masterMotor.configFactoryDefault();
+       // masterMotor.configAllSettings(getMasterMotor());
+        masterMotor.setNeutralMode(NeutralMode.Brake);
 
-        leftMotor = new WPI_TalonFX(0);
-        leftMotor.configFactoryDefault();
-        //  slaveMotor.configAllSettings(getSlaveMotor());
-        leftMotor.setNeutralMode(NeutralMode.Brake);
+        slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
+        slaveMotor.configFactoryDefault();
+       // slaveMotor.configAllSettings(getSlaveMotor());
+        slaveMotor.setNeutralMode(NeutralMode.Brake);
+        slaveMotor.follow(masterMotor);
 
-        encoder = new CtreEncoder(rightMotor);
+        encoder = new CtreEncoder(masterMotor);
 
-        controller = new CtreMotionMagicController(rightMotor, encoder,new PIDFTerms(0,0,0,0)
-                ,0,0,0);
-
-
+        controller = new CtreMotionMagicController(masterMotor, encoder,new PIDFTerms(KP, KI, KD, KF),
+                ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING );
     }
 
     @Override
-    public WPI_TalonFX getRightMotor() {
-        return rightMotor;
+    public WPI_TalonFX getMasterMotor() {
+        return masterMotor;
     }
 
     @Override
-    public WPI_TalonFX getLeftMotor() {
-        return leftMotor;
+    public WPI_TalonFX getSlaveMotor() {
+        return slaveMotor;
     }
 
     @Override
@@ -55,6 +57,22 @@ public class BasicClimberComponentsA implements ClimberComponents {
         return encoder;
     }
 
-    private TalonFXConfiguration getFalconConfig;
+    private TalonFXConfiguration getFalconConfig() {
+        final TalonFXConfiguration config = new TalonFXConfiguration();
+        config.peakOutputForward = PEAK_OUTPUT_FORWARD;
+        config.peakOutputReverse = PEAK_OUTPUT_REVERSE;
+        config.supplyCurrLimit.currentLimit = SUPPLY_CURRENT_LIMIT;
+        config.supplyCurrLimit.triggerThresholdCurrent = SUPPLY_TRIGGER_THRESHOLD_CURRENT;
+        config.supplyCurrLimit.triggerThresholdTime = SUPPLY_TRIGGER_THRESHOLD_TIME;
+        config.supplyCurrLimit.enable = SUPPLY_CURRENT_LIMIT_ENABLED;
+        config.statorCurrLimit.currentLimit = STATOR_CURRENT_LIMIT;
+        config.statorCurrLimit.triggerThresholdCurrent = STATOR_TRIGGER_THRESHOLD_CURRENT;
+        config.statorCurrLimit.triggerThresholdTime = STATOR_TRIGGER_THRESHOLD_TIME;
+        config.statorCurrLimit.enable = STATOR_CURRENT_LIMIT_ENABLED;
+        config.closedloopRamp = CLOSED_LOOP_RAMP;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        return config;
+    }
+
 
 }

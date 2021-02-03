@@ -5,6 +5,7 @@ import frc.robot.climber.Climber;
 import java.util.function.DoubleSupplier;
 
 public class ClimbBySpeed extends CommandBase {
+
     private Climber climber;
     private DoubleSupplier speedSupplier;
 
@@ -16,8 +17,7 @@ public class ClimbBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        climber.moveRightMotorBySpeed(speedSupplier.getAsDouble());
-        climber.moveLeftMotorBySpeed(speedSupplier.getAsDouble());
+        climber.moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override
