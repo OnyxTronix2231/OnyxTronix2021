@@ -14,6 +14,7 @@ public class Shooter extends SubsystemBase {
     private final NetworkTableEntry KI;
     private final NetworkTableEntry KD;
     private final NetworkTableEntry KF;
+    private double lastRPMError;
 
     public Shooter(ShooterComponents components) {
         this.components = components;
@@ -71,14 +72,12 @@ public class Shooter extends SubsystemBase {
     }
 
     public double RPMToEncoderUnitsInDecisecond(double RPM) {
-        return (RPM * ENCODER_UNITS_PER_ROTATION) / MILLISECOND_TO_MINUTE;
+        return (RPM * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * MILLISECOND_TO_MINUTE) / ENCODER_UNITS_PER_ROTATION;
+        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
-
-    private double lastRPMError;
 
     public void initIsBallShot() {
         lastRPMError = Integer.MAX_VALUE;

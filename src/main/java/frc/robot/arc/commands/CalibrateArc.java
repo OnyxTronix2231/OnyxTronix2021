@@ -10,7 +10,7 @@ public class CalibrateArc extends ConditionalCommand {
 
     public CalibrateArc(Arc arc) {
         super(new InstantCommand(),
-                new MoveUntilLimitSwitch(arc, () -> MOVE_ARC_SWITCH_LIMIT_SPEED)
+                new MoveUntilLowerLimitSwitch(arc, () -> MOVE_ARC_SWITCH_LIMIT_SPEED)
                         .andThen(new MoveArcUntilMechanismLimit(arc)),
                 arc::hasHitLowerLimit);
     }
