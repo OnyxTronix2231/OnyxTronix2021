@@ -67,7 +67,9 @@ public class SkillsConstants {
         public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, 3.5, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_FIRST_START = new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_SECOND_START = new Pose2d(0.3, 1, Rotation2d.fromDegrees(0));
+
         private static final double OFFSET = 4.572;
+
         public static final Pose2d AUTONAV_FIRST_START = new Pose2d(1.2, OFFSET - 2.5, Rotation2d.fromDegrees(0));
         public static final Pose2d AUTONAV_SECOND_START = new Pose2d(1.2, OFFSET - 3.4, Rotation2d.fromDegrees(0));
         public static final Pose2d AUTONAV_THIRD_START = new Pose2d(1.2, OFFSET - 2.3, Rotation2d.fromDegrees(0));

@@ -20,6 +20,7 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_SECOND_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_FIRST_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_SECOND_START;
@@ -102,6 +103,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         GSCOption option = GSCOption.BLUE_FIRST;
         if (option == GSCOption.BLUE_FIRST){
+            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);
             chosenAutonomousPath = GALACTIC_SEARCH_BLUE_FIRST;
         }
         else {
