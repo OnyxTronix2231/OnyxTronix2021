@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.system.plant.DCMotor;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*;
@@ -59,12 +61,12 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
     @Override
-    public CtrePIDController getPIDController() {
+    public PIDController getPIDController() {
         return pidController;
     }
 

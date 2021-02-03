@@ -11,6 +11,7 @@ import frc.robot.revolver.commands.MoveRevolverByRPM;
 import java.util.function.DoubleSupplier;
 
 public class SpinRevolverAndTriggerThenOpenTriggerPiston extends ParallelCommandGroup {
+
     public SpinRevolverAndTriggerThenOpenTriggerPiston(Revolver revolver, BallTrigger ballTrigger,
                                                        DoubleSupplier RPMSupplier, DoubleSupplier speedSupplier) {
         super(new MoveRevolverByRPM(revolver, RPMSupplier), new MoveBallTriggerBySpeed(ballTrigger, speedSupplier),

@@ -14,10 +14,10 @@ import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 public class Revolver extends SubsystemBase {
 
     private final RevolverComponents components;
-    private NetworkTableEntry kP;
-    private NetworkTableEntry kI;
-    private NetworkTableEntry kD;
-    private NetworkTableEntry kF;
+    private final NetworkTableEntry kP;
+    private final NetworkTableEntry kI;
+    private final NetworkTableEntry kD;
+    private final NetworkTableEntry kF;
 
     public Revolver(RevolverComponents components) {
         this.components = components;
@@ -43,7 +43,8 @@ public class Revolver extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getPIDController().setPIDFTerms(kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+        components.getPIDController().setPIDFTerms(
+                kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
                 kI.getDouble(components.getPIDController().getPIDFTerms().getKi()),
                 kD.getDouble(components.getPIDController().getPIDFTerms().getKd()),
                 kF.getDouble(components.getPIDController().getPIDFTerms().getKf()));

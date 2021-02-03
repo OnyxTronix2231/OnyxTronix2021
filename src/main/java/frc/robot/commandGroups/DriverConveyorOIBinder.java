@@ -10,6 +10,7 @@ import frc.robot.revolver.Revolver;
 import static frc.robot.commandGroups.ConveyorConstants.ConveyorConstantsA.*;
 
 public class DriverConveyorOIBinder {
+
     public DriverConveyorOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver,
                                   Trigger collectAndLoadRevolver, Trigger spinRevolverAndTriggerWheels,
                                   Trigger spinRevolverAndTriggerThenOpenPiston) {

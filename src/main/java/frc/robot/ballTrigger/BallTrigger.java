@@ -13,10 +13,10 @@ import static frc.robot.ballTrigger.BallTriggerConstants.*;
 public class BallTrigger extends SubsystemBase {
 
     private final BallTriggerComponents components;
-    private NetworkTableEntry kP;
-    private NetworkTableEntry kI;
-    private NetworkTableEntry kD;
-    private NetworkTableEntry kF;
+    private final NetworkTableEntry kP;
+    private final NetworkTableEntry kI;
+    private final NetworkTableEntry kD;
+    private final NetworkTableEntry kF;
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
@@ -42,7 +42,8 @@ public class BallTrigger extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getPIDController().setPIDFTerms(kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+        components.getPIDController().setPIDFTerms(
+                kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
                 kI.getDouble(components.getPIDController().getPIDFTerms().getKi()),
                 kD.getDouble(components.getPIDController().getPIDFTerms().getKd()),
                 kF.getDouble(components.getPIDController().getPIDFTerms().getKf()));

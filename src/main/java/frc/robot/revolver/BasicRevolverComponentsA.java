@@ -12,6 +12,8 @@ import edu.wpi.first.wpiutil.math.numbers.N1;
 import edu.wpi.first.wpiutil.math.numbers.N2;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
+import pid.interfaces.PIDController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
@@ -60,12 +62,12 @@ public class BasicRevolverComponentsA implements RevolverComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
     @Override
-    public CtrePIDController getPIDController() {
+    public PIDController getPIDController() {
         return pidController;
     }
 

@@ -8,6 +8,7 @@ public final class BallTriggerConstants {
     static final boolean CLOSE_PISTON = false;
 
     public static final class BallTriggerConstantsA {
+
         static final int MASTER_MOTOR_ID = 0; //TODO: check value
         static final int SOLENOID_CHANNEL = 1; //TODO: check value
         static final int PEAK_AMP = 0; //TODO: check value
