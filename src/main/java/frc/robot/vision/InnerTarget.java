@@ -5,7 +5,6 @@ import static frc.robot.vision.VisionConstants.*;
 public class InnerTarget extends VisionTarget {
 
     public InnerTarget(double gyroYaw, OuterTarget outerTarget) {
-
         /*init*/
         super();
         update(gyroYaw, outerTarget);

@@ -19,7 +19,6 @@ public abstract class VisionTarget {
     /*a calculated vector- the vector that is connected from the robot center to the target*/
     protected Vector2dEx RTFVectorRobotToTarget;
 
-
     public VisionTarget() {
     }
 
