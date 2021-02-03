@@ -38,5 +38,4 @@ public class MoveTurretByAngleContinuously extends CommandBase {
     public void end(boolean interrupted) {
         moveTurretToAngle.end(interrupted);
     }
-
 }

@@ -4,14 +4,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import pid.CtreMotionMagicController;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
+import pid.interfaces.MotionMagicController;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 import static frc.robot.turret.TurretConstants.*;
 import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
 
 public class TurretComponentsA implements TurretComponents {
-    private WPI_TalonSRX masterMotor;
-    private CtreEncoder encoder;
-    private CtreMotionMagicController controller;
+
+    private final WPI_TalonSRX masterMotor;
+    private final CtreEncoder encoder;
+    private final CtreMotionMagicController controller;
 
     public TurretComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -26,12 +29,12 @@ public class TurretComponentsA implements TurretComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
     @Override
-    public CtreMotionMagicController getTurretController() {
+    public MotionMagicController getTurretController() {
         return controller;
     }
 }
