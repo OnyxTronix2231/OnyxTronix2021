@@ -1,5 +1,10 @@
 package frc.robot.vision;
 
+import vision.limelight.Limelight;
+import vision.limelight.target.LimelightTarget;
+
+import java.util.function.DoubleSupplier;
+
 public abstract class VisionTarget {
     /*a value given by the limelight itself- the vertical angle offset from the target to the crosshair*/
     protected double verticalAngleLimelightToTarget;
@@ -19,8 +24,9 @@ public abstract class VisionTarget {
     /*a calculated vector- the vector that is connected from the robot center to the target*/
     protected Vector2dEx RTFVectorRobotToTarget;
 
-    public VisionTarget() {
-    }
+    protected DoubleSupplier gyroYawAngle;
+    protected DoubleSupplier turretAngleRTF;
+    protected Limelight limelight;
 
     public abstract double getVerticalAngleLimelightToTarget();
 

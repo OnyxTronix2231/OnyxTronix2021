@@ -1,16 +1,29 @@
 package frc.robot.vision;
 
+import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
+
+import java.util.function.DoubleSupplier;
 
 import static frc.robot.vision.VisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
 
-    public OuterTarget(double gyroYawAngle, double turretAngleRelativeToTarget, LimelightTarget target) {
-        update(gyroYawAngle, turretAngleRelativeToTarget, target);
+    public OuterTarget(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF, Limelight limelight) {
+        this.gyroYawAngle = gyroYawAngle;
+        this.turretAngleRTF = turretAngleRTF;
+        this.limelight = limelight;
+
+        /*putting default values to all parameters*/
+        verticalAngleLimelightToTarget = 0.0;
+        horizontalAngleTargetToRobot = 0.0;
+        airDistanceTurretToTarget = 0.0;
+        RTFVectorTurretToTarget = new Vector2dEx(0, 0);
+        RTFVectorRobotToTarget = new Vector2dEx(0, 0);
     }
 
-    public void update(double robotGyroYawAngleRTF, double turretAngleRTF, LimelightTarget target) {
+    public void update() {
+        LimelightTarget target = limelight.getTarget();
 
         /*if a target is found by the limelight:*/
         if (target != null) {
@@ -55,7 +68,8 @@ public class OuterTarget extends VisionTarget {
              *
              * the angle from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
-            horizontalAngleTargetToRobot = horizontalAngleTargetToTurret + turretAngleRTF % CIRCLE_ANGLES;
+            horizontalAngleTargetToRobot = horizontalAngleTargetToTurret +
+                    turretAngleRTF.getAsDouble() % CIRCLE_ANGLES;
 
             /*this is the correct vector (yay!) from the turret center to the target it is stated on the correct
              * coordinates system (which is related to the field and not to the turret) physically it
@@ -69,7 +83,7 @@ public class OuterTarget extends VisionTarget {
             /*we create a vector that connects the turret center to the robot it has a fixed magnitude (size)
              and the direction of the robot relative to the field (we get it from the driveTrain subsystem, gyro)*/
             Vector2dEx turretToRobotCenterVector =
-                    Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, robotGyroYawAngleRTF);
+                    Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, gyroYawAngle.getAsDouble());
 
             /*to get the vector from the robot center to the target we do some more vector math
              * we subtract the turret to robot vector from the turret to target one and that
