@@ -19,6 +19,7 @@ public class SmartSpinByRouletteRounds extends CommandBase {
         this.roulette = roulette;
         this.rouletteRounds = rouletteRounds;
         spinByRouletteRounds = new SpinByRouletteRounds(roulette, () -> this.rouletteRounds.getAsDouble());
+        addRequirements(roulette);
     }
 
     @Override
