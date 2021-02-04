@@ -2,17 +2,17 @@ package frc.robot.arc.commands;
 
 import frc.robot.arc.Arc;
 
-import java.util.function.DoubleSupplier;
+import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_SWITCH_LIMIT_SPEED;
 
 public class MoveUntilLowerLimitSwitch extends MoveBySpeed {
 
-    public MoveUntilLowerLimitSwitch(Arc arc, DoubleSupplier resetSpeed){
-        super(arc, resetSpeed);
+    public MoveUntilLowerLimitSwitch(Arc arc) {
+        super(arc, () -> MOVE_ARC_TO_SWITCH_LIMIT_SPEED);
     }
 
     @Override
     public boolean isFinished() {
-        return arc.hasHitLowerLimit();
+        return arc.hasHitReverseLimit();
     }
 
     @Override

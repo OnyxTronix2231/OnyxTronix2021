@@ -17,27 +17,27 @@ public final class ShooterConstants {
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
         static final int STATOR_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_VELOCITY = 17500 * 1.2; // Encoder Units *80% // TODO: check and change
+        static final double MAX_VELOCITY = 17500; // TODO: check and change
         static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
-        static final double VELOCITY_P = 0.3; // TODO: check and change
+        static final double VELOCITY_P = 0; // TODO: check and change
         static final double VELOCITY_I = 0; // TODO: check and change
-        static final double VELOCITY_D = 0.1; // TODO: check and change
+        static final double VELOCITY_D = 0; // TODO: check and change
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final double OPEN_LOOP_RAMP = 0; // TODO: check and change
         static final double CLOSE_LOOP_RAMP = 0; // TODO: check and change
-        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false;
-        static final boolean STATOR_CURRENT_LIMIT_ENABLED = false;
+        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false; // TODO: check and change
+        static final boolean STATOR_CURRENT_LIMIT_ENABLED = false; // TODO: check and change
     }
 
     // y = -0.0121x2 +26.707x + 24130 > 450
     // y = 0.1912x2 - 161.44x +67791 < 450
-    public static final class ShooterCalculation {
+    public static final class ShooterCalculation { // TODO: check and change
         static double FORMULA_DISTANCE_FAR(double distance) {
             return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }
 
-        static double FORMULA_DISTANCE_CLOSE(double distance) {
+        static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: check and change
             return 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
         }
     }

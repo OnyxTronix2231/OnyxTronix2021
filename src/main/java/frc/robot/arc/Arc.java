@@ -9,29 +9,29 @@ import static frc.robot.arc.ArcConstants.*;
 public class Arc extends SubsystemBase {
 
     private final ArcComponents components;
-    private final NetworkTableEntry KP;
-    private final NetworkTableEntry KI;
-    private final NetworkTableEntry KD;
-    private final NetworkTableEntry KF;
+    private final NetworkTableEntry kP;
+    private final NetworkTableEntry kI;
+    private final NetworkTableEntry kD;
+    private final NetworkTableEntry kF;
     private final NetworkTableEntry cruiseVelocity;
     private final NetworkTableEntry acceleration;
     private final NetworkTableEntry accelerationSmoothing;
 
     public Arc(ArcComponents components) {
         this.components = components;
-        
+
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current position",
                 () -> encoderUnitsToAngle(components.getEncoder().getCount()));
 
-        KP = Shuffleboard.getTab("Arc").add("KP",
+        kP = Shuffleboard.getTab("Arc").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
-        KI = Shuffleboard.getTab("Arc").add("KI",
+        kI = Shuffleboard.getTab("Arc").add("kI",
                 components.getController().getPIDFTerms().getKi()).getEntry();
-        KD = Shuffleboard.getTab("Arc").add("KD",
+        kD = Shuffleboard.getTab("Arc").add("kD",
                 components.getController().getPIDFTerms().getKd()).getEntry();
-        KF = Shuffleboard.getTab("Arc").add("KF",
+        kF = Shuffleboard.getTab("Arc").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
         cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
                 components.getController().getCruiseVelocity()).getEntry();
@@ -44,10 +44,10 @@ public class Arc extends SubsystemBase {
     @Override
     public void periodic() {
         components.getController().setPIDFTerms(
-                KP.getDouble(components.getController().getPIDFTerms().getKp()),
-                KI.getDouble(components.getController().getPIDFTerms().getKi()),
-                KD.getDouble(components.getController().getPIDFTerms().getKd()),
-                KF.getDouble(components.getController().getPIDFTerms().getKf()));
+                kP.getDouble(components.getController().getPIDFTerms().getKp()),
+                kI.getDouble(components.getController().getPIDFTerms().getKi()),
+                kD.getDouble(components.getController().getPIDFTerms().getKd()),
+                kF.getDouble(components.getController().getPIDFTerms().getKf()));
         components.getController().setCruiseVelocity((int)
                 cruiseVelocity.getDouble(components.getController().getCruiseVelocity()));
         components.getController().setAcceleration((int)
@@ -57,7 +57,7 @@ public class Arc extends SubsystemBase {
     }
 
     public void moveBySpeed(double speed) {
-        components.getMasterMotor().set(speed);
+        components.getMotor().set(speed);
     }
 
     public void stop() {
@@ -76,7 +76,7 @@ public class Arc extends SubsystemBase {
         components.getController().update(angleToEncoderUnits(angle));
     }
 
-    public double distanceMeterToAngle(double distance) { //TODO add formula
+    public double distanceMetersToAngle(double distance) { //TODO add formula
         return distance;
     }
 
@@ -85,7 +85,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return (encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION;
+        return (encoderUnits / ENCODER_UNITS_PER_ROTATION) * ANGLE_PER_MOTOR_ROTATION;
     }
 
     public double getValidAngle(double angle) {
@@ -94,30 +94,30 @@ public class Arc extends SubsystemBase {
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE))
-                || hasHitUpperLimit() || hasHitLowerLimit();
+                || hasHitForwardLimit() || hasHitReverseLimit();
     }
 
-    public boolean hasHitUpperLimit(){
+    public boolean hasHitForwardLimit() {
         return components.getForwardLimitSwitch().isOpen();
     }
 
-    public boolean hasHitLowerLimit(){
+    public boolean hasHitReverseLimit() {
         return components.getReverseLimitSwitch().isOpen();
     }
 
-    public void resetEncoder(){
+    public void resetEncoder() {
         components.getEncoder().reset();
     }
 
-    public void disableLimitSwitches(){
-        components.getMasterMotor().overrideLimitSwitchesEnable(false);
+    public void disableLimitSwitches() {
+        components.getMotor().overrideLimitSwitchesEnable(false);
     }
 
-    public void enableLimitSwitches(){
-        components.getMasterMotor().overrideLimitSwitchesEnable(true);
+    public void enableLimitSwitches() {
+        components.getMotor().overrideLimitSwitchesEnable(true);
     }
 
-    public boolean isMoving(){
-     return Math.abs(components.getEncoder().getRate()) < MOVING_TOLERANCE_ENCODER_UNITS;
+    public boolean isMoving() {
+        return Math.abs(components.getEncoder().getRate()) < MOVING_TOLERANCE_ENCODER_UNITS;
     }
 }

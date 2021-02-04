@@ -8,7 +8,7 @@ import sensors.counter.Counter;
 
 public interface ArcComponents {
 
-    WPI_TalonSRX getMasterMotor();
+    WPI_TalonSRX getMotor();
 
     Counter getEncoder();
 

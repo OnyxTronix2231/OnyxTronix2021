@@ -17,44 +17,34 @@ import static frc.robot.arc.ArcConstants.ArcConstantsA.*;
 
 public class BasicArcComponentsA implements ArcComponents {
 
-    private final WPI_TalonSRX masterMotor;
+    private final WPI_TalonSRX motor;
     private final CtreEncoder encoder;
     private final CtreMotionMagicController controller;
-    private final TalonSrxForwardMicroswitch forwardLimitswitch;
-    private final TalonSrxReverseMicroswitch reverseLimitswitch;
+    private final TalonSrxForwardMicroswitch forwardLimitSwitch;
+    private final TalonSrxReverseMicroswitch reverseLimitSwitch;
 
     public BasicArcComponentsA() {
-        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        masterMotor.configFactoryDefault();
-        masterMotor.configAllSettings(getTalonSRXConfiguration());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
-        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        motor = new WPI_TalonSRX(MOTOR_ID);
+        motor.configFactoryDefault();
+        motor.configAllSettings(getTalonSRXConfiguration());
+        motor.setNeutralMode(NeutralMode.Brake);
+        motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
-        encoder = new CtreEncoder(masterMotor);
+        encoder = new CtreEncoder(motor);
 
-        controller = new CtreMotionMagicController(masterMotor, encoder,
+        controller = new CtreMotionMagicController(motor, encoder,
                 new PIDFTerms(KP, KI, KD, KF),
                 MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
 
-        forwardLimitswitch = new TalonSrxForwardMicroswitch(masterMotor, LimitSwitchSource.FeedbackConnector,
+        forwardLimitSwitch = new TalonSrxForwardMicroswitch(motor, LimitSwitchSource.FeedbackConnector,
                 LimitSwitchNormal.NormallyOpen);
-        reverseLimitswitch = new TalonSrxReverseMicroswitch(masterMotor, LimitSwitchSource.FeedbackConnector,
+        reverseLimitSwitch = new TalonSrxReverseMicroswitch(motor, LimitSwitchSource.FeedbackConnector,
                 LimitSwitchNormal.NormallyOpen);
-    }
-
-    private TalonSRXConfiguration getTalonSRXConfiguration() {
-        final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
-        config.peakCurrentDuration = PEAK_AMP_DURATION;
-        config.peakCurrentLimit = PEAK_AMP;
-        config.openloopRamp = OPEN_LOOP_RAMP;
-        config.closedloopRamp = CLOSE_LOOP_RAMP;
-        return config;
     }
 
     @Override
-    public WPI_TalonSRX getMasterMotor() {
-        return masterMotor;
+    public WPI_TalonSRX getMotor() {
+        return motor;
     }
 
     @Override
@@ -69,11 +59,21 @@ public class BasicArcComponentsA implements ArcComponents {
 
     @Override
     public TalonSrxReverseMicroswitch getReverseLimitSwitch() {
-        return reverseLimitswitch;
+        return reverseLimitSwitch;
     }
 
     @Override
     public TalonSrxForwardMicroswitch getForwardLimitSwitch() {
-        return forwardLimitswitch;
+        return forwardLimitSwitch;
+    }
+
+    private TalonSRXConfiguration getTalonSRXConfiguration() {
+        final TalonSRXConfiguration config = new TalonSRXConfiguration();
+        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
+        config.peakCurrentDuration = PEAK_AMP_DURATION;
+        config.peakCurrentLimit = PEAK_AMP;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        config.closedloopRamp = CLOSE_LOOP_RAMP;
+        return config;
     }
 }

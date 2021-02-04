@@ -1,19 +1,19 @@
 package frc.robot.shooter;
 
-import static frc.robot.shooter.ShooterConstants.*;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
-
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.shooter.ShooterConstants.*;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
+
 public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
-    private final NetworkTableEntry KP;
-    private final NetworkTableEntry KI;
-    private final NetworkTableEntry KD;
-    private final NetworkTableEntry KF;
+    private final NetworkTableEntry kP;
+    private final NetworkTableEntry kI;
+    private final NetworkTableEntry kD;
+    private final NetworkTableEntry kF;
     private double lastRPMError;
 
     public Shooter(ShooterComponents components) {
@@ -25,23 +25,23 @@ public class Shooter extends SubsystemBase {
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 
-        KP = Shuffleboard.getTab("Shooter").add("KP",
+        kP = Shuffleboard.getTab("Shooter").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
-        KI = Shuffleboard.getTab("Shooter").add("KI",
+        kI = Shuffleboard.getTab("Shooter").add("kI",
                 components.getController().getPIDFTerms().getKi()).getEntry();
-        KD = Shuffleboard.getTab("Shooter").add("KD",
+        kD = Shuffleboard.getTab("Shooter").add("kD",
                 components.getController().getPIDFTerms().getKd()).getEntry();
-        KF = Shuffleboard.getTab("Shooter").add("KF",
+        kF = Shuffleboard.getTab("Shooter").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
     public void periodic() {
         components.getController().setPIDFTerms(
-                KP.getDouble(components.getController().getPIDFTerms().getKp()),
-                KI.getDouble(components.getController().getPIDFTerms().getKi()),
-                KD.getDouble(components.getController().getPIDFTerms().getKd()),
-                KF.getDouble(components.getController().getPIDFTerms().getKf()));
+                kP.getDouble(components.getController().getPIDFTerms().getKp()),
+                kI.getDouble(components.getController().getPIDFTerms().getKi()),
+                kD.getDouble(components.getController().getPIDFTerms().getKd()),
+                kF.getDouble(components.getController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {
@@ -53,16 +53,16 @@ public class Shooter extends SubsystemBase {
         components.getController().disable();
     }
 
-    public void initMoveByRPM(double RPM) {
-        components.getController().setSetpoint(RPMToEncoderUnitsInDecisecond(RPM));
+    public void initMoveByRPM(double rpm) {
+        components.getController().setSetpoint(RPMToEncoderUnitsInDecisecond(rpm));
         components.getController().enable();
     }
 
-    public void updateMoveByRPM(double RPM) {
-        components.getController().update(RPMToEncoderUnitsInDecisecond(RPM));
+    public void updateMoveByRPM(double rpm) {
+        components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 
-    public double distanceMeterToEncoderUnitInDecisecond(double distance) { //TODO fix formula
+    public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
         double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
             encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
@@ -72,8 +72,8 @@ public class Shooter extends SubsystemBase {
         return Math.min(encoderUnitsTarget, MAX_VELOCITY);
     }
 
-    public double RPMToEncoderUnitsInDecisecond(double RPM) {
-        return (RPM * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
+    public double RPMToEncoderUnitsInDecisecond(double rpm) {
+        return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
@@ -81,7 +81,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void initIsBallShot() {
-        lastRPMError = Integer.MAX_VALUE;
+        lastRPMError = Double.MAX_VALUE;
     }
 
     public boolean updateIsBallShot() {
