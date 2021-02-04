@@ -11,7 +11,7 @@ public interface ShooterComponents {
 
     IMotorController getSlaveMotor();
 
-    Counter getShooterEncoder();
+    Counter getEncoder();
 
-    PIDController getShooterController();
+    PIDController getController();
 }

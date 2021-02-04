@@ -32,9 +32,8 @@ public class BasicArcComponentsA implements ArcComponents {
 
         encoder = new CtreEncoder(masterMotor);
 
-        controller = new CtreMotionMagicController(masterMotor,
-                new CtreEncoder(masterMotor),
-                new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F),
+        controller = new CtreMotionMagicController(masterMotor, encoder,
+                new PIDFTerms(KP, KI, KD, KF),
                 MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
 
         forwardLimitswitch = new TalonSrxForwardMicroswitch(masterMotor, LimitSwitchSource.FeedbackConnector,

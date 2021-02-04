@@ -5,12 +5,12 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveArcByAngle extends CommandBase {
+public class MoveByAngle extends CommandBase {
 
     private final Arc arc;
     private final DoubleSupplier angleSupplier;
 
-    public MoveArcByAngle(Arc arc, DoubleSupplier angleSupplier) {
+    public MoveByAngle(Arc arc, DoubleSupplier angleSupplier) {
         this.angleSupplier = angleSupplier;
         this.arc = arc;
         addRequirements(arc);
@@ -18,12 +18,12 @@ public class MoveArcByAngle extends CommandBase {
 
     @Override
     public void initialize() {
-        arc.initMoveArcToAngle(angleSupplier.getAsDouble());
+        arc.initMoveToAngle(angleSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        arc.updateMoveArcToAngle(angleSupplier.getAsDouble());
+        arc.updateMoveToAngle(angleSupplier.getAsDouble());
     }
 
     @Override

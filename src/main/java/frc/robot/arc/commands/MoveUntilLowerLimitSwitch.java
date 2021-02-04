@@ -4,7 +4,7 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveUntilLowerLimitSwitch extends MoveArcBySpeed {
+public class MoveUntilLowerLimitSwitch extends MoveBySpeed {
 
     public MoveUntilLowerLimitSwitch(Arc arc, DoubleSupplier resetSpeed){
         super(arc, resetSpeed);

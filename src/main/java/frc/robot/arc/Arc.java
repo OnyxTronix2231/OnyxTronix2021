@@ -41,22 +41,22 @@ public class Arc extends SubsystemBase {
                 KF.getDouble(components.getController().getPIDFTerms().getKf()));
     }
 
-    public void moveArcBySpeed(double speed) {
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(ControlMode.PercentOutput, speed);
     }
 
     public void stop() {
-        moveArcBySpeed(0);
+        moveBySpeed(0);
         components.getController().disable();
     }
 
-    public void initMoveArcToAngle(double angle) {
+    public void initMoveToAngle(double angle) {
         angle = getValidAngle(angle);
         components.getController().setSetpoint(angleToEncoderUnits(angle));
         components.getController().enable();
     }
 
-    public void updateMoveArcToAngle(double angle) {
+    public void updateMoveToAngle(double angle) {
         angle = getValidAngle(angle);
         components.getController().update(angleToEncoderUnits(angle));
     }
@@ -66,11 +66,11 @@ public class Arc extends SubsystemBase {
     }
 
     public double angleToEncoderUnits(double angle) {
-        return ((angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION);
+        return (angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION;
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return ((encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION);
+        return (encoderUnits / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION;
     }
 
     public double getValidAngle(double angle) {
@@ -103,6 +103,6 @@ public class Arc extends SubsystemBase {
     }
 
     public boolean isMoving(){
-     return  Math.abs(components.getEncoder().getRate()) < MOVING_TOLERANCE_ENCODER_UNITS;
+     return Math.abs(components.getEncoder().getRate()) < MOVING_TOLERANCE_ENCODER_UNITS;
     }
 }

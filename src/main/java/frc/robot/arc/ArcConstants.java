@@ -2,8 +2,8 @@ package frc.robot.arc;
 
 public class ArcConstants {
 
-    public static final double MOVE_ARC_SWITCH_LIMIT_SPEED = 0.2;
-    public static final double MOVE_ARC_MECHANISM_LIMIT_SPEED = 0.1;
+    public static final double MOVE_ARC_TO_SWITCH_LIMIT_SPEED = -0.2;
+    public static final double MOVE_ARC_TO_MECHANISM_LIMIT_SPEED = -0.1;
     static final int ANGULAR_MOTOR_CONVERSION = 1000; // 1/1000
     static final double ANGLE_PER_MOTOR_ROTATION = 360;
     static final double MAX_POSSIBLE_ANGLE = 70;
@@ -22,10 +22,10 @@ public class ArcConstants {
         static final int CONTINUOUS_CURRENT_LIMIT = 0; // TODO: check and change
         static final double MAX_VELOCITY = 500; // Encoder Units // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double VELOCITY_P = 0.5; // TODO: check and change
-        static final double VELOCITY_I = 0; // TODO: check and change
-        static final double VELOCITY_D = 0; // TODO: check and change
-        static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
+        static final double KP = 0.5; // TODO: check and change
+        static final double KI = 0; // TODO: check and change
+        static final double KD = 0; // TODO: check and change
+        static final double KF = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final double OPEN_LOOP_RAMP = 0; // TODO: check and change
         static final double CLOSE_LOOP_RAMP = 0; // TODO: check and change
         static final boolean CURRENT_LIMIT_ENABLED = false;

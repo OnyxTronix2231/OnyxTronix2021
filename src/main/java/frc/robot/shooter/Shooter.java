@@ -22,43 +22,43 @@ public class Shooter extends SubsystemBase {
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getShooterEncoder().getRate()));
+                () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 
         KP = Shuffleboard.getTab("Shooter").add("KP",
-                components.getShooterController().getPIDFTerms().getKp()).getEntry();
+                components.getController().getPIDFTerms().getKp()).getEntry();
         KI = Shuffleboard.getTab("Shooter").add("KI",
-                components.getShooterController().getPIDFTerms().getKi()).getEntry();
+                components.getController().getPIDFTerms().getKi()).getEntry();
         KD = Shuffleboard.getTab("Shooter").add("KD",
-                components.getShooterController().getPIDFTerms().getKd()).getEntry();
+                components.getController().getPIDFTerms().getKd()).getEntry();
         KF = Shuffleboard.getTab("Shooter").add("KF",
-                components.getShooterController().getPIDFTerms().getKf()).getEntry();
+                components.getController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
     public void periodic() {
-        components.getShooterController().setPIDFTerms(
-                KP.getDouble(components.getShooterController().getPIDFTerms().getKp()),
-                KI.getDouble(components.getShooterController().getPIDFTerms().getKi()),
-                KD.getDouble(components.getShooterController().getPIDFTerms().getKd()),
-                KF.getDouble(components.getShooterController().getPIDFTerms().getKf()));
+        components.getController().setPIDFTerms(
+                KP.getDouble(components.getController().getPIDFTerms().getKp()),
+                KI.getDouble(components.getController().getPIDFTerms().getKi()),
+                KD.getDouble(components.getController().getPIDFTerms().getKd()),
+                KF.getDouble(components.getController().getPIDFTerms().getKf()));
     }
 
-    public void moveShooterBySpeed(double speed) {
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
     public void stop() {
-        moveShooterBySpeed(0);
-        components.getShooterController().disable();
+        moveBySpeed(0);
+        components.getController().disable();
     }
 
-    public void initMoveShooterByRPM(double RPM) {
-        components.getShooterController().setSetpoint(RPMToEncoderUnitsInDecisecond(RPM));
-        components.getShooterController().enable();
+    public void initMoveByRPM(double RPM) {
+        components.getController().setSetpoint(RPMToEncoderUnitsInDecisecond(RPM));
+        components.getController().enable();
     }
 
-    public void updateMoveShooterByRPM(double RPM) {
-        components.getShooterController().update(RPMToEncoderUnitsInDecisecond(RPM));
+    public void updateMoveByRPM(double RPM) {
+        components.getController().update(RPMToEncoderUnitsInDecisecond(RPM));
     }
 
     public double distanceMeterToEncoderUnitInDecisecond(double distance) { //TODO fix formula
@@ -85,15 +85,15 @@ public class Shooter extends SubsystemBase {
 
     public boolean updateIsBallShot() {
         boolean isBallShot = false;
-        if (components.getShooterController().getCurrentError() >
-                MIN_ERROR_RPM && components.getShooterController().getCurrentError() > lastRPMError) {
+        if (components.getController().getCurrentError() >
+                MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
             isBallShot = true;
         }
-        lastRPMError = components.getShooterController().getCurrentError();
+        lastRPMError = components.getController().getCurrentError();
         return isBallShot;
     }
 
     public boolean isOnTarget() {
-        return components.getShooterController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
+        return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
     }
 }

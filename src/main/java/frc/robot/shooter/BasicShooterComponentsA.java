@@ -16,8 +16,8 @@ public class BasicShooterComponentsA implements ShooterComponents {
 
     private final WPI_TalonFX masterMotor;
     private final WPI_TalonFX slaveMotor;
-    private final CtreEncoder shooterEncoder;
-    private final CtrePIDController ShooterController;
+    private final CtreEncoder encoder;
+    private final CtrePIDController controller;
 
     public BasicShooterComponentsA() {
         masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
@@ -31,9 +31,9 @@ public class BasicShooterComponentsA implements ShooterComponents {
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
 
-        shooterEncoder = new CtreEncoder(masterMotor);
-        ShooterController = new CtrePIDController(masterMotor,
-                new CtreEncoder(masterMotor),
+        encoder = new CtreEncoder(masterMotor);
+
+        controller = new CtrePIDController(masterMotor, encoder,
                 new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
     }
 
@@ -63,12 +63,12 @@ public class BasicShooterComponentsA implements ShooterComponents {
     }
 
     @Override
-    public Counter getShooterEncoder() {
-        return shooterEncoder;
+    public Counter getEncoder() {
+        return encoder;
     }
 
     @Override
-    public PIDController getShooterController() {
-        return ShooterController;
+    public PIDController getController() {
+        return controller;
     }
 }
