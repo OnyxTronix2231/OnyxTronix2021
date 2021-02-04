@@ -1,37 +1,37 @@
-package frc.robot.flywheel;
+package frc.robot.shooter;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.flywheel.FlywheelConstants.*;
-import static frc.robot.flywheel.FlywheelConstants.FlywheelConstantsA.MAX_VELOCITY;
+import static frc.robot.shooter.ShooterConstants.*;
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 
-public class Flywheel extends SubsystemBase {
+public class Shooter extends SubsystemBase {
 
-    private final FlywheelComponents components;
+    private final ShooterComponents components;
     private final NetworkTableEntry kP;
     private final NetworkTableEntry kI;
     private final NetworkTableEntry kD;
     private final NetworkTableEntry kF;
     private double lastRPMError;
 
-    public Flywheel(FlywheelComponents components) {
+    public Shooter(ShooterComponents components) {
         this.components = components;
         initIsBallShot();
-
-        Shuffleboard.getTab("Flywheel").addNumber("PID Error",
+        
+        Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
-        Shuffleboard.getTab("Flywheel").addNumber("Current Flywheel Motor RPM",
+        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 
-        kP = Shuffleboard.getTab("Flywheel").add("kP",
+        kP = Shuffleboard.getTab("Shooter").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Flywheel").add("kI",
+        kI = Shuffleboard.getTab("Shooter").add("kI",
                 components.getController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Flywheel").add("kD",
+        kD = Shuffleboard.getTab("Shooter").add("kD",
                 components.getController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Flywheel").add("kF",
+        kF = Shuffleboard.getTab("Shooter").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
     }
 
@@ -65,9 +65,9 @@ public class Flywheel extends SubsystemBase {
     public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
         double encoderUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
-            encoderUnitsTarget = FlywheelCalculation.FORMULA_DISTANCE_FAR(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
         } else {
-            encoderUnitsTarget = FlywheelCalculation.FORMULA_DISTANCE_CLOSE(distance);
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
         }
         return Math.min(encoderUnitsTarget, MAX_VELOCITY);
     }

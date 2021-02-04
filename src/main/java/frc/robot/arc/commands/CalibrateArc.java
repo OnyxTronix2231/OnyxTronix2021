@@ -8,7 +8,7 @@ public class CalibrateArc extends ConditionalCommand {
 
     public CalibrateArc(Arc arc) {
         super(new InstantCommand(),
-                new MoveArcUntilReverseLimitSwitch(arc).andThen(new MoveArcUntilMechanismLimit(arc)),
+                new MoveUntilLowerLimitSwitch(arc).andThen(new MoveUntilMechanismLimit(arc)),
                 arc::hasHitReverseLimit);
     }
 }

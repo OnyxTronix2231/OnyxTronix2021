@@ -1,6 +1,6 @@
-package frc.robot.flywheel;
+package frc.robot.shooter;
 
-public final class FlywheelConstants {
+public final class ShooterConstants {
 
     static final int MIDDLE_DISTANCE = 450;
     static final double ENCODER_UNITS_PER_ROTATION = 2048;
@@ -8,7 +8,7 @@ public final class FlywheelConstants {
     static final double MIN_ERROR_RPM = 1000;
     static final double TOLERANCE_RPM = 400;
 
-    public static final class FlywheelConstantsA {
+    public static final class ShooterConstantsA {
 
         static final int MASTER_MOTOR_ID = 7; // TODO: check and change
         static final int SLAVE_MOTOR_ID = 8; // TODO: check and change
@@ -32,7 +32,7 @@ public final class FlywheelConstants {
 
     // y = -0.0121x2 +26.707x + 24130 > 450
     // y = 0.1912x2 - 161.44x +67791 < 450
-    public static final class FlywheelCalculation { // TODO: check and change
+    public static final class ShooterCalculation { // TODO: check and change
         static double FORMULA_DISTANCE_FAR(double distance) {
             return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }

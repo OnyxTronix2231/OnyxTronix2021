@@ -4,9 +4,9 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveArcToDistance extends MoveArcToAngle {
+public class MoveToDistance extends MoveToAngle {
 
-    public MoveArcToDistance(Arc arc, DoubleSupplier distanceSupplier) {
+    public MoveToDistance(Arc arc, DoubleSupplier distanceSupplier) {
         super(arc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble()));
     }
 }

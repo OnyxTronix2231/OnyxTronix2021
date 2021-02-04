@@ -4,9 +4,9 @@ import frc.robot.arc.Arc;
 
 import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_SWITCH_LIMIT_SPEED;
 
-public class MoveArcUntilReverseLimitSwitch extends MoveArcBySpeed {
+public class MoveUntilLowerLimitSwitch extends MoveBySpeed {
 
-    public MoveArcUntilReverseLimitSwitch(Arc arc) {
+    public MoveUntilLowerLimitSwitch(Arc arc) {
         super(arc, () -> MOVE_ARC_TO_SWITCH_LIMIT_SPEED);
     }
 
