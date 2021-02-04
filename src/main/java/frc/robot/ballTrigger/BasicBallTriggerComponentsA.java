@@ -14,39 +14,29 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*
 
 public class BasicBallTriggerComponentsA implements BallTriggerComponents {
 
-    private final WPI_TalonSRX masterMotor;
+    private final WPI_TalonSRX Motor;
     private final Solenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
 
     public BasicBallTriggerComponentsA() {
-        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        masterMotor.configFactoryDefault();
-        masterMotor.configAllSettings(getConfiguration());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
-        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        Motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        Motor.configFactoryDefault();
+        Motor.configAllSettings(getConfiguration());
+        Motor.setNeutralMode(NeutralMode.Brake);
+        Motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
 
-        encoder = new CtreEncoder(masterMotor);
+        encoder = new CtreEncoder(Motor);
 
-        pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+        pidController = new CtrePIDController(Motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
     }
 
-    private TalonSRXConfiguration getConfiguration() {
-        final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.peakCurrentLimit = PEAK_AMP;
-        config.peakCurrentDuration = PEAK_AMP_DURATION;
-        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
-        config.openloopRamp = OPEN_LOOP_RAMP;
-        config.closedloopRamp = CLOSED_LOOP_RAMP;
-        return config;
-    }
-
     @Override
-    public WPI_TalonSRX getMasterMotor() {
-        return masterMotor;
+    public WPI_TalonSRX getMotor() {
+        return Motor;
     }
 
     @Override
@@ -62,5 +52,15 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     @Override
     public PIDController getPIDController() {
         return pidController;
+    }
+
+    private TalonSRXConfiguration getConfiguration() {
+        final TalonSRXConfiguration config = new TalonSRXConfiguration();
+        config.peakCurrentLimit = PEAK_AMP;
+        config.peakCurrentDuration = PEAK_AMP_DURATION;
+        config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
+        config.openloopRamp = OPEN_LOOP_RAMP;
+        config.closedloopRamp = CLOSED_LOOP_RAMP;
+        return config;
     }
 }

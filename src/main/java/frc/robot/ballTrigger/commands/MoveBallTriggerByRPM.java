@@ -8,22 +8,22 @@ import java.util.function.DoubleSupplier;
 public class MoveBallTriggerByRPM extends CommandBase {
 
     private final BallTrigger ballTrigger;
-    private final DoubleSupplier RPMSupplier;
+    private final DoubleSupplier rpmSupplier;
 
     public MoveBallTriggerByRPM(BallTrigger ballTrigger, DoubleSupplier RPMSupplier) {
         this.ballTrigger = ballTrigger;
-        this.RPMSupplier = RPMSupplier;
+        this.rpmSupplier = RPMSupplier;
         addRequirements(ballTrigger);
     }
 
     @Override
     public void initialize() {
-        ballTrigger.initMoveByRPM(RPMSupplier.getAsDouble());
+        ballTrigger.initMoveByRPM(rpmSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        ballTrigger.updateMoveByRPM(RPMSupplier.getAsDouble());
+        ballTrigger.updateMoveByRPM(rpmSupplier.getAsDouble());
     }
 
     @Override

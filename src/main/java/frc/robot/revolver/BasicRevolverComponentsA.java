@@ -13,23 +13,38 @@ import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
 
 public class BasicRevolverComponentsA implements RevolverComponents {
 
-    private final WPI_TalonFX masterMotor;
+    private final WPI_TalonFX Motor;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
 
     public BasicRevolverComponentsA() {
-        masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
-        masterMotor.configFactoryDefault();
-        masterMotor.configAllSettings(getConfiguration());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
+        Motor = new WPI_TalonFX(MASTER_MOTOR_ID);
+        Motor.configFactoryDefault();
+        Motor.configAllSettings(getConfiguration());
+        Motor.setNeutralMode(NeutralMode.Brake);
 
-        encoder = new CtreEncoder(masterMotor);
+        encoder = new CtreEncoder(Motor);
 
-        pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+        pidController = new CtrePIDController(Motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
     }
 
-    public TalonFXConfiguration getConfiguration() {
+    @Override
+    public WPI_TalonFX getMotor() {
+        return Motor;
+    }
+
+    @Override
+    public Counter getEncoder() {
+        return encoder;
+    }
+
+    @Override
+    public PIDController getPIDController() {
+        return pidController;
+    }
+
+    private TalonFXConfiguration getConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
         config.peakOutputForward = PEAK_OUTPUT_FORWARD;
         config.peakOutputReverse = PEAK_OUTPUT_REVERSE;
@@ -44,20 +59,5 @@ public class BasicRevolverComponentsA implements RevolverComponents {
         config.closedloopRamp = CLOSED_LOOP_RAMP;
         config.openloopRamp = OPEN_LOOP_RAMP;
         return config;
-    }
-
-    @Override
-    public WPI_TalonFX getMasterMotor() {
-        return masterMotor;
-    }
-
-    @Override
-    public Counter getEncoder() {
-        return encoder;
-    }
-
-    @Override
-    public PIDController getPIDController() {
-        return pidController;
     }
 }

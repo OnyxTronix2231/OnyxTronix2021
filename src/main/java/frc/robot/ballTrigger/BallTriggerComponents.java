@@ -7,7 +7,7 @@ import sensors.counter.Counter;
 
 public interface BallTriggerComponents {
 
-    WPI_TalonSRX getMasterMotor();
+    WPI_TalonSRX getMotor();
 
     Solenoid getSolenoid();
 

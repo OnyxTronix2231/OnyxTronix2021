@@ -19,11 +19,11 @@ public class Revolver extends SubsystemBase {
     public Revolver(RevolverComponents components) {
         this.components = components;
         Shuffleboard.getTab("Revolver").addNumber("Current error",
-                () -> components.getMasterMotor().getClosedLoopError());
+                () -> components.getMotor().getClosedLoopError());
         Shuffleboard.getTab("Revolver").addNumber("Current RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
-                () -> components.getMasterMotor().getSelectedSensorVelocity());
+                () -> components.getMotor().getSelectedSensorVelocity());
 
         kP = Shuffleboard.getTab("Revolver").add("kP",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
@@ -48,7 +48,7 @@ public class Revolver extends SubsystemBase {
     }
 
     public void moveBySpeed(double speed) {
-        components.getMasterMotor().set(speed);
+        components.getMotor().set(speed);
     }
 
     public void initMoveByRPM(double RPM) {

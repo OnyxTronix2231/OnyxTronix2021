@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public interface CollectorComponents {
 
-    WPI_TalonSRX getMasterMotor();
+    WPI_TalonSRX getMotor();
 
     Solenoid getSolenoid();
 }

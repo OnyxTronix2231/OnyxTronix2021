@@ -14,7 +14,7 @@ public class Collector extends SubsystemBase {
     }
 
     public void moveBySpeed(double speed) {
-        components.getMasterMotor().set(speed);
+        components.getMotor().set(speed);
     }
 
     public void stop() {

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.MoveBallTriggerBySpeed;
-import frc.robot.ballTrigger.commands.OpenBallTriggerPistons;
+import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.MoveRevolverByRPM;
 
@@ -15,6 +15,6 @@ public class SpinRevolverAndTriggerThenOpenTriggerPiston extends ParallelCommand
     public SpinRevolverAndTriggerThenOpenTriggerPiston(Revolver revolver, BallTrigger ballTrigger,
                                                        DoubleSupplier RPMSupplier, DoubleSupplier speedSupplier) {
         super(new MoveRevolverByRPM(revolver, RPMSupplier), new MoveBallTriggerBySpeed(ballTrigger, speedSupplier),
-                new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPistons(ballTrigger)));
+                new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger)));
     }
 }

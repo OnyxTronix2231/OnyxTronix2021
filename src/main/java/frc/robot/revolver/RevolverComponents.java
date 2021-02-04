@@ -6,7 +6,7 @@ import sensors.counter.Counter;
 
 public interface RevolverComponents {
 
-    WPI_TalonFX getMasterMotor();
+    WPI_TalonFX getMotor();
 
     Counter getEncoder();
 
