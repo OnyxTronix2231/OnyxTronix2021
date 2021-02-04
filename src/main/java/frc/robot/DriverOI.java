@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.DriverArcOiBinders;
 import frc.robot.drivetrain.DriveTrain;
-import frc.robot.shooter.DriverShooterOiBinder;
-import frc.robot.shooter.Shooter;
+import frc.robot.flywheel.DriverShooterOiBinder;
+import frc.robot.flywheel.Shooter;
 import onyxTronix.JoystickAxis;
 
 public class DriverOI {

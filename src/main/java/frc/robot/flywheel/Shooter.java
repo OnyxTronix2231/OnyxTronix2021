@@ -1,7 +1,7 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
-import static frc.robot.shooter.ShooterConstants.*;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
+import static frc.robot.flywheel.ShooterConstants.*;
+import static frc.robot.flywheel.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;

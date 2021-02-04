@@ -1,7 +1,6 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import pid.interfaces.PIDController;

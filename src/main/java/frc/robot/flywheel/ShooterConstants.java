@@ -1,4 +1,4 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
 public final class ShooterConstants {
 

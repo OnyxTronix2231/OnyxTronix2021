@@ -1,7 +1,7 @@
-package frc.robot.shooter.commands;
+package frc.robot.flywheel.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.shooter.Shooter;
+import frc.robot.flywheel.Shooter;
 
 import java.util.function.DoubleSupplier;
 

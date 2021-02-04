@@ -1,8 +1,8 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.shooter.commands.MoveShooterByRPM;
-import frc.robot.shooter.commands.MoveShooterBySpeed;
+import frc.robot.flywheel.commands.MoveShooterByRPM;
+import frc.robot.flywheel.commands.MoveShooterBySpeed;
 import onyxTronix.JoystickAxis;
 
 public class DriverShooterOiBinder {

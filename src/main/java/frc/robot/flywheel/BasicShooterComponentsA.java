@@ -1,4 +1,4 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -12,7 +12,7 @@ import pid.interfaces.PIDController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
+import static frc.robot.flywheel.ShooterConstants.ShooterConstantsA.*;
 
 public class BasicShooterComponentsA implements ShooterComponents {
 

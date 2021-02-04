@@ -1,6 +1,6 @@
-package frc.robot.shooter.commands;
+package frc.robot.flywheel.commands;
 
-import frc.robot.shooter.Shooter;
+import frc.robot.flywheel.Shooter;
 
 import java.util.function.DoubleSupplier;
 

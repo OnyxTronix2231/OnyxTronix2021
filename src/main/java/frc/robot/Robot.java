@@ -14,9 +14,9 @@ import frc.robot.arc.BasicArcComponentsA;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
-import frc.robot.shooter.BasicShooterComponentsA;
-import frc.robot.shooter.Shooter;
-import frc.robot.shooter.ShooterComponents;
+import frc.robot.flywheel.BasicShooterComponentsA;
+import frc.robot.flywheel.Shooter;
+import frc.robot.flywheel.ShooterComponents;
 
 import java.util.Timer;
 import java.util.TimerTask;
