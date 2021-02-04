@@ -127,15 +127,15 @@ public class SkillsConstants {
                 new Translation2d(3, OFFSET - 3.69)
         ), new Pose2d(0, OFFSET, Rotation2d.fromDegrees(130)));
         public static final Path AUTONAV_THIRD_A = new Path(List.of(),
-                new Pose2d(Waypoints.A3.getX(), OFFSET - 1, Rotation2d.fromDegrees(90)));
+                new Pose2d(Waypoints.A3.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)));
         public static final Path AUTONAV_THIRD_B = new Path(List.of(
                 new Translation2d(2.69, OFFSET - 2.5),
                 new Translation2d(4, OFFSET - 3.8),
                 new Translation2d(4.5, OFFSET - 2.35)
-        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1, Rotation2d.fromDegrees(270))).setReversed();
+        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(270))).setReversed();
         public static final Path AUTONAV_THIRD_C = new Path(List.of(
                 new Translation2d(5.2, OFFSET - 3.6),
                 new Translation2d(6.3, OFFSET - 3.6)
-        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1, Rotation2d.fromDegrees(90)));
+        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)));
     }
 }
