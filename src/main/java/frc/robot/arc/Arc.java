@@ -1,6 +1,5 @@
 package frc.robot.arc;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,6 +13,9 @@ public class Arc extends SubsystemBase {
     private final NetworkTableEntry KI;
     private final NetworkTableEntry KD;
     private final NetworkTableEntry KF;
+    private final NetworkTableEntry cruiseVelocity;
+    private final NetworkTableEntry acceleration;
+    private final NetworkTableEntry accelerationSmoothing;
 
     public Arc(ArcComponents components) {
         this.components = components;
@@ -30,6 +32,12 @@ public class Arc extends SubsystemBase {
                 components.getController().getPIDFTerms().getKd()).getEntry();
         KF = Shuffleboard.getTab("Arc").add("KF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
+        cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
+                components.getController().getCruiseVelocity()).getEntry();
+        acceleration = Shuffleboard.getTab("Arc").add("Acceleration",
+                components.getController().getAcceleration()).getEntry();
+        accelerationSmoothing = Shuffleboard.getTab("Arc").add("Acceleration smoothing",
+                components.getController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override
@@ -39,10 +47,16 @@ public class Arc extends SubsystemBase {
                 KI.getDouble(components.getController().getPIDFTerms().getKi()),
                 KD.getDouble(components.getController().getPIDFTerms().getKd()),
                 KF.getDouble(components.getController().getPIDFTerms().getKf()));
+        components.getController().setCruiseVelocity((int)
+                cruiseVelocity.getDouble(components.getController().getCruiseVelocity()));
+        components.getController().setAcceleration((int)
+                acceleration.getDouble(components.getController().getAcceleration()));
+        components.getController().setAccelerationSmoothing((int)
+                accelerationSmoothing.getDouble(components.getController().getAccelerationSmoothing()));
     }
 
     public void moveBySpeed(double speed) {
-        components.getMasterMotor().set(ControlMode.PercentOutput, speed);
+        components.getMasterMotor().set(speed);
     }
 
     public void stop() {
