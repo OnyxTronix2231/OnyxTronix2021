@@ -12,5 +12,6 @@ public class RouletteOIBinder {
     public RouletteOIBinder(Roulette roulette, Trigger spinToGameColor) {
        // spinToGameColor.whenActive(new SpinToColor(roulette, roulette::getGameRequiredColor));
         spinToGameColor.whileActiveContinuous(new SpinByRouletteRounds(roulette, () -> 3));
+
     }
 }

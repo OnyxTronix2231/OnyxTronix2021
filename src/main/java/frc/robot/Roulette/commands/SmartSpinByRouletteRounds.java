@@ -7,6 +7,8 @@ import frc.robot.Roulette.Roulette;
 import frc.robot.Roulette.RouletteColor;
 import java.util.function.DoubleSupplier;
 
+import static frc.robot.Roulette.RouletteConstants.ROULETTE_ROUNDS_TOLERANCE;
+
 public class SmartSpinByRouletteRounds extends CommandBase {
 
     private Roulette roulette;
@@ -45,7 +47,7 @@ public class SmartSpinByRouletteRounds extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return Math.abs(rouletteRounds.getAsDouble() - roulette.colorCountToRouletteRounds(counter)) < 0.1 ;
+        return Math.abs(rouletteRounds.getAsDouble() - roulette.colorCountToRouletteRounds(counter)) < ROULETTE_ROUNDS_TOLERANCE;
     }
 
     @Override

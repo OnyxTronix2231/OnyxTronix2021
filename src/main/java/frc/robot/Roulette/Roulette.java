@@ -171,6 +171,7 @@ public class Roulette extends SubsystemBase {
     }
 
     public void stop() {
+        setSpeed(0);
         components.getController().disable();
     }
 

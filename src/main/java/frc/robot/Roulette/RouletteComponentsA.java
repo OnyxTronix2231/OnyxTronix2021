@@ -15,9 +15,8 @@ import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.Roulette.RouletteConstants.CHANNEL;
+import static frc.robot.Roulette.RouletteConstants.*;
 import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
-import static frc.robot.Roulette.RouletteConstants.DEVICE_NUMBER;
 
 public class RouletteComponentsA implements RouletteComponents {
 
@@ -29,13 +28,15 @@ public class RouletteComponentsA implements RouletteComponents {
     private final LinearSystemSim<N1, N1, N1> simulator;
 
     public RouletteComponentsA() {
-        masterMotor = new WPI_TalonSRX(DEVICE_NUMBER);
-        solenoid = new Solenoid(CHANNEL);
+
+        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        masterMotor.configFactoryDefault();
+        solenoid = new Solenoid(SOLENOID_ID);
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
-                new PIDFTerms(K_P, K_I, K_D, K_F), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
-        simulator = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(1, 0.1));
+                new PIDFTerms(KP, KI, KD, KF), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
         colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+        simulator = new LinearSystemSim<>(LinearSystemId.identifyVelocitySystem(1, 0.1));
     }
 
     @Override
