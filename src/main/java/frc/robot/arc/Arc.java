@@ -19,6 +19,7 @@ public class Arc extends SubsystemBase {
 
     public Arc(ArcComponents components) {
         this.components = components;
+        
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current position",
