@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase {
 
     public Shooter(ShooterComponents components) {
         this.components = components;
-        lastRPMError = Integer.MAX_VALUE;
+        lastRPMError = Double.MAX_VALUE;
 
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
