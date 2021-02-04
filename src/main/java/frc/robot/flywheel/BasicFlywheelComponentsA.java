@@ -1,4 +1,4 @@
-package frc.robot.shooter;
+package frc.robot.flywheel;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -11,16 +11,16 @@ import pid.interfaces.PIDController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
+import static frc.robot.flywheel.FlywheelConstants.FlywheelConstantsA.*;
 
-public class BasicShooterComponentsA implements ShooterComponents {
+public class BasicFlywheelComponentsA implements FlywheelComponents {
 
     private final WPI_TalonFX masterMotor;
     private final WPI_TalonFX slaveMotor;
     private final CtreEncoder encoder;
     private final CtrePIDController controller;
 
-    public BasicShooterComponentsA() {
+    public BasicFlywheelComponentsA() {
         masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getFalconConfiguration());
