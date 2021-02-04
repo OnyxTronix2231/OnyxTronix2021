@@ -5,25 +5,20 @@ import frc.robot.shooter.Shooter;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveByRPM extends CommandBase {
+public class SpinShooterBySpeed extends CommandBase {
 
     private final Shooter shooter;
-    private final DoubleSupplier RPMSupplier;
+    private final DoubleSupplier speedSupplier;
 
-    public MoveByRPM(Shooter shooter, DoubleSupplier RPMSupplier) {
+    public SpinShooterBySpeed(Shooter shooter, DoubleSupplier speedSupplier) {
         this.shooter = shooter;
-        this.RPMSupplier = RPMSupplier;
+        this.speedSupplier = speedSupplier;
         addRequirements(shooter);
     }
 
     @Override
-    public void initialize() {
-        shooter.initMoveByRPM(RPMSupplier.getAsDouble());
-    }
-
-    @Override
     public void execute() {
-        shooter.updateMoveByRPM(RPMSupplier.getAsDouble());
+        shooter.moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override

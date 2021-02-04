@@ -5,12 +5,12 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveBySpeed extends CommandBase {
+public class MoveArcBySpeed extends CommandBase {
 
     protected final Arc arc;
     private final DoubleSupplier speedSupplier;
 
-    public MoveBySpeed(Arc arc, DoubleSupplier speedSupplier) {
+    public MoveArcBySpeed(Arc arc, DoubleSupplier speedSupplier) {
         this.speedSupplier = speedSupplier;
         this.arc = arc;
         addRequirements(arc);

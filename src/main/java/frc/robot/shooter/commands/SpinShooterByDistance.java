@@ -4,9 +4,9 @@ import frc.robot.shooter.Shooter;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveByDistance extends MoveByRPM {
+public class SpinShooterByDistance extends SpinShooterByRPM {
 
-    public MoveByDistance(Shooter shooter, DoubleSupplier distanceSupplier) {
+    public SpinShooterByDistance(Shooter shooter, DoubleSupplier distanceSupplier) {
         super(shooter, () -> shooter.encoderUnitsInDecisecondToRPM(shooter.
                 distanceMetersToEncoderUnitsInDecisecond(distanceSupplier.getAsDouble())));
     }

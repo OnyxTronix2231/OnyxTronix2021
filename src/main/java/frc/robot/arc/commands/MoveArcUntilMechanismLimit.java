@@ -4,9 +4,9 @@ import frc.robot.arc.Arc;
 
 import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_MECHANISM_LIMIT_SPEED;
 
-public class MoveUntilMechanismLimit extends MoveBySpeed {
+public class MoveArcUntilMechanismLimit extends MoveArcBySpeed {
 
-    public MoveUntilMechanismLimit(Arc arc) {
+    public MoveArcUntilMechanismLimit(Arc arc) {
         super(arc, () -> MOVE_ARC_TO_MECHANISM_LIMIT_SPEED);
     }
 

@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
     public Shooter(ShooterComponents components) {
         this.components = components;
         initIsBallShot();
-        
+
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
