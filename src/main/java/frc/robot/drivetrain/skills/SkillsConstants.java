@@ -64,7 +64,7 @@ public class SkillsConstants {
 
     public static final class StartingPositions {
         public static final Pose2d GS_RED_FIRST_START = new Pose2d(0.3, 2.5, Rotation2d.fromDegrees(0));
-        public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, 3.5, Rotation2d.fromDegrees(0));
+        public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, Waypoints.B3.getY(), Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_FIRST_START = new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_SECOND_START = new Pose2d(0.3, 1, Rotation2d.fromDegrees(0));
 
