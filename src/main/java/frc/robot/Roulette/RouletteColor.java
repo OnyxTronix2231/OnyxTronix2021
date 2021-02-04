@@ -2,8 +2,6 @@ package frc.robot.Roulette;
 
 import edu.wpi.first.wpilibj.util.Color;
 
-import static frc.robot.Roulette.RouletteConstants.NUM_OF_RGB_CHARS;
-
 public class RouletteColor extends Color {
 
     private final String name;

@@ -27,7 +27,7 @@ public class RouletteComponentsA implements RouletteComponents {
         solenoid = new Solenoid(SOLENOID_ID);
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
-                new PIDFTerms(KP, KI, KD, KF), MAX_ACCELERATION, MAX_VELOCITY, ACCELERATION_SMOOTHING);
+                new PIDFTerms(KP, KI, KD, KF), MAX_ACCELERATION, MAX_CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
         colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     }
 
