@@ -5,7 +5,7 @@ import vision.limelight.Limelight;
 import static frc.robot.vision.VisionConstants.*;
 
 public class VisionGSC {
-    private Limelight limelight;
+    private final Limelight limelight;
 
     public VisionGSC() {
         limelight = Limelight.getInstance();
