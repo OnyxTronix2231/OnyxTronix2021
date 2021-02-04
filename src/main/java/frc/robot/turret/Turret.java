@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.turret.TurretConstants.*;
 
 public class Turret extends SubsystemBase {
+
     private final TurretComponents components;
     private double startingAngle;
     private double targetAngle;
@@ -13,11 +14,12 @@ public class Turret extends SubsystemBase {
         this.components = turretComponents;
     }
 
-    public void MoveTurretBySpeed(double speed) {
-        components.getMasterMotor().set(speed);
+    public void moveBySpeed(double speed) {
+        components.getMotor().set(speed);
     }
 
     public void stop() {
+        moveBySpeed(0);
         components.getTurretController().disable();
     }
 
@@ -39,7 +41,7 @@ public class Turret extends SubsystemBase {
     }
 
     public void updateMoveByAngle(double angle) {
-        if (targetAngle != angle){
+        if (targetAngle != angle) {
             startingAngle = getAngleRTR();
             targetAngle = angle;
         }
@@ -51,25 +53,24 @@ public class Turret extends SubsystemBase {
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return encoderUnits / (ENCODER_UNITS * RATIO) * DEGREES_IN_CIRCLE;
+        return encoderUnits / (ENCODER_UNITS_PER_ROUND  * DEGREES_IN_CIRCLE);
     }
-
 
     public double angleToEncoderUnits(double angle) {
-        return ((ENCODER_UNITS * RATIO) / DEGREES_IN_CIRCLE) * angle;
+        return (ENCODER_UNITS_PER_ROUND / DEGREES_IN_CIRCLE) * angle;
     }
 
-    public double getAngleByLimits(double angle){
+    public double getAngleByLimits(double angle) {
         angle = angle % DEGREES_IN_CIRCLE;
-        if(angle > MAX_DEGREE){
+        if (angle > MAX_DEGREE) {
             angle = (angle - FLIP_POINT);
-        } else if (angle < MIN_DEGREE){
+        } else if (angle < MIN_DEGREE) {
             angle = (angle + FLIP_POINT);
         }
         return angle;
     }
 
-    public boolean isOnTarget(){
+    public boolean isOnTarget() {
         return components.getTurretController().isOnTarget(angleToEncoderUnits(TOLERANCE_DEGREE));
     }
 }

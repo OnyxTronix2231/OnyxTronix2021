@@ -6,8 +6,8 @@ import frc.robot.turret.Turret;
 import java.util.function.DoubleSupplier;
 
 public class MoveTurretBySpeed extends CommandBase {
-    private Turret turret;
     private final DoubleSupplier speed;
+    private Turret turret;
 
     public MoveTurretBySpeed(Turret turret, DoubleSupplier speed) {
         this.turret = turret;
@@ -17,7 +17,7 @@ public class MoveTurretBySpeed extends CommandBase {
 
     @Override
     public void execute() {
-        turret.MoveTurretBySpeed(speed.getAsDouble());
+        turret.moveBySpeed(speed.getAsDouble());
     }
 
     @Override

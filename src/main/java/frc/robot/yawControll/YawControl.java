@@ -6,12 +6,8 @@ import frc.robot.turret.TurretComponents;
 import frc.robot.turret.commands.MoveTurretToAngleAndKeep;
 
 public class YawControl extends Turret {
+
     private final DriveTrain driveTrain;
-    public enum TurretState{
-        RTR,
-        RTF,
-        HOMING
-    }
 
     public YawControl(TurretComponents turretComponents, DriveTrain driveTrain) {
         super(turretComponents);
@@ -22,8 +18,8 @@ public class YawControl extends Turret {
         return getRobotAngle() + getAngleRTR();
     }
 
-    public void setTurretState( TurretState turretState){
-        if(getDefaultCommand() != null){
+    public void setTurretState(TurretState turretState) {
+        if (getDefaultCommand() != null) {
             getDefaultCommand().cancel();
         }
         switch (turretState) {
@@ -41,8 +37,14 @@ public class YawControl extends Turret {
                 break;
         }
     }
-    
-    public double getRobotAngle(){
+
+    public double getRobotAngle() {
         return driveTrain.getHeading();
+    }
+
+    public enum TurretState {
+        RTR,
+        RTF,
+        HOMING
     }
 }

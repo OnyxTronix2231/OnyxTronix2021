@@ -4,9 +4,10 @@ import frc.robot.turret.Turret;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveTurretTurretByAngle extends MoveTurretByAngleAndKeep {
-    public MoveTurretTurretByAngle(Turret turret, DoubleSupplier angleSupplier) {
-       super(turret,angleSupplier);
+public class MoveTurretByAngle extends MoveTurretByAngleAndKeep {
+
+    public MoveTurretByAngle(Turret turret, DoubleSupplier angleSupplier) {
+        super(turret, angleSupplier);
     }
 
     @Override

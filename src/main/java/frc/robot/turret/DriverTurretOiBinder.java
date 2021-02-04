@@ -6,8 +6,8 @@ import onyxTronix.JoystickAxis;
 
 public class DriverTurretOiBinder {
 
-    public DriverTurretOiBinder(Turret turret, JoystickAxis moveBySpeed, JoystickAxis moveByJoystickAngle){
+    public DriverTurretOiBinder(Turret turret, JoystickAxis moveBySpeed, JoystickAxis moveByJoystickAngle) {
         moveBySpeed.whileActiveOnce(new MoveTurretBySpeed(turret, moveBySpeed::getRawAxis));
-        moveByJoystickAngle.whileActiveOnce(new MoveTurretByAngleContinuously(turret,moveByJoystickAngle::getRawAxis));
+        moveByJoystickAngle.whileActiveOnce(new MoveTurretByAngleContinuously(turret, moveByJoystickAngle::getRawAxis));
     }
 }

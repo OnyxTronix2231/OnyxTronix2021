@@ -6,6 +6,7 @@ import frc.robot.turret.Turret;
 import java.util.function.DoubleSupplier;
 
 public class MoveTurretToAngleAndKeep extends CommandBase {
+
     protected final Turret turret;
     protected final DoubleSupplier angle;
 
@@ -30,4 +31,3 @@ public class MoveTurretToAngleAndKeep extends CommandBase {
         turret.stop();
     }
 }
-
