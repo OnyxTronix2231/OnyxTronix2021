@@ -1,5 +1,7 @@
 package frc.robot.vision;
 
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import vision.limelight.Limelight;
 
 import java.util.function.DoubleSupplier;
@@ -13,16 +15,21 @@ public class Vision {
     private DoubleSupplier gyroYawAngle;
     private DoubleSupplier turretAngleRTF;
     private VisionTarget chosenTarget;
+    private Pose2d currentPos;
+    private Rotation2d currentRotation;
 
     public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF) {
-        gyroYawAngle = gyroYawAngle;
-        turretAngleRTF = turretAngleRTF;
+        this.gyroYawAngle = gyroYawAngle;
+        this.turretAngleRTF = turretAngleRTF;
+        currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
+        currentPos = new Pose2d(0, 0, currentRotation);
         limelight = Limelight.getInstance();
         outerTarget = new OuterTarget(gyroYawAngle.getAsDouble(),
                 turretAngleRTF.getAsDouble(), limelight.getTarget());
         innerTarget = new InnerTarget(gyroYawAngle.getAsDouble(),
                 outerTarget);
         chooseTarget();
+        updatePos();
     }
 
     public void update() {
@@ -33,6 +40,7 @@ public class Vision {
         innerTarget.update(gyroYawAngle.getAsDouble(),
                 outerTarget);
         chooseTarget();
+        updatePos();
     }
 
     public void chooseTarget() {
@@ -47,6 +55,23 @@ public class Vision {
         }
     }
 
+    public void updatePos(){
+        if (hasTarget()) {
+            /*we calculated this distance inside of the outer target class we just save it for later use*/
+            double distanceTargetToRobot = outerTarget.getAirDistanceTurretToTarget();
+
+            /*the pos x and y are calculated using a simple trigonometric formula, we have the angle to
+            * the field (from the gyro) and the distance*/
+            double y = TARGET_Y - Math.sin(Math.toRadians(gyroYawAngle.getAsDouble())) * distanceTargetToRobot;
+            double x = TARGET_X - Math.cos(Math.toRadians(gyroYawAngle.getAsDouble())) * distanceTargetToRobot;
+
+            /*updating the position and rotation bt creating new instances of Rotation2d and Position2d with the
+            * calculated values*/
+            currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
+            currentPos = new Pose2d(x, y, currentRotation);
+        }
+    }
+
     public double getAbsoluteDistanceToOuterTargetWall() {
         return outerTarget.getAirDistanceTurretToTarget() *
                 Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
@@ -54,5 +79,21 @@ public class Vision {
 
     public boolean hasTarget() {
         return limelight.targetFound();
+    }
+
+    public double getRobotX(){
+        return currentPos.getX();
+    }
+
+    public double getRobotY(){
+        return currentPos.getY();
+    }
+
+    public Pose2d getCurrentPos() {
+        return currentPos;
+    }
+
+    public Rotation2d getCurrentRotation() {
+        return currentRotation;
     }
 }

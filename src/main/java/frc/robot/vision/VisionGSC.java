@@ -32,10 +32,10 @@ public class VisionGSC {
     public GSCOption determineBlueOrRed() {
         if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            if (getTargetHorizontalAngle() > DEFAULT_HORIZONTAL_ANGLE) {
-                return GSCOption.RED1;
+            if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
+                return GSCOption.RED2;
             }
-            return GSCOption.RED2;
+            return GSCOption.RED1;
         }
         if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
             return GSCOption.BLUE2;

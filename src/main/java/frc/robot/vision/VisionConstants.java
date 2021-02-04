@@ -33,4 +33,7 @@ public class VisionConstants {
     public static final double MIN_AIR_DISTANCE_OUTER = 0; // TODO: Calculate and change
 
     public static final double MAX_ABS_OFFSET_TARGET_TO_FIELD = 0; // TODO: Calculate and change
+
+    public static final double TARGET_X = 0; //TODO: Check and change
+    public static final double TARGET_Y = 0; //TODO: Check and change
 }
