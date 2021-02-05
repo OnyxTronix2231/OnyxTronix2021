@@ -9,10 +9,10 @@ import static frc.robot.vision.VisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
 
-    public OuterTarget(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF, Limelight limelight) {
-        this.gyroYawAngle = gyroYawAngle;
-        this.turretAngleRTF = turretAngleRTF;
+    public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTF, DoubleSupplier gyroYawAngle) {
         this.limelight = limelight;
+        this.turretAngleRTF = turretAngleRTF;
+        this.gyroYawAngle = gyroYawAngle;
 
         /*putting default values to all parameters*/
         verticalAngleLimelightToTarget = 0.0;
@@ -104,7 +104,6 @@ public class OuterTarget extends VisionTarget {
             RTFVectorTurretToTarget = new Vector2dEx(0, 0);
             RTFVectorRobotToTarget = new Vector2dEx(0, 0);
         }
-
     }
 
     public double getVerticalAngleLimelightToTarget() {
@@ -130,5 +129,4 @@ public class OuterTarget extends VisionTarget {
     public Vector2dEx getRTFVectorRobotToTarget() {
         return RTFVectorRobotToTarget;
     }
-
 }

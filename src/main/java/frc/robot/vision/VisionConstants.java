@@ -1,6 +1,7 @@
 package frc.robot.vision;
 
 public class VisionConstants {
+
     static final double DEFAULT_HORIZONTAL_ANGLE = 0;
     static final double TARGET_ANGLE_TOLERANCE = 2; //TODO:check and change
     static final double DEFAULT_TARGET_AREA = 0;    //TODO:check and change

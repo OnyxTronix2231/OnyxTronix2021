@@ -9,6 +9,7 @@ import java.util.function.DoubleSupplier;
 import static frc.robot.vision.VisionConstants.*;
 
 public class Vision {
+
     private final Limelight limelight;
     private final OuterTarget outerTarget;
     private final InnerTarget innerTarget;
@@ -22,8 +23,8 @@ public class Vision {
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);
         limelight = Limelight.getInstance();
-        outerTarget = new OuterTarget(gyroYawAngle, turretAngleRTF, limelight);
-        innerTarget = new InnerTarget(gyroYawAngle, turretAngleRTF, limelight, outerTarget);
+        outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
+        innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
     }
 
     public void update() {

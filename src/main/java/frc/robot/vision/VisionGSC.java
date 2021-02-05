@@ -5,6 +5,7 @@ import vision.limelight.Limelight;
 import static frc.robot.vision.VisionConstants.*;
 
 public class VisionGSC {
+
     private final Limelight limelight;
 
     public VisionGSC() {
@@ -41,9 +42,7 @@ public class VisionGSC {
             return GSCOption.BLUE2;
         }
         return GSCOption.BLUE1;
-
     }
 
-    public void update() {
-    }
+    public void update() {}
 }

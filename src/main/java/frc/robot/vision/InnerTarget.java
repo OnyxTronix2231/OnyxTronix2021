@@ -8,14 +8,16 @@ import java.util.function.DoubleSupplier;
 import static frc.robot.vision.VisionConstants.*;
 
 public class InnerTarget extends VisionTarget {
+
     private final OuterTarget outerTarget;
 
-    public InnerTarget(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF, Limelight limelight,
-                       OuterTarget outerTarget) {
-        this.gyroYawAngle = gyroYawAngle;
-        this.turretAngleRTF = turretAngleRTF;
-        this.limelight = limelight;
+    public InnerTarget(OuterTarget outerTarget, Limelight limelight, DoubleSupplier turretAngleRTF,
+                       DoubleSupplier gyroYawAngle) {
+
         this.outerTarget = outerTarget;
+        this.limelight = limelight;
+        this.turretAngleRTF = turretAngleRTF;
+        this.gyroYawAngle = gyroYawAngle;
 
         /*putting default values to all parameters*/
         verticalAngleLimelightToTarget = 0.0;
