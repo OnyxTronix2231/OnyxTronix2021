@@ -13,12 +13,9 @@ public class TurretConstants {
 
     public static final class TurretComponentsA {
 
-        static final int PID_IDX = 0;
         static final int MAX_ACCELERATION = 0;
         static final int CRUISE_VELOCITY = 0;
         static final int ACCELERATION_SMOOTHING = 0;
-        static final int PID_POSITION_GAINS = 0;
-        static final int TIME_OUT_MS = 0;
         static final int CONTINUOUS_CURRENT_LIMIT = 0;
         static final int PEAK_AMP_DURATION = 0;
         static final int PEAK_AMP = 0 ;
