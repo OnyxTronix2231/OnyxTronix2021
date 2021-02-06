@@ -1,5 +1,6 @@
 package frc.robot.yawControll;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.turret.Turret;
 import frc.robot.turret.TurretComponents;
@@ -8,10 +9,14 @@ import frc.robot.turret.commands.MoveTurretToAngleAndKeep;
 public class YawControl extends Turret {
 
     private final DriveTrain driveTrain;
-
+    private TurretState turretState;
     public YawControl(TurretComponents turretComponents, DriveTrain driveTrain) {
         super(turretComponents);
         this.driveTrain = driveTrain;
+        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTR",()-> getAngleRTR());
+        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTF",()-> getTurretAngleRTF());
+        Shuffleboard.getTab("Turret").addString("Turret State",()-> turretState.toString());
+
     }
 
     public double getTurretAngleRTF() {
@@ -36,12 +41,12 @@ public class YawControl extends Turret {
                 setDefaultCommand(new MoveTurretToAngleAndKeep(this, () -> 0));
                 break;
         }
+        this.turretState = turretState;
     }
 
     public double getRobotAngle() {
         return driveTrain.getHeading();
     }
-
     public enum TurretState {
         RTR,
         RTF,
