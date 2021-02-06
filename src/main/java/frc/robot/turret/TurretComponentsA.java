@@ -11,13 +11,13 @@ import sensors.counter.CtreEncoder;
 import static frc.robot.turret.TurretConstants.MASTER_MOTOR_ID;
 import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
 
-public class BasicTurretComponentsA implements TurretComponents {
+public class TurretComponentsA implements TurretComponents {
 
     private final WPI_TalonSRX motor;
     private final CtreEncoder encoder;
     private final CtreMotionMagicController controller;
 
-    public BasicTurretComponentsA() {
+    public TurretComponentsA() {
         motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         motor.configFactoryDefault();
         motor.configAllSettings(getTalonSRXConfiguration());
