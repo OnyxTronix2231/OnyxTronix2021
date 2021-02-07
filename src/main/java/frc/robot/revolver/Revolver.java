@@ -51,13 +51,13 @@ public class Revolver extends SubsystemBase {
         components.getMotor().set(speed);
     }
 
-    public void initMoveByRPM(double RPM) {
-        components.getPIDController().setSetpoint(RPMToEncoderUnitInDecisecond(RPM));
+    public void initMoveByRPM(double rpm) {
+        components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().enable();
     }
 
-    public void updateMoveByRPM(double RPM) {
-        components.getPIDController().update(RPMToEncoderUnitInDecisecond(RPM));
+    public void updateMoveByRPM(double rpm) {
+        components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
 
     public void stop() {
@@ -66,11 +66,11 @@ public class Revolver extends SubsystemBase {
     }
 
     public boolean isOnTarget() {
-        return components.getPIDController().isOnTarget(RPMToEncoderUnitInDecisecond(TOLERANCE_IN_RPM));
+        return components.getPIDController().isOnTarget(rpmToEncoderUnitInDecisecond(TOLERANCE_IN_RPM));
     }
 
-    public double RPMToEncoderUnitInDecisecond(double RPM) {
-        return RPM * ENCODER_UNITS_PER_ROTATION / DECISECOND_IN_MIN;
+    public double rpmToEncoderUnitInDecisecond(double rpm) {
+        return rpm * ENCODER_UNITS_PER_ROTATION / DECISECOND_IN_MIN;
     }
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {

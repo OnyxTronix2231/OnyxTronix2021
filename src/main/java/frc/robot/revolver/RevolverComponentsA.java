@@ -11,13 +11,13 @@ import sensors.counter.CtreEncoder;
 
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
 
-public class BasicRevolverComponentsA implements RevolverComponents {
+public class RevolverComponentsA implements RevolverComponents {
 
     private final WPI_TalonFX Motor;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
 
-    public BasicRevolverComponentsA() {
+    public RevolverComponentsA() {
         Motor = new WPI_TalonFX(MASTER_MOTOR_ID);
         Motor.configFactoryDefault();
         Motor.configAllSettings(getConfiguration());

@@ -1,25 +1,18 @@
-package frc.robot.ballTrigger;
+package frc.robot.collector;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
-import pid.CtrePIDController;
-import pid.PIDControlMode;
-import pid.interfaces.PIDController;
-import sensors.counter.Counter;
-import sensors.counter.CtreEncoder;
 
-import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*;
+import static frc.robot.collector.CollectorConstants.BallCollectorConstantsA.*;
 
-public class BasicBallTriggerComponentsA implements BallTriggerComponents {
+public class CollectorComponentsA implements CollectorComponents {
 
     private final WPI_TalonSRX Motor;
     private final Solenoid solenoid;
-    private final CtreEncoder encoder;
-    private final CtrePIDController pidController;
 
-    public BasicBallTriggerComponentsA() {
+    public CollectorComponentsA() {
         Motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         Motor.configFactoryDefault();
         Motor.configAllSettings(getConfiguration());
@@ -27,11 +20,6 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
         Motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
-
-        encoder = new CtreEncoder(Motor);
-
-        pidController = new CtrePIDController(Motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
-                PIDControlMode.Velocity);
     }
 
     @Override
@@ -42,16 +30,6 @@ public class BasicBallTriggerComponentsA implements BallTriggerComponents {
     @Override
     public Solenoid getSolenoid() {
         return solenoid;
-    }
-
-    @Override
-    public Counter getEncoder() {
-        return encoder;
-    }
-
-    @Override
-    public PIDController getPIDController() {
-        return pidController;
     }
 
     private TalonSRXConfiguration getConfiguration() {

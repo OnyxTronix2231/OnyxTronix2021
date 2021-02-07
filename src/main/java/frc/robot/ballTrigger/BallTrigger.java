@@ -50,15 +50,15 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
-        components.getPIDController().setSetpoint(RPMToEncoderUnitsInDecisecond(rpm));
+        components.getPIDController().setSetpoint(rpmToEncoderUnitsInDecisecond(rpm));
         components.getPIDController().enable();
     }
 
     public void updateMoveByRPM(double rpm) {
-        components.getPIDController().update(RPMToEncoderUnitsInDecisecond(rpm));
+        components.getPIDController().update(rpmToEncoderUnitsInDecisecond(rpm));
     }
 
-    public double RPMToEncoderUnitsInDecisecond(double rpm) {
+    public double rpmToEncoderUnitsInDecisecond(double rpm) {
         return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
 
