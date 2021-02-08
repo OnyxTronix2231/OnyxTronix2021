@@ -62,19 +62,20 @@ public class InnerTarget extends VisionTarget {
                             horizontalAngleTargetToTurret);
 
             /* this is a vector subtraction and NOT a numeric subtraction of the vector's values*/
-            limelightToTargetVector.subtract(VECTOR_LIMELIGHT_TURRET_CENTER);
+            limelightToTargetVector.subtract(VECTOR_LIMELIGHT_TO_TURRET);
 
             /* using the limelight to target vector we calculate the horizontal air distance to it*/
             airDistanceTurretToTarget = limelightToTargetVector.magnitude();
 
             /* using simple trigonometry equation we calculate the vertical angle*/
             verticalAngleLimelightToTarget =
-                    Math.toDegrees(Math.atan2(TARGET_HEIGHT_DIFFERENCE, airDistanceTurretToTarget));
+                    Math.toDegrees(Math.atan2(INNER_TARGET_HEIGHT_CM - LIMELIGHT_HEIGHT_TO_FLOOR_CM,
+                            airDistanceTurretToTarget));
 
             /* we create a vector that connects the turret center to the robot it has a fixed magnitude (size)
              * and the direction of the robot relative to the field (we get it from the driveTrain subsystem, gyro)*/
             Vector2dEx turretToRobotCenterVector =
-                    Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, gyroYawAngle.getAsDouble());
+                    Vector2dEx.fromMagnitudeDirection(ROBOT_TO_TURRET_DISTANCE_CM, gyroYawAngle.getAsDouble());
 
             /* to get the vector from the robot center to the target we do some more vector math
              * we subtract the turret to robot vector from the turret to target one and that

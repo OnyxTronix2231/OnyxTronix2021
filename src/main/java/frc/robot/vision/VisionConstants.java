@@ -2,39 +2,37 @@ package frc.robot.vision;
 
 public class VisionConstants {
 
-    public static final double DEFAULT_HORIZONTAL_ANGLE = 0;
-    public static final double TARGET_ANGLE_TOLERANCE = 2; //TODO:check and change
-    public static final double DEFAULT_TARGET_AREA = 0;    //TODO:check and change
+    // GSC Constants
 
+    public static final double TARGET_ANGLE_TOLERANCE = 2; //TODO:check and change
     public static final double RED_AREA_PERCENTAGE = 0;    //TODO:check and change
     public static final double BLUE_AREA_PERCENTAGE = 0;   //TODO:check and change
 
-    public static final double LIMELIGHT_ANGLE_TO_HORIZON = 34.08; //TODO: check and change // mechanical parameter
-    public static final double LIMELIGHT_HEIGHT_TO_FLOOR = 632.82; //TODO: check and change // mechanical parameter
+// ------------------------------------------------------------------------------------------------------
 
-    public static final double TARGET_HEIGHT = 0; //TODO: check and change
+    // Main Challenge Constants
 
-    public static final double LIMELIGHT_TURRET_CENTER_CM = 18.79; //TODO: check and change // mechanical parameter
-    public static final Vector2dEx VECTOR_LIMELIGHT_TURRET_CENTER = new Vector2dEx(LIMELIGHT_TURRET_CENTER_CM, 0);
-
-    public static final double HEIGHT_OFFSET_INNER_OUTER_CENTER = 0; //TODO: check and change // mechanical parameter
-    public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET = 29.25; //TODO: check and change // mechanical parameter
-
-    public static final Vector2dEx VECTOR_OUTER_INNER_TARGET =
-            new Vector2dEx(DISTANCE_BETWEEN_OUTER_INNER_TARGET, 0);
-
-    public static final double TARGET_HEIGHT_DIFFERENCE = TARGET_HEIGHT - LIMELIGHT_HEIGHT_TO_FLOOR
-            + HEIGHT_OFFSET_INNER_OUTER_CENTER;
-
+    // mechanical parameters
     public static final double CIRCLE_ANGLES = 360;
-    public static final double ROBOT_CENTER_TURRET_DISTANCE = 0; // TODO: Check and change
+    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 34.08; //TODO: check and change
+    public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 632.82; //TODO: check and change
+    public static final double LIMELIGHT_TO_TURRET_CM = 18.79; //TODO: check and change
 
-    public static final double MAX_AIR_DISTANCE_OUTER = 0; // TODO: Calculate and change
+    public static final double DISTANCE_OUTER_TO_FIELD_ZERO_CM = 258.3; //TODO: check and change
+    public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM = 29.25; //TODO: check and change
+    public static final double OUTER_TARGET_HEIGHT_CM = 0; //TODO: check and change
+    public static final double INNER_TARGET_HEIGHT_CM = 0; //TODO: check and change
+    public static final double ROBOT_TO_TURRET_DISTANCE_CM = 0; // TODO: Check and change
 
-    public static final double MIN_AIR_DISTANCE_OUTER = 0; // TODO: Calculate and change
+    // default vectors
+    public static final Vector2dEx VECTOR_LIMELIGHT_TO_TURRET = new Vector2dEx(LIMELIGHT_TO_TURRET_CM, 0);
+    public static final Vector2dEx VECTOR_OUTER_INNER_TARGET =
+            new Vector2dEx(DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM, 0);
+    public static final Vector2dEx VECTOR_FIELD_ZERO_TO_OUTER = new Vector2dEx(0,
+            DISTANCE_OUTER_TO_FIELD_ZERO_CM); //TODO: check and change
 
-    public static final double MAX_ABS_OFFSET_TARGET_TO_FIELD = 0; // TODO: Calculate and change
-
-    public static final double TARGET_X = 0; //TODO: Check and change
-    public static final double TARGET_Y = 0; //TODO: Check and change
+    // choosing parameters
+    public static final double MAX_AIR_DISTANCE_OUTER_CM = 0; // TODO: Calculate and change
+    public static final double MIN_AIR_DISTANCE_OUTER_CM = 0; // TODO: Calculate and change
+    public static final double MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG = 0; // TODO: Calculate and change
 }

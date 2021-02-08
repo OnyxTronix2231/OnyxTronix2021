@@ -17,17 +17,11 @@ public class VisionGSC {
     }
 
     public double getTargetAreaPercentage() {
-        if (hasTarget()) {
-            return limelight.getTarget().getTargetArea();
-        }
-        return DEFAULT_TARGET_AREA;
+        return limelight.getTarget().getTargetArea();
     }
 
     public double getTargetHorizontalAngle() {
-        if (hasTarget()) {
-            return limelight.getTarget().getHorizontalOffsetToCrosshair();
-        }
-        return DEFAULT_HORIZONTAL_ANGLE;
+        return limelight.getTarget().getHorizontalOffsetToCrosshair();
     }
 
     public GSCOption determineBlueOrRed() {
