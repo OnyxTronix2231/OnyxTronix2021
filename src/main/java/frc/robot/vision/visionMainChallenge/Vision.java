@@ -2,6 +2,8 @@ package frc.robot.vision.visionMainChallenge;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import java.util.function.DoubleSupplier;
 import static frc.robot.vision.VisionConstants.*;
@@ -23,6 +25,12 @@ public class Vision {
         limelight = Limelight.getInstance();
         outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
+        Shuffleboard.getTab("Vision").addNumber("Distance to chosen target", () -> chosenTarget.getAirDistanceTurretToTarget());
+        Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target", () -> chosenTarget.getHorizontalAngleTargetToTurret());
+        Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target", () -> chosenTarget.getHorizontalAngleTargetToRobot());
+        Shuffleboard.getTab("Vision").addNumber("Calculated position X", () -> currentPos.getX());
+        Shuffleboard.getTab("Vision").addNumber("Calculated position Y", () -> currentPos.getY());
+        Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());
     }
 
     public void update() {
@@ -34,10 +42,10 @@ public class Vision {
 
     public void chooseTarget() {
         if (hasTarget()) {
-            boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER &&
-                    outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER &&
+            boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER_CM &&
+                    outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
                     Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
-                            MAX_ABS_OFFSET_TARGET_TO_FIELD;
+                            MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
             if (innerTargetCondition) {
                 chosenTarget = innerTarget;
             } else {
@@ -50,16 +58,20 @@ public class Vision {
 
     public void updatePos(){
         if (hasTarget()) {
-            /*we calculated this distance inside of the outer target class we just save it for later use*/
-            double distanceTargetToRobot = outerTarget.getAirDistanceTurretToTarget();
+            /* we create a vector from the robot to the zero point of the field by taking the vector
+             * from the robot to the target and subtracting from it the fixed vector from the zero point
+             * to the outer target*/
+            Vector2dEx robotToFieldVector = outerTarget.getVectorRobotToTargetRTF();
 
-            /*the pos x and y are calculated using a simple trigonometric formula, we have the angle to
-            * the field (from the gyro) and the distance*/
-            double y = TARGET_Y - Math.sin(Math.toRadians(gyroYawAngle.getAsDouble())) * distanceTargetToRobot;
-            double x = TARGET_X - Math.cos(Math.toRadians(gyroYawAngle.getAsDouble())) * distanceTargetToRobot;
+            /* this is a vector subtraction and NOT a numeric subtraction of the vector's values*/
+            robotToFieldVector.subtract(VECTOR_FIELD_ZERO_TO_OUTER);
 
-            /*updating the position and rotation bt creating new instances of Rotation2d and Position2d with the
-            * calculated values*/
+            /* the pos x and y are given from the vector itself in centimeters*/
+            double y = robotToFieldVector.y;
+            double x = robotToFieldVector.x;
+
+            /* updating the position and rotation bt creating new instances of Rotation2d and Position2d with the
+             * calculated values*/
             currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
             currentPos = new Pose2d(x, y, currentRotation);
         }

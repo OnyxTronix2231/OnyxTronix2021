@@ -33,12 +33,12 @@ public class OuterTarget extends VisionTarget {
             /* calculating the vertical angle from the (target to limelight) to the floor
              * the limelight itself has an angle from the floor so we sum his default angle
              * with the target angle to crosshair that we get from the limelight itself*/
-            double verticalAngleRobotToTarget = verticalAngleLimelightToTarget + LIMELIGHT_ANGLE_TO_HORIZON;
+            double verticalAngleRobotToTarget = verticalAngleLimelightToTarget + LIMELIGHT_ANGLE_TO_HORIZON_DEG;
 
             /* calculating the vertical height difference from the target to the limelight
              * the limelight itself has some height from the floor so we subtract it
              * from the target full height to get the height difference*/
-            double targetToLimelightHeight = TARGET_HEIGHT - LIMELIGHT_HEIGHT_TO_FLOOR;
+            double targetToLimelightHeight = OUTER_TARGET_HEIGHT_CM - LIMELIGHT_HEIGHT_TO_FLOOR_CM;
 
             /* calculating air distance (horizontal) from limelight to target using simple formula and trigonometry*/
             double airDistanceLimelightToTarget =
@@ -53,7 +53,7 @@ public class OuterTarget extends VisionTarget {
                     horizontalAngleLimelightToTarget);
 
             /* this is a vector addition and NOT a numeric addition of the vector values*/
-            turretToTargetVector.add(VECTOR_LIMELIGHT_TURRET_CENTER);
+            turretToTargetVector.add(VECTOR_LIMELIGHT_TO_TURRET);
 
             /* after calculating the correct vector we can calculate its distance to have the true distance
              * from the turret to the target*/
@@ -83,7 +83,7 @@ public class OuterTarget extends VisionTarget {
             /* we create a vector that connects the turret center to the robot it has a fixed magnitude (size)
              * and the direction of the robot relative to the field (we get it from the driveTrain subsystem, gyro)*/
             Vector2dEx turretToRobotCenterVector =
-                    Vector2dEx.fromMagnitudeDirection(ROBOT_CENTER_TURRET_DISTANCE, gyroYawAngle.getAsDouble());
+                    Vector2dEx.fromMagnitudeDirection(ROBOT_TO_TURRET_DISTANCE_CM, gyroYawAngle.getAsDouble());
 
             /* to get the vector from the robot center to the target we do some more vector math
              * we subtract the turret to robot vector from the turret to target one and that
