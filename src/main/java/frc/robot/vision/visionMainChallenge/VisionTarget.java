@@ -1,7 +1,7 @@
-package frc.robot.vision;
+package frc.robot.vision.visionMainChallenge;
 
+import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
-import vision.limelight.target.LimelightTarget;
 
 import java.util.function.DoubleSupplier;
 
@@ -17,10 +17,10 @@ public abstract class VisionTarget {
     protected DoubleSupplier turretAngleRTF;
 
     /*a calculated vector- the vector that is connected from the turret center to the target*/
-    protected Vector2dEx RTFVectorTurretToTarget;
+    protected Vector2dEx vectorTurretToTargetRTF;
 
     /*a calculated vector- the vector that is connected from the robot center to the target*/
-    protected Vector2dEx RTFVectorRobotToTarget;
+    protected Vector2dEx vectorRobotToTargetRTF;
 
     /*a value given by the limelight itself- the vertical angle offset from the target to the crosshair*/
     protected double verticalAngleLimelightToTarget;
@@ -42,7 +42,7 @@ public abstract class VisionTarget {
 
     public abstract double getHorizontalAngleTargetToTurret();
 
-    public abstract Vector2dEx getRTFVectorTurretToTarget();
+    public abstract Vector2dEx getVectorTurretToTargetRTF();
 
-    public abstract Vector2dEx getRTFVectorRobotToTarget();
+    public abstract Vector2dEx getVectorRobotToTargetRTF();
 }

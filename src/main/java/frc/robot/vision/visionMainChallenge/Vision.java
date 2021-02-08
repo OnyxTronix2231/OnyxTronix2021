@@ -1,11 +1,9 @@
-package frc.robot.vision;
+package frc.robot.vision.visionMainChallenge;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import vision.limelight.Limelight;
-
 import java.util.function.DoubleSupplier;
-
 import static frc.robot.vision.VisionConstants.*;
 
 public class Vision {
