@@ -5,12 +5,12 @@ import frc.robot.revolver.Revolver;
 
 import java.util.function.DoubleSupplier;
 
-public class RevolveBySpeed extends CommandBase {
+public class SpinBySpeed extends CommandBase {
 
     private final Revolver revolver;
     private final DoubleSupplier speedSupplier;
 
-    public RevolveBySpeed(Revolver revolver, DoubleSupplier speedSupplier) {
+    public SpinBySpeed(Revolver revolver, DoubleSupplier speedSupplier) {
         this.revolver = revolver;
         this.speedSupplier = speedSupplier;
         addRequirements(revolver);

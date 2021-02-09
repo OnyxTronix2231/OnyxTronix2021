@@ -5,12 +5,12 @@ import frc.robot.ballTrigger.BallTrigger;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveBallTriggerBySpeed extends CommandBase {
+public class SpinBySpeed extends CommandBase {
 
     private final BallTrigger ballTrigger;
     private final DoubleSupplier speedSupplier;
 
-    public MoveBallTriggerBySpeed(BallTrigger ballTrigger, DoubleSupplier speedSupplier) {
+    public SpinBySpeed(BallTrigger ballTrigger, DoubleSupplier speedSupplier) {
         this.ballTrigger = ballTrigger;
         this.speedSupplier = speedSupplier;
         addRequirements(ballTrigger);
