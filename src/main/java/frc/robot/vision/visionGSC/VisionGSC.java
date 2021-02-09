@@ -2,7 +2,7 @@ package frc.robot.vision.visionGSC;
 
 import vision.limelight.Limelight;
 
-import static frc.robot.vision.VisionConstants.*;
+import static frc.robot.vision.VisionConstants.VisionGSCConstants.*;
 
 public class VisionGSC {
 

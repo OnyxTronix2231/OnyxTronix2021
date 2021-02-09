@@ -1,25 +1,27 @@
 package frc.robot.vision;
 
-public class VisionConstants {
+public final class VisionConstants {
 
-    // GSC Constants
+    public static final class VisionGSCConstants {
+        // GSC Constants
 
-    public static final double TARGET_ANGLE_TOLERANCE = 2; //TODO:check and change
-    public static final double RED_AREA_PERCENTAGE = 0;    //TODO:check and change
-    public static final double BLUE_AREA_PERCENTAGE = 0;   //TODO:check and change
+        public static final double TARGET_ANGLE_TOLERANCE = 2; //TODO:check and change
+        public static final double RED_AREA_PERCENTAGE = 0;    //TODO:check and change
+        public static final double BLUE_AREA_PERCENTAGE = 0;   //TODO:check and change
+    }
 
 // ------------------------------------------------------------------------------------------------------
 
     // Main Challenge Constants
 
     // mechanical parameters
-    public static final double CIRCLE_ANGLES = 360;
-    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 34.08; //TODO: check and change
-    public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 632.82; //TODO: check and change
-    public static final double LIMELIGHT_TO_TURRET_CM = 18.79; //TODO: check and change
+    public static final double CIRCLE_ANGLES = 0;
+    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 0; //TODO: check and change
+    public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 0; //TODO: check and change
+    public static final double LIMELIGHT_TO_TURRET_CM = 0; //TODO: check and change
 
-    public static final double DISTANCE_OUTER_TO_FIELD_ZERO_CM = 258.3; //TODO: check and change
-    public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM = 29.25; //TODO: check and change
+    public static final double DISTANCE_OUTER_TO_FIELD_ZERO_CM = 0; //TODO: check and change
+    public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM = 0; //TODO: check and change
     public static final double OUTER_TARGET_HEIGHT_CM = 0; //TODO: check and change
     public static final double INNER_TARGET_HEIGHT_CM = 0; //TODO: check and change
     public static final double ROBOT_TO_TURRET_DISTANCE_CM = 0; // TODO: Check and change
