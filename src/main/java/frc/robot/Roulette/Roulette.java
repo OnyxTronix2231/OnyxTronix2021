@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 import static frc.robot.Roulette.RouletteConstants.*;
-import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
 
 public class Roulette extends SubsystemBase {
 
@@ -67,7 +66,7 @@ public class Roulette extends SubsystemBase {
         components.getSolenoid().set(false);
     }
 
-    public void setSpeed(double speed) {
+    public void moveBySpeed(double speed) {
         components.getMasterMotor().set(speed);
     }
 
@@ -155,7 +154,7 @@ public class Roulette extends SubsystemBase {
     }
 
     public void stop() {
-        setSpeed(0);
+        moveBySpeed(0);
         components.getController().disable();
     }
 

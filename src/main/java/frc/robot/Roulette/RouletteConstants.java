@@ -3,15 +3,15 @@ package frc.robot.Roulette;
 public class RouletteConstants {
 
     public static final double ROULETTE_ROUNDS_TOLERANCE = 0.1; // TODO: DECIDE TO CHANGE VALUE?
-    static final int MASTER_MOTOR_ID = 0; //TODO: check real value
-    static final int SOLENOID_ID = 0; // TODO: check real value
+    static final int MASTER_MOTOR_ID = 10; //TODO: check real value
+    static final int SOLENOID_ID = 2; // TODO: check real value
     static final int ENCODER_UNITS_PER_WHEEL_ROUND = 4096;
-    static final double WHEEL_CIRCUMFERENCE = 0.08;// in meters // TODO: check real value
-    static final double RATIO_ROULETTE_TO_WHEEL = 12; //TODO: check real value
+    static final double WHEEL_CIRCUMFERENCE = 0.1595929068;// in meters
+    static final double RATIO_ROULETTE_TO_WHEEL = 2.54 / WHEEL_CIRCUMFERENCE;
     static final RouletteColor ROULETTE_RED = new RouletteColor(1, 0, 0, "Red"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_GREEN = new RouletteColor(0.4, 1, 0.8, "Green"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_BLUE = new RouletteColor(0, 0.8, 0.8, "Blue"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_YELLOW = new RouletteColor(.55, 0.9, 0, "Yellow"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_GREEN = new RouletteColor(0, 1, 0, "Green"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_BLUE = new RouletteColor(0, 1, 1, "Blue"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_YELLOW = new RouletteColor(1, 1, 0, "Yellow"); //TODO: check value again irl
     static final RouletteColor[] ROULETTE_COLORS = {ROULETTE_RED, ROULETTE_YELLOW, ROULETTE_BLUE, ROULETTE_GREEN};
     static final double RATIO_ROULETTE_TO_ROULETTE_COLOR = 1.0 / 8;
     static final double PERCENT_TOLERANCE = 0.05; //TODO: check real value
