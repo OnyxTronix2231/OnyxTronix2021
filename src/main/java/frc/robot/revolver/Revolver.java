@@ -20,12 +20,12 @@ public class Revolver extends SubsystemBase {
         this.components = components;
         Shuffleboard.getTab("Revolver").addNumber("Current error in encoder units",
                 () -> components.getMotor().getClosedLoopError());
+        Shuffleboard.getTab("Revolver").addNumber("Current error in RPM",
+                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
         Shuffleboard.getTab("Revolver").addNumber("Current RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
                 () -> components.getMotor().getSelectedSensorVelocity());
-        Shuffleboard.getTab("Revolver").addNumber("Current error in RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
 
         kpEntry = Shuffleboard.getTab("Revolver").add("kP",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
