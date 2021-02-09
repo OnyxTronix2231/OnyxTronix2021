@@ -3,9 +3,9 @@ package frc.robot.ballTrigger.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.ballTrigger.BallTrigger;
 
-public class ClosePiston extends InstantCommand {
+public class CloseBallTriggerPiston extends InstantCommand {
 
-    public ClosePiston(BallTrigger ballTrigger) {
+    public CloseBallTriggerPiston(BallTrigger ballTrigger) {
         super(ballTrigger::closePiston);
     }
 }

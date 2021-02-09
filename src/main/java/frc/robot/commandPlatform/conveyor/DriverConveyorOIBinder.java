@@ -1,28 +1,28 @@
-package frc.robot.commandGroups;
+package frc.robot.commandPlatform.conveyor;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.ballTrigger.commands.ClosePiston;
+import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
 import frc.robot.collector.Collector;
-import frc.robot.collector.commands.ClosePistons;
+import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
 
-import static frc.robot.commandGroups.ConveyorConstants.ConveyorConstantsA.*;
+import static frc.robot.commandPlatform.conveyor.ConveyorConstants.ConveyorConstantsA.*;
 
 public class DriverConveyorOIBinder {
 
     public DriverConveyorOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver,
-                                  Trigger collectAndLoadRevolver, Trigger spinRevolverAndTriggerWheels,
+                                  Trigger collectAndLoadRevolver, Trigger spinRevolverAndTrigger,
                                   Trigger spinRevolverAndTriggerThenOpenPiston) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED));
-        collectAndLoadRevolver.whenInactive(new ClosePistons(collector));
+        collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
-        spinRevolverAndTriggerWheels.whileActiveOnce(new SpinRevolverAndTriggerWheels(ballTrigger, revolver,
+        spinRevolverAndTrigger.whileActiveOnce(new SpinRevolverAndTrigger(ballTrigger, revolver,
                 () -> TESTING_SPEED, () -> TESTING_SPEED));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
                 revolver, ballTrigger, () -> REVOLVER_RPM_WHILE_SHOOTING, () -> TESTING_SPEED));
-        spinRevolverAndTriggerThenOpenPiston.whenInactive(new ClosePiston(ballTrigger));
+        spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPiston(ballTrigger));
     }
 }

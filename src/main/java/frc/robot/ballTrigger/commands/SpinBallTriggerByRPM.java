@@ -5,12 +5,12 @@ import frc.robot.ballTrigger.BallTrigger;
 
 import java.util.function.DoubleSupplier;
 
-public class SpinByRPM extends CommandBase {
+public class SpinBallTriggerByRPM extends CommandBase {
 
     private final BallTrigger ballTrigger;
     private final DoubleSupplier rpmSupplier;
 
-    public SpinByRPM(BallTrigger ballTrigger, DoubleSupplier RPMSupplier) {
+    public SpinBallTriggerByRPM(BallTrigger ballTrigger, DoubleSupplier RPMSupplier) {
         this.ballTrigger = ballTrigger;
         this.rpmSupplier = RPMSupplier;
         addRequirements(ballTrigger);

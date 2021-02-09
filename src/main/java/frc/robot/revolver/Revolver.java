@@ -11,10 +11,10 @@ import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 public class Revolver extends SubsystemBase {
 
     private final RevolverComponents components;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
+    private final NetworkTableEntry kpEntry;
+    private final NetworkTableEntry kiEntry;
+    private final NetworkTableEntry kdEntry;
+    private final NetworkTableEntry kfEntry;
 
     public Revolver(RevolverComponents components) {
         this.components = components;
@@ -25,26 +25,26 @@ public class Revolver extends SubsystemBase {
         Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
                 () -> components.getMotor().getSelectedSensorVelocity());
 
-        kP = Shuffleboard.getTab("Revolver").add("kP",
+        kpEntry = Shuffleboard.getTab("Revolver").add("kP",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
-        kI = Shuffleboard.getTab("Revolver").add("kI",
+        kiEntry = Shuffleboard.getTab("Revolver").add("kI",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
-        kD = Shuffleboard.getTab("Revolver").add("kD",
+        kdEntry = Shuffleboard.getTab("Revolver").add("kD",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
-        kF = Shuffleboard.getTab("Revolver").add("kF",
+        kfEntry = Shuffleboard.getTab("Revolver").add("kF",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
     }
 
     @Override
     public void periodic() {
         components.getPIDController().setPIDFTerms(
-                kP.getDouble(components.getPIDController().getPIDFTerms().getKp()),
-                kI.getDouble(components.getPIDController().getPIDFTerms().getKi()),
-                kD.getDouble(components.getPIDController().getPIDFTerms().getKd()),
-                kF.getDouble(components.getPIDController().getPIDFTerms().getKf()));
+                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
+                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
+                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {

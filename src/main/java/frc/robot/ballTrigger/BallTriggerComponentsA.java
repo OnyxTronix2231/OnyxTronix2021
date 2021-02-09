@@ -14,29 +14,29 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*
 
 public class BallTriggerComponentsA implements BallTriggerComponents {
 
-    private final WPI_TalonSRX Motor;
+    private final WPI_TalonSRX motor;
     private final Solenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
 
     public BallTriggerComponentsA() {
-        Motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        Motor.configFactoryDefault();
-        Motor.configAllSettings(getConfiguration());
-        Motor.setNeutralMode(NeutralMode.Brake);
-        Motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        motor.configFactoryDefault();
+        motor.configAllSettings(getConfiguration());
+        motor.setNeutralMode(NeutralMode.Brake);
+        motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
 
-        encoder = new CtreEncoder(Motor);
+        encoder = new CtreEncoder(motor);
 
-        pidController = new CtrePIDController(Motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+        pidController = new CtrePIDController(motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
     }
 
     @Override
     public WPI_TalonSRX getMotor() {
-        return Motor;
+        return motor;
     }
 
     @Override

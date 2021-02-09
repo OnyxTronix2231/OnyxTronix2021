@@ -13,25 +13,25 @@ import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
 
 public class RevolverComponentsA implements RevolverComponents {
 
-    private final WPI_TalonFX Motor;
+    private final WPI_TalonFX motor;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
 
     public RevolverComponentsA() {
-        Motor = new WPI_TalonFX(MASTER_MOTOR_ID);
-        Motor.configFactoryDefault();
-        Motor.configAllSettings(getConfiguration());
-        Motor.setNeutralMode(NeutralMode.Brake);
+        motor = new WPI_TalonFX(MASTER_MOTOR_ID);
+        motor.configFactoryDefault();
+        motor.configAllSettings(getConfiguration());
+        motor.setNeutralMode(NeutralMode.Brake);
 
-        encoder = new CtreEncoder(Motor);
+        encoder = new CtreEncoder(motor);
 
-        pidController = new CtrePIDController(Motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+        pidController = new CtrePIDController(motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
     }
 
     @Override
     public WPI_TalonFX getMotor() {
-        return Motor;
+        return motor;
     }
 
     @Override

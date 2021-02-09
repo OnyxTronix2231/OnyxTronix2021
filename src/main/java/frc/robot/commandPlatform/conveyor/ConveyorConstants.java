@@ -1,4 +1,4 @@
-package frc.robot.commandGroups;
+package frc.robot.commandPlatform.conveyor;
 
 public class ConveyorConstants {
 

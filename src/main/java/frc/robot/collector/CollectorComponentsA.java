@@ -9,22 +9,22 @@ import static frc.robot.collector.CollectorConstants.BallCollectorConstantsA.*;
 
 public class CollectorComponentsA implements CollectorComponents {
 
-    private final WPI_TalonSRX Motor;
+    private final WPI_TalonSRX motor;
     private final Solenoid solenoid;
 
     public CollectorComponentsA() {
-        Motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        Motor.configFactoryDefault();
-        Motor.configAllSettings(getConfiguration());
-        Motor.setNeutralMode(NeutralMode.Brake);
-        Motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        motor.configFactoryDefault();
+        motor.configAllSettings(getConfiguration());
+        motor.setNeutralMode(NeutralMode.Brake);
+        motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
     }
 
     @Override
     public WPI_TalonSRX getMotor() {
-        return Motor;
+        return motor;
     }
 
     @Override
