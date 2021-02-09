@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -21,11 +22,14 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
+import java.util.function.DoubleSupplier;
+
 public class DriveTrain extends SubsystemBase {
 
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
+    private final NetworkTableEntry percentOutputEntry;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
@@ -33,6 +37,11 @@ public class DriveTrain extends SubsystemBase {
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
         Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
+        percentOutputEntry = Shuffleboard.getTab("DriveTrain").add("percentOutput", 0).getEntry();
+        Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
+                () -> getSimRightMaster().getMotorOutputVoltage());
+        Shuffleboard.getTab("DriveTrain").addNumber("speed",
+                () -> encoderUnitsDeciSecToMetersSec(getSimRightMaster().getSelectedSensorVelocity()));
         getField2d().setRobotPose(START_POSE);
         virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
         getDriveTrainSim().setPose(START_POSE);
@@ -41,6 +50,13 @@ public class DriveTrain extends SubsystemBase {
             simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
             simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
         }
+    }
+    public double getPercentOutput(){
+        return percentOutputEntry.getDouble(0);
+    }
+
+    public void moveByShuffleboard(){
+        arcadeDrive(percentOutputEntry.getDouble(0), 0);
     }
 
     @Override
