@@ -16,12 +16,14 @@ public class BallTrigger extends SubsystemBase {
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
-        Shuffleboard.getTab("Ball Trigger").addNumber("Current error",
+        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in encoder units",
                 () -> components.getMotor().getClosedLoopError());
         Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
         Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
                 () -> components.getMotor().getSelectedSensorVelocity());
+        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
+                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
 
         kpEntry = Shuffleboard.getTab("Ball Trigger").add("kP",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();

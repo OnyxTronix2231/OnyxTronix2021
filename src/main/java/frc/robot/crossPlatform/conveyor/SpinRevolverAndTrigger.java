@@ -1,4 +1,4 @@
-package frc.robot.commandPlatform.conveyor;
+package frc.robot.crossPlatform.conveyor;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.ballTrigger.BallTrigger;

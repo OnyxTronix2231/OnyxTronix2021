@@ -7,8 +7,8 @@ public class CollectorConstants {
 
     public static final class BallCollectorConstantsA {
 
-        static final int MASTER_MOTOR_ID = 7; //TODO: check value
-        static final int SOLENOID_CHANNEL = 0; //TODO: check value
+        static final int MASTER_MOTOR_ID = 7;
+        static final int SOLENOID_CHANNEL = 0;
         static final int PEAK_AMP = 0; //TODO: check value
         static final int PEAK_AMP_DURATION = 0; //TODO: check value
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value

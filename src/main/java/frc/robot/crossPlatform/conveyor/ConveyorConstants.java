@@ -1,4 +1,4 @@
-package frc.robot.commandPlatform.conveyor;
+package frc.robot.crossPlatform.conveyor;
 
 public class ConveyorConstants {
 

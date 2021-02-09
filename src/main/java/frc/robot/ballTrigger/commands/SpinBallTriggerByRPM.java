@@ -10,9 +10,9 @@ public class SpinBallTriggerByRPM extends CommandBase {
     private final BallTrigger ballTrigger;
     private final DoubleSupplier rpmSupplier;
 
-    public SpinBallTriggerByRPM(BallTrigger ballTrigger, DoubleSupplier RPMSupplier) {
+    public SpinBallTriggerByRPM(BallTrigger ballTrigger, DoubleSupplier rpmSupplier) {
         this.ballTrigger = ballTrigger;
-        this.rpmSupplier = RPMSupplier;
+        this.rpmSupplier = rpmSupplier;
         addRequirements(ballTrigger);
     }
 

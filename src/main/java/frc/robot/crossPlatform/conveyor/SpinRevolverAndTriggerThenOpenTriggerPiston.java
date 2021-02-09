@@ -1,4 +1,4 @@
-package frc.robot.commandPlatform.conveyor;
+package frc.robot.crossPlatform.conveyor;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
@@ -13,8 +13,9 @@ import java.util.function.DoubleSupplier;
 public class SpinRevolverAndTriggerThenOpenTriggerPiston extends ParallelCommandGroup {
 
     public SpinRevolverAndTriggerThenOpenTriggerPiston(Revolver revolver, BallTrigger ballTrigger,
-                                                       DoubleSupplier rpmSupplier, DoubleSupplier speedSupplier) {
-        super(new SpinRevolverByRPM(revolver, rpmSupplier), new SpinBallTriggerBySpeed(ballTrigger, speedSupplier),
+                                                       DoubleSupplier rpmSupplier,
+                                                       DoubleSupplier ballTriggerSpeedSupplier) {
+        super(new SpinRevolverByRPM(revolver, rpmSupplier), new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
                 new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger)));
     }
 }

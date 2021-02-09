@@ -1,4 +1,4 @@
-package frc.robot.commandPlatform.conveyor;
+package frc.robot.crossPlatform.conveyor;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.collector.Collector;
@@ -10,8 +10,8 @@ import java.util.function.DoubleSupplier;
 
 public class CollectAndSpinRevolver extends ParallelCommandGroup {
 
-    public CollectAndSpinRevolver(Collector collector, Revolver revolver, DoubleSupplier RPMSupplier,
+    public CollectAndSpinRevolver(Collector collector, Revolver revolver, DoubleSupplier rpmSupplier,
                                   DoubleSupplier SpeedSupplier) {
-        super(new OpenAndCollect(collector, SpeedSupplier), new SpinRevolverByRPM(revolver, RPMSupplier));
+        super(new OpenAndCollect(collector, SpeedSupplier), new SpinRevolverByRPM(revolver, rpmSupplier));
     }
 }

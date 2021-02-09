@@ -1,4 +1,4 @@
-package frc.robot.commandPlatform.conveyor;
+package frc.robot.crossPlatform.conveyor;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.ballTrigger.BallTrigger;
@@ -7,7 +7,7 @@ import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
 
-import static frc.robot.commandPlatform.conveyor.ConveyorConstants.ConveyorConstantsA.*;
+import static frc.robot.crossPlatform.conveyor.ConveyorConstants.ConveyorConstantsA.*;
 
 public class DriverConveyorOIBinder {
 

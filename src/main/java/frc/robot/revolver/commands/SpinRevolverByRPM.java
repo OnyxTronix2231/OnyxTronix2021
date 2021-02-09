@@ -8,22 +8,22 @@ import java.util.function.DoubleSupplier;
 public class SpinRevolverByRPM extends CommandBase {
 
     private final Revolver revolver;
-    private final DoubleSupplier RPMSupplier;
+    private final DoubleSupplier rpmSupplier;
 
-    public SpinRevolverByRPM(Revolver revolver, DoubleSupplier RPMSupplier) {
+    public SpinRevolverByRPM(Revolver revolver, DoubleSupplier rpmSupplier) {
         this.revolver = revolver;
-        this.RPMSupplier = RPMSupplier;
+        this.rpmSupplier = rpmSupplier;
         addRequirements(revolver);
     }
 
     @Override
     public void initialize() {
-        revolver.initMoveByRPM(RPMSupplier.getAsDouble());
+        revolver.initMoveByRPM(rpmSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
-        revolver.updateMoveByRPM(RPMSupplier.getAsDouble());
+        revolver.updateMoveByRPM(rpmSupplier.getAsDouble());
     }
 
     @Override
