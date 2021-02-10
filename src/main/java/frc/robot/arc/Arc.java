@@ -118,6 +118,6 @@ public class Arc extends SubsystemBase {
     }
 
     public boolean isMoving() {
-        return Math.abs(components.getEncoder().getRate()) < MOVING_TOLERANCE_ENCODER_UNITS;
+        return Math.abs(components.getEncoder().getRate()) > MOVING_TOLERANCE_ENCODER_UNITS;
     }
 }
