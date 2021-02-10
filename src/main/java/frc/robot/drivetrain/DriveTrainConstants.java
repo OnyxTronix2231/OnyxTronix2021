@@ -54,13 +54,13 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
         public static final double MAX_SPEED_METERS_PER_SECOND = 5.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 6.9; // TODO: Calibration with A
-        public static final Pose2d START_POSE = new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0));
+        public static final Pose2d START_POSE = new Pose2d(0.3, 2, Rotation2d.fromDegrees(0));
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         private static final double kS = 0.480938; // TODO: This is Sim value, Calibration with A
         private static final double kV = 2.1073; // TODO: This is Sim value, Calibration with A
-        private static final double kA = 0.3123; // TODO: Calibration with A
+        private static final double kA = 0.3144; // TODO: Calibration with A
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(kS, kV, kA);
     }
 
