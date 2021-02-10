@@ -15,6 +15,7 @@ public final class VisionConstants {
     // Main Challenge Constants
 
     // mechanical parameters
+    public static final double CM_IN_METER = 100;
     public static final double CIRCLE_ANGLES = 360;
     public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 38.080000;
     public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 58.649;
