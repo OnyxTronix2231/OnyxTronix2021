@@ -242,6 +242,7 @@ public class DriveTrain extends SubsystemBase {
             getSimLeftMaster().getSelectedSensorVelocity() : getLeftMaster().getSelectedSensorVelocity());
         double voltage = Robot.isSimulation() ?
             getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
-        System.out.println(kaTimer.get() + "," + speed + "," + voltage);
+        if (voltage > 0)
+            System.out.println(kaTimer.get() + "," + speed + "," + voltage);
     }
 }
