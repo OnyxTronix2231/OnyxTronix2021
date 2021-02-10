@@ -22,8 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
-import java.util.function.DoubleSupplier;
-
 public class DriveTrain extends SubsystemBase {
 
     private final DriveTrainComponents components;
@@ -51,12 +49,8 @@ public class DriveTrain extends SubsystemBase {
             simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
         }
     }
-    public double getPercentOutput(){
+    public double getShuffleboardVoltage() {
         return percentOutputEntry.getDouble(0);
-    }
-
-    public void moveByShuffleboard(){
-        arcadeDrive(percentOutputEntry.getDouble(0), 0);
     }
 
     @Override

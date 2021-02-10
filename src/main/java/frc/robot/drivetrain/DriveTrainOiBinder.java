@@ -1,17 +1,7 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
-
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.drivetrain.commands.DriveByJoystick;
-import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.commands.MoveByShuffleboard;
 
 public class DriveTrainOiBinder {
