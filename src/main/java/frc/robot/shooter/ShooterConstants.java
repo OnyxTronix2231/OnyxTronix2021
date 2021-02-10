@@ -10,8 +10,8 @@ public final class ShooterConstants {
 
     public static final class ShooterConstantsA {
 
-        static final int MASTER_MOTOR_ID = 7; // TODO: check and change
-        static final int SLAVE_MOTOR_ID = 8; // TODO: check and change
+        static final int MASTER_MOTOR_ID = 4; // TODO: check and change
+        static final int SLAVE_MOTOR_ID = 5; // TODO: check and change
         static final int SUPPLY_CURRENT_LIMIT = 0; // TODO: check and change
         static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
@@ -33,7 +33,7 @@ public final class ShooterConstants {
     // y = -0.0121x2 +26.707x + 24130 > 450
     // y = 0.1912x2 - 161.44x +67791 < 450
     public static final class ShooterCalculation { // TODO: check and change
-        
+
         static double FORMULA_DISTANCE_FAR(double distance) {
             return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
         }

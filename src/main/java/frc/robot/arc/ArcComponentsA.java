@@ -15,7 +15,7 @@ import sensors.counter.CtreEncoder;
 
 import static frc.robot.arc.ArcConstants.ArcConstantsA.*;
 
-public class BasicArcComponentsA implements ArcComponents {
+public class ArcComponentsA implements ArcComponents {
 
     private final WPI_TalonSRX motor;
     private final CtreEncoder encoder;
@@ -23,7 +23,7 @@ public class BasicArcComponentsA implements ArcComponents {
     private final TalonSrxForwardMicroswitch forwardLimitSwitch;
     private final TalonSrxReverseMicroswitch reverseLimitSwitch;
 
-    public BasicArcComponentsA() {
+    public ArcComponentsA() {
         motor = new WPI_TalonSRX(MOTOR_ID);
         motor.configFactoryDefault();
         motor.configAllSettings(getTalonSRXConfiguration());
