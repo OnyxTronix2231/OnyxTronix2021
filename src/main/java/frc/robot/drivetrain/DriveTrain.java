@@ -238,8 +238,8 @@ public class DriveTrain extends SubsystemBase {
     }
 
     private void kaPrints() {
-        double speed = encoderUnitsDeciSecToMetersSec(Robot.isSimulation() ?
-            getSimLeftMaster().getSelectedSensorVelocity() : getLeftMaster().getSelectedSensorVelocity());
+        double speed = Robot.isSimulation() ?
+            getSimLeftMaster().getSelectedSensorVelocity() : getLeftMaster().getSelectedSensorVelocity();
         double voltage = Robot.isSimulation() ?
             getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
         if (speed > 0)
