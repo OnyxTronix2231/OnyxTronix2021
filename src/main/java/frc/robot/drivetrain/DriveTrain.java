@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -28,6 +29,7 @@ public class DriveTrain extends SubsystemBase {
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
     private final NetworkTableEntry percentOutputEntry;
+    private final Timer kaTimer;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
@@ -44,6 +46,8 @@ public class DriveTrain extends SubsystemBase {
         virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
         getDriveTrainSim().setPose(START_POSE);
         resetEncoders();
+        kaTimer = new Timer();
+        initKaTimer();
         if (Robot.isSimulation()) {
             simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
             simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
@@ -63,6 +67,7 @@ public class DriveTrain extends SubsystemBase {
                         getRightMaster().getSelectedSensorPosition()));
 
         getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
+        kaPrints();
     }
 
     @Override
@@ -225,5 +230,18 @@ public class DriveTrain extends SubsystemBase {
         resetEncoders();
         virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
         components.getNormelizedPigeonIMU().setYaw(0);
+    }
+
+    private void initKaTimer() {
+        kaTimer.reset();
+        kaTimer.start();
+    }
+
+    private void kaPrints() {
+        double speed = encoderUnitsDeciSecToMetersSec(Robot.isSimulation() ?
+            getSimLeftMaster().getSelectedSensorVelocity() : getLeftMaster().getSelectedSensorVelocity());
+        double voltage = Robot.isSimulation() ?
+            getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
+        System.out.println(kaTimer.get() + "," + speed + "," + voltage);
     }
 }
