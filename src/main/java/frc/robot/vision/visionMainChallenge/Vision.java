@@ -67,8 +67,8 @@ public class Vision {
             robotToFieldVector.subtract(VECTOR_FIELD_ZERO_TO_OUTER);
 
             /* the pos x and y are given from the vector itself in centimeters*/
-            double y = robotToFieldVector.y;
-            double x = robotToFieldVector.x;
+            double y = robotToFieldVector.y / CM_IN_METER;
+            double x = robotToFieldVector.x / CM_IN_METER;
 
             /* updating the position and rotation bt creating new instances of Rotation2d and Position2d with the
              * calculated values*/
