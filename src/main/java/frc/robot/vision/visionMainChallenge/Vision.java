@@ -3,14 +3,16 @@ package frc.robot.vision.visionMainChallenge;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
+
+import javax.annotation.Nonnull;
 import java.util.function.DoubleSupplier;
 import static frc.robot.vision.VisionConstants.*;
 
-public class Vision {
+public class Vision extends BaseVision {
 
-    private final Limelight limelight;
     private final OuterTarget outerTarget;
     private final InnerTarget innerTarget;
     private final DoubleSupplier gyroYawAngle;
@@ -22,17 +24,20 @@ public class Vision {
         this.gyroYawAngle = gyroYawAngle;
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);
-        limelight = Limelight.getInstance();
         outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
-        Shuffleboard.getTab("Vision").addNumber("Distance to chosen target", () -> chosenTarget.getAirDistanceTurretToTarget());
-        Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target", () -> chosenTarget.getHorizontalAngleTargetToTurret());
-        Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target", () -> chosenTarget.getHorizontalAngleTargetToRobot());
+        Shuffleboard.getTab("Vision").addNumber("Distance to chosen target",
+                () -> chosenTarget != null ? chosenTarget.getAirDistanceTurretToTarget() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target",
+                () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToTurret() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target",
+                () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToRobot() : -1);
         Shuffleboard.getTab("Vision").addNumber("Calculated position X", () -> currentPos.getX());
         Shuffleboard.getTab("Vision").addNumber("Calculated position Y", () -> currentPos.getY());
         Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());
     }
 
+    @Override
     public void update() {
         outerTarget.update();
         innerTarget.update();
@@ -80,10 +85,6 @@ public class Vision {
     public double getAbsoluteDistanceToOuterTargetWall() {
         return outerTarget.getAirDistanceTurretToTarget() *
                 Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
-    }
-
-    public boolean hasTarget() {
-        return limelight.targetFound();
     }
 
     public double getRobotX(){

@@ -1,20 +1,13 @@
 package frc.robot.vision.visionGSC;
 
+import frc.robot.vision.BaseVision;
 import vision.limelight.Limelight;
 
 import static frc.robot.vision.VisionConstants.VisionGSCConstants.*;
 
-public class VisionGSC {
+public class VisionGSC extends BaseVision{
 
-    private final Limelight limelight;
-
-    public VisionGSC() {
-        limelight = Limelight.getInstance();
-    }
-
-    public boolean hasTarget() {
-        return limelight.targetFound();
-    }
+    private GSCOption chosenOption;
 
     public double getTargetAreaPercentage() {
         return limelight.getTarget().getTargetArea();
@@ -25,6 +18,10 @@ public class VisionGSC {
     }
 
     public GSCOption determineBlueOrRed() {
+        if (!hasTarget()) {
+            return GSCOption.NOT_FOUND;
+        }
+
         if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
             if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
@@ -38,5 +35,12 @@ public class VisionGSC {
         return GSCOption.BLUE1;
     }
 
-    public void update() {}
+    @Override
+    public void update() {
+        chosenOption = determineBlueOrRed();
+    }
+
+    public GSCOption getChosenOption() {
+        return chosenOption;
+    }
 }
