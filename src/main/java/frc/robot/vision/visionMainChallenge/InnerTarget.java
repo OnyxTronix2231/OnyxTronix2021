@@ -4,7 +4,7 @@ import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
 import java.util.function.DoubleSupplier;
-import static frc.robot.vision.VisionConstants.*;
+import static frc.robot.vision.VisionConstants.MainVisionConstants.*;
 
 public class InnerTarget extends VisionTarget {
 

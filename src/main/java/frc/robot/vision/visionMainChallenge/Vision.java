@@ -5,11 +5,9 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
-import vision.limelight.Limelight;
-
-import javax.annotation.Nonnull;
 import java.util.function.DoubleSupplier;
 import static frc.robot.vision.VisionConstants.*;
+import static frc.robot.vision.VisionConstants.MainVisionConstants.*;
 
 public class Vision extends BaseVision {
 

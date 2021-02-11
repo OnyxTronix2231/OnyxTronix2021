@@ -2,7 +2,6 @@ package frc.robot.vision.visionMainChallenge;
 
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
-
 import java.util.function.DoubleSupplier;
 
 public abstract class VisionTarget {
