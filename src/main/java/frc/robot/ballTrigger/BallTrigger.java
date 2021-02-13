@@ -17,13 +17,13 @@ public class BallTrigger extends SubsystemBase {
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
         Shuffleboard.getTab("Ball Trigger").addNumber("Current error in encoder units",
-                () -> components.getMotor().getClosedLoopError());
+                () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
         Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
-                () -> components.getMotor().getSelectedSensorVelocity());
+                () -> components.getMasterMotor().getSelectedSensorVelocity());
         Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
 
         kpEntry = Shuffleboard.getTab("Ball Trigger").add("kP",
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
@@ -48,7 +48,7 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void moveBySpeed(double speed) {
-        components.getMotor().set(speed);
+        components.getMasterMotor().set(speed);
     }
 
     public void initMoveByRPM(double rpm) {
