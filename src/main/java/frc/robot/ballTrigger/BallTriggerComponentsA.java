@@ -26,13 +26,13 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getConfiguration());
-        masterMotor.setNeutralMode(NeutralMode.Brake);
+        masterMotor.setNeutralMode(NeutralMode.Coast);
         masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
         slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
         slaveMotor.configFactoryDefault();
         slaveMotor.configAllSettings(getConfiguration());
-        slaveMotor.setNeutralMode(NeutralMode.Brake);
+        slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
         slaveMotor.follow(masterMotor);
 
