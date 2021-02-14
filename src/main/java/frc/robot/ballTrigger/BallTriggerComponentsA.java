@@ -1,5 +1,6 @@
 package frc.robot.ballTrigger;
 
+import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -14,29 +15,42 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*
 
 public class BallTriggerComponentsA implements BallTriggerComponents {
 
-    private final WPI_TalonSRX motor;
+    private final WPI_TalonSRX masterMotor;
+    private final WPI_TalonSRX slaveMotor;
     private final Solenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
 
     public BallTriggerComponentsA() {
-        motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
-        motor.configFactoryDefault();
-        motor.configAllSettings(getConfiguration());
-        motor.setNeutralMode(NeutralMode.Brake);
-        motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
+        masterMotor.configFactoryDefault();
+        masterMotor.configAllSettings(getConfiguration());
+        masterMotor.setNeutralMode(NeutralMode.Coast);
+        masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+
+        slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
+        slaveMotor.configFactoryDefault();
+        slaveMotor.configAllSettings(getConfiguration());
+        slaveMotor.setNeutralMode(NeutralMode.Coast);
+        slaveMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        slaveMotor.follow(masterMotor);
 
         solenoid = new Solenoid(SOLENOID_CHANNEL);
 
-        encoder = new CtreEncoder(motor);
+        encoder = new CtreEncoder(masterMotor);
 
-        pidController = new CtrePIDController(motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
+        pidController = new CtrePIDController(masterMotor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
     }
 
     @Override
-    public WPI_TalonSRX getMotor() {
-        return motor;
+    public WPI_TalonSRX getMasterMotor() {
+        return masterMotor;
+    }
+
+    @Override
+    public IMotorController getSlaveMotor() {
+        return slaveMotor;
     }
 
     @Override
