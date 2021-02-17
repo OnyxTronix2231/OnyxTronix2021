@@ -3,8 +3,8 @@ package frc.robot.Roulette;
 public class RouletteConstants {
 
     public static final double ROULETTE_ROUNDS_TOLERANCE = 0.1; // TODO: DECIDE TO CHANGE VALUE?
-    static final int MASTER_MOTOR_ID = 10; //TODO: check real value
-    static final int SOLENOID_ID = 2; // TODO: check real value
+    static final int MASTER_MOTOR_ID = 10;
+    static final int SOLENOID_ID = 2;
     static final int ENCODER_UNITS_PER_WHEEL_ROUND = 4096;
     static final double WHEEL_CIRCUMFERENCE = 0.1595929068;// in meters
     static final double RATIO_ROULETTE_TO_WHEEL = 2.54 / WHEEL_CIRCUMFERENCE;
