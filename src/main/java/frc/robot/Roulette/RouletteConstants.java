@@ -4,20 +4,19 @@ import edu.wpi.first.wpilibj.util.Color;
 
 public class RouletteConstants {
 
-    static final int MASTER_MOTOR_ID = 0; //TODO: check real value
-    static final int SOLENOID_ID = 0; // TODO: check real value
+    public static final double ROULETTE_ROUNDS_TOLERANCE = 0.1; // TODO: DECIDE TO CHANGE VALUE?
+    static final int MASTER_MOTOR_ID = 10;
+    static final int SOLENOID_ID = 2;
     static final int ENCODER_UNITS_PER_WHEEL_ROUND = 4096;
-    static final double WHEEL_CIRCUMFERENCE = 0.08;// in meters // TODO: check real value
-    static final double RATIO_ROULETTE_TO_WHEEL = 12; //TODO: check real value
+    static final double WHEEL_CIRCUMFERENCE = 0.1595929068;// in meters
+    static final double RATIO_ROULETTE_TO_WHEEL = 2.54 / WHEEL_CIRCUMFERENCE;
     static final RouletteColor ROULETTE_RED = new RouletteColor(1, 0, 0, "Red"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_GREEN = new RouletteColor(0.4, 1, 0.8, "Green"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_BLUE = new RouletteColor(0, 0.8, 0.8, "Blue"); //TODO: check value again irl
-    static final RouletteColor ROULETTE_YELLOW = new RouletteColor(.55, 0.9, 0, "Yellow"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_GREEN = new RouletteColor(0, 1, 0, "Green"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_BLUE = new RouletteColor(0, 1, 1, "Blue"); //TODO: check value again irl
+    static final RouletteColor ROULETTE_YELLOW = new RouletteColor(1, 1, 0, "Yellow"); //TODO: check value again irl
     static final RouletteColor[] ROULETTE_COLORS = {ROULETTE_RED, ROULETTE_YELLOW, ROULETTE_BLUE, ROULETTE_GREEN};
-    static final int NUM_OF_RGB_CHARS = 3;
     static final double RATIO_ROULETTE_TO_ROULETTE_COLOR = 1.0 / 8;
     static final double PERCENT_TOLERANCE = 0.05; //TODO: check real value
-    public static final double ROULETTE_ROUNDS_TOLERANCE = 0.1; // TODO: DECIDE TO CHANGE VALUE?
     static final int REQUIRED_AMOUNT_OF_ROUNDS = 3;
     static final int COLOR_OFFSET = 2;
     static final int MAX_COLOR_INDEX = 3;
@@ -31,10 +30,7 @@ public class RouletteConstants {
         static final double KD = 0; //TODO: check real value
         static final double KF = 0; //TODO: check real value
         static final int MAX_ACCELERATION = 0; //TODO: check real value
-        static final int MAX_VELOCITY = 0; //TODO: check real value
+        static final int MAX_CRUISE_VELOCITY = 0; //TODO: check real value
         static final int ACCELERATION_SMOOTHING = 0; //TODO: check real value
-        static final double CRUISE_VELOCITY_DEFAULT_VALUE = 0.0;
-        static final double ACCELERATION_SMOOTHING_DEFAULT_VALUE = 0.0;
-        static final double ACCELERATION_DEFAULT_VALUE = 0.0;
     }
 }
