@@ -29,9 +29,9 @@ public class RouletteConstants {
         static final double KP = 0; //TODO: check real value
         static final double KI = 0; //TODO: check real value
         static final double KD = 0; //TODO: check real value
-        static final double KF = 1023 / 15645.8525; //TODO: check real value
-        static final int MAX_ACCELERATION = 110; //TODO: check real value
-        static final int MAX_VELOCITY = 15000; //TODO: check real value
+        static final double KF = 1023 / 19557.0; //TODO: check real value
+        static final int MAX_ACCELERATION = 110000; //TODO: check real value
+        static final int MAX_VELOCITY = 19000; //TODO: check real value
         static final int ACCELERATION_SMOOTHING = 0; //TODO: check real value
         static final double CRUISE_VELOCITY_DEFAULT_VALUE = 0.0;
         static final double ACCELERATION_SMOOTHING_DEFAULT_VALUE = 0.0;
