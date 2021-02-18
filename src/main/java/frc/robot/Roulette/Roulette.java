@@ -48,17 +48,17 @@ public class Roulette extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getController().setPIDFTerms(
-                shuffleboardEntryKP.getDouble(components.getController().getPIDFTerms().getKp()),
-                shuffleboardEntryKI.getDouble(components.getController().getPIDFTerms().getKi()),
-                shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
-                shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
-        components.getController().setCruiseVelocity((int) shuffleboardEntryCruiseVelocity.
-                getDouble(components.getController().getCruiseVelocity()));
-        components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
-                getDouble(components.getController().getAcceleration()));
-        components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
-                getDouble(components.getController().getAccelerationSmoothing()));
+//        components.getController().setPIDFTerms(
+//                shuffleboardEntryKP.getDouble(components.getController().getPIDFTerms().getKp()),
+//                shuffleboardEntryKI.getDouble(components.getController().getPIDFTerms().getKi()),
+//                shuffleboardEntryKD.getDouble(components.getController().getPIDFTerms().getKd()),
+//                shuffleboardEntryKF.getDouble(components.getController().getPIDFTerms().getKf()));
+//        components.getController().setCruiseVelocity((int) shuffleboardEntryCruiseVelocity.
+//                getDouble(components.getController().getCruiseVelocity()));
+//        components.getController().setAcceleration((int) shuffleboardEntryAcceleration.
+//                getDouble(components.getController().getAcceleration()));
+//        components.getController().setAccelerationSmoothing((int) shuffleboardEntryAccelerationSmoothing.
+//                getDouble(components.getController().getAccelerationSmoothing()));
     }
 
     @Override
@@ -66,6 +66,7 @@ public class Roulette extends SubsystemBase {
         components.getSimulator().setInput(components.getMasterMotor().getMotorOutputPercent()
                 * RobotController.getBatteryVoltage());
         components.getSimulator().update(0.02);
+        System.out.println((int) rouletteRoundsToEncoderUnits(components.getSimulator().getOutput(0)));
         components.getMasterMotor().getSimCollection().setQuadratureRawPosition(
                 (int) rouletteRoundsToEncoderUnits(components.getSimulator().getOutput(0)));
 //        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getSimulator()
