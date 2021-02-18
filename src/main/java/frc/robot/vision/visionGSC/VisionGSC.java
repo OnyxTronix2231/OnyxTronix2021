@@ -1,5 +1,6 @@
 package frc.robot.vision.visionGSC;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import vision.limelight.Limelight;
 
@@ -8,6 +9,10 @@ import static frc.robot.vision.VisionConstants.VisionGSCConstants.*;
 public class VisionGSC extends BaseVision{
 
     private GSCOption chosenOption;
+
+    public VisionGSC(){
+        Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption.toString());
+    }
 
     public double getTargetAreaPercentage() {
         return limelight.getTarget().getTargetArea();

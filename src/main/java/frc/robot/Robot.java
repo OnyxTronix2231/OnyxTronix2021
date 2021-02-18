@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.BasicDriveTrainComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.vision.BaseVision;
+import frc.robot.vision.visionGSC.VisionGSC;
 
+import java.nio.channels.GatheringByteChannel;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,6 +27,7 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
+  VisionGSC vision;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,6 +44,8 @@ public class Robot extends TimedRobot {
     }
 
     driveTrain = new DriveTrain(driveTrainComponents);
+
+    vision = new VisionGSC();
 
     new DriverOI(driveTrain);
     new DeputyOI();
@@ -59,6 +65,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    vision.update();
   }
 
   /**
