@@ -68,10 +68,10 @@ public class Roulette extends SubsystemBase {
         components.getSimulator().update(0.02);
         components.getMasterMotor().getSimCollection().setQuadratureRawPosition(
                 (int) rouletteRoundsToEncoderUnits(components.getSimulator().getOutput(0)));
-        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getSimulator()
-                .getCurrentDrawAmps());
-        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
-                components.getSimulator().getCurrentDrawAmps()));
+//        components.getMasterMotor().getSimCollection().setSupplyCurrent(components.getSimulator()
+//                .getCurrentDrawAmps());
+//        RoboRioSim.setVInVoltage(BatterySim.calculateDefaultBatteryLoadedVoltage(
+//                components.getSimulator().getCurrentDrawAmps()));
     }
     
     public void openPiston() {
