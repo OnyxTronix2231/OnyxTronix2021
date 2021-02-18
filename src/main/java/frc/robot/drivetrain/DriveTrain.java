@@ -23,6 +23,9 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
+import java.io.File;
+import java.io.PrintWriter;
+
 public class DriveTrain extends SubsystemBase {
 
     private final DriveTrainComponents components;
@@ -30,6 +33,8 @@ public class DriveTrain extends SubsystemBase {
     private final DriveTrainVirtualComponents virtualComponents;
     private final NetworkTableEntry percentOutputEntry;
     private final Timer kaTimer;
+    private PrintWriter writer;
+    private final File file;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
@@ -48,6 +53,13 @@ public class DriveTrain extends SubsystemBase {
         resetEncoders();
         kaTimer = new Timer();
         initKaTimer();
+        file = new File("/home/lvuser/Output.csv");
+        try {
+            writer = new PrintWriter(file);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         if (Robot.isSimulation()) {
             simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
             simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
@@ -68,6 +80,7 @@ public class DriveTrain extends SubsystemBase {
 
         getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
         kaPrints();
+
     }
 
     @Override
@@ -243,6 +256,6 @@ public class DriveTrain extends SubsystemBase {
         double voltage = Robot.isSimulation() ?
             getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
         if (speed > 0)
-            System.out.println(kaTimer.get() + "," + speed + "," + voltage);
+            writer.println(kaTimer.get() + "," + speed + "," + voltage);
     }
 }
