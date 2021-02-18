@@ -82,7 +82,7 @@ public class Roulette extends SubsystemBase {
         components.getSolenoid().set(false);
     }
 
-    public void moveBySpeed(double speed) {
+    public void setSpeed(double speed) {
         components.getMasterMotor().set(speed);
         System.out.println(components.getMasterMotor().getMotorOutputPercent());
     }
@@ -171,7 +171,7 @@ public class Roulette extends SubsystemBase {
     }
 
     public void stop() {
-        moveBySpeed(0);
+        setSpeed(0);
         components.getController().disable();
     }
 

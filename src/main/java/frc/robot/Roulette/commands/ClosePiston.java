@@ -7,5 +7,6 @@ public class ClosePiston extends InstantCommand {
 
     public ClosePiston(Roulette roulette) {
         super(roulette::closePiston);
+        super.addRequirements(roulette);
     }
 }
