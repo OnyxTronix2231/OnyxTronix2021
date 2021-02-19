@@ -2,7 +2,6 @@ package frc.robot.vision.visionGSC;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
-import vision.limelight.Limelight;
 
 import static frc.robot.vision.VisionConstants.VisionGSCConstants.*;
 
