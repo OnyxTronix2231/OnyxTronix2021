@@ -119,10 +119,13 @@ public class Roulette extends SubsystemBase {
                 getColorSensor().getColor());
     }
 
-    public double getRoundsToColor(RouletteColor requiredColor) {
-        RouletteColor currentColor = getCurrentColor();
+    public double getRoundsToColor(RouletteColor requiredColor){
+        return getRounds(getCurrentColor(), requiredColor);
+    }
+
+    public double getRounds(RouletteColor startingColor, RouletteColor requiredColor){
         int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
-        int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(currentColor);
+        int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(startingColor);
         if (currentColorIndex + COLOR_OFFSET > MAX_COLOR_INDEX) {
             currentColorIndex = currentColorIndex - COLOR_OFFSET;
         } else {
