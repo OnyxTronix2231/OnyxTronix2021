@@ -16,9 +16,9 @@ CalibrateArc o-- Arc
 CalibrateArc <|- ConditionalCommand
 CalibrateArc o-- InstantCommand
 MoveArcBySpeed o-- Arc
-MoveArcBySpeed <|- CommandBase
+CommandBase <|- MoveArcBySpeed
 MoveArcToAngle o-- Arc
-MoveArcToAngle <|- CommandBase
+CommandBase <|- MoveArcToAngle
 MoveArcToDistance o-- Arc
 MoveArcToDistance <|- MoveArcToAngle
 MoveArcUntilLowerLimitSwitch o-- Arc
