@@ -1,10 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class visionConstants
-
 BaseVision <|--- Vision
 BaseVision <|--- VisionGSC
+BaseVision o-- Limelight
 Vision *-- VisionTarget
 Vision *-- InnerTarget
 Vision *-- OuterTarget
@@ -33,15 +32,15 @@ class Vision{
 }
 
 abstract class VisionTarget{
-    Limelight limelight;
-    DoubleSupplier gyroYawAngle;
-    DoubleSupplier turretAngleRTF;
-    Vector2dEx vectorTurretToTargetRTF;
-    Vector2dEx vectorRobotToTargetRTF;
-    double verticalAngleLimelightToTarget;
-    double horizontalAngleTargetToRobot;
-    double airDistanceTurretToTarget;
-    double horizontalAngleTargetToTurret;
+    Limelight limelight
+    DoubleSupplier gyroYawAngle
+    DoubleSupplier turretAngleRTF
+    Vector2dEx vectorTurretToTargetRTF
+    Vector2dEx vectorRobotToTargetRTF
+    double verticalAngleLimelightToTarget
+    double horizontalAngleTargetToRobot
+    double airDistanceTurretToTarget
+    double horizontalAngleTargetToTurret
     void update()
 }
 
@@ -50,7 +49,7 @@ class OuterTarget{
 }
 
 class InnerTarget{
-    OuterTarget outerTarget;
+    OuterTarget outerTarget
     InnerTarget()
 }
 
@@ -69,5 +68,22 @@ enum GSCOption {
     BLUE2
     NOT_FOUND
 }
+
+class Limelight{
+    Limelight instance
+    NetworkTable networkTable
+    Limelight()
+    Limelight getInstance()
+    void setPipeline()
+    void setOperationMode()
+    void setLedMode()
+    void setStreamMode()
+    void setTakeSnapshots()
+    boolean targetFound()
+    LimelightTarget getTarget()
+    LimelightTarget getTargetWithRawCorners()
+}
+
+
 
 @enduml
