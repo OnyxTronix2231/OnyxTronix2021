@@ -1,0 +1,96 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class CommandBase
+abstract class SubsystemBase
+
+SubsystemBase <|--- DriveTrain
+DriveTrain *- DriveTrainComponentsA
+DriveTrain *- DriveTrainVirtualComponentsA
+DriveTrainComponents <|--- DriveTrainComponentsA
+DriveTrainVirtualComponents <|--- DriveTrainVirtualComponentsA
+CommandBase <|--- DriveBySpeed
+CommandBase <|--- MoveByPath
+DriveBySpeed <|--- DriveByJoystick
+DriveBySpeed o-- DriveTrain
+DriveByJoystick o-- DriveTrain
+MoveByPath o-- DriveTrain
+MoveByPath o-- Path
+DriveTrainOiBinder o-- DriveByJoystick
+
+class DriveTrain {
+     void periodic()
+     void simulationPeriodic()
+     void arcadeDrive(final double forwardSpeed, final double rotationSpeed)
+     void updateMoveByRPM(double rpm)
+     Pose2d getPose()
+     DifferentialDriveWheelSpeeds getWheelSpeeds()
+     resetOdometry(Pose2d pose)
+     tankDriveVolts(double leftVolts, double rightVolts)
+     void setMaxOutputArcadeDrive(double maxOutput)
+     void zeroHeading()
+     stopDrive()
+}
+
+class DriveTrainComponentsA {
+    WPI_TalonFX leftMaster
+    WPI_TalonFX leftSlave
+    WPI_TalonFX rightMaster
+    WPI_TalonFX rightSlave
+    SpeedControllerGroup leftMotors
+    SpeedControllerGroup rightMotors
+    NormalizedPigeonIMU pigeonIMU
+}
+
+class DriveTrainVirtualComponentsA {
+    DifferentialDrive differentialDrive
+    DifferentialDriveOdometry odometry
+}
+
+class DriveTrainOiBinder {
+    DriveTrain driveTrain
+    XboxController driveJoystick
+    Trigger resetButton
+    Trigger pathButton
+}
+
+class DriveByJoystick {
+    void execute()
+    void end(boolean interrupted)
+}
+
+class DriveBySpeed {
+    void initialize()
+    void execute()
+    void end(boolean interrupted)
+}
+
+class MoveByPath {
+    void initialize()
+    void execute()
+    void end(boolean interrupted)
+}
+
+class Path {
+    List<Translation2d> middlePoints
+    Pose2d endPose
+    TrajectoryConfig config
+    toTrajectory(Pose2d startPose)
+}
+
+interface DriveTrainComponents {
+    WPI_TalonFX getLeftMasterMotor()
+    IMotorController getLeftSlaveMotor()
+    WPI_TalonFX getRightMasterMotor()
+    IMotorController getRightSlaveMotor()
+    SpeedControllerGroup getLeftMotors()
+    SpeedControllerGroup getRightMotors()
+    NormalizedPigeonIMU getNormelizedPigeonIMU()
+}
+
+interface DriveTrainVirtualComponents {
+    DifferentialDrive getDifferentialDrive()
+    DifferentialDriveOdometry getOdometry()
+}
+
+@enduml
