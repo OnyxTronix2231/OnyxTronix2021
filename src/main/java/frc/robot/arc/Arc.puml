@@ -4,7 +4,6 @@
 
 abstract class SubsystemBase
 abstract class CommandBase
-class InstantCommand
 class ConditionalCommand
 class CalibrateArc
 class MoveArcToDistance
@@ -14,7 +13,6 @@ Arc *-- ArcComponents
 ArcComponents <|- ArcComponentsA
 CalibrateArc o-- Arc
 CalibrateArc <|- ConditionalCommand
-CalibrateArc o-- InstantCommand
 MoveArcBySpeed o-- Arc
 CommandBase <|- MoveArcBySpeed
 MoveArcToAngle o-- Arc
