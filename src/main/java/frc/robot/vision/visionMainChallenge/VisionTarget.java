@@ -33,6 +33,8 @@ public abstract class VisionTarget {
     /*a calculated value- the horizontal angle offset from the vector of the target to the turret direction*/
     protected double horizontalAngleTargetToTurret;
 
+    public abstract void  update();
+
     public abstract double getVerticalAngleLimelightToTarget();
 
     public abstract double getHorizontalAngleTargetToRobot();

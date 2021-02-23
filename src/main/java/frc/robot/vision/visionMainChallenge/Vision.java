@@ -80,7 +80,7 @@ public class Vision extends BaseVision {
         }
     }
 
-    public double getAbsoluteDistanceToOuterTargetWall() {
+    public double DistanceToTargetWall() {
         return outerTarget.getAirDistanceTurretToTarget() *
                 Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
     }

@@ -25,6 +25,7 @@ public class InnerTarget extends VisionTarget {
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
     }
 
+    @Override
     public void update() {
         LimelightTarget target = limelight.getTarget();
 
