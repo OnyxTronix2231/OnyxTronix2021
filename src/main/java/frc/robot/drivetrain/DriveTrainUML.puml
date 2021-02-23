@@ -1,5 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
+!includeurl https://raw.githubusercontent.com/matthewjosephtaylor/plantuml-style/40c705da84ef9e1c12591094c75f511e2a41c137/style.pu
 
 abstract class CommandBase
 abstract class SubsystemBase
@@ -25,11 +26,11 @@ class DriveTrain {
      void updateMoveByRPM(double rpm)
      Pose2d getPose()
      DifferentialDriveWheelSpeeds getWheelSpeeds()
-     resetOdometry(Pose2d pose)
-     tankDriveVolts(double leftVolts, double rightVolts)
+     void resetOdometry(Pose2d pose)
+     void tankDriveVolts(double leftVolts, double rightVolts)
      void setMaxOutputArcadeDrive(double maxOutput)
      void zeroHeading()
-     stopDrive()
+     void stopDrive()
 }
 
 class DriveTrainComponentsA {
