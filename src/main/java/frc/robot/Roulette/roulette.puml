@@ -1,0 +1,75 @@
+@startuml
+'https://plantuml.com/class-diagram
+!includeurl https://raw.githubusercontent.com/matthewjosephtaylor/plantuml-style/40c705da84ef9e1c12591094c75f511e2a41c137/style.pu
+
+abstract class CommandBase
+abstract class SubsystemBase
+
+SpinBySpeed o-- Roulette
+SpinToColor o-- Roulette
+SpinByRouletteRounds o-- Roulette
+SmartSpinToColor o-- Roulette
+Roulette <|-- SubsystemBase
+SpinBySpeed <|-- CommandBase
+SpinByRouletteRounds <|-- CommandBase
+SmartSpinByRouletteRounds <|-- CommandBase
+SmartSpinToColor <|-- CommandBase
+SmartSpinToColor <|-- SmartSpinByRouletteRounds
+SpinToColor <|-- SpinByRouletteRounds
+RouletteComponents <|-- RouletteComponentsA
+Roulette *-- RouletteComponents
+
+class Roulette {
+openPiston()
+closePiston()
+moveBySpeed(double speed)
+getCurrentRouletteRotations()
+colorMatching(Color color)
+initMoveByRotation(double rouletteRounds)
+updateMoveByRotations(double rouletteRounds)
+getRoundsToColor(RouletteColor requiredColor)
+getRounds(RouletteColor startingColor, RouletteColor requiredColor)
+reset()
+stop()
+}
+
+interface RouletteComponents{
+WPI_TalonSRX getMasterMotor()
+Solenoid getSolenoid()
+MotionMagicController getController()
+Counter getEncoder()
+ColorSensorV3 getColorSensor()
+}
+
+class RouletteComponentsA{
+getMasterMotor()
+getSolenoid()
+getController()
+getEncoder()
+getColorSensor()
+}
+
+class SpinBySpeed{
+execute()
+end()
+}
+
+class SpinToColor{}
+
+class SpinByRouletteRounds{
+initialize()
+execute()
+isFinished()
+end(boolean interrupted)
+}
+
+class SmartSpinToColor{}
+
+class SmartSpinByRouletteRounds{
+initialize()
+execute()
+isFinished()
+end(boolean interrupted)
+}
+
+@enduml
