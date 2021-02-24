@@ -50,9 +50,15 @@ public class Robot extends TimedRobot {
         DriveTrainVirtualComponents driveTrainVirtualComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            driveTrainComponents = new DriveTrainComponentsA();
-            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
-            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
+            if (Robot.isSimulation()) {
+                simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+                driveTrainComponents = null;
+            }
+            else {
+                driveTrainComponents = new DriveTrainComponentsA();
+                simulationDriveTrainComponents = null;
+            }
+            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;

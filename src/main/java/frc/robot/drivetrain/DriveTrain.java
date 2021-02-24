@@ -9,6 +9,7 @@ import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -31,60 +32,84 @@ public class DriveTrain extends SubsystemBase {
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
-    private final NetworkTableEntry percentOutputEntry;
+    private final NetworkTableEntry voltageInputEntry;
+    private final NetworkTableEntry resetEntry;
     private final Timer kaTimer;
     private PrintWriter writer;
-    private final File file;
+    private double maxSpeedAtVoltage;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
         this.components = components;
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
-        Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
-        percentOutputEntry = Shuffleboard.getTab("DriveTrain").add("percentOutput", 0).getEntry();
-        Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
-                () -> getSimRightMaster().getMotorOutputVoltage());
-        Shuffleboard.getTab("DriveTrain").addNumber("speed",
-                () -> encoderUnitsDeciSecToMetersSec(getSimRightMaster().getSelectedSensorVelocity()));
-        getField2d().setRobotPose(START_POSE);
-        virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
-        getDriveTrainSim().setPose(START_POSE);
-        resetEncoders();
+        voltageInputEntry = Shuffleboard.getTab("DriveTrain").add("VoltageInput", 0).getEntry();
         kaTimer = new Timer();
+        maxSpeedAtVoltage = 0;
+        resetEntry = Shuffleboard.getTab("DriveTrain").add("Reset", 0).getEntry();
         initKaTimer();
-        file = new File("/home/lvuser/Output.csv");
-        try {
-            writer = new PrintWriter(file);
+        if (Robot.isSimulation()) {
+            Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
+            Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
+                    () -> getSimRightMaster().getMotorOutputVoltage());
+            Shuffleboard.getTab("DriveTrain").addNumber("speed",
+                    () -> encoderUnitsDeciSecToMetersSec(getSimLeftMaster().getSelectedSensorVelocity()));
+            getField2d().setRobotPose(START_POSE);
+            getDriveTrainSim().setPose(START_POSE);
         }
-        catch (Exception e){
+        else {
+            Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
+                    () -> getLeftMaster().getMotorOutputVoltage());
+            Shuffleboard.getTab("DriveTrain").addNumber("speed",
+                    () -> encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()));
+        }
+        Shuffleboard.getTab("DriveTrain").addNumber("Current Left Master",
+                ()-> getLeftMaster().getStatorCurrent());
+        Shuffleboard.getTab("DriveTrain").addNumber("Current Right Master",
+                ()-> getRightMaster().getStatorCurrent());
+        Shuffleboard.getTab("DriveTrain").addNumber("Current Left Slave",
+                ()-> ((TalonFX)(components.getLeftSlaveMotor())).getStatorCurrent());
+        Shuffleboard.getTab("DriveTrain").addNumber("Current Right Slave",
+                ()-> ((TalonFX)(components.getRightSlaveMotor())).getStatorCurrent());
+        Shuffleboard.getTab("DriveTrain").addNumber("Current Diff",
+                ()-> (getLeftMaster().getStatorCurrent() + ((TalonFX)components.getLeftSlaveMotor()).getStatorCurrent()
+                        - (getRightMaster().getStatorCurrent() + ((TalonFX)(components.getRightSlaveMotor())).getStatorCurrent())));
+        virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
+        resetEncoders();
+        try {
+            writer = new PrintWriter("/home/lvuser/Output.csv");
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if (Robot.isSimulation()) {
-            simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
-            simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
-        }
     }
+
     public double getShuffleboardVoltage() {
-        return percentOutputEntry.getDouble(0);
+        return voltageInputEntry.getDouble(0);
     }
 
     @Override
     public void periodic() {
+        double speed = encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity());
+        if (resetEntry.getDouble(0) == 1)
+            maxSpeedAtVoltage = 0;
+        else if (speed > maxSpeedAtVoltage)
+            maxSpeedAtVoltage = speed;
+//        System.out.println(maxSpeedAtVoltage);
+//        System.out.println(getLeftMaster().getSupplyCurrent());
         virtualComponents.getOdometry().update(
                 Rotation2d.fromDegrees(getHeading()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimLeftMaster().getSelectedSensorPosition() :
                         getLeftMaster().getSelectedSensorPosition()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
                         getRightMaster().getSelectedSensorPosition()));
-
-        getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
         kaPrints();
 
+        //System.out.println(encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()));
     }
 
     @Override
     public void simulationPeriodic() {
+        getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
         getDriveTrainSim().setInputs(
                 getSimLeftMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage(),
                 getSimRightMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage());
@@ -101,13 +126,18 @@ public class DriveTrain extends SubsystemBase {
                 (int) metersToEncoderUnits(getDriveTrainSim().getRightPositionMeters()));
 
         simulationComponents.getAnalogGyroSim().setAngle(getDriveTrainSim().getHeading().getDegrees());
+        System.out.println("o ma boy");
     }
 
     public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
-        virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-                rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
-        virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-                rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        }
+        else {
+            virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        }
     }
 
     public Pose2d getPose() {
@@ -128,12 +158,16 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        components.getLeftMotors().setVoltage(leftVolts);
-        components.getRightMotors().setVoltage(rightVolts);
-        virtualComponents.getDifferentialDrive().feed();
-        simulationComponents.getLeftMotors().setVoltage(leftVolts);
-        simulationComponents.getRightMotors().setVoltage(rightVolts);
-        virtualComponents.getSimDifferentialDrive().feed();
+        if (Robot.isReal()) {
+            components.getLeftMotors().setVoltage(leftVolts);
+            components.getRightMotors().setVoltage(rightVolts);
+            virtualComponents.getDifferentialDrive().feed();
+        }
+        else {
+            simulationComponents.getLeftMotors().setVoltage(leftVolts);
+            simulationComponents.getRightMotors().setVoltage(rightVolts);
+            virtualComponents.getSimDifferentialDrive().feed();
+        }
     }
 
     public double getAverageEncoderDistance() {
@@ -143,13 +177,21 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setMaxOutputArcadeDrive(double maxOutput) {
-        virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
-        virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
+        }
+        else {
+            virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
+        }
     }
 
     public void zeroHeading() {
-        components.getNormelizedPigeonIMU().setYaw(0);
-        simulationComponents.getAnalogGyroSim().setAngle(0);
+        if (Robot.isReal()) {
+            components.getNormelizedPigeonIMU().setYaw(0);
+        }
+        else {
+            simulationComponents.getAnalogGyroSim().setAngle(0);
+        }
     }
 
     public double getHeading() {
@@ -163,8 +205,12 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void stopDrive() {
-        virtualComponents.getDifferentialDrive().stopMotor();
-        virtualComponents.getSimDifferentialDrive().stopMotor();
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().stopMotor();
+        }
+        else {
+            virtualComponents.getSimDifferentialDrive().stopMotor();
+        }
     }
 
     public void setNeutralModeToCoast() {
@@ -222,10 +268,14 @@ public class DriveTrain extends SubsystemBase {
     }
 
     private void resetEncoders() {
-        getLeftMaster().setSelectedSensorPosition(0);
-        getRightMaster().setSelectedSensorPosition(0);
-        getSimLeftMaster().setSelectedSensorPosition(0);
-        getSimRightMaster().setSelectedSensorPosition(0);
+        if (Robot.isReal()) {
+            getLeftMaster().setSelectedSensorPosition(0);
+            getRightMaster().setSelectedSensorPosition(0);
+        }
+        else {
+            getSimLeftMaster().setSelectedSensorPosition(0);
+            getSimRightMaster().setSelectedSensorPosition(0);
+        }
     }
 
     public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
@@ -256,6 +306,10 @@ public class DriveTrain extends SubsystemBase {
         double voltage = Robot.isSimulation() ?
             getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
         if (speed > 0)
-            writer.println(kaTimer.get() + "," + speed + "," + voltage);
+            try {
+                writer.println(kaTimer.get() + "," + speed + "," + voltage);
+            } catch (Exception e){
+                //e.printStackTrace();
+            }
     }
 }
