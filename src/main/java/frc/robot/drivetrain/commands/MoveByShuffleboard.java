@@ -1,6 +1,7 @@
 package frc.robot.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.drivetrain.DriveTrain;
 
 public class MoveByShuffleboard extends CommandBase {
@@ -19,7 +20,11 @@ public class MoveByShuffleboard extends CommandBase {
 
     @Override
     public void execute() {
-        driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), driveTrain.getShuffleboardVoltage());
+        if (Robot.isSimulation()) {
+            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), driveTrain.getShuffleboardVoltage());
+        } else {
+            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), -driveTrain.getShuffleboardVoltage());
+        }
     }
 
     @Override
