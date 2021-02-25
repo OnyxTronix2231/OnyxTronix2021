@@ -1,15 +1,15 @@
 package frc.robot.drivetrain.commands;
 
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.FEEDFORWARD;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.LEFT_FEEDFORWARD;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_B;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_ZETA;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RIGHT_FEEDFORWARD;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.TRAJECTORY_P;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.utils.Path;
 
@@ -21,6 +21,7 @@ public class MoveByPath extends CommandBase {
     public MoveByPath(DriveTrain driveTrain, Path path) {
         this.driveTrain = driveTrain;
         this.path = path;
+        addRequirements(driveTrain);
     }
 
     @Override
@@ -29,8 +30,8 @@ public class MoveByPath extends CommandBase {
                 path.toTrajectory(driveTrain.getPose()),
                 driveTrain::getPose,
                 new RamseteController(RAMSETE_B, RAMSETE_ZETA),
-                FEEDFORWARD,
-                FEEDFORWARD,
+                LEFT_FEEDFORWARD,
+                RIGHT_FEEDFORWARD,
                 DRIVE_KINEMATICS,
                 driveTrain::getWheelSpeeds,
                 new PIDController(TRAJECTORY_P, 0, 0),

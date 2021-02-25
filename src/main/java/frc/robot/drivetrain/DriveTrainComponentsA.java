@@ -25,8 +25,6 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
     private final WPI_TalonFX leftSlave;
     private final WPI_TalonFX rightMaster;
     private final WPI_TalonFX rightSlave;
-    private final SpeedControllerGroup leftMotors;
-    private final SpeedControllerGroup rightMotors;
     private final NormalizedPigeonIMU pigeonIMU;
 
     public DriveTrainComponentsA() {
@@ -54,21 +52,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         leftSlave.setNeutralMode(NeutralMode.Brake);
         leftSlave.follow(leftMaster);
 
-        leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
-
-        rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
-
         pigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);
-    }
-
-    @Override
-    public SpeedControllerGroup getLeftMotors() {
-        return leftMotors;
-    }
-
-    @Override
-    public SpeedControllerGroup getRightMotors() {
-        return rightMotors;
     }
 
     @Override

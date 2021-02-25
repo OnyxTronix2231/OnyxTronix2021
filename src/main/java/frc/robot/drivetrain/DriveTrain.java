@@ -63,7 +63,20 @@ public class DriveTrain extends SubsystemBase {
           () -> maxLeft);
       Shuffleboard.getTab("DriveTrain").addNumber("max speed right",
           () -> maxRight);
+      Shuffleboard.getTab("DriveTrain").addNumber("START X",
+              () -> START_POSE.getX());
+      Shuffleboard.getTab("DriveTrain").addNumber("START Y",
+              () -> START_POSE.getY());
+      Shuffleboard.getTab("DriveTrain").addNumber("START ROTATION DEGREES",
+              () -> START_POSE.getRotation().getDegrees());
+      Shuffleboard.getTab("DriveTrain").addNumber("CURRENT X",
+              () -> virtualComponents.getOdometry().getPoseMeters().getX());
+      Shuffleboard.getTab("DriveTrain").addNumber("CURRENT Y",
+              () -> virtualComponents.getOdometry().getPoseMeters().getY());
+      Shuffleboard.getTab("DriveTrain").addNumber("CURRENT ROTATION DEGREES",
+              () -> virtualComponents.getOdometry().getPoseMeters().getRotation().getDegrees());
     }
+    components.getNormelizedPigeonIMU().setYaw(0);
     virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
     resetEncoders();
   }
@@ -151,13 +164,11 @@ public class DriveTrain extends SubsystemBase {
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
     if (Robot.isReal()) {
-      components.getLeftMotors().setVoltage(leftVolts);
-      components.getRightMotors().setVoltage(rightVolts);
-      virtualComponents.getDifferentialDrive().feed();
+      getLeftMaster().set(leftVolts / 12);
+      getRightMaster().set(rightVolts / 12);
     } else {
-      simulationComponents.getLeftMotors().setVoltage(leftVolts);
-      simulationComponents.getRightMotors().setVoltage(rightVolts);
-      virtualComponents.getSimDifferentialDrive().feed();
+      getSimLeftMaster().set(leftVolts / 12);
+      getSimRightMaster().set(rightVolts / 12);
     }
   }
 

@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComponents {
 
-    private final SpeedControllerGroup leftMotors;
-    private final SpeedControllerGroup rightMotors;
     private final WPI_TalonSRX leftMaster;
     private final WPI_TalonSRX leftSlave;
     private final WPI_TalonSRX rightMaster;
@@ -56,10 +54,6 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
         rightSlave.setNeutralMode(NeutralMode.Brake);
         rightSlave.follow(rightMaster);
 
-        leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
-
-        rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
-
         analogGyroSim = new AnalogGyroSim(0);
 
         field2d = new Field2d();
@@ -83,16 +77,6 @@ public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComp
     @Override
     public IMotorController getLeftSlaveMotor() {
         return leftSlave;
-    }
-
-    @Override
-    public SpeedControllerGroup getLeftMotors() {
-        return leftMotors;
-    }
-
-    @Override
-    public SpeedControllerGroup getRightMotors() {
-        return rightMotors;
     }
 
     @Override

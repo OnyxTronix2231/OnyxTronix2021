@@ -54,17 +54,21 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
         public static final double MAX_SPEED_METERS_PER_SECOND = 5.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 6.9; // TODO: Calibration with A
-        public static final Pose2d START_POSE = new Pose2d(0.3, 2, Rotation2d.fromDegrees(0));
+        public static final Pose2d START_POSE = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         private static final double SIM_KS = 0.480938; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KA = 0.3144; // TODO: Calibration with A
-        private static final double KS = 0.745; // TODO: This is Sim value, Calibration with A
-        private static final double KV = 2.1073; // TODO: This is Sim value, Calibration with A
-        private static final double KA = 0.3144; // TODO: Calibration with A
-        public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
+        private static final double LEFT_KS = 0.72; // TODO: This is Sim value, Calibration with A
+        private static final double LEFT_KV = 1.96296; // TODO: This is Sim value, Calibration with A
+        private static final double LEFT_KA = 0.5101; // TODO: Calibration with A
+        private static final double RIGHT_KS = 0.72; // TODO: This is Sim value, Calibration with A
+        private static final double RIGHT_KV = 1.98386; // TODO: This is Sim value, Calibration with A
+        private static final double RIGHT_KA = 0.48; // TODO: Calibration with A
+        public static final SimpleMotorFeedforward LEFT_FEEDFORWARD = new SimpleMotorFeedforward(LEFT_KS, LEFT_KV, LEFT_KA);
+        public static final SimpleMotorFeedforward RIGHT_FEEDFORWARD = new SimpleMotorFeedforward(RIGHT_KS, RIGHT_KV, RIGHT_KA);
     }
 
     public static final class InfiniteRechargePaths {

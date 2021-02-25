@@ -150,7 +150,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralModeToBrake();
-        CommandScheduler.getInstance().schedule(new KAPrints(driveTrain));
+        //CommandScheduler.getInstance().schedule(new KAPrints(driveTrain));
     }
 
     /**

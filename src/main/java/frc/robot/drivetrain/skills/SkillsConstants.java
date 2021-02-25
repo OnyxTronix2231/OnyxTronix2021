@@ -148,5 +148,8 @@ public class SkillsConstants {
                 new Translation2d(5.2, OFFSET - 3.6),
                 new Translation2d(6.3, OFFSET - 3.6)
         ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)));
+
+        public static final Path TEST_STRAIGHT_PATH = new Path(List.of(
+        ), new Pose2d(2,  0, Rotation2d.fromDegrees(0)));
     }
 }
