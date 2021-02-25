@@ -13,7 +13,7 @@ public class MoveByShuffleboard extends CommandBase {
 
     public MoveByShuffleboard(DriveTrain driveTrain){
         this.driveTrain = driveTrain;
-        offsetEntry = Shuffleboard.getTab("DriveTrain").add("Offset", 0.94).getEntry();
+        offsetEntry = Shuffleboard.getTab("DriveTrain").add("Offset", 1).getEntry();
         addRequirements(driveTrain);
     }
 
@@ -27,7 +27,7 @@ public class MoveByShuffleboard extends CommandBase {
         if (Robot.isSimulation()) {
             driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), driveTrain.getShuffleboardVoltage());
         } else {
-            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage() * offsetEntry.getDouble(0.94), driveTrain.getShuffleboardVoltage());
+            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage() * offsetEntry.getDouble(1), driveTrain.getShuffleboardVoltage());
         }
     }
 

@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
+import frc.robot.drivetrain.commands.KAPrints;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.skills.GSCOption;
 import frc.robot.drivetrain.utils.Path;
 
+import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -148,6 +150,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralModeToBrake();
+        CommandScheduler.getInstance().schedule(new KAPrints(driveTrain));
     }
 
     /**

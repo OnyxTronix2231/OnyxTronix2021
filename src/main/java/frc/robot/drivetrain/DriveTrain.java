@@ -296,20 +296,23 @@ public class DriveTrain extends SubsystemBase {
 
   public void kaPrints(PrintWriter left, PrintWriter right) {
     double leftSpeed = Robot.isSimulation() ?
-        getSimLeftMaster().getSelectedSensorVelocity() : getLeftMaster().getSelectedSensorVelocity();
+            encoderUnitsDeciSecToMetersSec(getSimLeftMaster().getSelectedSensorVelocity()) : encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity());
     double leftVoltage = Robot.isSimulation() ?
         getSimLeftMaster().getMotorOutputVoltage() : getLeftMaster().getMotorOutputVoltage();
 
     double rightSpeed = Robot.isSimulation() ?
-        getSimRightMaster().getSelectedSensorVelocity() : getRightMaster().getSelectedSensorVelocity();
+            encoderUnitsDeciSecToMetersSec(getSimRightMaster().getSelectedSensorVelocity()) : encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity());
     double rightVoltage = Robot.isSimulation() ?
         getSimRightMaster().getMotorOutputVoltage() : getRightMaster().getMotorOutputVoltage();
 
     try {
-      left.println(kaTimer.get() + "," + leftSpeed + "," + leftVoltage);
+      if (leftSpeed != 0 && leftVoltage != 0) {
+        left.println(kaTimer.get() + "," + leftSpeed + "," + leftVoltage);
+      }
+      if (rightSpeed != 0 && rightVoltage != 0)
       right.println(kaTimer.get() + "," + rightSpeed + "," + rightVoltage);
     } catch (Exception e) {
-
+      e.printStackTrace();
     }
   }
 }
