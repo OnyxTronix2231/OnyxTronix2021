@@ -16,7 +16,7 @@ import frc.robot.drivetrain.utils.Path;
 public class MoveByPath extends CommandBase {
     private final DriveTrain driveTrain;
     private final Path path;
-    private RamseteCommand command;
+    private OnyxRamseteCommand command;
 
     public MoveByPath(DriveTrain driveTrain, Path path) {
         this.driveTrain = driveTrain;
@@ -25,10 +25,11 @@ public class MoveByPath extends CommandBase {
 
     @Override
     public void initialize() {
-        command = new RamseteCommand(
+        command = new OnyxRamseteCommand(
                 path.toTrajectory(driveTrain.getPose()),
                 driveTrain::getPose,
                 new RamseteController(RAMSETE_B, RAMSETE_ZETA),
+                FEEDFORWARD,
                 FEEDFORWARD,
                 DRIVE_KINEMATICS,
                 driveTrain::getWheelSpeeds,

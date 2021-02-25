@@ -52,13 +52,14 @@ public class Robot extends TimedRobot {
         if (ROBOT_TYPE == RobotType.A) {
             if (Robot.isSimulation()) {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
                 driveTrainComponents = null;
             }
             else {
                 driveTrainComponents = new DriveTrainComponentsA();
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
                 simulationDriveTrainComponents = null;
             }
-            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
@@ -95,7 +96,7 @@ public class Robot extends TimedRobot {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                driveTrain.setNeutralModeToCoast();
+                if (isDisabled()) driveTrain.setNeutralModeToCoast();
             }
         }, 3000);
     }
