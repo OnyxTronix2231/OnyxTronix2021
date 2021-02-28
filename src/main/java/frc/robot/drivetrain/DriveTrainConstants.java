@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
+import frc.robot.drivetrain.skills.SkillsConstants;
 import frc.robot.drivetrain.utils.Path;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-        public static final Pose2d START_POSE = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
+        public static final Pose2d START_POSE = SkillsConstants.StartingPositions.AUTONAV_THIRD_START;
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
@@ -62,11 +63,11 @@ public final class DriveTrainConstants {
         private static final double SIM_KV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KA = 0.3144; // TODO: Calibration with A
         private static final double LEFT_KS = 0.72; // TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KV = 1.96296; // TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KA = 0.51; // TODO: Calibration with A
+        private static final double LEFT_KV = 1.98; // TODO: This is Sim value, Calibration with A
+        private static final double LEFT_KA = 0.38; // TODO: Calibration with A
         private static final double RIGHT_KS = 0.72; // TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KV = 1.98386; // TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KA = 0.48; // TODO: Calibration with A
+        private static final double RIGHT_KV = 1.98; // TODO: This is Sim value, Calibration with A
+        private static final double RIGHT_KA = 0.38; // TODO: Calibration with A
         public static final SimpleMotorFeedforward LEFT_FEEDFORWARD = new SimpleMotorFeedforward(LEFT_KS, LEFT_KV, LEFT_KA);
         public static final SimpleMotorFeedforward RIGHT_FEEDFORWARD = new SimpleMotorFeedforward(RIGHT_KS, RIGHT_KV, RIGHT_KA);
     }
