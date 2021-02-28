@@ -87,7 +87,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
         config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
         config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
-        config.supplyCurrLimit.enable = true;
+        config.supplyCurrLimit.enable = false;
         return config;
     }
 }

@@ -29,8 +29,8 @@ public class DriveTrain extends SubsystemBase {
   private final DriveTrainComponents components;
   private final SimulationDriveTrainComponents simulationComponents;
   private final DriveTrainVirtualComponents virtualComponents;
-  private final NetworkTableEntry voltageInputEntry;
-  private final NetworkTableEntry resetEntry;
+//  private final NetworkTableEntry voltageInputEntry;
+//  private final NetworkTableEntry resetEntry;
   private final Timer kaTimer;
   private double maxLeft;
   private double maxRight;
@@ -40,9 +40,9 @@ public class DriveTrain extends SubsystemBase {
     this.components = components;
     this.simulationComponents = simulationComponents;
     this.virtualComponents = virtualComponents;
-    voltageInputEntry = Shuffleboard.getTab("DriveTrain").add("VoltageInput", 0).getEntry();
+//    voltageInputEntry = Shuffleboard.getTab("DriveTrain").add("VoltageInput", 0).getEntry();
     kaTimer = new Timer();
-    resetEntry = Shuffleboard.getTab("DriveTrain").add("Reset", 0).getEntry();
+//    resetEntry = Shuffleboard.getTab("DriveTrain").add("Reset", 0).getEntry();
     initKaTimer();
     if (Robot.isSimulation()) {
       Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
@@ -53,22 +53,22 @@ public class DriveTrain extends SubsystemBase {
       getField2d().setRobotPose(START_POSE);
       getDriveTrainSim().setPose(START_POSE);
     } else {
-      Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
-          () -> getLeftMaster().getMotorOutputVoltage());
-      Shuffleboard.getTab("DriveTrain").addNumber("speed left",
-          () -> encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()));
-      Shuffleboard.getTab("DriveTrain").addNumber("speed right",
-          () -> encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity()));
-      Shuffleboard.getTab("DriveTrain").addNumber("max speed left",
-          () -> maxLeft);
-      Shuffleboard.getTab("DriveTrain").addNumber("max speed right",
-          () -> maxRight);
-      Shuffleboard.getTab("DriveTrain").addNumber("START X",
-              () -> START_POSE.getX());
-      Shuffleboard.getTab("DriveTrain").addNumber("START Y",
-              () -> START_POSE.getY());
-      Shuffleboard.getTab("DriveTrain").addNumber("START ROTATION DEGREES",
-              () -> START_POSE.getRotation().getDegrees());
+//      Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
+//          () -> getLeftMaster().getMotorOutputVoltage());
+//      Shuffleboard.getTab("DriveTrain").addNumber("speed left",
+//          () -> encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()));
+//      Shuffleboard.getTab("DriveTrain").addNumber("speed right",
+//          () -> encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity()));
+//      Shuffleboard.getTab("DriveTrain").addNumber("max speed left",
+//          () -> maxLeft);
+//      Shuffleboard.getTab("DriveTrain").addNumber("max speed right",
+//          () -> maxRight);
+//      Shuffleboard.getTab("DriveTrain").addNumber("START X",
+//              () -> START_POSE.getX());
+//      Shuffleboard.getTab("DriveTrain").addNumber("START Y",
+//              () -> START_POSE.getY());
+//      Shuffleboard.getTab("DriveTrain").addNumber("START ROTATION DEGREES",
+//              () -> START_POSE.getRotation().getDegrees());
       Shuffleboard.getTab("DriveTrain").addNumber("CURRENT X",
               () -> virtualComponents.getOdometry().getPoseMeters().getX());
       Shuffleboard.getTab("DriveTrain").addNumber("CURRENT Y",
@@ -81,9 +81,9 @@ public class DriveTrain extends SubsystemBase {
     resetEncoders();
   }
 
-  public double getShuffleboardVoltage() {
-    return voltageInputEntry.getDouble(0);
-  }
+//  public double getShuffleboardVoltage() {
+//    return voltageInputEntry.getDouble(0);
+//  }
 
   @Override
   public void periodic() {
@@ -100,12 +100,12 @@ public class DriveTrain extends SubsystemBase {
 //        System.out.println(maxSpeedAtVoltage);
 //        System.out.println(getLeftMaster().getSupplyCurrent());
 //        }
-    if (resetEntry.getDouble(0) == 1) {
-      maxLeft = 0;
-      maxRight = 0;
-    }
+//    if (resetEntry.getDouble(0) == 1) {
+//      maxLeft = 0;
+//      maxRight = 0;
+//    }
     virtualComponents.getOdometry().update(
-        Rotation2d.fromDegrees(getHeading()),
+        Rotation2d.fromDegrees(-getHeading()),
         encoderUnitsToMeters(Robot.isSimulation() ? getSimLeftMaster().getSelectedSensorPosition() :
             getLeftMaster().getSelectedSensorPosition()),
         encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :

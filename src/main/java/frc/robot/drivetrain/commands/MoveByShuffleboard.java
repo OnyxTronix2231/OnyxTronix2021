@@ -25,9 +25,9 @@ public class MoveByShuffleboard extends CommandBase {
     @Override
     public void execute() {
         if (Robot.isSimulation()) {
-            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), driveTrain.getShuffleboardVoltage());
+//            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage(), driveTrain.getShuffleboardVoltage());
         } else {
-            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage() * offsetEntry.getDouble(1), driveTrain.getShuffleboardVoltage());
+//            driveTrain.tankDriveVolts(driveTrain.getShuffleboardVoltage() * offsetEntry.getDouble(1), driveTrain.getShuffleboardVoltage());
         }
     }
 

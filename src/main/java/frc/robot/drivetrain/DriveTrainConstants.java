@@ -52,8 +52,8 @@ public final class DriveTrainConstants {
         public static final double RAMSETE_B = 2;
         public static final double RAMSETE_ZETA = 0.7;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
-        public static final double MAX_SPEED_METERS_PER_SECOND = 5.5; // TODO: Calibration with A
-        public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 6.9; // TODO: Calibration with A
+        public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
+        public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final Pose2d START_POSE = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
@@ -63,7 +63,7 @@ public final class DriveTrainConstants {
         private static final double SIM_KA = 0.3144; // TODO: Calibration with A
         private static final double LEFT_KS = 0.72; // TODO: This is Sim value, Calibration with A
         private static final double LEFT_KV = 1.96296; // TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KA = 0.5101; // TODO: Calibration with A
+        private static final double LEFT_KA = 0.51; // TODO: Calibration with A
         private static final double RIGHT_KS = 0.72; // TODO: This is Sim value, Calibration with A
         private static final double RIGHT_KV = 1.98386; // TODO: This is Sim value, Calibration with A
         private static final double RIGHT_KA = 0.48; // TODO: Calibration with A
