@@ -4,8 +4,7 @@ import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
 import java.util.function.DoubleSupplier;
-import static frc.robot.vision.VisionConstants.*;
-import static frc.robot.vision.VisionConstants.MainVisionConstants.*;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
 
@@ -55,7 +54,7 @@ public class OuterTarget extends VisionTarget {
                     horizontalAngleLimelightToTarget);
 
             /* this is a vector addition and NOT a numeric addition of the vector values*/
-            turretToTargetVector.add(VECTOR_LIMELIGHT_TO_TURRET);
+            turretToTargetVector.add(VECTOR_TURRET_TO_LIMELIGHT);
 
             /* after calculating the correct vector we can calculate its distance to have the true distance
              * from the turret to the target*/

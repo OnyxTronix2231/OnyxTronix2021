@@ -4,7 +4,7 @@ import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
 import java.util.function.DoubleSupplier;
-import static frc.robot.vision.VisionConstants.MainVisionConstants.*;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class InnerTarget extends VisionTarget {
 
@@ -63,7 +63,7 @@ public class InnerTarget extends VisionTarget {
                             horizontalAngleTargetToTurret);
 
             /* this is a vector subtraction and NOT a numeric subtraction of the vector's values*/
-            limelightToTargetVector.subtract(VECTOR_LIMELIGHT_TO_TURRET);
+            limelightToTargetVector.subtract(VECTOR_TURRET_TO_LIMELIGHT);
 
             /* using the limelight to target vector we calculate the horizontal air distance to it*/
             airDistanceTurretToTarget = limelightToTargetVector.magnitude();

@@ -3,7 +3,7 @@ package frc.robot.vision.visionGSC;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 
-import static frc.robot.vision.VisionConstants.VisionGSCConstants.*;
+import static frc.robot.vision.visionGSC.VisionGSCConstants.*;
 
 public class VisionGSC extends BaseVision{
 

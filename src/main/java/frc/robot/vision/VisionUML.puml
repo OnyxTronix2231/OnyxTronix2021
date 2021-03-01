@@ -1,15 +1,16 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-BaseVision <|--- Vision
-BaseVision <|--- VisionGSC
+BaseVision <|-- Vision
+BaseVision <|-- VisionGSC
 BaseVision o-- Limelight
-Vision *-- VisionTarget
+Vision o-- VisionTarget
 Vision *-- InnerTarget
 Vision *-- OuterTarget
 VisionTarget <|-- InnerTarget
 VisionTarget <|-- OuterTarget
 VisionGSC *-- GSCOption
+InnerTarget o-- OuterTarget
 
 abstract class BaseVision{
     Limelight limelight

@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
 import java.util.function.DoubleSupplier;
-import static frc.robot.vision.VisionConstants.*;
-import static frc.robot.vision.VisionConstants.MainVisionConstants.*;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class Vision extends BaseVision {
 
