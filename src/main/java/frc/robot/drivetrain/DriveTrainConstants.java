@@ -62,12 +62,18 @@ public final class DriveTrainConstants {
         private static final double SIM_KS = 0.480938; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KA = 0.3144; // TODO: Calibration with A
-        private static final double LEFT_KS = 0.72; // TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KV = 1.98; // TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KA = 0.38; // TODO: Calibration with A
-        private static final double RIGHT_KS = 0.72; // TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KV = 1.98; // TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KA = 0.38; // TODO: Calibration with A
+        private static final double LEFT_KS = 0.772; // 0.72 TODO: This is Sim value, Calibration with A
+        private static final double LEFT_KV = 2.02; // 1.98 TODO: This is Sim value, Calibration with A
+        private static final double LEFT_KA = 0.276; // 0.38 TODO: Calibration with A
+        private static final double RIGHT_KS = 0.772; // 0.72 TODO: This is Sim value, Calibration with A
+        private static final double RIGHT_KV = 2.02; // 1.98 TODO: This is Sim value, Calibration with A
+        private static final double RIGHT_KA = 0.276; // 0.38 TODO: Calibration with A
+//        private static final double LEFT_KS = 0.72; // 0.72 TODO: This is Sim value, Calibration with A
+//        private static final double LEFT_KV = 1.98; // 1.98 TODO: This is Sim value, Calibration with A
+//        private static final double LEFT_KA = 0.38; // 0.38 TODO: Calibration with A
+//        private static final double RIGHT_KS = 0.72; // 0.72 TODO: This is Sim value, Calibration with A
+//        private static final double RIGHT_KV = 1.98; // 1.98 TODO: This is Sim value, Calibration with A
+//        private static final double RIGHT_KA = 0.38; // 0.38 TODO: Calibration with A
         public static final SimpleMotorFeedforward LEFT_FEEDFORWARD = new SimpleMotorFeedforward(LEFT_KS, LEFT_KV, LEFT_KA);
         public static final SimpleMotorFeedforward RIGHT_FEEDFORWARD = new SimpleMotorFeedforward(RIGHT_KS, RIGHT_KV, RIGHT_KA);
     }

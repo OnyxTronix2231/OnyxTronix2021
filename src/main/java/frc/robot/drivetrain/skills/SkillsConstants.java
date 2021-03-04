@@ -73,7 +73,7 @@ public class SkillsConstants {
 
         public static final Pose2d AUTONAV_FIRST_START = new Pose2d(1.2, OFFSET - 2.5, Rotation2d.fromDegrees(0));
         public static final Pose2d AUTONAV_SECOND_START = new Pose2d(1.2, OFFSET - 3.4, Rotation2d.fromDegrees(0));
-        public static final Pose2d AUTONAV_THIRD_START = new Pose2d(1.2, OFFSET - 2.3, Rotation2d.fromDegrees(0));
+        public static final Pose2d AUTONAV_THIRD_START = new Pose2d(1.04, OFFSET - 2.3, Rotation2d.fromDegrees(0));
     }
 
     public static final class Paths {
@@ -140,15 +140,18 @@ public class SkillsConstants {
                 new Translation2d(2.95, OFFSET - 2.5),
                 new Translation2d(4, OFFSET - 3.8),
                 new Translation2d(4.5, OFFSET - 2.35)
-        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(1.5)).setReversed();
+        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(3)).setReversed();
 
         public static final Path AUTONAV_THIRD_C = new Path(List.of(
-                new Translation2d(5.2, OFFSET - 3.6),
-                new Translation2d(6.3, OFFSET - 3.6)
-        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(3));
+                new Translation2d(5, OFFSET - 3.6),
+                new Translation2d(6.1, OFFSET - 3.6)
+        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(4));
 
         public static final Path AUTONAV_THIRD_D = new Path(List.of(),
             new Pose2d(7.9, 2.3, Rotation2d.fromDegrees(180))).setReversed();
+
+        public static final Path DRIVE_TWO_METERS_STRAIGHT = new Path(List.of(),
+                new Pose2d(2, 0, Rotation2d.fromDegrees(0)));
 
         public static final Path TEST_1 = new Path(List.of(
         ), new Pose2d(2,  2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(3));

@@ -75,8 +75,8 @@ public class DriveTrain extends SubsystemBase {
               () -> virtualComponents.getOdometry().getPoseMeters().getY());
       Shuffleboard.getTab("DriveTrain").addNumber("CURRENT ROTATION DEGREES",
               () -> virtualComponents.getOdometry().getPoseMeters().getRotation().getDegrees());
+      components.getNormelizedPigeonIMU().setYaw(0);
     }
-    components.getNormelizedPigeonIMU().setYaw(0);
     virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
     resetEncoders();
   }
@@ -87,10 +87,10 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (maxLeft < encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()))
-      maxLeft = encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity());
-    if (maxRight < encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity()))
-      maxRight = encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity());
+//    if (maxLeft < encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity()))
+//      maxLeft = encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity());
+//    if (maxRight < encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity()))
+//      maxRight = encoderUnitsDeciSecToMetersSec(getRightMaster().getSelectedSensorVelocity());
 //        if (Robot.isReal()) {
 //        double speed = encoderUnitsDeciSecToMetersSec(getLeftMaster().getSelectedSensorVelocity());
 //        if (resetEntry.getDouble(0) == 1)

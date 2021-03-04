@@ -5,6 +5,7 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.DRIVE_TWO_METERS_STRAIGHT;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -20,6 +21,7 @@ public class DriveTrainOiBinder {
                 .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_B))
                 .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_C))
                 .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_D)));
+        //pathButton.whenActive(new MoveByPath(driveTrain, DRIVE_TWO_METERS_STRAIGHT));
 //        pathButton.whenActive(new MoveByPath(driveTrain, TEST_1)
 //        .andThen(new MoveByPath(driveTrain, TEST_2))
 //        .andThen(new MoveByPath(driveTrain, TEST_3))
