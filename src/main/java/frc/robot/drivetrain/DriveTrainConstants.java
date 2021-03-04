@@ -54,8 +54,6 @@ public final class DriveTrainConstants {
     public static final class TrajectoryConstants {
 
         public static final double TRAJECTORY_P = 0;
-        public static final double RAMSETE_B = 2;
-        public static final double RAMSETE_ZETA = 0.7;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A

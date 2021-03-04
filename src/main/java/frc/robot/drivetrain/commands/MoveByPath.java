@@ -2,8 +2,6 @@ package frc.robot.drivetrain.commands;
 
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.LEFT_FEEDFORWARD;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_B;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RAMSETE_ZETA;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RIGHT_FEEDFORWARD;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.TRAJECTORY_P;
 
@@ -30,7 +28,7 @@ public class MoveByPath extends CommandBase {
         command = new OnyxRamseteCommand(
                 trajectory,
                 driveTrain::getPose,
-                new RamseteController(RAMSETE_B, RAMSETE_ZETA),
+                new RamseteController(),
                 LEFT_FEEDFORWARD,
                 RIGHT_FEEDFORWARD,
                 DRIVE_KINEMATICS,
