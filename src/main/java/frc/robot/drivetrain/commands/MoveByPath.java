@@ -9,25 +9,26 @@ import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.TRAJE
 
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.utils.Path;
 
 public class MoveByPath extends CommandBase {
     private final DriveTrain driveTrain;
-    private final Path path;
+    private final Trajectory trajectory;
     private OnyxRamseteCommand command;
 
     public MoveByPath(DriveTrain driveTrain, Path path) {
         this.driveTrain = driveTrain;
-        this.path = path;
+        trajectory = path.toTrajectory();
         addRequirements(driveTrain);
     }
 
     @Override
     public void initialize() {
         command = new OnyxRamseteCommand(
-                path.toTrajectory(driveTrain.getPose()),
+                trajectory,
                 driveTrain::getPose,
                 new RamseteController(RAMSETE_B, RAMSETE_ZETA),
                 LEFT_FEEDFORWARD,

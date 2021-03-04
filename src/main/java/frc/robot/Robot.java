@@ -11,6 +11,7 @@ import frc.robot.drivetrain.*;
 import frc.robot.drivetrain.commands.KAPrints;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.skills.GSCOption;
+import frc.robot.drivetrain.skills.SkillsConstants;
 import frc.robot.drivetrain.utils.Path;
 
 import java.io.PrintWriter;
@@ -110,29 +111,29 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        GSCOption option = GSCOption.BLUE_FIRST;
-        if (option == GSCOption.BLUE_FIRST){
-            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);
-            chosenAutonomousPath = GALACTIC_SEARCH_BLUE_FIRST;
-        }
-        else {
-            if (option == GSCOption.RED_FIRST) {
-                driveTrain.resetSimOdometryToPose(GS_RED_FIRST_START);
-                chosenAutonomousPath = GALACTIC_SEARCH_RED_FIRST;
-            }
-            else {
-                if (option == GSCOption.BLUE_SECOND) {
-                    driveTrain.resetSimOdometryToPose(GS_BLUE_SECOND_START);
-                    chosenAutonomousPath = GALACTIC_SEARCH_BLUE_SECOND;
-                }
-                else {
-                    driveTrain.resetSimOdometryToPose(GS_RED_SECOND_START);
-                    chosenAutonomousPath = GALACTIC_SEARCH_RED_SECOND;
-                }
-            }
-        }
-        autonomousCommand = new MoveByPath(driveTrain, chosenAutonomousPath);
-        autonomousCommand.initialize();
+//        GSCOption option = GSCOption.BLUE_FIRST;
+//        if (option == GSCOption.BLUE_FIRST){
+//            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);
+//            chosenAutonomousPath = GALACTIC_SEARCH_BLUE_FIRST;
+//        }
+//        else {
+//            if (option == GSCOption.RED_FIRST) {
+//                driveTrain.resetSimOdometryToPose(GS_RED_FIRST_START);
+//                chosenAutonomousPath = GALACTIC_SEARCH_RED_FIRST;
+//            }
+//            else {
+//                if (option == GSCOption.BLUE_SECOND) {
+//                    driveTrain.resetSimOdometryToPose(GS_BLUE_SECOND_START);
+//                    chosenAutonomousPath = GALACTIC_SEARCH_BLUE_SECOND;
+//                }
+//                else {
+//                    driveTrain.resetSimOdometryToPose(GS_RED_SECOND_START);
+//                    chosenAutonomousPath = GALACTIC_SEARCH_RED_SECOND;
+//                }
+//            }
+//        }
+//        autonomousCommand = new MoveByPath(driveTrain, chosenAutonomousPath);
+//        autonomousCommand.initialize();
     }
 
     /**
@@ -141,10 +142,10 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         CommandScheduler.getInstance().run();
-        if (!autonomousCommand.isFinished())
-            autonomousCommand.execute();
-        else
-            autonomousCommand.end(false);
+//        if (!autonomousCommand.isFinished())
+//            autonomousCommand.execute();
+//        else
+//            autonomousCommand.end(false);
     }
 
     @Override
