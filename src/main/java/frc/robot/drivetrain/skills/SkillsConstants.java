@@ -104,13 +104,9 @@ public class SkillsConstants {
                 Waypoints.B8,
                 Waypoints.D10
         ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)));
-        public static final Path AUTONAV_THIRD_D = new Path(AUTONAV_THIRD_C.getEndPose(), List.of(),
-                new Pose2d(7.9, 2.3, Rotation2d.fromDegrees(180))).setReversed();
-        public static final Path DRIVE_TWO_METERS_STRAIGHT = new Path(new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                List.of(), new Pose2d(2, 0, Rotation2d.fromDegrees(0)));
-        public static final Path DRIVE_TWO_METERS_BACKWARDS = new Path(new Pose2d(2, 0, Rotation2d.fromDegrees(0)), List.of(),
-                new Pose2d(0, 0, Rotation2d.fromDegrees(0))).setReversed();
+
         private static final double OFFSET = 4.572;
+
         public static final Path AUTONAV_FIRST = new Path(new Pose2d(1.2, OFFSET - 2.5, Rotation2d.fromDegrees(0)),
                 List.of(new Translation2d(4.4, OFFSET - 2.8),
                         new Translation2d(3.9, OFFSET - 3.69),
@@ -127,6 +123,7 @@ public class SkillsConstants {
                         new Translation2d(4.2, OFFSET - 1.9)
                 ), new Pose2d(0, OFFSET - 2, Rotation2d.fromDegrees(180)),
                 new CentripetalAccelerationConstraint(15));
+
         public static final Path AUTONAV_SECOND = new Path(new Pose2d(1.2, OFFSET - 3.4, Rotation2d.fromDegrees(0)),
                 List.of(
                         new Translation2d(3.2, OFFSET - 2.2),
@@ -139,19 +136,25 @@ public class SkillsConstants {
                         new Translation2d(4.69, OFFSET - 4),
                         new Translation2d(3, OFFSET - 3.69)
                 ), new Pose2d(0, OFFSET, Rotation2d.fromDegrees(130)));
+
         public static final Path AUTONAV_THIRD_A = new Path(new Pose2d(1.04, OFFSET - 2.3, Rotation2d.fromDegrees(0)),
                 List.of(),
                 new Pose2d(Waypoints.A3.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(10));
+
         public static final Path AUTONAV_THIRD_B = new Path(AUTONAV_THIRD_A.getEndPose(), List.of(
                 new Translation2d(2.95, OFFSET - 2.5),
                 new Translation2d(4, OFFSET - 3.8),
                 new Translation2d(4.5, OFFSET - 2.35)
         ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(3)).setReversed();
+
         public static final Path AUTONAV_THIRD_C = new Path(AUTONAV_THIRD_B.getEndPose(), List.of(
                 new Translation2d(5, OFFSET - 3.6),
                 new Translation2d(6.1, OFFSET - 3.6)
         ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(4));
 
+
+        public static final Path AUTONAV_THIRD_D = new Path(AUTONAV_THIRD_C.getEndPose(), List.of(),
+                new Pose2d(7.9, 2.3, Rotation2d.fromDegrees(180))).setReversed();
 //        public static final Path TEST_1 = new Path(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), List.of(
 //        ), new Pose2d(2,  2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(3));
 //
