@@ -6,6 +6,16 @@ import static frc.robot.drivetrain.DriveTrainConstants.DECISECOND_IN_SECOND;
 import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_SECOND;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -18,6 +28,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
@@ -28,6 +40,7 @@ public class DriveTrain extends SubsystemBase {
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
+    private final SendableChooser<Command> autoPathChooser;
     //  private final NetworkTableEntry voltageInputEntry;
 //  private final NetworkTableEntry resetEntry;
     private final Timer kaTimer;
@@ -39,6 +52,18 @@ public class DriveTrain extends SubsystemBase {
         this.components = components;
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
+
+        autoPathChooser = new SendableChooser<>();
+        autoPathChooser.setDefaultOption("AutoNav First", AUTONAV_FIRST.toCommand(this));
+        autoPathChooser.addOption("AutoNav Second", AUTONAV_SECOND.toCommand(this));
+        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this,
+                AUTONAV_THIRD_B, AUTONAV_THIRD_C, AUTONAV_THIRD_D));
+        autoPathChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.toCommand(this));
+        autoPathChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.toCommand(this));
+        autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.toCommand(this));
+        autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_SECOND.toCommand(this));
+
+        Shuffleboard.getTab("Autonomous").add("Autonomous Path Chooser", autoPathChooser);
 //    voltageInputEntry = Shuffleboard.getTab("DriveTrain").add("VoltageInput", 0).getEntry();
         kaTimer = new Timer();
 //    resetEntry = Shuffleboard.getTab("DriveTrain").add("Reset", 0).getEntry();
@@ -227,6 +252,10 @@ public class DriveTrain extends SubsystemBase {
             components.getRightMasterMotor().setNeutralMode(NeutralMode.Brake);
             components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
         }
+    }
+
+    public Command getChosenAutonomousCommand() {
+        return autoPathChooser.getSelected();
     }
 
     private double metersToEncoderUnits(double meters) {
