@@ -5,6 +5,10 @@
 package frc.robot;
 
 import static frc.robot.RobotConstants.ROBOT_TYPE;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,6 +20,7 @@ import frc.robot.drivetrain.DriveTrainVirtualComponents;
 import frc.robot.drivetrain.DriveTrainVirtualComponentsA;
 import frc.robot.drivetrain.SimulationDriveTrainComponents;
 import frc.robot.drivetrain.SimulationDriveTrainComponentsA;
+import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.utils.Path;
 
 import java.util.Timer;
@@ -63,8 +68,8 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
 
-        new DriverOI(driveTrain);
-        new DeputyOI();
+//        new DriverOI(driveTrain);
+//        new DeputyOI();
     }
 
     /**
@@ -103,6 +108,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        driveTrain.setNeutralModeToBrake();
+        CommandScheduler.getInstance().schedule(driveTrain.getChosenAutonomousCommand());
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){
 //            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);

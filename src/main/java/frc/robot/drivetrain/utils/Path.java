@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 
@@ -56,9 +58,8 @@ public class Path {
 
     public Command toCommand(DriveTrain driveTrain, Path... nextPaths) {
         Command pathCommand = new MoveByPath(driveTrain, this);
-        for (Path path : nextPaths) {
+        for (Path path : nextPaths)
             pathCommand = pathCommand.andThen(new MoveByPath(driveTrain, path));
-        }
         return pathCommand;
     }
 }
