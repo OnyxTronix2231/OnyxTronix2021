@@ -11,7 +11,7 @@ public class MoveByShuffleboard extends CommandBase {
     private final DriveTrain driveTrain;
     private final NetworkTableEntry offsetEntry;
 
-    public MoveByShuffleboard(DriveTrain driveTrain){
+    public MoveByShuffleboard(DriveTrain driveTrain) {
         this.driveTrain = driveTrain;
         offsetEntry = Shuffleboard.getTab("DriveTrain").add("Offset", 1).getEntry();
         addRequirements(driveTrain);

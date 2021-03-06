@@ -6,9 +6,9 @@ import frc.robot.drivetrain.DriveTrain;
 import java.io.PrintWriter;
 
 public class KAPrints extends CommandBase {
+    private final DriveTrain driveTrain;
     private PrintWriter leftWriter;
     private PrintWriter rightWriter;
-    private final DriveTrain driveTrain;
 
     public KAPrints(DriveTrain driveTrain) {
         this.driveTrain = driveTrain;
@@ -19,8 +19,7 @@ public class KAPrints extends CommandBase {
         try {
             leftWriter = new PrintWriter("/home/lvuser/Leftoutput.csv");
             rightWriter = new PrintWriter("/home/lvuser/Rightoutput.csv");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

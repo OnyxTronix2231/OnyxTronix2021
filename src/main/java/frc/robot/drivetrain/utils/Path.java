@@ -30,11 +30,11 @@ public class Path {
                 .addConstraints(Arrays.asList(constraints));
     }
 
-    public Pose2d getStartPose(){
+    public Pose2d getStartPose() {
         return startPose;
     }
 
-    public Pose2d getEndPose(){
+    public Pose2d getEndPose() {
         return endPose;
     }
 

@@ -4,29 +4,22 @@
 
 package frc.robot;
 
+import static frc.robot.RobotConstants.ROBOT_TYPE;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.drivetrain.*;
-import frc.robot.drivetrain.commands.KAPrints;
-import frc.robot.drivetrain.commands.MoveByPath;
-import frc.robot.drivetrain.skills.GSCOption;
-import frc.robot.drivetrain.skills.SkillsConstants;
+import frc.robot.drivetrain.DriveTrain;
+import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.drivetrain.DriveTrainComponentsA;
+import frc.robot.drivetrain.DriveTrainVirtualComponents;
+import frc.robot.drivetrain.DriveTrainVirtualComponentsA;
+import frc.robot.drivetrain.SimulationDriveTrainComponents;
+import frc.robot.drivetrain.SimulationDriveTrainComponentsA;
 import frc.robot.drivetrain.utils.Path;
 
-import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import static frc.robot.RobotConstants.ROBOT_TYPE;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_SECOND_START;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_FIRST_START;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_SECOND_START;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -57,8 +50,7 @@ public class Robot extends TimedRobot {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
                 driveTrainComponents = null;
-            }
-            else {
+            } else {
                 driveTrainComponents = new DriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
                 simulationDriveTrainComponents = null;

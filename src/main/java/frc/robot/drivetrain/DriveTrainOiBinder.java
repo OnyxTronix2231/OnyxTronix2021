@@ -5,8 +5,6 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.DRIVE_TWO_METERS_BACKWARDS;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.DRIVE_TWO_METERS_STRAIGHT;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
