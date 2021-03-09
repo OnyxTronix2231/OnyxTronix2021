@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 import java.io.PrintWriter;
+import java.util.function.Supplier;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -41,6 +42,7 @@ public class DriveTrain extends SubsystemBase {
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
     private final SendableChooser<Command> autoPathChooser;
+    private final SendableChooser<Pose2d> startPoseChooser;
     //  private final NetworkTableEntry voltageInputEntry;
 //  private final NetworkTableEntry resetEntry;
     private final Timer kaTimer;
@@ -56,14 +58,25 @@ public class DriveTrain extends SubsystemBase {
         autoPathChooser = new SendableChooser<>();
         autoPathChooser.setDefaultOption("AutoNav First", AUTONAV_FIRST.toCommand(this));
         autoPathChooser.addOption("AutoNav Second", AUTONAV_SECOND.toCommand(this));
-        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this,
-                AUTONAV_THIRD_B, AUTONAV_THIRD_C, AUTONAV_THIRD_D));
+        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this)
+                .andThen(AUTONAV_THIRD_B.toCommand(this))
+                .andThen(AUTONAV_THIRD_C.toCommand(this))
+                .andThen(AUTONAV_THIRD_D.toCommand(this)));
         autoPathChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.toCommand(this));
         autoPathChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.toCommand(this));
         autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.toCommand(this));
-        autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_SECOND.toCommand(this));
+        autoPathChooser.addOption("Galactic Search Blue Second", GALACTIC_SEARCH_BLUE_SECOND.toCommand(this));
 
+        startPoseChooser = new SendableChooser<>();
+        startPoseChooser.addOption("AutoNav First", AUTONAV_FIRST.getStartPose());
+        startPoseChooser.addOption("AutoNav Second", AUTONAV_SECOND.getStartPose());
+        startPoseChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.getStartPose());
+        startPoseChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.getStartPose());
+        startPoseChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.getStartPose());
+        startPoseChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.getStartPose());
+        startPoseChooser.addOption("Galactic Search BlueSecond", GALACTIC_SEARCH_BLUE_SECOND.getStartPose());
         Shuffleboard.getTab("Autonomous").add("Autonomous Path Chooser", autoPathChooser);
+        Shuffleboard.getTab("Autonomous").add("Autonomous Start Pose Chooser", startPoseChooser);
 //    voltageInputEntry = Shuffleboard.getTab("DriveTrain").add("VoltageInput", 0).getEntry();
         kaTimer = new Timer();
 //    resetEntry = Shuffleboard.getTab("DriveTrain").add("Reset", 0).getEntry();
@@ -326,6 +339,10 @@ public class DriveTrain extends SubsystemBase {
             components.getNormelizedPigeonIMU().setYaw(pose.getRotation().getDegrees());
         else
             simulationComponents.getAnalogGyroSim().setAngle(pose.getRotation().getDegrees());
+    }
+
+    public void resetOdometryToChosenPath() {
+        resetOdometryToPose(startPoseChooser.getSelected());
     }
 
     private void initKaTimer() {
