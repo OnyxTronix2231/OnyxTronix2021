@@ -108,9 +108,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        driveTrain.setNeutralModeToBrake();
-        driveTrain.resetOdometryToChosenPath();
-        CommandScheduler.getInstance().schedule(driveTrain.getChosenAutonomousCommand());
+//        driveTrain.setNeutralModeToBrake();
+//        driveTrain.resetOdometryToChosenPath();
+//        CommandScheduler.getInstance().schedule(driveTrain.getChosenAutonomousCommand());
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){
 //            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);

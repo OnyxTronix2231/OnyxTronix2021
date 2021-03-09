@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.wpilibj.trajectory.constraint.RectangularRegionConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.drivetrain.utils.Path;
 
@@ -71,9 +72,9 @@ public class SkillsConstants {
 
         private static final double OFFSET = 4.572;
 
-        public static final Pose2d AUTONAV_FIRST_START = new Pose2d(Waypoints.B2.getX() - 0.41, Waypoints.B2.getY() - 0.75, Rotation2d.fromDegrees(0));
-        public static final Pose2d AUTONAV_SECOND_START = new Pose2d(1.2, OFFSET - 3.4, Rotation2d.fromDegrees(0));
-        public static final Pose2d AUTONAV_THIRD_START = new Pose2d(Waypoints.B2.getX() - 0.41, Waypoints.B2.getY() - 0.75, Rotation2d.fromDegrees(0));
+        public static final Pose2d AUTONAV_FIRST_START = new Pose2d(Waypoints.B2.getX() - 0.40, Waypoints.B2.getY() - 0.75, Rotation2d.fromDegrees(0));
+        public static final Pose2d AUTONAV_SECOND_START = new Pose2d(Waypoints.D2.getX() - 0.40, Waypoints.D2.getY()- 0.75, Rotation2d.fromDegrees(0));
+        public static final Pose2d AUTONAV_THIRD_START = new Pose2d(Waypoints.B2.getX() - 0.40, Waypoints.B2.getY() - 0.75, Rotation2d.fromDegrees(0));
     }
 
     public static final class Paths {
@@ -126,7 +127,7 @@ public class SkillsConstants {
                 ), new Pose2d(0, OFFSET - 2.4, Rotation2d.fromDegrees(180)),
                 new CentripetalAccelerationConstraint(3));
 
-        public static final Path AUTONAV_SECOND = new Path(new Pose2d(1.2, OFFSET - 3.4, Rotation2d.fromDegrees(0)),
+        public static final Path AUTONAV_SECOND = new Path(StartingPositions.AUTONAV_SECOND_START,
                 List.of(
                         new Translation2d(3.2, OFFSET - 2.2),
                         new Translation2d(4.69, OFFSET - 1.75),
