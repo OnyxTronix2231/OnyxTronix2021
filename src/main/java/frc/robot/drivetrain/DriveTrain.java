@@ -58,10 +58,10 @@ public class DriveTrain extends SubsystemBase {
         autoPathChooser = new SendableChooser<>();
         autoPathChooser.setDefaultOption("AutoNav First", AUTONAV_FIRST.toCommand(this));
         autoPathChooser.addOption("AutoNav Second", AUTONAV_SECOND.toCommand(this));
-        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this)
-                .andThen(AUTONAV_THIRD_B.toCommand(this))
-                .andThen(AUTONAV_THIRD_C.toCommand(this))
-                .andThen(AUTONAV_THIRD_D.toCommand(this)));
+        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this, AUTONAV_THIRD_B,
+                AUTONAV_THIRD_C, AUTONAV_THIRD_D));
+
+
         autoPathChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.toCommand(this));
         autoPathChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.toCommand(this));
         autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.toCommand(this));

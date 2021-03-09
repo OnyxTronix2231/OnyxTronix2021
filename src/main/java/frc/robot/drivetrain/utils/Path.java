@@ -56,7 +56,11 @@ public class Path {
         return toTrajectory(startPose);
     }
 
-    public MoveByPath toCommand(DriveTrain driveTrain) {
-        return new MoveByPath(driveTrain, this);
+    public Command toCommand(DriveTrain driveTrain, Path... paths) {
+        Command command = new MoveByPath(driveTrain, this);
+        for (Path path : paths) {
+            command = command.andThen(new MoveByPath(driveTrain, path));
+        }
+        return command;
     }
 }

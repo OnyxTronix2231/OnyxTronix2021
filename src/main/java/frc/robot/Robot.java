@@ -141,11 +141,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
-        CommandScheduler.getInstance().run();
-//        if (!autonomousCommand.isFinished())
-//            autonomousCommand.execute();
-//        else
-//            autonomousCommand.end(false);
+
     }
 
     @Override
