@@ -66,8 +66,8 @@ public class SkillsConstants {
 
     public static final class StartingPositions {
 
-        public static final Pose2d GS_RED_FIRST_START = new Pose2d(0.3, 2.5, Rotation2d.fromDegrees(0));
-        public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, Waypoints.B3.getY(), Rotation2d.fromDegrees(0));
+        public static final Pose2d GS_RED_FIRST_START = new Pose2d(0.3, 2.6, Rotation2d.fromDegrees(0));
+        public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, 3.4, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_FIRST_START = new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_SECOND_START = new Pose2d(0.3, 1, Rotation2d.fromDegrees(0));
 
@@ -84,28 +84,28 @@ public class SkillsConstants {
                 Waypoints.C3,
                 Waypoints.D5,
                 Waypoints.A6
-        ), new Pose2d(10, 3.81, Rotation2d.fromDegrees(0)));
+        ), new Pose2d(10, 3.8, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(9));
 
         public static final Path GALACTIC_SEARCH_RED_SECOND = new Path(
                 StartingPositions.GS_RED_SECOND_START, List.of(
                 Waypoints.B3,
                 Waypoints.D5,
                 Waypoints.B7
-        ), new Pose2d(10, 3.048, Rotation2d.fromDegrees(0)));
+        ), new Pose2d(10, 3.3, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(10));
 
         public static final Path GALACTIC_SEARCH_BLUE_FIRST = new Path(
                 StartingPositions.GS_BLUE_FIRST_START, List.of(
                 Waypoints.E6,
                 Waypoints.B7,
                 Waypoints.C9
-        ), new Pose2d(10, 2.286, Rotation2d.fromDegrees(0)));
+        ), new Pose2d(10, 2.3, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(10));
 
         public static final Path GALACTIC_SEARCH_BLUE_SECOND = new Path(
                 StartingPositions.GS_BLUE_SECOND_START, List.of(
                 Waypoints.D6,
                 Waypoints.B8,
                 Waypoints.D10
-        ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)));
+        ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(10));
 
         private static final double OFFSET = 4.572;
 
