@@ -2,6 +2,7 @@ package frc.robot.drivetrain;
 
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_FIRST;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_SECOND;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
@@ -21,7 +22,7 @@ public class DriveTrainOiBinder {
 //                .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_B))
 //                .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_C))
 //                .andThen(new MoveByPath(driveTrain, AUTONAV_THIRD_D)));
-        pathButton.whenActive(new MoveByPath(driveTrain, AUTONAV_FIRST));
+        pathButton.whenActive(new MoveByPath(driveTrain, AUTONAV_SECOND));
 //        pathButton.whenActive(new MoveByPath(driveTrain, TEST_1)
 //        .andThen(new MoveByPath(driveTrain, TEST_2))
 //        .andThen(new MoveByPath(driveTrain, TEST_3))
