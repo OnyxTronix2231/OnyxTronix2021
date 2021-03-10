@@ -80,28 +80,28 @@ public class SkillsConstants {
 
     public static final class Paths {
         public static final Path GALACTIC_SEARCH_RED_FIRST = new Path(
-                new Pose2d(0.3, 2.5, Rotation2d.fromDegrees(0)), List.of(
+                StartingPositions.GS_RED_FIRST_START, List.of(
                 Waypoints.C3,
                 Waypoints.D5,
                 Waypoints.A6
         ), new Pose2d(10, 3.81, Rotation2d.fromDegrees(0)));
 
         public static final Path GALACTIC_SEARCH_RED_SECOND = new Path(
-                new Pose2d(0.3, Waypoints.B3.getY(), Rotation2d.fromDegrees(0)), List.of(
+                StartingPositions.GS_RED_SECOND_START, List.of(
                 Waypoints.B3,
                 Waypoints.D5,
                 Waypoints.B7
         ), new Pose2d(10, 3.048, Rotation2d.fromDegrees(0)));
 
         public static final Path GALACTIC_SEARCH_BLUE_FIRST = new Path(
-                new Pose2d(0.3, 0.45, Rotation2d.fromDegrees(0)), List.of(
+                StartingPositions.GS_BLUE_FIRST_START, List.of(
                 Waypoints.E6,
                 Waypoints.B7,
                 Waypoints.C9
         ), new Pose2d(10, 2.286, Rotation2d.fromDegrees(0)));
 
         public static final Path GALACTIC_SEARCH_BLUE_SECOND = new Path(
-                new Pose2d(0.3, 1, Rotation2d.fromDegrees(0)), List.of(
+                StartingPositions.GS_BLUE_SECOND_START, List.of(
                 Waypoints.D6,
                 Waypoints.B8,
                 Waypoints.D10
