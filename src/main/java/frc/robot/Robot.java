@@ -5,8 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.drivetrain.*;
+import frc.robot.turret.TurretComponents;
+import frc.robot.turret.TurretComponentsA;
+import frc.robot.yawControll.YawControl;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,20 +36,23 @@ public class Robot extends TimedRobot {
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
+        TurretComponents turretComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new DriveTrainComponentsA();
             simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
             driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
+            turretComponents = new TurretComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
+            turretComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-
-        new DriverOI(driveTrain);
+        YawControl yawControl = new YawControl(turretComponents, driveTrain);
+        new DriverOI(driveTrain, yawControl);
         new DeputyOI();
     }
 

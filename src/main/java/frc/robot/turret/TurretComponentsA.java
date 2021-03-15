@@ -1,5 +1,6 @@
 package frc.robot.turret;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -8,6 +9,7 @@ import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
+import static frc.robot.turret.TurretConstants.ENCODER_OFFSET;
 import static frc.robot.turret.TurretConstants.MASTER_MOTOR_ID;
 import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
 
@@ -23,7 +25,10 @@ public class TurretComponentsA implements TurretComponents {
         motor.configAllSettings(getTalonSRXConfiguration());
         motor.setNeutralMode(NeutralMode.Coast);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
-
+        motor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+        motor.setSelectedSensorPosition( motor.getSensorCollection().getAnalogInRaw() - ENCODER_OFFSET, 0, 0);
+        motor.setInverted(true);
+        motor.setSensorPhase(true);
         encoder = new CtreEncoder(motor);
 
         controller = new CtreMotionMagicController(motor, encoder,

@@ -13,7 +13,9 @@ public class YawControl extends Turret {
     public YawControl(TurretComponents turretComponents, DriveTrain driveTrain) {
         super(turretComponents);
         this.driveTrain = driveTrain;
+        turretState = TurretState.RTR;
         Shuffleboard.getTab("Turret").addNumber("Turret Angle RTR",()-> getAngleRTR());
+        Shuffleboard.getTab("Turret").addNumber("Encoder units",()-> turretComponents.getEncoder().getCount());
         Shuffleboard.getTab("Turret").addNumber("Turret Angle RTF",()-> getTurretAngleRTF());
         Shuffleboard.getTab("Turret").addString("Turret State",()-> turretState.toString());
 

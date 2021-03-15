@@ -6,7 +6,7 @@ import static frc.robot.turret.TurretConstants.*;
 
 public class Turret extends SubsystemBase {
 
-    private final TurretComponents components;
+    protected final TurretComponents components;
     private double startingAngle;
     private double targetAngle;
 
@@ -53,7 +53,7 @@ public class Turret extends SubsystemBase {
     }
 
     public double encoderUnitsToAngle(double encoderUnits) {
-        return encoderUnits / (ENCODER_UNITS_PER_ROUND  * DEGREES_IN_CIRCLE);
+        return (encoderUnits  * DEGREES_IN_CIRCLE) / ENCODER_UNITS_PER_ROUND;
     }
 
     public double angleToEncoderUnits(double angle) {
