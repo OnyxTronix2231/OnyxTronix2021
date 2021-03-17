@@ -9,6 +9,7 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
 import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
+import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,6 +24,9 @@ import frc.robot.drivetrain.DriveTrainVirtualComponents;
 import frc.robot.drivetrain.DriveTrainVirtualComponentsA;
 import frc.robot.drivetrain.SimulationDriveTrainComponents;
 import frc.robot.drivetrain.SimulationDriveTrainComponentsA;
+import frc.robot.drivetrain.commands.DriveAndCollectGSB1;
+import frc.robot.drivetrain.commands.DriveAndCollectGSR1;
+import frc.robot.drivetrain.commands.DriveAndCollectGSR2;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.utils.Path;
 
@@ -78,7 +82,7 @@ public class Robot extends TimedRobot {
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         collector = new Collector(collectorComponents);
 
-        new DriverOI(driveTrain, collector);
+//        new DriverOI(driveTrain, collector);
         new DeputyOI();
     }
 
@@ -118,9 +122,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-//        driveTrain.setNeutralModeToBrake();
-//        driveTrain.resetOdometryToChosenPath();
-//        CommandScheduler.getInstance().schedule(driveTrain.getChosenAutonomousCommand());
+        driveTrain.setNeutralModeToBrake();
+        driveTrain.resetOdometryToChosenPath();
+        CommandScheduler.getInstance().schedule(GALACTIC_SEARCH_BLUE_FIRST.toCommand(driveTrain));
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){
 //            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);
