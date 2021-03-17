@@ -4,6 +4,7 @@ import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CON
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.AUTONAV_SECOND_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.AUTONAV_THIRD_START;
+import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_FIRST_START;
 
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -49,7 +50,7 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-        public static final Pose2d START_POSE = AUTONAV_SECOND_START;
+        public static final Pose2d START_POSE = GS_RED_FIRST_START;
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);

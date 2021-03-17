@@ -84,7 +84,9 @@ public class SkillsConstants {
                 Waypoints.C3,
                 Waypoints.D5,
                 Waypoints.A6
-        ), new Pose2d(10, 3.8, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(9));
+        ), new Pose2d(10, 3.8, Rotation2d.fromDegrees(0)),
+                new RectangularRegionConstraint(new Translation2d(Waypoints.D5.getX(), Waypoints.D5.getY()), new Translation2d(),
+                        new CentripetalAccelerationConstraint(6)));
 
         public static final Path GALACTIC_SEARCH_RED_SECOND = new Path(
                 StartingPositions.GS_RED_SECOND_START, List.of(

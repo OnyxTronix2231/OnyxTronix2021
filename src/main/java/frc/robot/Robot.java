@@ -13,6 +13,9 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.collector.Collector;
+import frc.robot.collector.CollectorComponents;
+import frc.robot.collector.CollectorComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.drivetrain.DriveTrainComponentsA;
@@ -36,6 +39,8 @@ public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
 
+    Collector collector;
+
     private Path chosenAutonomousPath;
 
     private Command autonomousCommand;
@@ -49,26 +54,31 @@ public class Robot extends TimedRobot {
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
+        CollectorComponents collectorComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             if (Robot.isSimulation()) {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
                 driveTrainComponents = null;
+                collectorComponents = null;
             } else {
                 driveTrainComponents = new DriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
                 simulationDriveTrainComponents = null;
+                collectorComponents = new CollectorComponentsA();
             }
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
+            collectorComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+        collector = new Collector(collectorComponents);
 
-        new DriverOI(driveTrain);
+        new DriverOI(driveTrain, collector);
         new DeputyOI();
     }
 
