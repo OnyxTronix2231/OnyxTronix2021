@@ -12,10 +12,13 @@ public class VisionGSC extends BaseVision{
     public VisionGSC(){
         Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption != null ? chosenOption.toString() : "no path");
         Shuffleboard.getTab("Vision").addNumber("Area precentage", this::getTargetAreaPercentage);
+        Shuffleboard.getTab("Vision").addNumber("Horizontal angle", this::getTargetHorizontalAngle);
     }
 
     public double getTargetAreaPercentage() {
-        return limelight.getTarget().getTargetArea();
+        if (hasTarget())
+            return limelight.getTarget().getTargetArea() ;
+        return 0;
     }
 
     public double getTargetHorizontalAngle() {
@@ -27,14 +30,14 @@ public class VisionGSC extends BaseVision{
             return GSCOption.NOT_FOUND;
         }
 
-        if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
+        if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) <
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
+            if (Math.abs(getTargetHorizontalAngle()) < RED_TARGET_ANGLE_TOLERANCE) {
                 return GSCOption.RED2;
             }
             return GSCOption.RED1;
         }
-        if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
+        if (Math.abs(getTargetHorizontalAngle()) > BLUE_TARGET_ANGLE_TOLERANCE) {
             return GSCOption.BLUE2;
         }
         return GSCOption.BLUE1;
