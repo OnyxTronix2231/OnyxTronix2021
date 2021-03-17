@@ -15,7 +15,10 @@ public class VisionGSC extends BaseVision{
     }
 
     public double getTargetAreaPercentage() {
-        return limelight.getTarget().getTargetArea();
+        if (hasTarget()) {
+            return limelight.getTarget().getTargetArea();
+        }
+        return 0;
     }
 
     public double getTargetHorizontalAngle() {
