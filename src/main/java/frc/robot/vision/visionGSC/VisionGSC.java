@@ -10,7 +10,8 @@ public class VisionGSC extends BaseVision{
     private GSCOption chosenOption;
 
     public VisionGSC(){
-        Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption.toString());
+        Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption != null ? chosenOption.toString() : "no path");
+        Shuffleboard.getTab("Vision").addNumber("Area precentage", this::getTargetAreaPercentage);
     }
 
     public double getTargetAreaPercentage() {
