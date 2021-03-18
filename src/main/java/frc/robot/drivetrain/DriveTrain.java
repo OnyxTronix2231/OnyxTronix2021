@@ -141,11 +141,6 @@ public class DriveTrain extends SubsystemBase {
                         getRightMaster().getSelectedSensorVelocity());
     }
 
-    public void resetOdometry(Pose2d pose) {
-        virtualComponents.getOdometry().resetPosition(pose,
-                Rotation2d.fromDegrees(getHeading()));
-    }
-
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         if (Robot.isReal()) {
             getLeftMaster().set(leftVolts / 12);
@@ -162,7 +157,7 @@ public class DriveTrain extends SubsystemBase {
                 getRightMaster().getSelectedSensorPosition()) / 2;
     }
 
-    public void setMaxOutputArcadeDrive(double maxOutput) {
+    public void setArcadeDriveMaxOutput(double maxOutput) {
         if (Robot.isReal()) {
             virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
         } else {
@@ -170,7 +165,7 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    public void zeroHeading() {
+    public void resetHeading() {
         if (Robot.isReal()) {
             components.getNormelizedPigeonIMU().setYaw(0);
         } else {
@@ -198,19 +193,29 @@ public class DriveTrain extends SubsystemBase {
 
     public void setNeutralModeToCoast() {
         if (Robot.isReal()) {
-            components.getLeftMasterMotor().setNeutralMode(NeutralMode.Coast);
+            getLeftMaster().setNeutralMode(NeutralMode.Coast);
             components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
-            components.getRightMasterMotor().setNeutralMode(NeutralMode.Coast);
+            getRightMaster().setNeutralMode(NeutralMode.Coast);
             components.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
+        } else {
+            getSimLeftMaster().setNeutralMode(NeutralMode.Coast);
+            simulationComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
+            getSimRightMaster().setNeutralMode(NeutralMode.Coast);
+            simulationComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
         }
     }
 
     public void setNeutralModeToBrake() {
         if (Robot.isReal()) {
-            components.getLeftMasterMotor().setNeutralMode(NeutralMode.Brake);
+            getLeftMaster().setNeutralMode(NeutralMode.Brake);
             components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
-            components.getRightMasterMotor().setNeutralMode(NeutralMode.Brake);
+            getRightMaster().setNeutralMode(NeutralMode.Brake);
             components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
+        } else {
+            getSimLeftMaster().setNeutralMode(NeutralMode.Brake);
+            simulationComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
+            getSimRightMaster().setNeutralMode(NeutralMode.Brake);
+            simulationComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
         }
     }
 
@@ -272,8 +277,8 @@ public class DriveTrain extends SubsystemBase {
         resetOdometryToPose(pose);
         getSimRightMaster().getSimCollection().setQuadratureVelocity(0);
         getSimLeftMaster().getSimCollection().setQuadratureVelocity(0);
-        simulationComponents.getAnalogGyroSim().setRate(0);
-        simulationComponents.getAnalogGyroSim().setAngle(0);
+        simulationComponents.getAnalogGyroSim().setRate(pose.getRotation().getDegrees());
+        simulationComponents.getAnalogGyroSim().setAngle(pose.getRotation().getDegrees());
         simulationComponents.getField2d().setRobotPose(pose);
         virtualComponents.getDriveTrainSim().setPose(pose);
         virtualComponents.getDriveTrainSim().setInputs(0, 0);
@@ -285,7 +290,7 @@ public class DriveTrain extends SubsystemBase {
         if (Robot.isReal())
             components.getNormelizedPigeonIMU().setYaw(pose.getRotation().getDegrees());
         else
-            simulationComponents.getAnalogGyroSim().setAngle(pose.getRotation().getDegrees());
+            resetSimOdometryToPose(pose);
     }
 
     public void resetOdometryToChosenPath() {
