@@ -84,7 +84,7 @@ public class DriveTrain extends SubsystemBase {
                 () -> virtualComponents.getOdometry().getPoseMeters().getRotation().getDegrees());
 
         resetHeading();
-        resetSimOdometryToPose(START_POSE);
+        resetOdometryToPose(START_POSE);
         resetEncoders();
     }
 
