@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         driveTrain.setNeutralModeToBrake();
-        driveTrain.resetOdometryToChosenPath();
+//        driveTrain.resetOdometryToChosenPath();
         CommandScheduler.getInstance().schedule(GALACTIC_SEARCH_BLUE_FIRST.toCommand(driveTrain));
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){

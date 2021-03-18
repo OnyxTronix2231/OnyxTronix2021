@@ -82,16 +82,16 @@ public class DriveTrain extends SubsystemBase {
                 () -> virtualComponents.getOdometry().getPoseMeters().getY());
         Shuffleboard.getTab("DriveTrain").addNumber("CURRENT ROTATION DEGREES",
                 () -> virtualComponents.getOdometry().getPoseMeters().getRotation().getDegrees());
-        components.getNormelizedPigeonIMU().setYaw(0);
 
-        virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
+        resetHeading();
+        resetSimOdometryToPose(START_POSE);
         resetEncoders();
     }
 
     @Override
     public void periodic() {
         virtualComponents.getOdometry().update(
-                Rotation2d.fromDegrees(-getHeading()),
+                Rotation2d.fromDegrees(Robot.isSimulation() ? getHeading() : -getHeading()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimLeftMaster().getSelectedSensorPosition() :
                         getLeftMaster().getSelectedSensorPosition()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
@@ -274,7 +274,6 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
-        resetOdometryToPose(pose);
         getSimRightMaster().getSimCollection().setQuadratureVelocity(0);
         getSimLeftMaster().getSimCollection().setQuadratureVelocity(0);
         simulationComponents.getAnalogGyroSim().setRate(pose.getRotation().getDegrees());
