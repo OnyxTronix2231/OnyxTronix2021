@@ -11,7 +11,7 @@ import frc.robot.drivetrain.utils.Path;
 import javax.xml.transform.Templates;
 import java.util.List;
 
-public class SkillsConstants {
+public final class SkillsConstants {
     public static final class Waypoints {
 
         public static final Translation2d A1 = getWaypointFromInches(30, 150);
