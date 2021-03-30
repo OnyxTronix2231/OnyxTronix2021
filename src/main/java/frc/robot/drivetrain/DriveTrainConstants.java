@@ -2,10 +2,7 @@ package frc.robot.drivetrain;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.AUTONAV_SECOND_START;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.AUTONAV_THIRD_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
-import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_RED_FIRST_START;
 
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -58,20 +55,16 @@ public final class DriveTrainConstants {
         private static final double SIM_KS = 0.480938; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KV = 2.1073; // TODO: This is Sim value, Calibration with A
         private static final double SIM_KA = 0.3144; // TODO: Calibration with A
-        private static final double LEFT_KS = 0.772; // 0.72 TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KV = 2.02; // 1.98 TODO: This is Sim value, Calibration with A
-        private static final double LEFT_KA = 0.276; // 0.38 TODO: Calibration with A
+        private static final double KS = 0.76; // 0.72 TODO: This is Sim value, Calibration with A
+        private static final double KV = 2.03; // 1.98 TODO: This is Sim value, Calibration with A
+        private static final double KA = 0.275; // 0.38 TODO: Calibration with A
         //        private static final double LEFT_KS = 0.72; // 0.72 TODO: This is Sim value, Calibration with A
 //        private static final double LEFT_KV = 1.98; // 1.98 TODO: This is Sim value, Calibration with A
 //        private static final double LEFT_KA = 0.38; // 0.38 TODO: Calibration with A
 //        private static final double RIGHT_KS = 0.72; // 0.72 TODO: This is Sim value, Calibration with A
 //        private static final double RIGHT_KV = 1.98; // 1.98 TODO: This is Sim value, Calibration with A
 //        private static final double RIGHT_KA = 0.38; // 0.38 TODO: Calibration with A
-        public static final SimpleMotorFeedforward LEFT_FEEDFORWARD = new SimpleMotorFeedforward(LEFT_KS, LEFT_KV, LEFT_KA);
-        private static final double RIGHT_KS = 0.772; // 0.72 TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KV = 2.02; // 1.98 TODO: This is Sim value, Calibration with A
-        private static final double RIGHT_KA = 0.276; // 0.38 TODO: Calibration with A
-        public static final SimpleMotorFeedforward RIGHT_FEEDFORWARD = new SimpleMotorFeedforward(RIGHT_KS, RIGHT_KV, RIGHT_KA);
+        public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
     }
 
     public static final class InfiniteRechargePaths {

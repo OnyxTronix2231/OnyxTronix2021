@@ -1,8 +1,7 @@
 package frc.robot.drivetrain.commands;
 
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.LEFT_FEEDFORWARD;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.RIGHT_FEEDFORWARD;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.FEEDFORWARD;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.TRAJECTORY_P;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -29,8 +28,8 @@ public class MoveByPath extends CommandBase {
                 trajectory,
                 driveTrain::getPose,
                 new RamseteController(),
-                LEFT_FEEDFORWARD,
-                RIGHT_FEEDFORWARD,
+                FEEDFORWARD,
+                FEEDFORWARD,
                 DRIVE_KINEMATICS,
                 driveTrain::getWheelSpeeds,
                 new PIDController(TRAJECTORY_P, 0, 0),
