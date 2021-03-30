@@ -45,19 +45,19 @@ public final class DriveTrainConstants {
     public static final class TrajectoryConstants {
 
         public static final double TRAJECTORY_P = 0;
-        public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE; // TODO: Calibration with A
+        public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final Pose2d START_POSE = GS_BLUE_FIRST_START;
         static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
-        private static final double SIM_KS = 0.480938; // TODO: This is Sim value, Calibration with A
-        private static final double SIM_KV = 2.1073; // TODO: This is Sim value, Calibration with A
-        private static final double SIM_KA = 0.3144; // TODO: Calibration with A
-        private static final double KS = 0.76; // 0.72 TODO: This is Sim value, Calibration with A
-        private static final double KV = 2.03; // 1.98 TODO: This is Sim value, Calibration with A
-        private static final double KA = 0.275; // 0.38 TODO: Calibration with A
+        private static final double SIM_KS = 0.480938; // TODO: Calibration with Sim
+        private static final double SIM_KV = 2.1073; // TODO: Calibration with Sim
+        private static final double SIM_KA = 0.3144; // TODO: Calibration with Sim
+        private static final double KS = 0.76;
+        private static final double KV = 2.03;
+        private static final double KA = 0.275;
         //        private static final double LEFT_KS = 0.72; // 0.72 TODO: This is Sim value, Calibration with A
 //        private static final double LEFT_KV = 1.98; // 1.98 TODO: This is Sim value, Calibration with A
 //        private static final double LEFT_KA = 0.38; // 0.38 TODO: Calibration with A
