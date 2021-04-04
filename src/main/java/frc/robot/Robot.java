@@ -14,6 +14,7 @@ import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.collector.Collector;
 import frc.robot.collector.CollectorComponents;
 import frc.robot.collector.CollectorComponentsA;
@@ -123,8 +124,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         driveTrain.setNeutralModeToBrake();
-//        driveTrain.resetOdometryToChosenPath();
-        CommandScheduler.getInstance().schedule(GALACTIC_SEARCH_BLUE_FIRST.toCommand(driveTrain));
+        driveTrain.resetOdometryToChosenPath();
+        CommandScheduler.getInstance().schedule(new SequentialCommandGroup(AUTONAV_THIRD_A.toCommand(driveTrain),
+                AUTONAV_THIRD_B.toCommand(driveTrain),
+                AUTONAV_THIRD_C.toCommand(driveTrain),
+                AUTONAV_THIRD_D.toCommand(driveTrain)));
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){
 //            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);

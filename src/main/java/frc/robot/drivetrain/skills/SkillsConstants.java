@@ -149,19 +149,19 @@ public final class SkillsConstants {
 
         public static final Path AUTONAV_THIRD_A = new Path(StartingPositions.AUTONAV_THIRD_START,
                 List.of(),
-                new Pose2d(Waypoints.A3.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(10));
+                new Pose2d(Waypoints.A3.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)));
 
         public static final Path AUTONAV_THIRD_B = new Path(AUTONAV_THIRD_A.getEndPose(), List.of(
                 new Translation2d(2.698, OFFSET - 2.54),
                 new Translation2d(3.45, OFFSET - 3.778),
                 new Translation2d(4.28, OFFSET - 3.7),
                 new Translation2d(4.5, OFFSET - 2.5)
-        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(3)).setReversed();
+        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.11, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(6)).setReversed();
 
         public static final Path AUTONAV_THIRD_C = new Path(AUTONAV_THIRD_B.getEndPose(), List.of(
                 new Translation2d(5.09, OFFSET - 3.6),
                 new Translation2d(6.335, OFFSET - 3.6)
-        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(4));
+        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.105, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(5));
 
 
         public static final Path AUTONAV_THIRD_D = new Path(AUTONAV_THIRD_C.getEndPose(), List.of(),
