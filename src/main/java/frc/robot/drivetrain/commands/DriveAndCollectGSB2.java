@@ -12,6 +12,6 @@ import frc.robot.drivetrain.DriveTrain;
 public class DriveAndCollectGSB2 extends ParallelCommandGroup {
 
     public DriveAndCollectGSB2(DriveTrain driveTrain, Collector collector) {
-        super(new OpenAndCollect(collector, () -> 0.5), new MoveByPath(driveTrain, GALACTIC_SEARCH_BLUE_SECOND));
+        super(new OpenAndCollect(collector, () -> 0.6), new MoveByPath(driveTrain, GALACTIC_SEARCH_BLUE_SECOND));
     }
 }

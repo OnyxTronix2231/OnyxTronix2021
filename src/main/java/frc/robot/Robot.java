@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.collector.Collector;
 import frc.robot.collector.CollectorComponents;
 import frc.robot.collector.CollectorComponentsA;
+import frc.robot.collector.commands.CloseCollectorPistons;
+import frc.robot.collector.commands.OpenCollectorPistons;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.drivetrain.DriveTrainComponentsA;
@@ -26,6 +28,7 @@ import frc.robot.drivetrain.DriveTrainVirtualComponentsA;
 import frc.robot.drivetrain.SimulationDriveTrainComponents;
 import frc.robot.drivetrain.SimulationDriveTrainComponentsA;
 import frc.robot.drivetrain.commands.DriveAndCollectGSB1;
+import frc.robot.drivetrain.commands.DriveAndCollectGSB2;
 import frc.robot.drivetrain.commands.DriveAndCollectGSR1;
 import frc.robot.drivetrain.commands.DriveAndCollectGSR2;
 import frc.robot.drivetrain.commands.MoveByPath;
@@ -82,7 +85,6 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         collector = new Collector(collectorComponents);
-
 //        new DriverOI(driveTrain, collector);
         new DeputyOI();
     }
@@ -124,11 +126,9 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         driveTrain.setNeutralModeToBrake();
-        driveTrain.resetOdometryToChosenPath();
-        CommandScheduler.getInstance().schedule(new SequentialCommandGroup(AUTONAV_THIRD_A.toCommand(driveTrain),
-                AUTONAV_THIRD_B.toCommand(driveTrain),
-                AUTONAV_THIRD_C.toCommand(driveTrain),
-                AUTONAV_THIRD_D.toCommand(driveTrain)));
+//        driveTrain.resetOdometryToChosenPath();
+       // CommandScheduler.getInstance().schedule(GALACTIC_SEARCH_BLUE_FIRST.toCommand(driveTrain));
+        CommandScheduler.getInstance().schedule(new DriveAndCollectGSB1(driveTrain, collector));
 //        GSCOption option = GSCOption.BLUE_FIRST;
 //        if (option == GSCOption.BLUE_FIRST){
 //            driveTrain.resetSimOdometryToPose(GS_BLUE_FIRST_START);

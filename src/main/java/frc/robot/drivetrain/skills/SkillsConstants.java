@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.wpilibj.trajectory.constraint.MaxVelocityConstraint;
 import edu.wpi.first.wpilibj.trajectory.constraint.RectangularRegionConstraint;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.drivetrain.utils.Path;
@@ -68,7 +69,7 @@ public final class SkillsConstants {
 
         public static final Pose2d GS_RED_FIRST_START = new Pose2d(0.23, 3.4, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_RED_SECOND_START = new Pose2d(0.3, 3.4, Rotation2d.fromDegrees(0));
-        public static final Pose2d GS_BLUE_FIRST_START = new Pose2d(0.26, 0.1, Rotation2d.fromDegrees(340));
+        public static final Pose2d GS_BLUE_FIRST_START = new Pose2d(0.3, 1, Rotation2d.fromDegrees(0));
         public static final Pose2d GS_BLUE_SECOND_START = new Pose2d(0.3, 1, Rotation2d.fromDegrees(0));
 
         private static final double OFFSET = 4.572;
@@ -99,15 +100,22 @@ public final class SkillsConstants {
                 StartingPositions.GS_BLUE_FIRST_START, List.of(
                 Waypoints.E6,
                 Waypoints.B7,
-                Waypoints.C9
-        ), new Pose2d(10, 2.3, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(10));
+                new Translation2d(Waypoints.C9.getX(), Waypoints.C9.getY() - 0.3)
+        ), new Pose2d(10, 2.3, Rotation2d.fromDegrees(-20)), new CentripetalAccelerationConstraint(3),
+                new MaxVelocityConstraint(2.5), new RectangularRegionConstraint(new Translation2d(
+                        Waypoints.B7.getX() - 0.2, Waypoints.B7.getY() - 0.3),
+                new Translation2d(
+                        Waypoints.C9.getX() - 0.2, Waypoints.C9.getY() - 0.3),
+                new CentripetalAccelerationConstraint(3)
+        ));
 
         public static final Path GALACTIC_SEARCH_BLUE_SECOND = new Path(
                 StartingPositions.GS_BLUE_SECOND_START, List.of(
                 Waypoints.D6,
                 Waypoints.B8,
-                Waypoints.D10
-        ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(10));
+                new Translation2d(Waypoints.D10.getX(), Waypoints.D10.getY() -0.15)
+        ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(6),
+                new MaxVelocityConstraint(2));
 
         private static final double OFFSET = 4.572;
 
