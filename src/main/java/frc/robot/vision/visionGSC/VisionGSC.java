@@ -30,7 +30,7 @@ public class VisionGSC extends BaseVision{
             return GSCOption.NOT_FOUND;
         }
 
-        if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) >
+        if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) <
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
             if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
                 return GSCOption.RED2;
