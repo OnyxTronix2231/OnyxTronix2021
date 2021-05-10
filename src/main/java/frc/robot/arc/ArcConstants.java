@@ -4,7 +4,7 @@ public class ArcConstants {
 
     public static final double MOVE_ARC_TO_SWITCH_LIMIT_SPEED = -0.2; // TODO: check and change
     public static final double MOVE_ARC_TO_MECHANISM_LIMIT_SPEED = -0.1; // TODO: check and change
-    static final int ANGULAR_CONVERSION = 1000;
+    static final int ANGULAR_CONVERSION = 950;
     static final double ANGLE_PER_MOTOR_ROTATION = 360;
     static final double MAX_POSSIBLE_ANGLE = 70; // TODO: check and change
     static final double MIN_POSSIBLE_ANGLE = 20; // TODO: check and change
