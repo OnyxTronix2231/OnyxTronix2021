@@ -1,0 +1,70 @@
+
+@startuml
+'https://plantuml.com/class-diagram
+!includeurl https://raw.githubusercontent.com/matthewjosephtaylor/plantuml-style/40c705da84ef9e1c12591094c75f511e2a41c137/style.pu
+
+abstract class SubsystemBase
+abstract class CommandBase
+class SpinShooterByDistance
+
+SubsystemBase <|- Shooter
+Shooter *-- ShooterComponents
+ShooterComponents <|- ShooterComponentsA
+SpinShooterByRpm <|- CommandBase
+SpinShooterByRpm o-- Shooter
+SpinShooterByDistance o-- Shooter
+WaitUntilBallShot o-- Shooter
+SpinShooterBySpeed <|- CommandBase
+WaitUntilBallShot <|- CommandBase
+SpinShooterBySpeed o-- Shooter
+SpinShooterByRpm <|- SpinShooterByDistance
+
+
+
+class Shooter{
+
+    void periodic()
+    void moveBySpeed()
+    void stop()
+    void initMoveByRPM()
+    void updateMoveByRPM()
+    double distanceMetersToEncoderUnitsInDecisecond()
+    double RPMToEncoderUnitsInDecisecond()
+    double encoderUnitsInDecisecondToRPM()
+    void initIsBallShot()
+    boolean updateIsBallShot()
+    boolean isOnTarget()
+}
+
+interface ShooterComponents{
+
+    WPI_TalonFX getMasterMotor()
+    IMotorController getSlaveMotor()
+    Counter getEncoder()
+    PIDController getController()
+}
+
+class ShooterComponentsA{
+
+    WPI_TalonFX masterMotor
+    WPI_TalonFX slaveMotor
+    CtreEncoder encoder
+    CtrePIDController controller
+}
+
+class SpinShooterBySpeed{
+    void execute()
+    void end(boolean interrupted)
+}
+
+class SpinShooterByRpm{
+    void initialize()
+    void execute()
+    void end(boolean interrupted)
+}
+
+class WaitUntilBallShot{
+    void initialize()
+    boolean isFinish()
+}
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+'https://plantuml.com/class-diagram
+!includeurl https://raw.githubusercontent.com/matthewjosephtaylor/plantuml-style/40c705da84ef9e1c12591094c75f511e2a41c137/style.pu
+
+abstract class SubsystemBase
+abstract class CommandBase
+class ConditionalCommand
+class CalibrateArc
+class MoveArcToDistance
+
+SubsystemBase <|- Arc
+Arc *-- ArcComponents
+ArcComponents <|- ArcComponentsA
+CalibrateArc o-- Arc
+CalibrateArc <|- ConditionalCommand
+MoveArcBySpeed o-- Arc
+CommandBase <|- MoveArcBySpeed
+MoveArcToAngle o-- Arc
+CommandBase <|- MoveArcToAngle
+MoveArcToDistance o-- Arc
+MoveArcToDistance <|- MoveArcToAngle
+MoveArcUntilLowerLimitSwitch o-- Arc
+MoveArcUntilLowerLimitSwitch <|- MoveArcBySpeed
+MoveArcUntilMechanismLimit o-- Arc
+MoveArcUntilMechanismLimit <|- MoveArcBySpeed
+
+class Arc{
+
+    void periodic()
+    void moveBySpeed()
+    void stop()
+    void initMoveToAngle()
+    void updateMoveToAngle()
+    double distanceMetersToAngle()
+    double angleToEncoderUnits()
+    double encoderUnitsToAngle()
+    double getValidAngle()
+    boolean isOnTarget()
+    boolean hasHitForwardLimit()
+    void resetEncoder()
+    void disableLimitSwitches()
+    void enableLimitSwitches()
+    isMoving()
+}
+
+interface ArcComponents{
+
+  WPI_TalonSRX getMotor()
+  Counter getEncoder()
+  MotionMagicController getController()
+  TalonSrxReverseMicroswitch getReverseLimitSwitch()
+  TalonSrxForwardMicroswitch getForwardLimitSwitch()
+}
+
+ class ArcComponentsA{
+
+    WPI_TalonSRX motor;
+    CtreEncoder encoder;
+    CtreMotionMagicController controller;
+    TalonSrxForwardMicroswitch forwardLimitSwitch;
+    TalonSrxReverseMicroswitch reverseLimitSwitch;
+ }
+
+ class MoveArcBySpeed{
+
+    void initialize()
+    void execute()
+ }
+
+ class MoveArcToAngle{
+
+    void initialize()
+    void execute()
+    boolean isFinished()
+    void end(boolean interrupted)
+ }
+
+ class MoveArcUntilLowerLimitSwitch{
+
+     boolean isFinished()
+     void end(boolean interrupted)
+ }
+
+class MoveArcUntilMechanismLimit{
+
+    void initialize()
+    boolean isFinished()
+    void end(boolean interrupted)
+}
+@enduml
