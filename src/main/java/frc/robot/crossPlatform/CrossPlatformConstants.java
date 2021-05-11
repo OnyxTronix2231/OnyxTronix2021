@@ -1,6 +1,6 @@
-package frc.robot.crossPlatform.conveyor;
+package frc.robot.crossPlatform;
 
-public class ConveyorConstants {
+public class CrossPlatformConstants {
 
     public class ConveyorConstantsA {
 
