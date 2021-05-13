@@ -8,6 +8,6 @@ import java.util.function.DoubleSupplier;
 public class MoveToAngleRTF extends MoveTurretToAngle {
 
     public MoveToAngleRTF(YawControl yawControl, DoubleSupplier angleSupplier) {
-        super(yawControl, () -> angleSupplier.getAsDouble() - yawControl.getRobotAngle());
+        super(yawControl, () -> yawControl.angleToAngleRTF(angleSupplier.getAsDouble()));
     }
 }

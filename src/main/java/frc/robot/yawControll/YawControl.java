@@ -46,9 +46,14 @@ public class YawControl extends Turret {
         this.turretState = turretState;
     }
 
+    public double angleToAngleRTF( double angle){
+        return angle - getRobotAngle();
+    }
+
     public double getRobotAngle() {
         return driveTrain.getHeading();
     }
+
     public enum TurretState {
         RTR,
         RTF,
