@@ -33,7 +33,7 @@ public class DriverCrossPlatformOIBinder {
 
     shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, revolver,
         () -> vision.getChosenTarget().getAirDistanceTurretToTarget(),
-        () -> CrossPlatformConstants.ConveyorConstantsA.TESTING_SPEED,
-        () -> CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING));
+        () -> TESTING_SPEED,
+        () -> REVOLVER_RPM_WHILE_SHOOTING));
   }
 }
