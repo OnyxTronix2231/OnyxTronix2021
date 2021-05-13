@@ -10,7 +10,7 @@ import java.util.function.DoubleSupplier;
 
 public class SpinRevolverAndTrigger extends ParallelCommandGroup {
 
-    public SpinRevolverAndTrigger(BallTrigger ballTrigger, Revolver revolver, DoubleSupplier triggerSpeedSupplier,
+    public SpinRevolverAndTrigger(Revolver revolver, BallTrigger ballTrigger, DoubleSupplier triggerSpeedSupplier,
                                   DoubleSupplier revolverSpeedSupplier) {
         super(new SpinRevolverBySpeed(revolver, revolverSpeedSupplier), new SpinBallTriggerBySpeed(ballTrigger,
                 triggerSpeedSupplier));
