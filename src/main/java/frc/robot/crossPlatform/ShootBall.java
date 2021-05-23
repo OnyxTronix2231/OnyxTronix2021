@@ -26,9 +26,4 @@ public class ShootBall extends ParallelCommandGroup {
                 new WhenReadyToShootControlBallTrigger(ballTrigger, shooter, arc, turret, ballTriggerSpeedSupplier));
         this.ballTrigger = ballTrigger;
     }
-
-    @Override
-    public void end(boolean interrupted) {
-        new CloseBallTriggerPiston(ballTrigger);
-    }
 }

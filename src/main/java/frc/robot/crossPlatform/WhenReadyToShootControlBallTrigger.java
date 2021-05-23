@@ -15,20 +15,30 @@ import java.util.function.DoubleSupplier;
 
 public class WhenReadyToShootControlBallTrigger extends SequentialCommandGroup {
 
+    private BallTrigger ballTrigger;
+
     public WhenReadyToShootControlBallTrigger(BallTrigger ballTrigger, Shooter shooter, Arc arc, Turret turret,
                                               DoubleSupplier ballTriggerSpeedSupplier) {
         super(
                 new WaitUntilCommand(() -> shooter.isOnTarget() && arc.isOnTarget() && turret.isOnTarget()),
                 new OpenBallTriggerPiston(ballTrigger),
                 new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
-                new WaitUntilCommand(() -> !shooter.isOnTarget() && !arc.isOnTarget() && !turret.isOnTarget()),
+                new WaitUntilCommand(() -> !shooter.isOnTarget() || !arc.isOnTarget() || !turret.isOnTarget()),
                 new CloseBallTriggerPiston(ballTrigger));
+        this.ballTrigger = ballTrigger;
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (super.isFinished()) {
+            initialize();
+        }
+        return false;
     }
 
     @Override
     public void end(boolean interrupted) {
-        if (this.isFinished()) {
-            CommandScheduler.getInstance().schedule(this);
-        }
+        super.end(interrupted);
+        CommandScheduler.getInstance().schedule(new CloseBallTriggerPiston(ballTrigger));
     }
 }
