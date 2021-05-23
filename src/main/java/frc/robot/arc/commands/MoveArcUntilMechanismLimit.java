@@ -1,8 +1,8 @@
 package frc.robot.arc.commands;
 
-import frc.robot.arc.Arc;
-
 import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_MECHANISM_LIMIT_SPEED;
+
+import frc.robot.arc.Arc;
 
 public class MoveArcUntilMechanismLimit extends MoveArcBySpeed {
 

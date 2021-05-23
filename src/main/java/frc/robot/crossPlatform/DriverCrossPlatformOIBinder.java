@@ -1,5 +1,9 @@
 package frc.robot.crossPlatform;
 
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.TESTING_SPEED;
+
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
@@ -10,8 +14,6 @@ import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
-
-import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.*;
 
 public class DriverCrossPlatformOIBinder {
 

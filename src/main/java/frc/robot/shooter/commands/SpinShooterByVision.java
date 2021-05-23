@@ -6,7 +6,7 @@ import frc.robot.vision.visionMainChallenge.Vision;
 
 public class SpinShooterByVision extends ActByVision {
 
-  public SpinShooterByVision(Shooter shooter, Vision vision) {
-    super(new SpinShooterByDistance(shooter, () -> vision.getChosenTarget().getAirDistanceTurretToTarget()), vision);
-  }
+    public SpinShooterByVision(Shooter shooter, Vision vision) {
+        super(new SpinShooterByDistance(shooter, () -> vision.getChosenTarget().getAirDistanceTurretToTarget()), vision);
+    }
 }

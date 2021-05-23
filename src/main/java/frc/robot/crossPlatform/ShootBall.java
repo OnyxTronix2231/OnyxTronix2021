@@ -15,16 +15,16 @@ import java.util.function.DoubleSupplier;
 
 public class ShootBall extends ParallelCommandGroup {
 
-  private final BallTrigger ballTrigger;
+    private final BallTrigger ballTrigger;
 
-  public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
-                   Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier) {
-    super(
-        new SpinShooterByVision(shooter, vision),
-        new MoveArcByVision(arc, vision),
-        new MoveTurretByVision(turret, vision),
-        new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
-            shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
-    this.ballTrigger = ballTrigger;
-  }
+    public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
+                     Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier) {
+        super(
+                new SpinShooterByVision(shooter, vision),
+                new MoveArcByVision(arc, vision),
+                new MoveTurretByVision(turret, vision),
+                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
+                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
+        this.ballTrigger = ballTrigger;
+    }
 }
