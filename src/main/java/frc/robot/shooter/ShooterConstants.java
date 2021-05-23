@@ -3,7 +3,8 @@ package frc.robot.shooter;
 public final class ShooterConstants {
 
     static final int MIDDLE_DISTANCE = 450;
-    static final double ENCODER_UNITS_PER_ROTATION = 2048;
+    static final double SHOOTER_CONVERSION = 1.03;
+    static final double ENCODER_UNITS_PER_ROTATION = 2048 * SHOOTER_CONVERSION; //TODO: check
     static final double DECISECOND_IN_MIN = 600;
     static final double MIN_ERROR_RPM = 1000;
     static final double TOLERANCE_RPM = 400;
@@ -30,16 +31,16 @@ public final class ShooterConstants {
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false; // TODO: check and change
     }
 
-    // y = -0.0121x2 +26.707x + 24130 > 450
-    // y = 0.1912x2 - 161.44x +67791 < 450
-    public static final class ShooterCalculation { // TODO: check and change
+    public static final class ShooterCalculation { // TODO: change
 
         static double FORMULA_DISTANCE_FAR(double distance) {
-            return -0.0121 * Math.pow(distance, 2) + 26.707 * distance + 24130;
+            System.err.println("there is no formula");
+            return 0;
         }
 
-        static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: check and change
-            return 0.1912 * Math.pow(distance, 2) - 161.44 * distance + 67791;
+        static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: change
+            System.err.println("there is no formula");
+            return 0;
         }
     }
 }

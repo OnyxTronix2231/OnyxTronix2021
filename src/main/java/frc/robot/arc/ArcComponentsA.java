@@ -1,5 +1,20 @@
 package frc.robot.arc;
 
+import static frc.robot.arc.ArcConstants.ArcConstantsA.ACCELERATION_SMOOTHING;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.CLOSE_LOOP_RAMP;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.CONTINUOUS_CURRENT_LIMIT;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.CRUISE_VELOCITY;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.CURRENT_LIMIT_ENABLED;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.KD;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.KF;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.KI;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.KP;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.MAX_ACCELERATION;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.MOTOR_ID;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.OPEN_LOOP_RAMP;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.PEAK_AMP;
+import static frc.robot.arc.ArcConstants.ArcConstantsA.PEAK_AMP_DURATION;
+
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -12,8 +27,6 @@ import sensors.Switch.TalonSrxForwardMicroswitch;
 import sensors.Switch.TalonSrxReverseMicroswitch;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
-
-import static frc.robot.arc.ArcConstants.ArcConstantsA.*;
 
 public class ArcComponentsA implements ArcComponents {
 

@@ -1,10 +1,15 @@
 package frc.robot.arc;
 
+import static frc.robot.arc.ArcConstants.ANGLE_PER_MOTOR_ROTATION;
+import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
+import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
+import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
+import static frc.robot.arc.ArcConstants.MOVING_TOLERANCE_ENCODER_UNITS;
+import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import static frc.robot.arc.ArcConstants.*;
 
 public class Arc extends SubsystemBase {
 
@@ -77,6 +82,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
+        System.err.println("there is no formula");
         return distance;
     }
 

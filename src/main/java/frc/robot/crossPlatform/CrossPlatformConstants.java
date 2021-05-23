@@ -1,8 +1,8 @@
-package frc.robot.crossPlatform.conveyor;
+package frc.robot.crossPlatform;
 
-public class ConveyorConstants {
+public class CrossPlatformConstants {
 
-    public class ConveyorConstantsA {
+    public static class ConveyorConstantsA {
 
         static final double REVOLVER_RPM_WHILE_COLLECTING = 52.5;
         static final double REVOLVER_RPM_WHILE_SHOOTING = 120;

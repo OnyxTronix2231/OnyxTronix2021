@@ -1,4 +1,4 @@
-package frc.robot.crossPlatform.conveyor;
+package frc.robot.crossPlatform;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.ballTrigger.BallTrigger;
@@ -10,7 +10,7 @@ import java.util.function.DoubleSupplier;
 
 public class SpinRevolverAndTrigger extends ParallelCommandGroup {
 
-    public SpinRevolverAndTrigger(BallTrigger ballTrigger, Revolver revolver, DoubleSupplier triggerSpeedSupplier,
+    public SpinRevolverAndTrigger(Revolver revolver, BallTrigger ballTrigger, DoubleSupplier triggerSpeedSupplier,
                                   DoubleSupplier revolverSpeedSupplier) {
         super(new SpinRevolverBySpeed(revolver, revolverSpeedSupplier), new SpinBallTriggerBySpeed(ballTrigger,
                 triggerSpeedSupplier));
