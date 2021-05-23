@@ -77,6 +77,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
+        System.err.println("there is no formula");
         return distance;
     }
 
