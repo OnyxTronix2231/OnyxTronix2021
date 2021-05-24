@@ -24,4 +24,8 @@ public class DriverOI {
 
         new DriveTrainOiBinder(driveTrain, xboxController, resetButton);
     }
+
+    private static void createDriveTrainOi() {
+
+    }
 }
