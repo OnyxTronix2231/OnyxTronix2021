@@ -18,11 +18,10 @@ import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 public class DriverOI {
 
     public DriverOI(DriveTrain driveTrain, Shooter shooter, Collector collector, Revolver revolver,
-                    BallTrigger ballTrigger, Turret turret) {
+                    BallTrigger ballTrigger, Turret turret, Vision vision) {
         XboxController xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
-        Trigger resetButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
 
-        new DriveTrainOiBinder(driveTrain, collector, xboxController, resetButton, pathButton);
+        new DriveTrainOiBinder(driveTrain, xboxController);
     }
 
     private static void createDriveTrainOi() {

@@ -46,9 +46,6 @@ public class Robot extends TimedRobot {
     Turret turret;
     Vision vision;
 
-
-    Collector collector;
-
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -67,8 +64,12 @@ public class Robot extends TimedRobot {
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new DriveTrainComponentsA();
             simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
-            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents,
-                    simulationDriveTrainComponents);
+            if (Robot.isReal()) {
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
+            }
+            else {
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
+            }
             shooterComponents = new ShooterComponentsA();
             collectorComponents = new CollectorComponentsA();
             revolverComponents = new RevolverComponentsA();
@@ -94,7 +95,7 @@ public class Robot extends TimedRobot {
         turret = new Turret(turretComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        new DriverOI(driveTrain, shooter, collector, revolver, ballTrigger, turret);
+        new DriverOI(driveTrain, shooter, collector, revolver, ballTrigger, turret ,vision);
     }
 
     /**
