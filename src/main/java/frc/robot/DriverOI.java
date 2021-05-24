@@ -27,4 +27,8 @@ public class DriverOI {
     private static void createDriveTrainOi() {
 
     }
+
+    private static void createCrossPlatformOiBinder() {
+
+    }
 }
