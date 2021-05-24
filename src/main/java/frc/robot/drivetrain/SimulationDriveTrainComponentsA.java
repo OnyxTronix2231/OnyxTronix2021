@@ -1,22 +1,13 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CLOSED_LOOP_RAMP;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONTINUOUS_CURRENT_LIMIT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_SLAVE_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_FORWARD;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_REVERSE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.OPEN_LOOP_RAMP;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.PEAK_CURRENT_DURATION;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_SLAVE_PORT;
-
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 public class SimulationDriveTrainComponentsA implements SimulationDriveTrainComponents {
 

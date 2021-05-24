@@ -1,9 +1,5 @@
 package frc.robot.drivetrain.utils;
 
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.DRIVE_KINEMATICS;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.MAX_SPEED_METERS_PER_SECOND;
-
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
@@ -11,13 +7,13 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
 public class Path {
     private final Pose2d startPose;
@@ -54,13 +50,5 @@ public class Path {
 
     public Trajectory toTrajectory() {
         return toTrajectory(startPose);
-    }
-
-    public Command toCommand(DriveTrain driveTrain, Path... paths) {
-        Command command = new MoveByPath(driveTrain, this);
-        for (Path path : paths) {
-            command = command.andThen(new MoveByPath(driveTrain, path));
-        }
-        return command;
     }
 }

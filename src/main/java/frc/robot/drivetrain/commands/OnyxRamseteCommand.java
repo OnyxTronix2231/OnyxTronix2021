@@ -1,7 +1,5 @@
 package frc.robot.drivetrain.commands;
 
-import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
@@ -16,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+
+import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 
 /**
  * A command that uses a RAMSETE controller ({@link RamseteController}) to follow a trajectory

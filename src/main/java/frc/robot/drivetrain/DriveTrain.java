@@ -1,22 +1,5 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_FORWARD_SENSITIVITY;
-import static frc.robot.drivetrain.DriveTrainConstants.ARCADE_DRIVE_ROTATION_SENSITIVITY;
-import static frc.robot.drivetrain.DriveTrainConstants.DECISECOND_IN_SECOND;
-import static frc.robot.drivetrain.DriveTrainConstants.PERIMETER_METER;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_SECOND;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_A;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_B;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_C;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.AUTONAV_THIRD_D;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_BLUE_SECOND;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST;
-import static frc.robot.drivetrain.skills.SkillsConstants.Paths.GALACTIC_SEARCH_RED_SECOND;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -27,18 +10,18 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+
+import static frc.robot.drivetrain.DriveTrainConstants.*;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.ENCODER_CPR;
+import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
 
 public class DriveTrain extends SubsystemBase {
 
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
-    private final SendableChooser<Command> autoPathChooser;
-    private final SendableChooser<Pose2d> startPoseChooser;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
@@ -46,27 +29,6 @@ public class DriveTrain extends SubsystemBase {
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
 
-        autoPathChooser = new SendableChooser<>();
-        autoPathChooser.setDefaultOption("AutoNav First", AUTONAV_FIRST.toCommand(this));
-        autoPathChooser.addOption("AutoNav Second", AUTONAV_SECOND.toCommand(this));
-        autoPathChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.toCommand(this, AUTONAV_THIRD_B,
-                AUTONAV_THIRD_C, AUTONAV_THIRD_D));
-
-        autoPathChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.toCommand(this));
-        autoPathChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.toCommand(this));
-        autoPathChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.toCommand(this));
-        autoPathChooser.addOption("Galactic Search Blue Second", GALACTIC_SEARCH_BLUE_SECOND.toCommand(this));
-
-        startPoseChooser = new SendableChooser<>();
-        startPoseChooser.addOption("AutoNav First", AUTONAV_FIRST.getStartPose());
-        startPoseChooser.addOption("AutoNav Second", AUTONAV_SECOND.getStartPose());
-        startPoseChooser.addOption("AutoNav Third", AUTONAV_THIRD_A.getStartPose());
-        startPoseChooser.addOption("Galactic Search Red First", GALACTIC_SEARCH_RED_FIRST.getStartPose());
-        startPoseChooser.addOption("Galactic Search Red Second", GALACTIC_SEARCH_RED_SECOND.getStartPose());
-        startPoseChooser.addOption("Galactic Search Blue First", GALACTIC_SEARCH_BLUE_FIRST.getStartPose());
-        startPoseChooser.addOption("Galactic Search BlueSecond", GALACTIC_SEARCH_BLUE_SECOND.getStartPose());
-        Shuffleboard.getTab("Autonomous").add("Autonomous Path Chooser", autoPathChooser);
-        Shuffleboard.getTab("Autonomous").add("Autonomous Start Pose Chooser", startPoseChooser);
         if (Robot.isSimulation()) {
             Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
             Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
@@ -145,9 +107,11 @@ public class DriveTrain extends SubsystemBase {
         if (Robot.isReal()) {
             getLeftMaster().set(leftVolts / 12);
             getRightMaster().set(rightVolts / 12);
+            virtualComponents.getDifferentialDrive().feed();
         } else {
             getSimLeftMaster().set(leftVolts / 12);
             getSimRightMaster().set(rightVolts / 12);
+            virtualComponents.getSimDifferentialDrive().feed();
         }
     }
 
@@ -192,35 +156,11 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setNeutralModeToCoast() {
-        if (Robot.isReal()) {
-            getLeftMaster().setNeutralMode(NeutralMode.Coast);
-            components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
-            getRightMaster().setNeutralMode(NeutralMode.Coast);
-            components.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
-        } else {
-            getSimLeftMaster().setNeutralMode(NeutralMode.Coast);
-            simulationComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
-            getSimRightMaster().setNeutralMode(NeutralMode.Coast);
-            simulationComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
-        }
+        setNeutralMode(NeutralMode.Coast);
     }
 
     public void setNeutralModeToBrake() {
-        if (Robot.isReal()) {
-            getLeftMaster().setNeutralMode(NeutralMode.Brake);
-            components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
-            getRightMaster().setNeutralMode(NeutralMode.Brake);
-            components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
-        } else {
-            getSimLeftMaster().setNeutralMode(NeutralMode.Brake);
-            simulationComponents.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
-            getSimRightMaster().setNeutralMode(NeutralMode.Brake);
-            simulationComponents.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
-        }
-    }
-
-    public Command getChosenAutonomousCommand() {
-        return autoPathChooser.getSelected();
+        setNeutralMode(NeutralMode.Brake);
     }
 
     private double metersToEncoderUnits(double meters) {
@@ -263,6 +203,20 @@ public class DriveTrain extends SubsystemBase {
         return virtualComponents.getDriveTrainSim();
     }
 
+    private void setNeutralMode(NeutralMode mode) {
+        if (Robot.isReal()) {
+            getLeftMaster().setNeutralMode(mode);
+            components.getLeftSlaveMotor().setNeutralMode(mode);
+            getRightMaster().setNeutralMode(mode);
+            components.getRightSlaveMotor().setNeutralMode(mode);
+        } else {
+            getSimLeftMaster().setNeutralMode(mode);
+            simulationComponents.getLeftSlaveMotor().setNeutralMode(mode);
+            getSimRightMaster().setNeutralMode(mode);
+            simulationComponents.getRightSlaveMotor().setNeutralMode(mode);
+        }
+    }
+
     private void resetEncoders() {
         if (Robot.isReal()) {
             getLeftMaster().setSelectedSensorPosition(0);
@@ -290,9 +244,5 @@ public class DriveTrain extends SubsystemBase {
             components.getNormelizedPigeonIMU().setYaw(pose.getRotation().getDegrees());
         else
             resetSimOdometryToPose(pose);
-    }
-
-    public void resetOdometryToChosenPath() {
-        resetOdometryToPose(startPoseChooser.getSelected());
     }
 }

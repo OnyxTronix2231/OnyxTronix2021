@@ -1,21 +1,12 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CURRENT_LIMIT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.LEFT_SLAVE_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_FORWARD;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.MAX_OUTPUT_REVERSE;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.PIGEON_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_MASTER_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.RIGHT_SLAVE_PORT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRIGGER_THRESHOLD_CURRENT;
-import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.TRIGGER_THRESHOLD_TIME;
-
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
+
+import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
 
 
 public class DriveTrainComponentsA implements DriveTrainComponents {
@@ -86,7 +77,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         config.supplyCurrLimit.currentLimit = CURRENT_LIMIT;
         config.supplyCurrLimit.triggerThresholdCurrent = TRIGGER_THRESHOLD_CURRENT;
         config.supplyCurrLimit.triggerThresholdTime = TRIGGER_THRESHOLD_TIME;
-        config.supplyCurrLimit.enable = false;
+        config.supplyCurrLimit.enable = true;
         return config;
     }
 }
