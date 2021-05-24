@@ -34,7 +34,7 @@ public class NormalizedPigeonIMU extends PigeonIMU implements Sendable {
         return rawYaw;
     }
 
-    public double getYawRate(){
+    public double getYawRate() {
         double[] rawPigeon = new double[3];
         this.getRawGyro(rawPigeon);
         return rawPigeon[0];

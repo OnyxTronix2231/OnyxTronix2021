@@ -4,8 +4,6 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.*;
@@ -17,8 +15,6 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
     private final WPI_TalonFX leftSlave;
     private final WPI_TalonFX rightMaster;
     private final WPI_TalonFX rightSlave;
-    private final SpeedControllerGroup leftMotors;
-    private final SpeedControllerGroup rightMotors;
     private final NormalizedPigeonIMU pigeonIMU;
 
     public DriveTrainComponentsA() {
@@ -46,21 +42,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         leftSlave.setNeutralMode(NeutralMode.Brake);
         leftSlave.follow(leftMaster);
 
-        leftMotors = new SpeedControllerGroup(leftMaster, leftSlave);
-
-        rightMotors = new SpeedControllerGroup(rightMaster, rightSlave);
-
         pigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);
-    }
-
-    @Override
-    public SpeedControllerGroup getLeftMotors() {
-        return leftMotors;
-    }
-
-    @Override
-    public SpeedControllerGroup getRightMotors() {
-        return rightMotors;
     }
 
     @Override

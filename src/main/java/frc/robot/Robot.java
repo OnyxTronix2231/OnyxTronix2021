@@ -6,6 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.collector.Collector;
+import frc.robot.collector.CollectorComponents;
+import frc.robot.collector.CollectorComponentsA;
 import frc.robot.drivetrain.*;
 
 import java.util.Timer;
@@ -23,6 +26,8 @@ public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
 
+    Collector collector;
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -32,20 +37,30 @@ public class Robot extends TimedRobot {
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
+        CollectorComponents collectorComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            driveTrainComponents = new DriveTrainComponentsA();
-            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
-            driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents, simulationDriveTrainComponents);
+            if (Robot.isSimulation()) {
+                simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
+                driveTrainComponents = null;
+                collectorComponents = null;
+            } else {
+                driveTrainComponents = new DriveTrainComponentsA();
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
+                simulationDriveTrainComponents = null;
+                collectorComponents = new CollectorComponentsA();
+            }
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
+            collectorComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-
-        new DriverOI(driveTrain);
+        collector = new Collector(collectorComponents);
+        new DriverOI(driveTrain, collector);
         new DeputyOI();
     }
 
@@ -73,7 +88,7 @@ public class Robot extends TimedRobot {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                driveTrain.setNeutralModeToCoast();
+                if (isDisabled()) driveTrain.setNeutralModeToCoast();
             }
         }, 3000);
     }
@@ -85,7 +100,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-
     }
 
     /**

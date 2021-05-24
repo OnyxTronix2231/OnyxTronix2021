@@ -1,10 +1,8 @@
 package frc.robot.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatusFrame;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -12,7 +10,6 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
@@ -31,28 +28,35 @@ public class DriveTrain extends SubsystemBase {
         this.components = components;
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
-        Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
-        getField2d().setRobotPose(START_POSE);
-        virtualComponents.getOdometry().resetPosition(START_POSE, START_POSE.getRotation());
-        resetEncoders();
+
         if (Robot.isSimulation()) {
-            simulationComponents.getLeftMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
-            simulationComponents.getRightMasterMotor().setStatusFramePeriod(StatusFrame.Status_2_Feedback0, 10);
+            Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
+            Shuffleboard.getTab("DriveTrain").addNumber("actualVoltage",
+                    () -> getSimRightMaster().getMotorOutputVoltage());
+            Shuffleboard.getTab("DriveTrain").addNumber("speed",
+                    () -> encoderUnitsDeciSecToMetersSec(getSimLeftMaster().getSelectedSensorVelocity()));
+            getField2d().setRobotPose(START_POSE);
+            getDriveTrainSim().setPose(START_POSE);
         }
+
+        resetHeading();
+        resetOdometryToPose(START_POSE);
+        resetEncoders();
     }
 
     @Override
     public void periodic() {
         virtualComponents.getOdometry().update(
-                Rotation2d.fromDegrees(getHeading()),
-                encoderUnitsToMeters(getSimLeftMaster().getSelectedSensorPosition()),
-                encoderUnitsToMeters(getSimRightMaster().getSelectedSensorPosition()));
-
-        getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
+                Rotation2d.fromDegrees(Robot.isSimulation() ? getHeading() : -getHeading()),
+                encoderUnitsToMeters(Robot.isSimulation() ? getSimLeftMaster().getSelectedSensorPosition() :
+                        getLeftMaster().getSelectedSensorPosition()),
+                encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
+                        getRightMaster().getSelectedSensorPosition()));
     }
 
     @Override
     public void simulationPeriodic() {
+        getField2d().setRobotPose(virtualComponents.getOdometry().getPoseMeters());
         getDriveTrainSim().setInputs(
                 getSimLeftMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage(),
                 getSimRightMaster().getMotorOutputPercent() * RobotController.getBatteryVoltage());
@@ -72,10 +76,13 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
-        virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-                rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
-        virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-                rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        } else {
+            virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+        }
     }
 
     public Pose2d getPose() {
@@ -90,18 +97,16 @@ public class DriveTrain extends SubsystemBase {
                         getRightMaster().getSelectedSensorVelocity());
     }
 
-    public void resetOdometry(Pose2d pose) {
-        virtualComponents.getOdometry().resetPosition(pose,
-                Rotation2d.fromDegrees(getHeading()));
-    }
-
     public void tankDriveVolts(double leftVolts, double rightVolts) {
-        simulationComponents.getLeftMotors().setVoltage(leftVolts);
-        simulationComponents.getRightMotors().setVoltage(rightVolts);
-        virtualComponents.getSimDifferentialDrive().feed();
-        components.getLeftMotors().setVoltage(leftVolts);
-        components.getRightMotors().setVoltage(rightVolts);
-        virtualComponents.getDifferentialDrive().feed();
+        if (Robot.isReal()) {
+            getLeftMaster().set(leftVolts / 12);
+            getRightMaster().set(rightVolts / 12);
+            virtualComponents.getDifferentialDrive().feed();
+        } else {
+            getSimLeftMaster().set(leftVolts / 12);
+            getSimRightMaster().set(rightVolts / 12);
+            virtualComponents.getSimDifferentialDrive().feed();
+        }
     }
 
     public double getAverageEncoderDistance() {
@@ -110,14 +115,20 @@ public class DriveTrain extends SubsystemBase {
                 getRightMaster().getSelectedSensorPosition()) / 2;
     }
 
-    public void setMaxOutputArcadeDrive(double maxOutput) {
-        virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
-        virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
+    public void setArcadeDriveMaxOutput(double maxOutput) {
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
+        } else {
+            virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
+        }
     }
 
-    public void zeroHeading() {
-        components.getNormelizedPigeonIMU().setYaw(0);
-        simulationComponents.getAnalogGyroSim().setAngle(0);
+    public void resetHeading() {
+        if (Robot.isReal()) {
+            components.getNormelizedPigeonIMU().setYaw(0);
+        } else {
+            simulationComponents.getAnalogGyroSim().setAngle(0);
+        }
     }
 
     public double getHeading() {
@@ -131,22 +142,19 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void stopDrive() {
-        virtualComponents.getDifferentialDrive().stopMotor();
-        virtualComponents.getSimDifferentialDrive().stopMotor();
+        if (Robot.isReal()) {
+            virtualComponents.getDifferentialDrive().stopMotor();
+        } else {
+            virtualComponents.getSimDifferentialDrive().stopMotor();
+        }
     }
 
     public void setNeutralModeToCoast() {
-        components.getLeftMasterMotor().setNeutralMode(NeutralMode.Coast);
-        components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Coast);
-        components.getRightMasterMotor().setNeutralMode(NeutralMode.Coast);
-        components.getRightSlaveMotor().setNeutralMode(NeutralMode.Coast);
+        setNeutralMode(NeutralMode.Coast);
     }
 
     public void setNeutralModeToBrake() {
-        components.getLeftMasterMotor().setNeutralMode(NeutralMode.Brake);
-        components.getLeftSlaveMotor().setNeutralMode(NeutralMode.Brake);
-        components.getRightMasterMotor().setNeutralMode(NeutralMode.Brake);
-        components.getRightSlaveMotor().setNeutralMode(NeutralMode.Brake);
+        setNeutralMode(NeutralMode.Brake);
     }
 
     private double metersToEncoderUnits(double meters) {
@@ -189,22 +197,46 @@ public class DriveTrain extends SubsystemBase {
         return virtualComponents.getDriveTrainSim();
     }
 
+    private void setNeutralMode(NeutralMode mode) {
+        if (Robot.isReal()) {
+            getLeftMaster().setNeutralMode(mode);
+            components.getLeftSlaveMotor().setNeutralMode(mode);
+            getRightMaster().setNeutralMode(mode);
+            components.getRightSlaveMotor().setNeutralMode(mode);
+        } else {
+            getSimLeftMaster().setNeutralMode(mode);
+            simulationComponents.getLeftSlaveMotor().setNeutralMode(mode);
+            getSimRightMaster().setNeutralMode(mode);
+            simulationComponents.getRightSlaveMotor().setNeutralMode(mode);
+        }
+    }
+
     private void resetEncoders() {
-        getLeftMaster().setSelectedSensorPosition(0);
-        getRightMaster().setSelectedSensorPosition(0);
-        getSimLeftMaster().setSelectedSensorPosition(0);
-        getSimRightMaster().setSelectedSensorPosition(0);
+        if (Robot.isReal()) {
+            getLeftMaster().setSelectedSensorPosition(0);
+            getRightMaster().setSelectedSensorPosition(0);
+        } else {
+            getSimLeftMaster().setSelectedSensorPosition(0);
+            getSimRightMaster().setSelectedSensorPosition(0);
+        }
     }
 
     public void resetSimOdometryToPose(Pose2d pose) {//For future Vision integration - will delete comment pre-merge
-        resetEncoders();
-        virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
-        simulationComponents.getRightMasterMotor().getSimCollection().setQuadratureVelocity(0);
-        simulationComponents.getLeftMasterMotor().getSimCollection().setQuadratureVelocity(0);
-        simulationComponents.getAnalogGyroSim().setRate(0);
-        simulationComponents.getAnalogGyroSim().setAngle(0);
+        getSimRightMaster().getSimCollection().setQuadratureVelocity(0);
+        getSimLeftMaster().getSimCollection().setQuadratureVelocity(0);
+        simulationComponents.getAnalogGyroSim().setRate(pose.getRotation().getDegrees());
+        simulationComponents.getAnalogGyroSim().setAngle(pose.getRotation().getDegrees());
         simulationComponents.getField2d().setRobotPose(pose);
         virtualComponents.getDriveTrainSim().setPose(pose);
         virtualComponents.getDriveTrainSim().setInputs(0, 0);
+    }
+
+    public void resetOdometryToPose(Pose2d pose) {
+        resetEncoders();
+        virtualComponents.getOdometry().resetPosition(pose, pose.getRotation());
+        if (Robot.isReal())
+            components.getNormelizedPigeonIMU().setYaw(pose.getRotation().getDegrees());
+        else
+            resetSimOdometryToPose(pose);
     }
 }
