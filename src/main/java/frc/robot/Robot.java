@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
         turret = new Turret(turretComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        new DriverOI(driveTrain, shooter, collector, revolver, ballTrigger, turret, vision);
+        new DriverOI(driveTrain, shooter, collector, revolver, ballTrigger, turret);
         new DeputyOI();
     }
 
