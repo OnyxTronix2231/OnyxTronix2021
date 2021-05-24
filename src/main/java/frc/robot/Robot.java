@@ -26,7 +26,6 @@ import frc.robot.turret.Turret;
 import frc.robot.turret.TurretComponents;
 import frc.robot.turret.TurretComponentsA;
 import frc.robot.vision.visionMainChallenge.Vision;
-import vision.configuration.VisionConfiguration;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -102,7 +101,10 @@ public class Robot extends TimedRobot {
         turret = new Turret(turretComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        new DriverOI(driveTrain, shooter, arc, collector, revolver, ballTrigger, turret ,vision);
+        var v = new DriverOI();
+        v
+                .withDriveTrainOi(driveTrain)
+                .createCrossPlatformOiBinder(collector, ballTrigger, revolver, arc, turret, shooter, vision);
     }
 
     /**
