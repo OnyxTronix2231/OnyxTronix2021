@@ -38,12 +38,6 @@ public class DriveTrain extends SubsystemBase {
             getField2d().setRobotPose(START_POSE);
             getDriveTrainSim().setPose(START_POSE);
         }
-        Shuffleboard.getTab("DriveTrain").addNumber("CURRENT X",
-                () -> virtualComponents.getOdometry().getPoseMeters().getX());
-        Shuffleboard.getTab("DriveTrain").addNumber("CURRENT Y",
-                () -> virtualComponents.getOdometry().getPoseMeters().getY());
-        Shuffleboard.getTab("DriveTrain").addNumber("CURRENT ROTATION DEGREES",
-                () -> virtualComponents.getOdometry().getPoseMeters().getRotation().getDegrees());
 
         resetHeading();
         resetOdometryToPose(START_POSE);
