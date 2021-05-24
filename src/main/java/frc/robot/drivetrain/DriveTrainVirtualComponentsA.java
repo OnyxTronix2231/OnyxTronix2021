@@ -20,31 +20,20 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
     private final DifferentialDriveOdometry odometry;
     private final DifferentialDrivetrainSim driveTrainSim;
 
-    public DriveTrainVirtualComponentsA(SimulationDriveTrainComponents simComponents) {
+    public DriveTrainVirtualComponentsA(DriveTrainComponents components, SimulationDriveTrainComponents simComponents) {
+        differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
+        differentialDrive.setRightSideInverted(false);
+        differentialDrive.setSafetyEnabled(false);
+
         simDifferentialDrive = new DifferentialDrive(simComponents.getLeftMasterMotor(), simComponents.getRightMasterMotor());
         simDifferentialDrive.setRightSideInverted(false);
         simDifferentialDrive.setSafetyEnabled(false);
-
-        differentialDrive = null;
 
         odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
         odometry.resetPosition(new Pose2d(), new Rotation2d());
 
         driveTrainSim = new DifferentialDrivetrainSim(DCMotor.getFalcon500(2), CONVERSION_RATE,
                 MOMENT_OF_INERTIA, DRIVE_TRAIN_MASS, WHEEL_DIAMETER_METER / 2, TRACKWIDTH_METERS, null);
-    }
-
-    public DriveTrainVirtualComponentsA(DriveTrainComponents components) {
-        differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
-        differentialDrive.setRightSideInverted(false);
-        differentialDrive.setSafetyEnabled(false);
-
-        simDifferentialDrive = null;
-
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
-        odometry.resetPosition(new Pose2d(), new Rotation2d());
-
-        driveTrainSim = null;
     }
 
     @Override
