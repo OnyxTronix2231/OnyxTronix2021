@@ -40,12 +40,14 @@ public class ShooterComponentsA implements ShooterComponents {
         masterMotor.configFactoryDefault();
         masterMotor.configAllSettings(getFalconConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Coast);
+        masterMotor.setInverted(true);
 
         slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
         slaveMotor.configFactoryDefault();
         slaveMotor.configAllSettings(getFalconConfiguration());
         slaveMotor.setNeutralMode(NeutralMode.Coast);
         slaveMotor.follow(masterMotor);
+        slaveMotor.setInverted(false);
 
         encoder = new CtreEncoder(masterMotor);
 
