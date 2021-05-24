@@ -47,6 +47,8 @@ public class Robot extends TimedRobot {
     Vision vision;
 
 
+    Collector collector;
+
     /**
      * This function is run when the robot is first started up and should be used for any
      * initialization code.
@@ -93,7 +95,6 @@ public class Robot extends TimedRobot {
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
         new DriverOI(driveTrain, shooter, collector, revolver, ballTrigger, turret);
-        new DeputyOI();
     }
 
     /**
@@ -120,7 +121,7 @@ public class Robot extends TimedRobot {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                driveTrain.setNeutralModeToCoast();
+                if (isDisabled()) driveTrain.setNeutralModeToCoast();
             }
         }, 3000);
     }
@@ -132,7 +133,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-
     }
 
     /**
