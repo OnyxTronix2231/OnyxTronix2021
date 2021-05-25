@@ -1,6 +1,7 @@
 package frc.robot.ballTrigger;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -74,10 +75,10 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void openPiston() {
-        components.getSolenoid().set(OPEN_PISTON);
+        components.getSolenoid().set(DoubleSolenoid.Value.kForward);
     }
 
     public void closePiston() {
-        components.getSolenoid().set(CLOSE_PISTON);
+        components.getSolenoid().set(DoubleSolenoid.Value.kReverse);
     }
 }
