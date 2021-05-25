@@ -24,7 +24,6 @@ public class DriverOI {
 
     public DriverOI() {
         xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
-
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
@@ -32,8 +31,8 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI createCrossPlatformOiBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                             Turret turret, Shooter shooter, Vision vision) {
+    public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
+                                        Turret turret, Shooter shooter, Vision vision) {
         Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         Trigger spinRevolverAndTrigger = new JoystickButton(xboxController, XboxController.Button.kY.value);
         Trigger spinRevolverAndTriggerThenOpenPiston = new JoystickButton(xboxController,

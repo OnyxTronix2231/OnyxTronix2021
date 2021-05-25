@@ -101,10 +101,9 @@ public class Robot extends TimedRobot {
         turret = new Turret(turretComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        var v = new DriverOI();
-        v
-                .withDriveTrainOi(driveTrain)
-                .createCrossPlatformOiBinder(collector, ballTrigger, revolver, arc, turret, shooter, vision);
+        DriverOI driverOI = new DriverOI();
+        driverOI.withDriveTrainOi(driveTrain)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
     }
 
     /**
