@@ -1,6 +1,11 @@
 package frc.robot.collector;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 public class CollectorConstants {
+
+    static final DoubleSolenoid.Value OPEN_PISTONS = DoubleSolenoid.Value.kForward;
+    static final DoubleSolenoid.Value CLOSE_PISTONS = DoubleSolenoid.Value.kReverse;
 
     public static final class BallCollectorConstantsA {
 

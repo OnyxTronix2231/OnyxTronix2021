@@ -1,9 +1,13 @@
 package frc.robot.ballTrigger;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 public final class BallTriggerConstants {
 
     static final int ENCODER_UNITS_PER_ROTATION = 4096;
     static final int DECISECOND_IN_MIN = 600;
+    static final DoubleSolenoid.Value OPEN_PISTON = DoubleSolenoid.Value.kForward;
+    static final DoubleSolenoid.Value CLOSE_PISTON = DoubleSolenoid.Value.kReverse;
 
     public static final class BallTriggerConstantsA {
 

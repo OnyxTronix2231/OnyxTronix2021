@@ -75,10 +75,10 @@ public class BallTrigger extends SubsystemBase {
     }
 
     public void openPiston() {
-        components.getSolenoid().set(DoubleSolenoid.Value.kForward);
+        components.getSolenoid().set(OPEN_PISTON);
     }
 
     public void closePiston() {
-        components.getSolenoid().set(DoubleSolenoid.Value.kReverse);
+        components.getSolenoid().set(CLOSE_PISTON);
     }
 }
