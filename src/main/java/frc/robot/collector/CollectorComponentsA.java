@@ -3,14 +3,14 @@ package frc.robot.collector;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 import static frc.robot.collector.CollectorConstants.BallCollectorConstantsA.*;
 
 public class CollectorComponentsA implements CollectorComponents {
 
     private final WPI_TalonSRX motor;
-    private final Solenoid solenoid;
+    private final DoubleSolenoid solenoid;
 
     public CollectorComponentsA() {
         motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -19,7 +19,7 @@ public class CollectorComponentsA implements CollectorComponents {
         motor.setNeutralMode(NeutralMode.Brake);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
 
-        solenoid = new Solenoid(SOLENOID_CHANNEL);
+        solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CollectorComponentsA implements CollectorComponents {
     }
 
     @Override
-    public Solenoid getSolenoid() {
+    public DoubleSolenoid getSolenoid() {
         return solenoid;
     }
 

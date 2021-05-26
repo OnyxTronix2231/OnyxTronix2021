@@ -1,17 +1,20 @@
 package frc.robot.ballTrigger;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 public final class BallTriggerConstants {
 
     static final int ENCODER_UNITS_PER_ROTATION = 4096;
     static final int DECISECOND_IN_MIN = 600;
-    static final boolean OPEN_PISTON = true;
-    static final boolean CLOSE_PISTON = false;
+    static final DoubleSolenoid.Value OPEN_PISTON = DoubleSolenoid.Value.kForward;
+    static final DoubleSolenoid.Value CLOSE_PISTON = DoubleSolenoid.Value.kReverse;
 
     public static final class BallTriggerConstantsA {
 
         static final int MASTER_MOTOR_ID = 9;
         static final int SLAVE_MOTOR_ID = 14;
-        static final int SOLENOID_CHANNEL = 1;
+        static final int FORWARD_CHANNEL = 0;
+        static final int REVERSE_CHANNEL = 1;
         static final int PEAK_AMP = 0; //TODO: check value
         static final int PEAK_AMP_DURATION = 0; //TODO: check value
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value
