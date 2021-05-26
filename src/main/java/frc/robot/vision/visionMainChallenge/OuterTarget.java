@@ -8,9 +8,9 @@ import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
 
-    public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTF, DoubleSupplier gyroYawAngle) {
+    public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTR, DoubleSupplier gyroYawAngle) {
         this.limelight = limelight;
-        this.turretAngleRTF = turretAngleRTF;
+        this.turretAngleRTR = turretAngleRTR;
         this.gyroYawAngle = gyroYawAngle;
 
         /* putting default values to all parameters*/
@@ -70,7 +70,7 @@ public class OuterTarget extends VisionTarget {
              * the angle from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
             horizontalAngleTargetToRobot = horizontalAngleTargetToTurret +
-                    turretAngleRTF.getAsDouble() % CIRCLE_ANGLES;
+                    turretAngleRTR.getAsDouble() % CIRCLE_ANGLES;
 
             /* this is the correct vector (yay!) from the turret center to the target it is stated on the correct
              * coordinates system (which is related to the field and not to the turret) physically it

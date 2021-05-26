@@ -6,10 +6,26 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.arc.Arc;
+import frc.robot.arc.ArcComponents;
+import frc.robot.arc.ArcComponentsA;
+import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.BallTriggerComponents;
+import frc.robot.ballTrigger.BallTriggerComponentsA;
 import frc.robot.collector.Collector;
 import frc.robot.collector.CollectorComponents;
 import frc.robot.collector.CollectorComponentsA;
 import frc.robot.drivetrain.*;
+import frc.robot.revolver.Revolver;
+import frc.robot.revolver.RevolverComponents;
+import frc.robot.revolver.RevolverComponentsA;
+import frc.robot.shooter.Shooter;
+import frc.robot.shooter.ShooterComponents;
+import frc.robot.shooter.ShooterComponentsA;
+import frc.robot.turret.Turret;
+import frc.robot.turret.TurretComponents;
+import frc.robot.turret.TurretComponentsA;
+import frc.robot.vision.visionMainChallenge.Vision;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,8 +41,13 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
 public class Robot extends TimedRobot {
 
     DriveTrain driveTrain;
-
+    Shooter shooter;
+    Arc arc;
     Collector collector;
+    Revolver revolver;
+    BallTrigger ballTrigger;
+    Turret turret;
+    Vision vision;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -37,31 +58,52 @@ public class Robot extends TimedRobot {
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
+        ShooterComponents shooterComponents;
+        ArcComponents arcComponents;
         CollectorComponents collectorComponents;
+        RevolverComponents revolverComponents;
+        BallTriggerComponents ballTriggerComponents;
+        TurretComponents turretComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            if (Robot.isSimulation()) {
-                simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
-                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
-                driveTrainComponents = null;
-                collectorComponents = null;
-            } else {
-                driveTrainComponents = new DriveTrainComponentsA();
+            driveTrainComponents = new DriveTrainComponentsA();
+            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+            if (Robot.isReal()) {
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
-                simulationDriveTrainComponents = null;
-                collectorComponents = new CollectorComponentsA();
             }
+            else {
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
+            }
+            shooterComponents = new ShooterComponentsA();
+            arcComponents = new ArcComponentsA();
+            collectorComponents = new CollectorComponentsA();
+            revolverComponents = new RevolverComponentsA();
+            ballTriggerComponents = new BallTriggerComponentsA();
+            turretComponents = new TurretComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
+            shooterComponents = null;
             collectorComponents = null;
+            revolverComponents = null;
+            ballTriggerComponents = null;
+            turretComponents = null;
+            arcComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+        shooter = new Shooter(shooterComponents);
+        arc= new Arc(arcComponents);
         collector = new Collector(collectorComponents);
-        new DriverOI(driveTrain, collector);
-        new DeputyOI();
+        revolver = new Revolver(revolverComponents);
+        ballTrigger = new BallTrigger(ballTriggerComponents);
+        turret = new Turret(turretComponents);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
+
+        DriverOI driverOI = new DriverOI();
+        driverOI.withDriveTrainOi(driveTrain)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
     }
 
     /**

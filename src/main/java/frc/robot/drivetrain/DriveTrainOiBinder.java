@@ -11,9 +11,7 @@ import frc.robot.drivetrain.skills.SkillsConstants;
 import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
 
 public class DriveTrainOiBinder {
-    public DriveTrainOiBinder(DriveTrain driveTrain, Collector collector, XboxController driveJoystick, Trigger resetButton, Trigger pathButton) {
+    public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick) {
         driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
-        resetButton.whenActive(new InstantCommand(() -> driveTrain.resetOdometryToPose(START_POSE)));
-        pathButton.whenActive(new DriveAndCollect(driveTrain, collector, SkillsConstants.Paths.GALACTIC_SEARCH_RED_FIRST));
     }
 }

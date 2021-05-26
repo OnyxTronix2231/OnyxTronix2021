@@ -11,8 +11,8 @@ public final class ShooterConstants {
 
     public static final class ShooterConstantsA {
 
-        static final int MASTER_MOTOR_ID = 4; // TODO: check and change
-        static final int SLAVE_MOTOR_ID = 5; // TODO: check and change
+        static final int MASTER_MOTOR_ID = 13; // TODO: check and change
+        static final int SLAVE_MOTOR_ID = 7; // TODO: check and change
         static final int SUPPLY_CURRENT_LIMIT = 0; // TODO: check and change
         static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
