@@ -9,7 +9,7 @@ public final class BallTriggerConstants {
 
     public static final class BallTriggerConstantsA {
 
-        static final int MASTER_MOTOR_ID = 9;
+        static final int MASTER_MOTOR_ID = 10;
         static final int SLAVE_MOTOR_ID = 14;
         static final int SOLENOID_CHANNEL = 1;
         static final int PEAK_AMP = 0; //TODO: check value
