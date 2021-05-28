@@ -11,7 +11,7 @@ public final class BallTriggerConstants {
 
     public static final class BallTriggerConstantsA {
 
-        static final int MASTER_MOTOR_ID = 9;
+        static final int MASTER_MOTOR_ID = 10;
         static final int SLAVE_MOTOR_ID = 14;
         static final int FORWARD_CHANNEL = 0;
         static final int REVERSE_CHANNEL = 1;

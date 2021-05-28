@@ -2,7 +2,7 @@ package frc.robot.turret;
 
 public class TurretConstants {
 
-    static final int MASTER_MOTOR_ID = 6;
+    static final int MASTER_MOTOR_ID = 8;
     static final int FLIP_POINT = 360;
     static final int TOLERANCE_DEGREE = 3;
     static final double TURRET_CONVERSION = 1;

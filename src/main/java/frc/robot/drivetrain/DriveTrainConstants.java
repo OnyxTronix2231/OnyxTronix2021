@@ -24,10 +24,10 @@ public final class DriveTrainConstants {
 
     public static final class DriveTrainComponentsA {
 
-        static final int LEFT_MASTER_PORT = 2; // TODO: check value
-        static final int LEFT_SLAVE_PORT = 3; // TODO: check value
-        static final int RIGHT_MASTER_PORT = 0; // TODO: check value
-        static final int RIGHT_SLAVE_PORT = 1; // TODO: check value
+        static final int LEFT_MASTER_PORT = 3; // TODO: check value
+        static final int LEFT_SLAVE_PORT = 4; // TODO: check value
+        static final int RIGHT_MASTER_PORT = 1; // TODO: check value
+        static final int RIGHT_SLAVE_PORT = 2; // TODO: check value
         static final int PIGEON_PORT = 0;
         static final int ENCODER_UNITS = 2048;
         static final int CONTINUOUS_CURRENT_LIMIT = 10;
