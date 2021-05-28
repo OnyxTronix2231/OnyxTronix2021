@@ -18,6 +18,7 @@ public class CollectorComponentsA implements CollectorComponents {
         motor.configAllSettings(getConfiguration());
         motor.setNeutralMode(NeutralMode.Brake);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        motor.setInverted(true);
 
         solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
     }
