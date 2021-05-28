@@ -1,9 +1,9 @@
 package frc.robot.collector;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.collector.CollectorConstants.CLOSE_PISTONS;
+import static frc.robot.collector.CollectorConstants.OPEN_PISTONS;
 
-import static frc.robot.collector.CollectorConstants.CLOSE_PISTON;
-import static frc.robot.collector.CollectorConstants.OPEN_PISTON;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Collector extends SubsystemBase {
 
@@ -22,10 +22,10 @@ public class Collector extends SubsystemBase {
     }
 
     public void openPistons() {
-        components.getSolenoid().set(OPEN_PISTON);
+        components.getSolenoid().set(OPEN_PISTONS);
     }
 
     public void closePistons() {
-        components.getSolenoid().set(CLOSE_PISTON);
+        components.getSolenoid().set(CLOSE_PISTONS);
     }
 }

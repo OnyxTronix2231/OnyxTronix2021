@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.interfaces.PIDController;
@@ -17,7 +17,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
     private final WPI_TalonSRX slaveMotor;
-    private final Solenoid solenoid;
+    private final DoubleSolenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
 
@@ -35,7 +35,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         slaveMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
         slaveMotor.follow(masterMotor);
 
-        solenoid = new Solenoid(SOLENOID_CHANNEL);
+        solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
 
         encoder = new CtreEncoder(masterMotor);
 
@@ -54,7 +54,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
     }
 
     @Override
-    public Solenoid getSolenoid() {
+    public DoubleSolenoid getSolenoid() {
         return solenoid;
     }
 
