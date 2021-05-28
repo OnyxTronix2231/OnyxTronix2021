@@ -7,15 +7,17 @@ import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
+import frc.robot.revolver.commands.SpinRevolverBySpeed;
 
 import java.util.function.DoubleSupplier;
 
 public class SpinRevolverAndTriggerThenOpenTriggerPiston extends ParallelCommandGroup {
 
     public SpinRevolverAndTriggerThenOpenTriggerPiston(Revolver revolver, BallTrigger ballTrigger,
-                                                       DoubleSupplier rpmSupplier,
+                                                       DoubleSupplier revolverSpeedSupplier,
                                                        DoubleSupplier ballTriggerSpeedSupplier) {
-        super(new SpinRevolverByRPM(revolver, rpmSupplier), new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
-                new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger)));
+        super(new SpinRevolverBySpeed(revolver, revolverSpeedSupplier),
+            new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
+            new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger)));
     }
 }

@@ -5,13 +5,15 @@ import frc.robot.collector.Collector;
 import frc.robot.collector.commands.OpenAndCollect;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
+import frc.robot.revolver.commands.SpinRevolverBySpeed;
 
 import java.util.function.DoubleSupplier;
 
 public class CollectAndSpinRevolver extends ParallelCommandGroup {
 
-    public CollectAndSpinRevolver(Collector collector, Revolver revolver, DoubleSupplier rpmSupplier,
-                                  DoubleSupplier SpeedSupplier) {
-        super(new OpenAndCollect(collector, SpeedSupplier), new SpinRevolverByRPM(revolver, rpmSupplier));
+    public CollectAndSpinRevolver(Collector collector, Revolver revolver, DoubleSupplier revolverSpeedSupplier,
+                                  DoubleSupplier collectorSpeedSupplier) {
+        super(new OpenAndCollect(collector, collectorSpeedSupplier),
+            new SpinRevolverBySpeed(revolver, revolverSpeedSupplier));
     }
 }
