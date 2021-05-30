@@ -15,6 +15,7 @@ import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
+import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
@@ -37,9 +38,12 @@ public class DriverOI {
         Trigger spinRevolverAndTrigger = new JoystickButton(xboxController, XboxController.Button.kY.value);
         Trigger spinRevolverAndTriggerThenOpenPiston = new JoystickButton(xboxController,
                 XboxController.Button.kStart.value);
+        Trigger openBallCollector = new JoystickButton(xboxController, XboxController.Button.kBack.value);
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
+        JoystickAxis moveRevolver = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, turret, shooter, vision,
-                collectAndLoadRevolver, spinRevolverAndTrigger, spinRevolverAndTriggerThenOpenPiston, shootBall);
+                collectAndLoadRevolver, spinRevolverAndTrigger, spinRevolverAndTriggerThenOpenPiston, shootBall,
+                openBallCollector, moveRevolver);
         return this;
     }
 }

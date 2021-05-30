@@ -1,11 +1,15 @@
 package frc.robot.crossPlatform;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
+import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
+import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.shooter.Shooter;
+import frc.robot.shooter.commands.SpinShooterBySpeed;
 import frc.robot.shooter.commands.SpinShooterByVision;
 import frc.robot.turret.Turret;
 import frc.robot.turret.commands.MoveTurretByVision;
@@ -20,11 +24,13 @@ public class ShootBall extends ParallelCommandGroup {
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
                      Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier) {
         super(
-                new SpinShooterByVision(shooter, vision),
-                new MoveArcByVision(arc, vision),
-                new MoveTurretByVision(turret, vision),
-                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
-                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
+                new SpinShooterBySpeed(shooter, () -> -0.95),
+                //new MoveArcByVision(arc, vision),
+                //new MoveTurretByVision(turret, vision),
+//                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
+//                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
+                new SpinBallTriggerBySpeed(ballTrigger, () -> 0.9),
+                new WaitCommand(10).andThen(new OpenBallTriggerPiston(ballTrigger)));
         this.ballTrigger = ballTrigger;
     }
 }

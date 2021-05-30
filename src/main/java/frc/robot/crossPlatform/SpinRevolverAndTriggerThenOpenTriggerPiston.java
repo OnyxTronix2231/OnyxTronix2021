@@ -18,6 +18,7 @@ public class SpinRevolverAndTriggerThenOpenTriggerPiston extends ParallelCommand
                                                        DoubleSupplier ballTriggerSpeedSupplier) {
         super(new SpinRevolverBySpeed(revolver, revolverSpeedSupplier),
             new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
-            new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger)));
+//            new WaitUntilCommand(revolver::isOnTarget).andThen(new OpenBallTriggerPiston(ballTrigger))
+            new OpenBallTriggerPiston(ballTrigger));
     }
 }

@@ -102,7 +102,8 @@ public class Robot extends TimedRobot {
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
         DriverOI driverOI = new DriverOI();
-        driverOI.withDriveTrainOi(driveTrain)
+        driverOI
+                .withDriveTrainOi(driveTrain)
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
     }
 
@@ -138,6 +139,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
     }
+
 
 
     @Override

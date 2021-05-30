@@ -23,6 +23,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         rightMaster.configAllSettings(getFalconConfiguration());
         rightMaster.setInverted(true);
         rightMaster.setNeutralMode(NeutralMode.Brake);
+        rightMaster.setInverted(true);
 
         rightSlave = new WPI_TalonFX(RIGHT_SLAVE_PORT);
         rightSlave.configFactoryDefault();
@@ -30,6 +31,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         rightSlave.setInverted(true);
         rightSlave.setNeutralMode(NeutralMode.Brake);
         rightSlave.follow(rightMaster);
+        rightSlave.setInverted(true);
 
         leftMaster = new WPI_TalonFX(LEFT_MASTER_PORT);
         leftMaster.configFactoryDefault();
