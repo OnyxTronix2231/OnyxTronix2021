@@ -30,7 +30,7 @@ public class ShootBall extends ParallelCommandGroup {
 //                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
 //                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
                 new SpinBallTriggerBySpeed(ballTrigger, () -> 0.9),
-                new WaitCommand(10).andThen(new OpenBallTriggerPiston(ballTrigger)));
+                new WaitCommand(3).andThen(new OpenBallTriggerPiston(ballTrigger)));
         this.ballTrigger = ballTrigger;
     }
 }

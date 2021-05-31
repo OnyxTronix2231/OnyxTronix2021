@@ -36,7 +36,7 @@ public class DriverCrossPlatformOIBinder {
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED).alongWith(new SpinRevolverBySpeed(revolver, () -> 0.2)));
+                () -> TESTING_SPEED).alongWith(new SpinRevolverBySpeed(revolver, () -> 0.38)));
         shootBallTrigger.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
         openBallTrigger.whenActive(new OpenBallTriggerPiston(ballTrigger));
