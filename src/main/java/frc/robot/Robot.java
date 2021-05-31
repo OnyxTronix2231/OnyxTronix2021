@@ -13,6 +13,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.visionGSC.VisionGSC;
+import frc.robot.vision.visionMainChallenge.Vision;
 
 import java.nio.channels.GatheringByteChannel;
 import java.util.Timer;
@@ -27,7 +28,7 @@ import java.util.TimerTask;
 public class Robot extends TimedRobot {
 
   DriveTrain driveTrain;
-  VisionGSC vision;
+  Vision vision;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -45,7 +46,7 @@ public class Robot extends TimedRobot {
 
     driveTrain = new DriveTrain(driveTrainComponents);
 
-    vision = new VisionGSC();
+    vision = new Vision(()->0, ()->0);
 
     new DriverOI(driveTrain);
     new DeputyOI();
