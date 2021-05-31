@@ -12,6 +12,12 @@ VisionTarget <|-- OuterTarget
 VisionGSC *-- GSCOption
 InnerTarget o-- OuterTarget
 
+skinparam class{
+    BackgroundColor white
+    ArrowColor black
+    BorderColor black
+}
+
 abstract class BaseVision{
     Limelight limelight
     BaseVision()
