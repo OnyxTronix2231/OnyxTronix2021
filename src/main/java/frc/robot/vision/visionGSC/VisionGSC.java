@@ -22,7 +22,9 @@ public class VisionGSC extends BaseVision{
     }
 
     public double getTargetHorizontalAngle() {
-        return limelight.getTarget().getHorizontalOffsetToCrosshair();
+        if (hasTarget())
+            return limelight.getTarget().getHorizontalOffsetToCrosshair();
+        return 999;
     }
 
     public GSCOption determineBlueOrRed() {
@@ -32,7 +34,7 @@ public class VisionGSC extends BaseVision{
 
         if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) <
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            if (Math.abs(getTargetHorizontalAngle()) < RED_TARGET_ANGLE_TOLERANCE) {
+            if (Math.abs(getTargetHorizontalAngle()) > RED_TARGET_ANGLE_TOLERANCE) {
                 return GSCOption.RED2;
             }
             return GSCOption.RED1;
