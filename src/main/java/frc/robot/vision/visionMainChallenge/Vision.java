@@ -23,8 +23,12 @@ public class Vision extends BaseVision {
         currentPos = new Pose2d(0, 0, currentRotation);
         outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
-        Shuffleboard.getTab("Vision").addNumber("Distance to chosen target",
-                () -> chosenTarget != null ? chosenTarget.getAirDistanceTurretToTarget() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
+                outerTarget::getAirDistanceTurretToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Distance to inner target",
+                innerTarget::getAirDistanceTurretToTarget);
+        Shuffleboard.getTab("Vision").addString("Chosen target",
+                () -> chosenTarget == outerTarget ? "outer" : "inner" );
         Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToTurret() : -1);
         Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target",

@@ -1,5 +1,6 @@
 package frc.robot.vision.visionMainChallenge;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
@@ -8,6 +9,8 @@ import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
 
+    private double verticalDistanceLimelightToTarget;
+
     public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTF, DoubleSupplier gyroYawAngle) {
         this.limelight = limelight;
         this.turretAngleRTF = turretAngleRTF;
@@ -15,6 +18,10 @@ public class OuterTarget extends VisionTarget {
 
         /* putting default values to all parameters*/
         verticalAngleLimelightToTarget = 0.0;
+        Shuffleboard.getTab("Vision").addNumber("Calculated angle to outer", () -> LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () -> verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () -> verticalDistanceLimelightToTarget);
+
         horizontalAngleTargetToRobot = 0.0;
         airDistanceTurretToTarget = 0.0;
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
@@ -44,6 +51,8 @@ public class OuterTarget extends VisionTarget {
             /* calculating air distance (horizontal) from limelight to target using simple formula and trigonometry*/
             double airDistanceLimelightToTarget =
                     targetToLimelightHeight / Math.tan(Math.toRadians(verticalAngleRobotToTarget));
+
+            verticalDistanceLimelightToTarget = airDistanceLimelightToTarget;
 
             /* we want to have the vector from the shooting spot on the turret to the target
              * so we create a vector from the limelight to the target and then we add a fixed vector
