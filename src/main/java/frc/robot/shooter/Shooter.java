@@ -23,11 +23,13 @@ public class Shooter extends SubsystemBase {
     public Shooter(ShooterComponents components) {
         this.components = components;
         initIsBallShot();
-
+//
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
+        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
+                () -> components.getEncoder().getRate());
 
         kP = Shuffleboard.getTab("Shooter").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
@@ -63,6 +65,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void updateMoveByRPM(double rpm) {
+        System.out.println(RPMToEncoderUnitsInDecisecond(rpm));
         components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 

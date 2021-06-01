@@ -55,55 +55,54 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        DriveTrainComponents driveTrainComponents;
-        SimulationDriveTrainComponents simulationDriveTrainComponents;
-        DriveTrainVirtualComponents driveTrainVirtualComponents;
+        //DriveTrainComponents driveTrainComponents;
+        //SimulationDriveTrainComponents simulationDriveTrainComponents;
+        //DriveTrainVirtualComponents driveTrainVirtualComponents;
         ShooterComponents shooterComponents;
-        ArcComponents arcComponents;
-        CollectorComponents collectorComponents;
-        RevolverComponents revolverComponents;
-        BallTriggerComponents ballTriggerComponents;
-        TurretComponents turretComponents;
+        //ArcComponents arcComponents;
+        //CollectorComponents collectorComponents;
+        //RevolverComponents revolverComponents;
+        //BallTriggerComponents ballTriggerComponents;
+        //TurretComponents turretComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            driveTrainComponents = new DriveTrainComponentsA();
-            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+            //driveTrainComponents = new DriveTrainComponentsA();
+            //simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
             if (Robot.isReal()) {
-                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
+                //driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
             }
             else {
-                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
+                //driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
             shooterComponents = new ShooterComponentsA();
-            arcComponents = new ArcComponentsA();
-            collectorComponents = new CollectorComponentsA();
-            revolverComponents = new RevolverComponentsA();
-            ballTriggerComponents = new BallTriggerComponentsA();
-            turretComponents = new TurretComponentsA();
+            //arcComponents = new ArcComponentsA();
+            //collectorComponents = new CollectorComponentsA();
+            //revolverComponents = new RevolverComponentsA();
+            //ballTriggerComponents = new BallTriggerComponentsA();
+            //turretComponents = new TurretComponentsA();
         } else {
-            driveTrainComponents = null;
-            simulationDriveTrainComponents = null;
-            driveTrainVirtualComponents = null;
+            //driveTrainComponents = null;
+            //simulationDriveTrainComponents = null;
+            //driveTrainVirtualComponents = null;
             shooterComponents = null;
-            collectorComponents = null;
-            revolverComponents = null;
-            ballTriggerComponents = null;
-            turretComponents = null;
-            arcComponents = null;
+            //collectorComponents = null;
+            //revolverComponents = null;
+            //ballTriggerComponents = null;
+            //turretComponents = null;
+            //arcComponents = null;
         }
 
-        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+        //driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         shooter = new Shooter(shooterComponents);
-        arc= new Arc(arcComponents);
-        collector = new Collector(collectorComponents);
-        revolver = new Revolver(revolverComponents);
-        ballTrigger = new BallTrigger(ballTriggerComponents);
-        turret = new Turret(turretComponents);
-        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
+        //arc= new Arc(arcComponents);
+        //collector = new Collector(collectorComponents);
+        //revolver = new Revolver(revolverComponents);
+        //ballTrigger = new BallTrigger(ballTriggerComponents);
+        //turret = new Turret(turretComponents);
+        //vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        DriverOI driverOI = new DriverOI();
-        driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
+        DriverOI driverOI = new DriverOI(shooter);
+
     }
 
     /**
@@ -153,7 +152,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        driveTrain.setNeutralModeToBrake();
+        //driveTrain.setNeutralModeToBrake();
     }
 
     /**

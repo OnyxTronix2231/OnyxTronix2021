@@ -18,7 +18,7 @@ public final class ShooterConstants {
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
         static final int STATOR_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_VELOCITY = 17500; // TODO: check and change
+        static final double MAX_VELOCITY = 16500 * 1.2; // TODO: check and change
         static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final double VELOCITY_P = 0; // TODO: check and change

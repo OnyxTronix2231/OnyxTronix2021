@@ -13,8 +13,10 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
+import frc.robot.shooter.ShooterOi;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
+import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
@@ -22,24 +24,10 @@ public class DriverOI {
 
     XboxController xboxController;
 
-    public DriverOI() {
+    public DriverOI(Shooter shooter) {
         xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
-    }
-
-    public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        new DriveTrainOiBinder(driveTrain, xboxController);
-        return this;
-    }
-
-    public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                        Turret turret, Shooter shooter, Vision vision) {
-        Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
-        Trigger spinRevolverAndTrigger = new JoystickButton(xboxController, XboxController.Button.kY.value);
-        Trigger spinRevolverAndTriggerThenOpenPiston = new JoystickButton(xboxController,
-                XboxController.Button.kStart.value);
-        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
-        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, turret, shooter, vision,
-                collectAndLoadRevolver, spinRevolverAndTrigger, spinRevolverAndTriggerThenOpenPiston, shootBall);
-        return this;
+        JoystickAxis shootTrigger = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
+        new ShooterOi(shooter, shootTrigger);
     }
 }
+
