@@ -42,6 +42,7 @@ public class ArcComponentsA implements ArcComponents {
         motor.configAllSettings(getTalonSRXConfiguration());
         motor.setNeutralMode(NeutralMode.Brake);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        motor.configClearPositionOnLimitR(true, 100);
 
         encoder = new CtreEncoder(motor);
 

@@ -14,10 +14,4 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
     public boolean isFinished() {
         return arc.hasHitReverseLimit();
     }
-
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-        arc.resetEncoder();
-    }
 }

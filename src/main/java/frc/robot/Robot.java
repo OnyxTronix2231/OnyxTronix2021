@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
         //SimulationDriveTrainComponents simulationDriveTrainComponents;
         //DriveTrainVirtualComponents driveTrainVirtualComponents;
         ShooterComponents shooterComponents;
-        //ArcComponents arcComponents;
+        ArcComponents arcComponents;
         //CollectorComponents collectorComponents;
         //RevolverComponents revolverComponents;
         //BallTriggerComponents ballTriggerComponents;
@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
                 //driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
             shooterComponents = new ShooterComponentsA();
-            //arcComponents = new ArcComponentsA();
+            arcComponents = new ArcComponentsA();
             //collectorComponents = new CollectorComponentsA();
             //revolverComponents = new RevolverComponentsA();
             //ballTriggerComponents = new BallTriggerComponentsA();
@@ -89,19 +89,19 @@ public class Robot extends TimedRobot {
             //revolverComponents = null;
             //ballTriggerComponents = null;
             //turretComponents = null;
-            //arcComponents = null;
+            arcComponents = null;
         }
 
         //driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         shooter = new Shooter(shooterComponents);
-        //arc= new Arc(arcComponents);
+        arc= new Arc(arcComponents);
         //collector = new Collector(collectorComponents);
         //revolver = new Revolver(revolverComponents);
         //ballTrigger = new BallTrigger(ballTriggerComponents);
         //turret = new Turret(turretComponents);
         //vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
-        DriverOI driverOI = new DriverOI(shooter);
+        DriverOI driverOI = new DriverOI(shooter, arc);
 
     }
 

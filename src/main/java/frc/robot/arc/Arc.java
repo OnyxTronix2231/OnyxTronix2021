@@ -5,6 +5,7 @@ import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MOVING_TOLERANCE_ENCODER_UNITS;
+import static frc.robot.arc.ArcConstants.OFFSET;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -95,6 +96,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double getValidAngle(double angle) {
+        angle = angle - OFFSET;
         return Math.min(MAX_POSSIBLE_ANGLE, Math.max(angle, MIN_POSSIBLE_ANGLE));
     }
 
