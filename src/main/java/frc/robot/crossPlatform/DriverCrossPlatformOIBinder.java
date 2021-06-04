@@ -23,7 +23,7 @@ public class DriverCrossPlatformOIBinder {
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger spinRevolverAndTrigger, Trigger spinRevolverAndTriggerThenOpenPiston,
-                                       Trigger shootBallTrigger, Trigger openBallTrigger, JoystickAxis moveRevolver) {
+                                       Trigger shootBallTrigger, Trigger openBallTrigger, Trigger moveRevolver) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_SPEED_WHILE_COLLECTING, () -> TESTING_SPEED));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
@@ -42,7 +42,7 @@ public class DriverCrossPlatformOIBinder {
         openBallTrigger.whenActive(new OpenBallTriggerPiston(ballTrigger));
         openBallTrigger.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
-        moveRevolver.whenActive(new SpinRevolverBySpeed(revolver, () -> (moveRevolver.getRawAxis() *
-                moveRevolver.getRawAxis())));
+        //moveRevolver.whenActive(new SpinRevolverBySpeed(revolver, () -> (moveRevolver.getRawAxis() *
+          //      moveRevolver.getRawAxis())));
     }
 }
