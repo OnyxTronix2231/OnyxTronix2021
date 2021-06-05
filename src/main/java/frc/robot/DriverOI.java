@@ -21,7 +21,7 @@ public class DriverOI {
         JoystickAxis moveArc  = new JoystickAxis(xboxController, XboxController.Axis.kRightY.value);
         Trigger changeAngle = new JoystickButton(xboxController, XboxController.Button.kB.value);
         Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DriverShooterOiBinder(shooter, shootTrigger);
+        //new DriverShooterOiBinder(shooter, shootTrigger);
         new DriverArcOiBinders(arc, changeAngle ,calibrateArc, moveArc );
     }
 }

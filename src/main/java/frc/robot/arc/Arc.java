@@ -9,6 +9,7 @@ import static frc.robot.arc.ArcConstants.OFFSET;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -29,7 +30,9 @@ public class Arc extends SubsystemBase {
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current position",
-                () -> encoderUnitsToAngle(components.getEncoder().getCount()));
+                this::getAngle);
+        Shuffleboard.getTab("Arc").addNumber("current position ENC",
+                ()-> components.getEncoder().getCount());
 
         kP = Shuffleboard.getTab("Arc").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
@@ -79,7 +82,9 @@ public class Arc extends SubsystemBase {
 
     public void updateMoveToAngle(double angle) {
         angle = getValidAngle(angle);
+        System.out.println("angle: " + angle);
         components.getController().update(angleToEncoderUnits(angle));
+        System.out.println("encoder: " + angleToEncoderUnits(angle));
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
@@ -100,9 +105,12 @@ public class Arc extends SubsystemBase {
         return Math.min(MAX_POSSIBLE_ANGLE, Math.max(angle, MIN_POSSIBLE_ANGLE));
     }
 
+    public double getAngle(){
+        return encoderUnitsToAngle(components.getEncoder().getCount()) + 20;
+    }
+
     public boolean isOnTarget() {
-        return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE))
-                || hasHitForwardLimit() || hasHitReverseLimit();
+        return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
     }
 
     public boolean hasHitForwardLimit() {

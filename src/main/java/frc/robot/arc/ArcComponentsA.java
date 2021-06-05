@@ -15,6 +15,7 @@ import static frc.robot.arc.ArcConstants.ArcConstantsA.OPEN_LOOP_RAMP;
 import static frc.robot.arc.ArcConstants.ArcConstantsA.PEAK_AMP;
 import static frc.robot.arc.ArcConstants.ArcConstantsA.PEAK_AMP_DURATION;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -42,8 +43,8 @@ public class ArcComponentsA implements ArcComponents {
         motor.configAllSettings(getTalonSRXConfiguration());
         motor.setNeutralMode(NeutralMode.Brake);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
-        motor.configClearPositionOnLimitR(true, 100);
-
+        //motor.configClearPositionOnLimitR(true, 100);
+        motor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
         encoder = new CtreEncoder(motor);
 
         controller = new CtreMotionMagicController(motor, encoder,

@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
         }
 
         //driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-        shooter = new Shooter(shooterComponents);
+        //shooter = new Shooter(shooterComponents);
         arc= new Arc(arcComponents);
         //collector = new Collector(collectorComponents);
         //revolver = new Revolver(revolverComponents);
