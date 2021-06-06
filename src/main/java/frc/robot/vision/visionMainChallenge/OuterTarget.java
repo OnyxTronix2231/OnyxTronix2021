@@ -153,7 +153,7 @@ public class OuterTarget extends VisionTarget {
 
     public double getRealAngleFromLimelight(){
         double realAngle = 0;
-        double x_c = Math.cos(Math.toRadians(20.5));
+        double x_c = Math.cos(Math.toRadians(24.85));
         double y_g = Math.tan(Math.toRadians(verticalAngleLimelightToTarget)) * x_c;
         double x_j = Math.sqrt(1 - Math.pow(y_g, 2));
         realAngle = Math.atan(y_g / x_j);
