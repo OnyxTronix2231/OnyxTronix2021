@@ -9,7 +9,6 @@ import static frc.robot.arc.ArcConstants.OFFSET;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,12 +26,19 @@ public class Arc extends SubsystemBase {
     public Arc(ArcComponents components) {
         this.components = components;
 
+        components.getMotor().configForwardSoftLimitEnable(true);
+        components.getMotor().configForwardSoftLimitThreshold(angleToEncoderUnits(MAX_POSSIBLE_ANGLE));
+        components.getMotor().configReverseSoftLimitEnable(true);
+        components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_POSSIBLE_ANGLE));
+
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
-        Shuffleboard.getTab("Arc").addNumber("current position",
+        Shuffleboard.getTab("Arc").addNumber("current angle",
                 this::getAngle);
         Shuffleboard.getTab("Arc").addNumber("current position ENC",
                 ()-> components.getEncoder().getCount());
+        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
+                ()-> components.getMotor().getClosedLoopError());
 
         kP = Shuffleboard.getTab("Arc").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
@@ -42,6 +48,7 @@ public class Arc extends SubsystemBase {
                 components.getController().getPIDFTerms().getKd()).getEntry();
         kF = Shuffleboard.getTab("Arc").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
+
         cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
                 components.getController().getCruiseVelocity()).getEntry();
         acceleration = Shuffleboard.getTab("Arc").add("Acceleration",
@@ -82,9 +89,11 @@ public class Arc extends SubsystemBase {
 
     public void updateMoveToAngle(double angle) {
         angle = getValidAngle(angle);
-        System.out.println("angle: " + angle);
         components.getController().update(angleToEncoderUnits(angle));
-        System.out.println("encoder: " + angleToEncoderUnits(angle));
+    }
+
+    public void enableReverseSoftLimit(boolean enable){
+        components.getMotor().configReverseSoftLimitEnable(enable);
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
@@ -111,6 +120,11 @@ public class Arc extends SubsystemBase {
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
+    }
+
+    public boolean isOnTargetByRealValue(double angle){
+        return Math.abs(angleToEncoderUnits(getValidAngle(angle)) - components.getEncoder().getCount())
+                <= angleToEncoderUnits(TOLERANCE_ANGLE);
     }
 
     public boolean hasHitForwardLimit() {
