@@ -25,7 +25,7 @@ public class VisionGSC extends BaseVision{
     public double getTargetHorizontalAngle() {
         if (hasTarget())
             return limelight.getTarget().getHorizontalOffsetToCrosshair();
-        return 999;
+        return DEFAULT_VALUE_FOR_ANGLE_TO_TARGET;
     }
 
     public GSCOption determineBlueOrRed() {
