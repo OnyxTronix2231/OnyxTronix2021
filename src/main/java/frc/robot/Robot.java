@@ -74,12 +74,12 @@ public class Robot extends TimedRobot {
             else {
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
-//            shooterComponents = new ShooterComponentsA();
-//            arcComponents = new ArcComponentsA();
-//            collectorComponents = new CollectorComponentsA();
+            shooterComponents = new ShooterComponentsA();
+            arcComponents = new ArcComponentsA();
+            collectorComponents = new CollectorComponentsA();
             revolverComponents = new RevolverComponentsA();
-//            ballTriggerComponents = new BallTriggerComponentsA();
-//            turretComponents = new TurretComponentsA();
+            ballTriggerComponents = new BallTriggerComponentsA();
+            turretComponents = new TurretComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
@@ -92,19 +92,19 @@ public class Robot extends TimedRobot {
             arcComponents = null;
         }
 
-//        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-//        shooter = new Shooter(shooterComponents);
-//        arc= new Arc(arcComponents);
-//        collector = new Collector(collectorComponents);
+        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+        shooter = new Shooter(shooterComponents);
+        arc= new Arc(arcComponents);
+        collector = new Collector(collectorComponents);
         revolver = new Revolver(revolverComponents);
-//        ballTrigger = new BallTrigger(ballTriggerComponents);
-//        turret = new Turret(turretComponents);
-//        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
+        ballTrigger = new BallTrigger(ballTriggerComponents);
+        turret = new Turret(turretComponents);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
         DriverOI driverOI = new DriverOI();
         driverOI.withDriveTrainOi(driveTrain)
-        //        .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
-        .withRevolverOi(revolver)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
+        //.withRevolverOi(revolver)
         ;
     }
 
@@ -129,12 +129,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                if (isDisabled()) driveTrain.setNeutralModeToCoast();
-//            }
-//        }, 3000);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (isDisabled()) driveTrain.setNeutralModeToCoast();
+            }
+        }, 3000);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        //driveTrain.setNeutralModeToBrake();
+        driveTrain.setNeutralModeToBrake();
     }
 
     /**

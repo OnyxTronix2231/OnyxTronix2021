@@ -12,6 +12,6 @@ import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START
 
 public class DriveTrainOiBinder {
     public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick) {
-        //driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
+        driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
     }
 }
