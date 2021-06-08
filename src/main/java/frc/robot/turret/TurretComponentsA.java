@@ -31,6 +31,7 @@ public class TurretComponentsA implements TurretComponents {
         motor.setSensorPhase(true);
         encoder = new CtreEncoder(motor);
 
+        motor.setNeutralMode(NeutralMode.Brake);
         controller = new CtreMotionMagicController(motor, encoder,
                 KP, KI, KD, KF, MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
     }

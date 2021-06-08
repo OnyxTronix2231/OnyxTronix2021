@@ -13,8 +13,10 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
+import frc.robot.turret.DriverTurretOiBinder;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
+import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
@@ -40,6 +42,12 @@ public class DriverOI {
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
         new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, turret, shooter, vision,
                 collectAndLoadRevolver, spinRevolverAndTrigger, spinRevolverAndTriggerThenOpenPiston, shootBall);
+        return this;
+    }
+
+    public DriverOI withTurret(Turret turret){
+        JoystickAxis turretMoveBySpeed = new JoystickAxis(xboxController, XboxController.Axis.kRightX.value);
+        new DriverTurretOiBinder(turret, turretMoveBySpeed, null);
         return this;
     }
 }
