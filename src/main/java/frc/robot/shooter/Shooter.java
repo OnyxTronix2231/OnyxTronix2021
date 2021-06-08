@@ -65,7 +65,6 @@ public class Shooter extends SubsystemBase {
     }
 
     public void updateMoveByRPM(double rpm) {
-        System.out.println(RPMToEncoderUnitsInDecisecond(rpm));
         components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 
