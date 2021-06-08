@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         DriveTrainComponents driveTrainComponents;
-        SimulationDriveTrainComponents simulationDriveTrainComponents = null;
+        SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
         ShooterComponents shooterComponents;
         ArcComponents arcComponents;
@@ -67,19 +67,19 @@ public class Robot extends TimedRobot {
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new DriveTrainComponentsA();
+            simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
             if (Robot.isReal()) {
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
             }
             else {
-                simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
-            shooterComponents = new ShooterComponentsA();
-            arcComponents = new ArcComponentsA();
-            collectorComponents = new CollectorComponentsA();
+//            shooterComponents = new ShooterComponentsA();
+//            arcComponents = new ArcComponentsA();
+//            collectorComponents = new CollectorComponentsA();
             revolverComponents = new RevolverComponentsA();
-            ballTriggerComponents = new BallTriggerComponentsA();
-            turretComponents = new TurretComponentsA();
+//            ballTriggerComponents = new BallTriggerComponentsA();
+//            turretComponents = new TurretComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
@@ -92,18 +92,20 @@ public class Robot extends TimedRobot {
             arcComponents = null;
         }
 
-        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+//        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
 //        shooter = new Shooter(shooterComponents);
 //        arc= new Arc(arcComponents);
 //        collector = new Collector(collectorComponents);
-//        revolver = new Revolver(revolverComponents);
+        revolver = new Revolver(revolverComponents);
 //        ballTrigger = new BallTrigger(ballTriggerComponents);
 //        turret = new Turret(turretComponents);
 //        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
         DriverOI driverOI = new DriverOI();
-        driverOI.withDriveTrainOi(driveTrain);
-                //.withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
+        driverOI.withDriveTrainOi(driveTrain)
+        //        .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
+        .withRevolverOi(revolver)
+        ;
     }
 
     /**
@@ -127,12 +129,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (isDisabled()) driveTrain.setNeutralModeToCoast();
-            }
-        }, 3000);
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                if (isDisabled()) driveTrain.setNeutralModeToCoast();
+//            }
+//        }, 3000);
     }
 
     @Override
@@ -154,7 +156,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        driveTrain.setNeutralModeToBrake();
+        //driveTrain.setNeutralModeToBrake();
     }
 
     /**

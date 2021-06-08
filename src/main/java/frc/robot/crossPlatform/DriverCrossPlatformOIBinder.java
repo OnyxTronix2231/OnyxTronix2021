@@ -1,7 +1,8 @@
 package frc.robot.crossPlatform;
 
-import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_COLLECTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_COLLECTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_SHOOTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -9,9 +10,11 @@ import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
 import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
+import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.revolver.commands.SpinRevolverBySpeed;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.Turret;
@@ -23,7 +26,7 @@ public class DriverCrossPlatformOIBinder {
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger spinRevolverAndTrigger, Trigger spinRevolverAndTriggerThenOpenPiston,
-                                       Trigger shootBallTrigger, Trigger openBallTrigger, Trigger moveRevolver) {
+                                       Trigger shootBallTrigger, Trigger openBallTrigger, JoystickAxis moveBallTrigger) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_SPEED_WHILE_COLLECTING, () -> TESTING_SPEED));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
@@ -32,7 +35,7 @@ public class DriverCrossPlatformOIBinder {
                 () -> TESTING_SPEED, () -> TESTING_SPEED));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> REVOLVER_RPM_WHILE_SHOOTING, () -> TESTING_SPEED));
+                revolver, ballTrigger, () -> REVOLVER_SPEED_WHILE_SHOOTING, () -> TESTING_SPEED));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
@@ -44,5 +47,8 @@ public class DriverCrossPlatformOIBinder {
 
         //moveRevolver.whenActive(new SpinRevolverBySpeed(revolver, () -> (moveRevolver.getRawAxis() *
           //      moveRevolver.getRawAxis())));
+
+
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
     }
 }
