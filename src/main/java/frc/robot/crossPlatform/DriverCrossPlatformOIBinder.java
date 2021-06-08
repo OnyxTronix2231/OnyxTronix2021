@@ -1,8 +1,9 @@
 package frc.robot.crossPlatform;
 
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_COLLECTING;
-import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
-import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_SHOOTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.COLLECTOR_TESTING_SPEED;
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.TRIGGER_TESTING_SPEED;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
@@ -22,17 +23,17 @@ public class DriverCrossPlatformOIBinder {
                                        Trigger spinRevolverAndTrigger, Trigger spinRevolverAndTriggerThenOpenPiston,
                                        Trigger shootBallTrigger) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
-                () -> REVOLVER_SPEED_WHILE_COLLECTING, () -> TESTING_SPEED));
+                () -> REVOLVER_SPEED_WHILE_COLLECTING, () -> COLLECTOR_TESTING_SPEED));
         collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
         spinRevolverAndTrigger.whileActiveOnce(new SpinRevolverAndTrigger(revolver, ballTrigger,
-                () -> TESTING_SPEED, () -> TESTING_SPEED));
+                () -> COLLECTOR_TESTING_SPEED, () -> COLLECTOR_TESTING_SPEED));
 
         spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> REVOLVER_RPM_WHILE_SHOOTING, () -> TESTING_SPEED));
+                revolver, ballTrigger, () -> REVOLVER_SPEED_WHILE_SHOOTING, () -> TRIGGER_TESTING_SPEED));
         spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED));
+                () -> TRIGGER_TESTING_SPEED));
     }
 }
