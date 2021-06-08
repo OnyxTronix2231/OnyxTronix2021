@@ -31,13 +31,13 @@ public class Revolver extends SubsystemBase {
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
         kiEntry = Shuffleboard.getTab("Revolver").add("kI",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKi()).getEntry();
 
         kdEntry = Shuffleboard.getTab("Revolver").add("kD",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKd()).getEntry();
 
         kfEntry = Shuffleboard.getTab("Revolver").add("kF",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
@@ -59,6 +59,7 @@ public class Revolver extends SubsystemBase {
     }
 
     public void updateMoveByRPM(double rpm) {
+        System.out.println(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
 
