@@ -18,14 +18,17 @@ public class OuterTarget extends VisionTarget {
 
         /* putting default values to all parameters*/
         verticalAngleLimelightToTarget = 0.0;
-        Shuffleboard.getTab("Vision").addNumber("Calculated angle to outer", () -> LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () -> verticalAngleLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () -> verticalDistanceLimelightToTarget);
-
         horizontalAngleTargetToRobot = 0.0;
         airDistanceTurretToTarget = 0.0;
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
+
+        Shuffleboard.getTab("Vision").addNumber("Calculated angle to outer", () ->
+                LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
+                verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
+                verticalDistanceLimelightToTarget);
     }
 
     @Override
@@ -36,11 +39,6 @@ public class OuterTarget extends VisionTarget {
         if (target != null) {
             /* finding the target angles from the limelight crosshair*/
             verticalAngleLimelightToTarget = target.getVerticalOffsetToCrosshair();
-            System.out.println("first angle: " + verticalAngleLimelightToTarget);
-            /*fixing the angle, the reason for this is that the limelight itself changes the real angle a bit when
-             */
-            //verticalAngleLimelightToTarget = this.getRealAngleFromLimelight();
-            //System.out.println("real angle: " + verticalAngleLimelightToTarget);
             double horizontalAngleLimelightToTarget = target.getHorizontalOffsetToCrosshair();
 
             /* calculating the vertical angle from the (target to limelight) to the floor
@@ -151,12 +149,7 @@ public class OuterTarget extends VisionTarget {
         return vectorRobotToTargetRTF;
     }
 
-    public double getRealAngleFromLimelight(){
-        double realAngle = 0;
-        double x_c = Math.cos(Math.toRadians(24.85));
-        double y_g = Math.tan(Math.toRadians(verticalAngleLimelightToTarget)) * x_c;
-        double x_j = Math.sqrt(1 - Math.pow(y_g, 2));
-        realAngle = Math.atan(y_g / x_j);
-        return Math.toDegrees(realAngle);
+    public double getVerticalDistanceLimelightToTarget() {
+        return verticalDistanceLimelightToTarget;
     }
 }
