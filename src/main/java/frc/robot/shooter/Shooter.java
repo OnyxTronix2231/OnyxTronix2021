@@ -28,6 +28,8 @@ public class Shooter extends SubsystemBase {
                 () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
+        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
+                () -> components.getEncoder().getRate());
 
         kP = Shuffleboard.getTab("Shooter").add("kP",
                 components.getController().getPIDFTerms().getKp()).getEntry();
