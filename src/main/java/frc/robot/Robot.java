@@ -93,11 +93,11 @@ public class Robot extends TimedRobot {
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-        shooter = new Shooter(shooterComponents);
-        arc= new Arc(arcComponents);
-        collector = new Collector(collectorComponents);
-        revolver = new Revolver(revolverComponents);
-        ballTrigger = new BallTrigger(ballTriggerComponents);
+//        shooter = new Shooter(shooterComponents);
+//        arc= new Arc(arcComponents);
+//        collector = new Collector(collectorComponents);
+//        revolver = new Revolver(revolverComponents);
+//        ballTrigger = new BallTrigger(ballTriggerComponents);
         turret = new Turret(turretComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
 
