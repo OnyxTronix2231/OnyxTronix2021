@@ -4,8 +4,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.revolver.RevolverConstants.CLOSE_LOOP_RAMP_WHILE_SHOOTING;
 import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.revolver.RevolverConstants.DECISECOND_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP;
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.REGULAR_AMP;
 import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 
@@ -55,11 +57,8 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
-        if (rpm > 30) {
-            components.getMotor().configClosedloopRamp(3);
-        }
-        else {
-            components.getMotor().configClosedloopRamp(0);
+        if (rpm > MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP) {
+            components.getMotor().configClosedloopRamp(CLOSE_LOOP_RAMP_WHILE_SHOOTING);
         }
         components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().enable();
@@ -70,9 +69,12 @@ public class Revolver extends SubsystemBase {
         components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
 
+
+
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
+        components.getMotor().configClosedloopRamp(0);
     }
 
     public boolean isOnTarget() {
