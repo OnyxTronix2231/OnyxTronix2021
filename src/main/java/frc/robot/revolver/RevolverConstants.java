@@ -2,6 +2,7 @@ package frc.robot.revolver;
 
 public final class RevolverConstants {
 
+    public static final double UNCLOG_SPEED = -0.2;
     static final int DECISECOND_IN_MIN = 600;
     static final int TOLERANCE_IN_RPM = 3; //TODO: check value
     static final double CONVERSION_RATE = 26.5625; //26.5625:1
@@ -26,6 +27,7 @@ public final class RevolverConstants {
         static final double CLOSED_LOOP_RAMP = 0; //TODO: check value
         static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check value
         static final double PEAK_OUTPUT_REVERSE = -1; //TODO: check value
+        static final double REGULAR_AMP = 0.6; //TODO: check value before activating the command
         static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false;
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false;
     }
