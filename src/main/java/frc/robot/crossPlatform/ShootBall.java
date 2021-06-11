@@ -1,15 +1,11 @@
 package frc.robot.crossPlatform;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
-import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
-import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.shooter.Shooter;
-import frc.robot.shooter.commands.SpinShooterBySpeed;
 import frc.robot.shooter.commands.SpinShooterByVision;
 import frc.robot.turret.Turret;
 import frc.robot.turret.commands.MoveTurretByVision;
