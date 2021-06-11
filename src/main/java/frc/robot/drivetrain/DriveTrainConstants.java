@@ -14,8 +14,9 @@ public final class DriveTrainConstants {
     public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
     public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
     static final int DECISECOND_IN_SECOND = 10;
-    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 1; // TODO: check value
-    static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 1; // TODO: check value
+    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.8; // TODO: check value
+    static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 0.8; // TODO: check value
+    static final double ARCADE_DRIVE_BACKWARD_SENSITIVITY = 0.7; // TODO: check value
 
     public static final class DriveTrainSimConstantsA {
         static final double DRIVE_TRAIN_MASS = 54;
@@ -24,10 +25,10 @@ public final class DriveTrainConstants {
 
     public static final class DriveTrainComponentsA {
 
-        static final int LEFT_MASTER_PORT = 2; // TODO: check value
-        static final int LEFT_SLAVE_PORT = 3; // TODO: check value
-        static final int RIGHT_MASTER_PORT = 0; // TODO: check value
-        static final int RIGHT_SLAVE_PORT = 1; // TODO: check value
+        static final int LEFT_MASTER_PORT = 3; // TODO: check value
+        static final int LEFT_SLAVE_PORT = 4; // TODO: check value
+        static final int RIGHT_MASTER_PORT = 1; // TODO: check value
+        static final int RIGHT_SLAVE_PORT = 2; // TODO: check value
         static final int PIGEON_PORT = 0;
         static final int ENCODER_UNITS = 2048;
         static final int CONTINUOUS_CURRENT_LIMIT = 10;

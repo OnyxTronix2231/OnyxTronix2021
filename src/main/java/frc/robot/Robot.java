@@ -103,7 +103,9 @@ public class Robot extends TimedRobot {
 
         DriverOI driverOI = new DriverOI();
         driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision);
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
+        //.withRevolverOi(revolver)
+        ;
     }
 
     /**
@@ -138,6 +140,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
     }
+
 
 
     @Override
