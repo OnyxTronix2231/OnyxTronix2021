@@ -65,7 +65,6 @@ public class Revolver extends SubsystemBase {
     }
 
     public void updateMoveByRPM(double rpm) {
-        System.out.println(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
     
