@@ -43,11 +43,11 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getController().setPIDFTerms(
-                kP.getDouble(components.getController().getPIDFTerms().getKp()),
-                kI.getDouble(components.getController().getPIDFTerms().getKi()),
-                kD.getDouble(components.getController().getPIDFTerms().getKd()),
-                kF.getDouble(components.getController().getPIDFTerms().getKf()));
+//        components.getController().setPIDFTerms(
+//                kP.getDouble(components.getController().getPIDFTerms().getKp()),
+//                kI.getDouble(components.getController().getPIDFTerms().getKi()),
+//                kD.getDouble(components.getController().getPIDFTerms().getKd()),
+//                kF.getDouble(components.getController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {

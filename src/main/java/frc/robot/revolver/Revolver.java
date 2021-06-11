@@ -4,8 +4,11 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.revolver.RevolverConstants.CLOSE_LOOP_RAMP_WHILE_SHOOTING;
 import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.revolver.RevolverConstants.DECISECOND_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP;
+import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.REGULAR_AMP;
 import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 
 public class Revolver extends SubsystemBase {
@@ -42,11 +45,11 @@ public class Revolver extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getPIDController().setPIDFTerms(
-                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
-                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
-                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
-                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
+//        components.getPIDController().setPIDFTerms(
+//                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+//                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
+//                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
+//                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {
@@ -54,6 +57,9 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
+        if (rpm > MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP) {
+            components.getMotor().configClosedloopRamp(CLOSE_LOOP_RAMP_WHILE_SHOOTING);
+        }
         components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().enable();
     }
@@ -61,10 +67,11 @@ public class Revolver extends SubsystemBase {
     public void updateMoveByRPM(double rpm) {
         components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
-
+    
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
+        components.getMotor().configClosedloopRamp(0);
     }
 
     public boolean isOnTarget() {
@@ -77,5 +84,9 @@ public class Revolver extends SubsystemBase {
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+    }
+
+    public boolean isStuck () {
+        return components.getMotor().getSupplyCurrent() > REGULAR_AMP;
     }
 }
