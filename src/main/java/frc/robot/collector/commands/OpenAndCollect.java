@@ -16,7 +16,7 @@ public class OpenAndCollect extends ParallelCommandGroup {
 
     @Override
     public void end(boolean interrupted) {
-        //collector.closePistons();
+        collector.closePistons();
         super.end(interrupted);
     }
 }
