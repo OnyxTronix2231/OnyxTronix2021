@@ -10,6 +10,6 @@ public class CrossPlatformConstants {
     }
     public static class CollectorConstantsA {
 
-        static final double TESTING_SPEED = 0.8;
+        static final double TESTING_SPEED = 0.5;
     }
 }
