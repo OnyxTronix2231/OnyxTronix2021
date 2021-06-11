@@ -24,13 +24,11 @@ public class ShootBall extends ParallelCommandGroup {
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
                      Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier) {
         super(
-                new SpinShooterBySpeed(shooter, () -> -0.95),
-                //new MoveArcByVision(arc, vision),
-                //new MoveTurretByVision(turret, vision),
-//                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
-//                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
-                new SpinBallTriggerBySpeed(ballTrigger, () -> 0.9),
-                new WaitCommand(3).andThen(new OpenBallTriggerPiston(ballTrigger)));
+                new SpinShooterByVision(shooter, vision),
+                new MoveArcByVision(arc, vision),
+                new MoveTurretByVision(turret, vision),
+                new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
+                        shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
         this.ballTrigger = ballTrigger;
     }
 }
