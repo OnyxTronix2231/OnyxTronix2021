@@ -23,7 +23,7 @@ public class RevolverComponentsA implements RevolverComponents {
         motor.configAllSettings(getConfiguration());
         motor.setNeutralMode(NeutralMode.Brake);
         motor.setInverted(true);
-        motor.configOpenloopRamp(5);
+        motor.configOpenloopRamp(0);
 
         encoder = new CtreEncoder(motor);
 

@@ -43,11 +43,11 @@ public class Revolver extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getPIDController().setPIDFTerms(
-                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
-                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
-                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
-                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
+//        components.getPIDController().setPIDFTerms(
+//                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+//                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
+//                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
+//                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {
@@ -55,6 +55,12 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
+        if (rpm > 30) {
+            components.getMotor().configClosedloopRamp(3);
+        }
+        else {
+            components.getMotor().configClosedloopRamp(0);
+        }
         components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));
         components.getPIDController().enable();
     }

@@ -27,11 +27,6 @@ public class SpinRevolverByRPM extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {
-        return revolver.isStuck();
-    }
-
-    @Override
     public void end(boolean interrupted) {
         revolver.stop();
     }

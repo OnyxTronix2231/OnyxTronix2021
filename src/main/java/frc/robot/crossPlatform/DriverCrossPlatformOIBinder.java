@@ -1,5 +1,6 @@
 package frc.robot.crossPlatform;
 
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_COLLECTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_SHOOTING;
@@ -15,6 +16,7 @@ import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.SpinRevolverAccordingToAmpResistance;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.revolver.commands.SpinRevolverBySpeed;
 import frc.robot.shooter.Shooter;
@@ -26,23 +28,17 @@ public class DriverCrossPlatformOIBinder {
 
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
-                                       Trigger spinRevolverOtherWay, Trigger spinRevolverAndTriggerThenOpenPiston,
+                                       Trigger spinRevolverAndTrigger,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
-                () -> REVOLVER_SPEED_WHILE_COLLECTING, () -> TESTING_SPEED));
+                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED));
         //collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
 //        spinRevolverAndTrigger.whileActiveOnce(new SpinRevolverAndTrigger(revolver, ballTrigger,
 //                () -> TESTING_SPEED, () -> TESTING_SPEED));
 
-        spinRevolverOtherWay.whileActiveOnce(new SpinRevolverBySpeed(revolver, () -> -0.1));
-
-        spinRevolverAndTriggerThenOpenPiston.whileActiveContinuous(new SpinRevolverAndTriggerThenOpenTriggerPiston(
-                revolver, ballTrigger, () -> REVOLVER_SPEED_WHILE_SHOOTING, () -> TESTING_SPEED));
-        spinRevolverAndTriggerThenOpenPiston.whenInactive(new CloseBallTriggerPiston(ballTrigger));
-
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED).alongWith(new SpinRevolverBySpeed(revolver, () -> 0.38)));
+                () -> TESTING_SPEED).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
         shootBallTrigger.whenInactive(new CloseBallTriggerPiston(ballTrigger));
 
         openCollector.whenActive(new OpenCollectorPistons(collector));
