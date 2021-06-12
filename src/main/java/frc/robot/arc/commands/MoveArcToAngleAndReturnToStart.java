@@ -1,6 +1,6 @@
 package frc.robot.arc.commands;
 
-import static frc.robot.arc.ArcConstants.ArcConstantsA.STARTING_POSITION;
+import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.arc.Arc;
@@ -19,6 +19,6 @@ public class MoveArcToAngleAndReturnToStart extends MoveArcToAngle {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        CommandScheduler.getInstance().schedule(new MoveArcToEncoder(arc, () -> STARTING_POSITION));
+        CommandScheduler.getInstance().schedule(new MoveArcToAngle(arc, () -> MIN_POSSIBLE_ANGLE));
     }
 }
