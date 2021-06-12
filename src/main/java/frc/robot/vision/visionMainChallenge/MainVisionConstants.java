@@ -26,7 +26,7 @@ public final class MainVisionConstants {
             DISTANCE_OUTER_TO_FIELD_ZERO_CM);
 
     // choosing parameters
-    public static final double MAX_AIR_DISTANCE_OUTER_CM = 0; // TODO: Calculate and change
-    public static final double MIN_AIR_DISTANCE_OUTER_CM = 39.914;
-    public static final double MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG = 0; // TODO: Calculate and change
+    public static final double MAX_AIR_DISTANCE_OUTER_CM = 700;
+    public static final double MIN_AIR_DISTANCE_OUTER_CM = 290;
+    public static final double MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG = 18;
 }

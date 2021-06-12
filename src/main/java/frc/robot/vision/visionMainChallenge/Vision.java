@@ -21,8 +21,8 @@ public class Vision extends BaseVision {
         this.gyroYawAngle = gyroYawAngle;
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);
-        outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
-        innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
+        outerTarget = new OuterTarget(limelight, turretAngleRTR, gyroYawAngle);
+        innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTR, gyroYawAngle);
         Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
                 outerTarget::getAirDistanceTurretToTarget);
         Shuffleboard.getTab("Vision").addNumber("Distance to inner target",
@@ -52,8 +52,7 @@ public class Vision extends BaseVision {
         if (hasTarget()) {
             boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER_CM &&
                     outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
-                    Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
-                            MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
+                    Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) < MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
             if (innerTargetCondition) {
                 chosenTarget = innerTarget;
             } else {

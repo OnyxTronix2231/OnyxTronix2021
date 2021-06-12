@@ -11,7 +11,7 @@ public class OuterTarget extends VisionTarget {
 
     private double verticalDistanceLimelightToTarget;
 
-    public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTF, DoubleSupplier gyroYawAngle) {
+    public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTR, DoubleSupplier gyroYawAngle) {
         this.limelight = limelight;
         this.turretAngleRTR = turretAngleRTR;
         this.gyroYawAngle = gyroYawAngle;
@@ -23,12 +23,14 @@ public class OuterTarget extends VisionTarget {
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
 
-        Shuffleboard.getTab("Vision").addNumber("Calculated angle to outer", () ->
+        Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
                 LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
         Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
                 verticalAngleLimelightToTarget);
         Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
                 verticalDistanceLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Horizontal angle robot to target", () ->
+                horizontalAngleTargetToRobot);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class OuterTarget extends VisionTarget {
             horizontalAngleTargetToTurret = turretToTargetVector.direction();
 
             /* summing the two horizontal angles
-             * (from the horizontalAngleTargetToRobot center to target and from the turret to field)
+             * (from the horizontalAngleTargetToRobot center to target and from the turret to its starting angle)
              *
              * the angle from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
