@@ -4,7 +4,6 @@ import static frc.robot.arc.ArcConstants.ANGLE_PER_MOTOR_ROTATION;
 import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
-import static frc.robot.arc.ArcConstants.MOVING_TOLERANCE_ENCODER_UNITS;
 import static frc.robot.arc.ArcConstants.OFFSET;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
@@ -30,6 +29,8 @@ public class Arc extends SubsystemBase {
         components.getMotor().configForwardSoftLimitThreshold(angleToEncoderUnits(MAX_POSSIBLE_ANGLE));
         components.getMotor().configReverseSoftLimitEnable(true);
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_POSSIBLE_ANGLE));
+
+        //resetEncoderByAbsoluteValue();
 
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
@@ -139,15 +140,16 @@ public class Arc extends SubsystemBase {
         components.getEncoder().reset();
     }
 
+    public void resetEncoderByAbsoluteValue(){
+        components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
+                getPulseWidthPosition());
+    }
+
     public void disableLimitSwitches() {
         components.getMotor().overrideLimitSwitchesEnable(false);
     }
 
     public void enableLimitSwitches() {
         components.getMotor().overrideLimitSwitchesEnable(true);
-    }
-
-    public boolean isMoving() {
-        return Math.abs(components.getEncoder().getRate()) > MOVING_TOLERANCE_ENCODER_UNITS;
     }
 }
