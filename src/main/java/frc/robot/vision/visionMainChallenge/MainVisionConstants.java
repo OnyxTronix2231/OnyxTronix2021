@@ -8,7 +8,7 @@ public final class MainVisionConstants {
     public static final double CIRCLE_ANGLES = 360;
 
     // mechanical parameters
-    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 34.08;
+    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 15.8;
     public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 59.3;
 
     public static final double LIMELIGHT_TO_TURRET_CM = 15.188;

@@ -33,6 +33,8 @@ public class Vision extends BaseVision {
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToTurret() : -1);
         Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToRobot() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Angle limelight to target vertical",
+                () -> chosenTarget != null ? chosenTarget.getVerticalAngleLimelightToTarget() : -1);
         Shuffleboard.getTab("Vision").addNumber("Calculated position X", () -> currentPos.getX());
         Shuffleboard.getTab("Vision").addNumber("Calculated position Y", () -> currentPos.getY());
         Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());
