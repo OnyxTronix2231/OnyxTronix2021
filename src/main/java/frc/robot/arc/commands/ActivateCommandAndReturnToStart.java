@@ -2,17 +2,19 @@ package frc.robot.arc.commands;
 
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveArcToAngleAndReturnToStart extends MoveArcToAngle {
+public class ActivateCommandAndReturnToStart extends ParallelCommandGroup {
 
     private final Arc arc;
 
-    public MoveArcToAngleAndReturnToStart(Arc arc, DoubleSupplier angleSupplier) {
-        super(arc, angleSupplier);
+    public ActivateCommandAndReturnToStart(Arc arc, CommandBase command) {
+        super(command);
         this.arc = arc;
     }
 
