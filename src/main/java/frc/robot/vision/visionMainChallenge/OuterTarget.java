@@ -1,5 +1,6 @@
 package frc.robot.vision.visionMainChallenge;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
@@ -7,6 +8,8 @@ import java.util.function.DoubleSupplier;
 import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
+
+    private double verticalDistanceLimelightToTarget;
 
     public OuterTarget(Limelight limelight, DoubleSupplier turretAngleRTR, DoubleSupplier gyroYawAngle) {
         this.limelight = limelight;
@@ -19,6 +22,15 @@ public class OuterTarget extends VisionTarget {
         airDistanceTurretToTarget = 0.0;
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
+
+        Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
+                LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
+                verticalAngleLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
+                verticalDistanceLimelightToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Horizontal angle robot to target", () ->
+                horizontalAngleTargetToRobot);
     }
 
     @Override
@@ -44,6 +56,7 @@ public class OuterTarget extends VisionTarget {
             /* calculating air distance (horizontal) from limelight to target using simple formula and trigonometry*/
             double airDistanceLimelightToTarget =
                     targetToLimelightHeight / Math.tan(Math.toRadians(verticalAngleRobotToTarget));
+            verticalDistanceLimelightToTarget = airDistanceLimelightToTarget;
 
             /* we want to have the vector from the shooting spot on the turret to the target
              * so we create a vector from the limelight to the target and then we add a fixed vector
@@ -65,7 +78,7 @@ public class OuterTarget extends VisionTarget {
             horizontalAngleTargetToTurret = turretToTargetVector.direction();
 
             /* summing the two horizontal angles
-             * (from the horizontalAngleTargetToRobot center to target and from the turret to field)
+             * (from the horizontalAngleTargetToRobot center to target and from the turret to its starting angle)
              *
              * the angle from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
@@ -135,5 +148,9 @@ public class OuterTarget extends VisionTarget {
     @Override
     public Vector2dEx getVectorRobotToTargetRTF() {
         return vectorRobotToTargetRTF;
+    }
+
+    public double getVerticalDistanceLimelightToTarget() {
+        return verticalDistanceLimelightToTarget;
     }
 }

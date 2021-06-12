@@ -23,12 +23,18 @@ public class Vision extends BaseVision {
         currentPos = new Pose2d(0, 0, currentRotation);
         outerTarget = new OuterTarget(limelight, turretAngleRTR, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTR, gyroYawAngle);
-        Shuffleboard.getTab("Vision").addNumber("Distance to chosen target",
-                () -> chosenTarget != null ? chosenTarget.getAirDistanceTurretToTarget() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
+                outerTarget::getAirDistanceTurretToTarget);
+        Shuffleboard.getTab("Vision").addNumber("Distance to inner target",
+                innerTarget::getAirDistanceTurretToTarget);
+        Shuffleboard.getTab("Vision").addString("Chosen target",
+                () -> chosenTarget == outerTarget ? "outer" : "inner" );
         Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToTurret() : -1);
         Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToRobot() : -1);
+        Shuffleboard.getTab("Vision").addNumber("Angle limelight to target vertical",
+                () -> chosenTarget != null ? chosenTarget.getVerticalAngleLimelightToTarget() : -1);
         Shuffleboard.getTab("Vision").addNumber("Calculated position X", () -> currentPos.getX());
         Shuffleboard.getTab("Vision").addNumber("Calculated position Y", () -> currentPos.getY());
         Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());
@@ -46,8 +52,7 @@ public class Vision extends BaseVision {
         if (hasTarget()) {
             boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER_CM &&
                     outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
-                    Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) <
-                            MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
+                    Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) < MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
             if (innerTargetCondition) {
                 chosenTarget = innerTarget;
             } else {
