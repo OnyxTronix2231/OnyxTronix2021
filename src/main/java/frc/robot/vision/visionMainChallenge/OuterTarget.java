@@ -54,7 +54,6 @@ public class OuterTarget extends VisionTarget {
             /* calculating air distance (horizontal) from limelight to target using simple formula and trigonometry*/
             double airDistanceLimelightToTarget =
                     targetToLimelightHeight / Math.tan(Math.toRadians(verticalAngleRobotToTarget));
-
             verticalDistanceLimelightToTarget = airDistanceLimelightToTarget;
 
             /* we want to have the vector from the shooting spot on the turret to the target
