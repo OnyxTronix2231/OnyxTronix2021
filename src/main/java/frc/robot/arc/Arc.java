@@ -82,15 +82,6 @@ public class Arc extends SubsystemBase {
         components.getController().disable();
     }
 
-    public void initMoveToEncoder(double encoderUnits) {
-        components.getController().setSetpoint(encoderUnits);
-        components.getController().enable();
-    }
-
-    public void updateMoveToEncoder(double encoderUnits) {
-        components.getController().update(encoderUnits);
-    }
-
     public void initMoveToAngle(double angle) {
         angle = getValidAngle(angle);
         components.getController().setSetpoint(angleToEncoderUnits(angle));
