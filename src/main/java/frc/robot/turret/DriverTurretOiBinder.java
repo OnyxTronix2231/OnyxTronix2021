@@ -10,11 +10,12 @@ import onyxTronix.JoystickAxis;
 
 public class DriverTurretOiBinder {
 
-    public DriverTurretOiBinder(Turret turret, JoystickAxis moveBySpeed, Trigger turretToAngle) {
+    public DriverTurretOiBinder(Turret turret, JoystickAxis moveBySpeed, Trigger turretToAngle,
+                                Trigger turretMoveToAngleAndKeep) {
         var entry = Shuffleboard.getTab("Turret").add("Angle To Move TO", 0).getEntry();
         turretToAngle.whileActiveOnce(new MoveTurretToAngleAndKeep(turret,()-> entry.getDouble(0)));
-        moveBySpeed.whileActiveOnce(new MoveTurretBySpeed(turret, ()-> moveBySpeed.getRawAxis()*0.7));
-
+//        moveBySpeed.whileActiveOnce(new MoveTurretBySpeed(turret, ()-> moveBySpeed.getRawAxis()*0.7));
+        turretMoveToAngleAndKeep.whileActiveContinuous(new MoveTurretToAngleAndKeep(turret, ()-> 15));
 //        moveBySpeed.whileActiveOnce(new MoveTurretByAngle(turret, ()->
 //
 //             moveBySpeed.getRawAxis() > 0 ? 225 : -35

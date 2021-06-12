@@ -46,7 +46,8 @@ public class DriverOI {
     public DriverOI withTurret(Turret turret){
         JoystickAxis turretMoveBySpeed = new JoystickAxis(xboxController, XboxController.Axis.kRightX.value);
         Trigger turretMoveToAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DriverTurretOiBinder(turret, turretMoveBySpeed, turretMoveToAngle );
+        Trigger turretMovetoAngleAndKeep = new JoystickButton(xboxController,XboxController.Button.kY.value);
+        new DriverTurretOiBinder(turret, turretMoveBySpeed, turretMoveToAngle, turretMovetoAngleAndKeep );
 
         return this;
     }

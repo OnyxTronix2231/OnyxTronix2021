@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
 
         DriverOI driverOI = new DriverOI();
         driverOI
-        //        .withDriveTrainOi(driveTrain)
+                .withDriveTrainOi(driveTrain)
           //      .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
         .withTurret(turret)
         ;
