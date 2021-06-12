@@ -11,7 +11,7 @@ public class CollectorConstants {
 
         public static final double COLLECTION_SPEED = 0.8;
         static final int MASTER_MOTOR_ID = 9;
-        static final int FORWARD_CHANNEL = 3;
+        static final int FORWARD_CHANNEL = 1;
         static final int REVERSE_CHANNEL = 2;
         static final int PEAK_AMP = 0; //TODO: check value
         static final int PEAK_AMP_DURATION = 0; //TODO: check value

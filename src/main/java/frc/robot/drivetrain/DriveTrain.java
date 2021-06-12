@@ -79,8 +79,9 @@ public class DriveTrain extends SubsystemBase {
 
     public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
         if (Robot.isReal()) {
-            virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
-                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
+            virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed > 0 ? forwardSpeed *
+                            ARCADE_DRIVE_FORWARD_SENSITIVITY : forwardSpeed * ARCADE_DRIVE_BACKWARD_SENSITIVITY,
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, true);
         } else {
             virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
                     rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
