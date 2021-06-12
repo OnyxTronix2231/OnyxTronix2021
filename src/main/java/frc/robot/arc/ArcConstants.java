@@ -15,6 +15,7 @@ public class ArcConstants {
 
     public static final class ArcConstantsA {
 
+        public static final double STARTING_POSITION = 0;
         static final int MOTOR_ID = 5; // TODO: check and change
         static final int CRUISE_VELOCITY = 450; // Encoder Units // TODO: check and change
         static final int PEAK_AMP = 0; // TODO: check and change

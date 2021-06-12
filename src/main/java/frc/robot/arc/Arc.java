@@ -31,6 +31,8 @@ public class Arc extends SubsystemBase {
         components.getMotor().configReverseSoftLimitEnable(true);
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_POSSIBLE_ANGLE));
 
+        //resetEncoderByAbsoluteValue();
+
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current angle",
@@ -55,6 +57,7 @@ public class Arc extends SubsystemBase {
                 components.getController().getAcceleration()).getEntry();
         accelerationSmoothing = Shuffleboard.getTab("Arc").add("Acceleration smoothing",
                 components.getController().getAccelerationSmoothing()).getEntry();
+
     }
 
     @Override
@@ -79,6 +82,15 @@ public class Arc extends SubsystemBase {
     public void stop() {
         moveBySpeed(0);
         components.getController().disable();
+    }
+
+    public void initMoveToEncoder(double encoderUnits) {
+        components.getController().setSetpoint(encoderUnits);
+        components.getController().enable();
+    }
+
+    public void updateMoveToEncoder(double encoderUnits) {
+        components.getController().update(encoderUnits);
     }
 
     public void initMoveToAngle(double angle) {
@@ -137,6 +149,11 @@ public class Arc extends SubsystemBase {
 
     public void resetEncoder() {
         components.getEncoder().reset();
+    }
+
+    public void resetEncoderByAbsoluteValue(){
+        components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
+                getPulseWidthPosition());
     }
 
     public void disableLimitSwitches() {
