@@ -17,7 +17,7 @@ public class Vision extends BaseVision {
     private Pose2d currentPos;
     private Rotation2d currentRotation;
 
-    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF) {
+    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTR) {
         this.gyroYawAngle = gyroYawAngle;
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);

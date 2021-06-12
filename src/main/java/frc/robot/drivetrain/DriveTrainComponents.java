@@ -2,17 +2,17 @@ package frc.robot.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.drivetrain.utils.NormalizedPigeonIMU;
 
 public interface DriveTrainComponents {
 
-  WPI_TalonFX getRightMasterMotor();
+    WPI_TalonFX getLeftMasterMotor();
 
-  IMotorController getRightSlaveMotor();
+    IMotorController getLeftSlaveMotor();
 
-  WPI_TalonFX getLeftMasterMotor();
+    WPI_TalonFX getRightMasterMotor();
 
-  IMotorController getLeftSlaveMotor();
+    IMotorController getRightSlaveMotor();
 
-  DifferentialDrive getDifferentialDrive();
+    NormalizedPigeonIMU getNormelizedPigeonIMU();
 }
