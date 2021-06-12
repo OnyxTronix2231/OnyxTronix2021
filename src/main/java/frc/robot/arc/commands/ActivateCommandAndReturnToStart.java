@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.arc.Arc;
 
-import java.util.function.DoubleSupplier;
-
 public class ActivateCommandAndReturnToStart extends ParallelCommandGroup {
 
     private final Arc arc;
