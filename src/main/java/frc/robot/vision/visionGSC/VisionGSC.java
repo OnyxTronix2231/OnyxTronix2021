@@ -12,6 +12,7 @@ public class VisionGSC extends BaseVision{
     public VisionGSC(){
         Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption != null ? chosenOption.toString() : "no path");
         Shuffleboard.getTab("Vision").addNumber("Area precentage", this::getTargetAreaPercentage);
+        Shuffleboard.getTab("Vision").addNumber("Horizontal angle", this::getTargetHorizontalAngle);
     }
 
     public double getTargetAreaPercentage() {
@@ -22,7 +23,9 @@ public class VisionGSC extends BaseVision{
     }
 
     public double getTargetHorizontalAngle() {
-        return limelight.getTarget().getHorizontalOffsetToCrosshair();
+        if (hasTarget())
+            return limelight.getTarget().getHorizontalOffsetToCrosshair();
+        return DEFAULT_VALUE_FOR_ANGLE_TO_TARGET;
     }
 
     public GSCOption determineBlueOrRed() {
@@ -32,12 +35,12 @@ public class VisionGSC extends BaseVision{
 
         if (Math.abs(RED_AREA_PERCENTAGE - getTargetAreaPercentage()) <
                 Math.abs(BLUE_AREA_PERCENTAGE - getTargetAreaPercentage())) {
-            if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
+            if (Math.abs(getTargetHorizontalAngle()) > RED_TARGET_ANGLE_TOLERANCE) {
                 return GSCOption.RED2;
             }
             return GSCOption.RED1;
         }
-        if (Math.abs(getTargetHorizontalAngle()) < TARGET_ANGLE_TOLERANCE) {
+        if (Math.abs(getTargetHorizontalAngle()) > BLUE_TARGET_ANGLE_TOLERANCE) {
             return GSCOption.BLUE2;
         }
         return GSCOption.BLUE1;
