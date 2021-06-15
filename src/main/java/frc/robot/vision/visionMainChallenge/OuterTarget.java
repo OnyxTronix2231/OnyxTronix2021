@@ -23,12 +23,12 @@ public class OuterTarget extends VisionTarget {
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
 
-        Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
-                LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
-                verticalAngleLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
-                verticalDistanceLimelightToTarget);
+        //Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
+        //        LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
+        //Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
+        //        verticalAngleLimelightToTarget);
+        //Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
+        //        verticalDistanceLimelightToTarget);
         Shuffleboard.getTab("Vision").addNumber("Horizontal angle robot to target", () ->
                 horizontalAngleTargetToRobot);
     }
