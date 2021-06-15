@@ -13,7 +13,7 @@ public abstract class VisionTarget {
     protected DoubleSupplier gyroYawAngle;
 
     /*a saved supplier - the rotation angle that the turret made relative to the robot (field)*/
-    protected DoubleSupplier turretAngleRTR;
+    protected DoubleSupplier turretAngleRTF;
 
     /*a calculated vector- the vector that is connected from the turret center to the target*/
     protected Vector2dEx vectorTurretToTargetRTF;
