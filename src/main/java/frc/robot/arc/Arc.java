@@ -30,7 +30,7 @@ public class Arc extends SubsystemBase {
         components.getMotor().configReverseSoftLimitEnable(true);
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_POSSIBLE_ANGLE));
 
-        //resetEncoderByAbsoluteValue();
+        resetEncoderByAbsoluteValue();
 
         Shuffleboard.getTab("Arc").addNumber("Current velocity",
                 () -> components.getEncoder().getRate());
