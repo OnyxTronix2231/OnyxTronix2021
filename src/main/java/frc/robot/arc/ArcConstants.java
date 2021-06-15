@@ -5,6 +5,7 @@ public class ArcConstants {
     public static final double MOVE_ARC_TO_SWITCH_LIMIT_SPEED = -0.25; // TODO: check and change
     static final double OFFSET = 20;
     public static final double MIN_POSSIBLE_ANGLE = 20 - OFFSET;
+    public static final boolean ENABLE_REVERSE_SOFT_LIMIT = true;
     static final double ANGULAR_CONVERSION = 19.0/20;
     static final double ANGLE_PER_MOTOR_ROTATION = 33.882;
     static final double MAX_POSSIBLE_ANGLE = 67 - OFFSET;
