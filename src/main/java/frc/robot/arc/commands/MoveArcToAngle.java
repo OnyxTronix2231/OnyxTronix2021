@@ -47,9 +47,8 @@ public class MoveArcToAngle extends CommandBase {
     public void end(boolean interrupted) {
         arc.stop();
         if(shouldReturnToHome){
-            shouldReturnToHome = false;
             CommandScheduler.getInstance().schedule(new MoveArcToAngle(arc,
-                    () -> MIN_POSSIBLE_ANGLE, shouldReturnToHome));
+                    () -> MIN_POSSIBLE_ANGLE, false));
         }
     }
 }
