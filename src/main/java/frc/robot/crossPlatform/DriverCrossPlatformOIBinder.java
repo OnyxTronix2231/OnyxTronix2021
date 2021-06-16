@@ -8,6 +8,8 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.MoveArcByAngleIfNeeded;
+import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
 import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
@@ -32,11 +34,11 @@ public class DriverCrossPlatformOIBinder {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED));
 
-        shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
+        shootBallTrigger.whileActiveContinuous(new MoveArcByAngleIfNeeded(arc,
+                () -> 30));//.alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
 
-        openCollector.whenActive(new OpenCollectorPistons(collector));
-        openCollector.whenInactive(new CloseCollectorPistons(collector));
+        openCollector.whenActive(new MoveArcUntilLowerLimitSwitch(arc));
+        //openCollector.whenInactive(new CloseCollectorPistons(collector));
 
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
     }

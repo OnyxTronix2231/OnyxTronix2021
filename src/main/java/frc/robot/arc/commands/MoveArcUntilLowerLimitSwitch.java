@@ -1,6 +1,7 @@
 package frc.robot.arc.commands;
 
-import static frc.robot.arc.ArcConstants.ENABLE_REVERSE_SOFT_LIMIT;
+import static frc.robot.arc.ArcConstants.DISABLE_SENSORS;
+import static frc.robot.arc.ArcConstants.ENABLE_SENSORS;
 import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_SWITCH_LIMIT_SPEED;
 
 import frc.robot.arc.Arc;
@@ -13,7 +14,7 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
 
     @Override
     public void initialize() {
-        arc.enableReverseSoftLimit(false);
+        arc.configReverseSoftLimitEnable(DISABLE_SENSORS);
     }
 
     @Override
@@ -25,6 +26,6 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
     public void end(boolean interrupted) {
         super.end(interrupted);
         arc.resetEncoderByAbsoluteValue();
-        arc.enableReverseSoftLimit(ENABLE_REVERSE_SOFT_LIMIT);
+        arc.configReverseSoftLimitEnable(ENABLE_SENSORS);
     }
 }

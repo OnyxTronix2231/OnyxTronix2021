@@ -1,10 +1,14 @@
 package frc.robot.arc;
 
 import static frc.robot.arc.ArcConstants.ANGLE_PER_MOTOR_ROTATION;
+import static frc.robot.arc.ArcConstants.DISABLE_SENSORS;
+import static frc.robot.arc.ArcConstants.ENABLE_SENSORS;
 import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.OFFSET;
+import static frc.robot.arc.ArcConstants.START_ENCODER_VALUE;
+import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -93,7 +97,7 @@ public class Arc extends SubsystemBase {
         components.getController().update(angleToEncoderUnits(angle));
     }
 
-    public void enableReverseSoftLimit(boolean enable){
+    public void configReverseSoftLimitEnable(boolean enable){
         components.getMotor().configReverseSoftLimitEnable(enable);
     }
 
@@ -116,7 +120,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double getAngle(){
-        return encoderUnitsToAngle(components.getEncoder().getCount()) + 20;
+        return encoderUnitsToAngle(components.getEncoder().getCount()) + OFFSET;
     }
 
     public boolean isOnTarget() {
@@ -141,15 +145,8 @@ public class Arc extends SubsystemBase {
     }
 
     public void resetEncoderByAbsoluteValue(){
+        components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
         components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
-                getPulseWidthPosition());
-    }
-
-    public void disableLimitSwitches() {
-        components.getMotor().overrideLimitSwitchesEnable(false);
-    }
-
-    public void enableLimitSwitches() {
-        components.getMotor().overrideLimitSwitchesEnable(true);
+                getPulseWidthPosition() - START_ENCODER_VALUE);
     }
 }
