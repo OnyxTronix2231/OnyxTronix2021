@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.arc.commands.MoveArcBySpeed;
+import frc.robot.arc.commands.MoveArcToAngle;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import onyxTronix.JoystickAxis;
 
@@ -14,7 +15,7 @@ public class DriverArcOiBinders {
 
     public DriverArcOiBinders(Arc arc, Trigger changeAngle, Trigger calibrateArc, JoystickAxis moveArc) {
         NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
-        changeAngle.whileActiveOnce(new MoveArcAndCloseByTrigger(arc, changeAngle,
+        new MoveArcAndCloseByTrigger(arc, changeAngle, new MoveArcToAngle(arc ,
                 () -> entry.getDouble(MIN_POSSIBLE_ANGLE)));
         calibrateArc.whenActive(new MoveArcUntilLowerLimitSwitch(arc));
         moveArc.whileActiveContinuous(new MoveArcBySpeed(arc, moveArc::getRawAxis));

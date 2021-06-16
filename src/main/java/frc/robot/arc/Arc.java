@@ -1,8 +1,6 @@
 package frc.robot.arc;
 
 import static frc.robot.arc.ArcConstants.ANGLE_PER_MOTOR_ROTATION;
-import static frc.robot.arc.ArcConstants.DISABLE_SENSORS;
-import static frc.robot.arc.ArcConstants.ENABLE_SENSORS;
 import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
@@ -138,10 +136,6 @@ public class Arc extends SubsystemBase {
 
     public boolean hasHitReverseLimit() {
         return components.getReverseLimitSwitch().isOpen();
-    }
-
-    public void resetEncoder() {
-        components.getEncoder().reset();
     }
 
     public void resetEncoderByAbsoluteValue(){
