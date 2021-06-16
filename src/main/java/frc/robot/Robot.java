@@ -28,6 +28,7 @@ import frc.robot.turret.Turret;
 import frc.robot.turret.TurretComponents;
 import frc.robot.turret.TurretComponentsA;
 import frc.robot.vision.visionMainChallenge.Vision;
+import frc.robot.yawControll.YawControl;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot {
     Collector collector;
     Revolver revolver;
     BallTrigger ballTrigger;
-    Turret turret;
+    YawControl yawControl;
     Vision vision;
 
     /**
@@ -101,13 +102,15 @@ public class Robot extends TimedRobot {
         collector = new Collector(collectorComponents);
         revolver = new Revolver(revolverComponents);
         ballTrigger = new BallTrigger(ballTriggerComponents);
-        turret = new Turret(turretComponents);
-        vision = new Vision(() -> driveTrain.getHeading(), () -> turret.getAngleRTR());
+        yawControl = new YawControl(turretComponents, driveTrain);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
 
         DriverOI driverOI = new DriverOI();
         driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, turret, shooter, vision)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
         //.withRevolverOi(revolver)
+                .withTurret(yawControl)
+                .withYawControl(yawControl)
         ;
     }
 

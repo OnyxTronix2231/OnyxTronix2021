@@ -11,7 +11,7 @@ import sensors.counter.CtreEncoder;
 
 import static frc.robot.turret.TurretConstants.ENCODER_OFFSET;
 import static frc.robot.turret.TurretConstants.MASTER_MOTOR_ID;
-import static frc.robot.turret.TurretConstants.TurretComponentsA.*;
+import static frc.robot.turret.TurretConstants.TurretConstantsA.*;
 
 public class TurretComponentsA implements TurretComponents {
 
@@ -30,7 +30,8 @@ public class TurretComponentsA implements TurretComponents {
         motor.setInverted(true);
         motor.setSensorPhase(true);
         encoder = new CtreEncoder(motor);
-
+        motor.config_IntegralZone(SLOT_IDX, INTEGRAL_ZONE_BOUND);
+        motor.setNeutralMode(NeutralMode.Brake);
         controller = new CtreMotionMagicController(motor, encoder,
                 KP, KI, KD, KF, MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
     }

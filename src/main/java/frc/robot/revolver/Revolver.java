@@ -57,7 +57,7 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
-        if (rpm > MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP) {
+        if (Math.abs(rpm) > MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP) {
             components.getMotor().configClosedloopRamp(CLOSE_LOOP_RAMP_WHILE_SHOOTING);
         }
         components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));

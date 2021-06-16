@@ -42,6 +42,8 @@ public class DriveTrain extends SubsystemBase {
         resetHeading();
         resetOdometryToPose(START_POSE);
         resetEncoders();
+        Shuffleboard.getTab("DriveTrain").addNumber("Heading",
+                () -> getHeading());
     }
 
     @Override

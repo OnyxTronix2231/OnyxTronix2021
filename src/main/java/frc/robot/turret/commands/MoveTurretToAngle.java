@@ -14,4 +14,9 @@ public class MoveTurretToAngle extends MoveTurretToAngleAndKeep {
     public boolean isFinished() {
         return turret.isOnTarget();
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        super.end(interrupted);
+    }
 }
