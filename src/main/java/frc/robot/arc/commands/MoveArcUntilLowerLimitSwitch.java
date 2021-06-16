@@ -12,7 +12,7 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
 
     @Override
     public void initialize() {
-        arc.enableReverseSoftLimit(false);
+        arc.configReverseSoftLimitEnable(false);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        //arc.resetEncoderByAbsoluteValue();
-        arc.enableReverseSoftLimit(true);
+        arc.resetEncoderByAbsoluteValue();
+        arc.configReverseSoftLimitEnable(true);
     }
 }

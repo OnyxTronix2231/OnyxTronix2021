@@ -27,11 +27,6 @@ class MoveArcToAngle extends CommandBase {
     }
 
     @Override
-    public boolean isFinished() {
-        return arc.isOnTarget();
-    }
-
-    @Override
     public void end(boolean interrupted) {
         arc.stop();
     }
