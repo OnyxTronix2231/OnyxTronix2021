@@ -10,11 +10,11 @@ public class InnerTarget extends VisionTarget {
 
     private final OuterTarget outerTarget;
 
-    public InnerTarget(OuterTarget outerTarget, Limelight limelight, DoubleSupplier turretAngleRTR,
+    public InnerTarget(OuterTarget outerTarget, Limelight limelight, DoubleSupplier turretAngleRTF,
                        DoubleSupplier gyroYawAngle) {
         this.outerTarget = outerTarget;
         this.limelight = limelight;
-        this.turretAngleRTR = turretAngleRTR;
+        this.turretAngleRTF = turretAngleRTF;
         this.gyroYawAngle = gyroYawAngle;
 
         /* putting default values to all parameters*/

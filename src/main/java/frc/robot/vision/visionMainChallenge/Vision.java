@@ -16,14 +16,18 @@ public class Vision extends BaseVision {
     private VisionTarget chosenTarget;
     private Pose2d currentPos;
     private Rotation2d currentRotation;
+    private DoubleSupplier turretAngleRTR;
 
     public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTR) {
         this.gyroYawAngle = gyroYawAngle;
+        this.turretAngleRTR = turretAngleRTR;
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);
         outerTarget = new OuterTarget(limelight, turretAngleRTR, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTR, gyroYawAngle);
-        Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
+        Shuffleboard.getTab("Vision").addNumber("turret angle", this.turretAngleRTR);
+        Shuffleboard.getTab("Vision").addNumber("gyro", gyroYawAngle);
+        /* Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
                 outerTarget::getAirDistanceTurretToTarget);
         Shuffleboard.getTab("Vision").addNumber("Distance to inner target",
                 innerTarget::getAirDistanceTurretToTarget);
@@ -37,7 +41,7 @@ public class Vision extends BaseVision {
                 () -> chosenTarget != null ? chosenTarget.getVerticalAngleLimelightToTarget() : -1);
         Shuffleboard.getTab("Vision").addNumber("Calculated position X", () -> currentPos.getX());
         Shuffleboard.getTab("Vision").addNumber("Calculated position Y", () -> currentPos.getY());
-        Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());
+        Shuffleboard.getTab("Vision").addNumber("Calculated rotation", () -> currentRotation.getDegrees());*/
     }
 
     @Override
