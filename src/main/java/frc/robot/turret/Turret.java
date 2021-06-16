@@ -11,13 +11,13 @@ public class Turret extends SubsystemBase {
     protected final TurretComponents components;
     private double startingAngle;
     private double targetAngle;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
-    private final NetworkTableEntry cruiseVelocity;
-    private final NetworkTableEntry acceleration;
-    private final NetworkTableEntry accelerationSmoothing;
+//    private final NetworkTableEntry kP;
+//    private final NetworkTableEntry kI;
+//    private final NetworkTableEntry kD;
+//    private final NetworkTableEntry kF;
+//    private final NetworkTableEntry cruiseVelocity;
+//    private final NetworkTableEntry acceleration;
+//    private final NetworkTableEntry accelerationSmoothing;
 
     public Turret(TurretComponents turretComponents) {
         this.components = turretComponents;
