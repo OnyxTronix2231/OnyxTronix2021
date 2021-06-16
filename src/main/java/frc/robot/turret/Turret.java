@@ -25,31 +25,31 @@ public class Turret extends SubsystemBase {
         components.getMotor().configForwardSoftLimitThreshold(angleToEncoderUnits(MAX_DEGREE));
         components.getMotor().configReverseSoftLimitEnable(true);
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_DEGREE));
-        Shuffleboard.getTab("Turret").addNumber("Current velocity",
-                () -> components.getEncoder().getRate());
-        Shuffleboard.getTab("Turret").addNumber("current angle",
-                this::getAngleRTR);
-        Shuffleboard.getTab("Turret").addNumber("current position ENC",
-                ()-> components.getEncoder().getCount());
-        Shuffleboard.getTab("Turret").addNumber("current ERROR ENC",
-                ()-> components.getMotor().getClosedLoopError());
-
-        kP = Shuffleboard.getTab("Turret").add("kP",
-                components.getTurretController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Turret").add("kI",
-                components.getTurretController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Turret").add("kD",
-                components.getTurretController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Turret").add("kF",
-                components.getTurretController().getPIDFTerms().getKf()).getEntry();
-
-        cruiseVelocity = Shuffleboard.getTab("Turret").add("Cruise velocity",
-                components.getTurretController().getCruiseVelocity()).getEntry();
-        acceleration = Shuffleboard.getTab("Turret").add("Acceleration",
-                components.getTurretController().getAcceleration()).getEntry();
-        accelerationSmoothing = Shuffleboard.getTab("Turret" +
-                "").add("Acceleration smoothing",
-                components.getTurretController().getAccelerationSmoothing()).getEntry();
+//        Shuffleboard.getTab("Turret").addNumber("Current velocity",
+//                () -> components.getEncoder().getRate());
+//        Shuffleboard.getTab("Turret").addNumber("current angle",
+//                this::getAngleRTR);
+//        Shuffleboard.getTab("Turret").addNumber("current position ENC",
+//                ()-> components.getEncoder().getCount());
+//        Shuffleboard.getTab("Turret").addNumber("current ERROR ENC",
+//                ()-> components.getMotor().getClosedLoopError());
+//
+//        kP = Shuffleboard.getTab("Turret").add("kP",
+//                components.getTurretController().getPIDFTerms().getKp()).getEntry();
+//        kI = Shuffleboard.getTab("Turret").add("kI",
+//                components.getTurretController().getPIDFTerms().getKi()).getEntry();
+//        kD = Shuffleboard.getTab("Turret").add("kD",
+//                components.getTurretController().getPIDFTerms().getKd()).getEntry();
+//        kF = Shuffleboard.getTab("Turret").add("kF",
+//                components.getTurretController().getPIDFTerms().getKf()).getEntry();
+//
+//        cruiseVelocity = Shuffleboard.getTab("Turret").add("Cruise velocity",
+//                components.getTurretController().getCruiseVelocity()).getEntry();
+//        acceleration = Shuffleboard.getTab("Turret").add("Acceleration",
+//                components.getTurretController().getAcceleration()).getEntry();
+//        accelerationSmoothing = Shuffleboard.getTab("Turret" +
+//                "").add("Acceleration smoothing",
+//                components.getTurretController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override
