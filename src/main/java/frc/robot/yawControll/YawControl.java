@@ -22,7 +22,7 @@ public class YawControl extends Turret {
     }
 
     public double getTurretAngleRTF() {
-        return getRobotAngle() + getAngleRTR();
+        return getRobotAngle() - getAngleRTR();
     }
 
     public void setTurretState(TurretState turretState) {
@@ -47,7 +47,7 @@ public class YawControl extends Turret {
     }
 
     public double angleToAngleRTF( double angle){
-        return angle - getRobotAngle();
+        return angle + getRobotAngle();
     }
 
     public double getRobotAngle() {
