@@ -18,6 +18,5 @@ public class MoveTurretToAngle extends MoveTurretToAngleAndKeep {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        System.out.println("end");
     }
 }

@@ -54,17 +54,17 @@ public class Turret extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getTurretController().setPIDFTerms(
-                kP.getDouble(components.getTurretController().getPIDFTerms().getKp()),
-                kI.getDouble(components.getTurretController().getPIDFTerms().getKi()),
-                kD.getDouble(components.getTurretController().getPIDFTerms().getKd()),
-                kF.getDouble(components.getTurretController().getPIDFTerms().getKf()));
-        components.getTurretController().setCruiseVelocity((int)
-                cruiseVelocity.getDouble(components.getTurretController().getCruiseVelocity()));
-        components.getTurretController().setAcceleration((int)
-                acceleration.getDouble(components.getTurretController().getAcceleration()));
-        components.getTurretController().setAccelerationSmoothing((int)
-                accelerationSmoothing.getDouble(components.getTurretController().getAccelerationSmoothing()));
+//        components.getTurretController().setPIDFTerms(
+//                kP.getDouble(components.getTurretController().getPIDFTerms().getKp()),
+//                kI.getDouble(components.getTurretController().getPIDFTerms().getKi()),
+//                kD.getDouble(components.getTurretController().getPIDFTerms().getKd()),
+//                kF.getDouble(components.getTurretController().getPIDFTerms().getKf()));
+//        components.getTurretController().setCruiseVelocity((int)
+//                cruiseVelocity.getDouble(components.getTurretController().getCruiseVelocity()));
+//        components.getTurretController().setAcceleration((int)
+//                acceleration.getDouble(components.getTurretController().getAcceleration()));
+//        components.getTurretController().setAccelerationSmoothing((int)
+//                accelerationSmoothing.getDouble(components.getTurretController().getAccelerationSmoothing()));
     }
 
     public void moveBySpeed(double speed) {
