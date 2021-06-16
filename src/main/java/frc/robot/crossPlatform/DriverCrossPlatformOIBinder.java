@@ -1,10 +1,11 @@
 package frc.robot.crossPlatform;
 
+import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED_COLLECTOR;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_COLLECTING;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_SPEED_WHILE_SHOOTING;
-import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED;
+import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.TESTING_SPEED_TRIGGER;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
@@ -30,10 +31,11 @@ public class DriverCrossPlatformOIBinder {
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
-                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED));
+                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
+        ));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
+                () -> TESTING_SPEED_TRIGGER).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
 
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));

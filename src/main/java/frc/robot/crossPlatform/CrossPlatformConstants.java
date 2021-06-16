@@ -6,11 +6,15 @@ public class CrossPlatformConstants {
 
         static final double REVOLVER_SPEED_WHILE_COLLECTING = 0.15;
         static final double REVOLVER_SPEED_WHILE_SHOOTING = 0.2;
-        static final double REVOLVER_RPM_WHILE_SHOOTING = 120;
+        static final double REVOLVER_RPM_WHILE_SHOOTING = 60;
         static final double REVOLVER_RPM_WHILE_COLLECTING = 25;
     }
     public static class CollectorConstantsA {
 
-        static final double TESTING_SPEED = 0.5;
+        static final double TESTING_SPEED_COLLECTOR = 0.5;
+    }
+
+    public static class TriggerConstantsA {
+        static final double TESTING_SPEED_TRIGGER = 1;
     }
 }
