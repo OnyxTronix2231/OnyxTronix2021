@@ -38,7 +38,7 @@ public class DriverCrossPlatformOIBinder {
         ));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision,
-                () -> TESTING_SPEED_TRIGGER).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
+                () -> TESTING_SPEED_TRIGGER, shootBallTrigger).alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
 
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));

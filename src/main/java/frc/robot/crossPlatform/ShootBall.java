@@ -1,6 +1,7 @@
 package frc.robot.crossPlatform;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
@@ -18,10 +19,10 @@ public class ShootBall extends ParallelCommandGroup {
     private final BallTrigger ballTrigger;
 
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
-                     Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier) {
+                     Turret turret, Vision vision, DoubleSupplier ballTriggerSpeedSupplier, Trigger shootBall) {
         super(
                 new SpinShooterByVision(shooter, vision),
-                new MoveArcByVision(arc, vision),
+                new MoveArcByVision(arc, shootBall, vision),
                 new MoveTurretByVision(turret, vision),
                 new ControlBallTriggerByConditions(ballTrigger, ballTriggerSpeedSupplier,
                         shooter::isOnTarget, arc::isOnTarget, turret::isOnTarget));
