@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
-import frc.robot.arc.commands.MoveArcToAngle;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
