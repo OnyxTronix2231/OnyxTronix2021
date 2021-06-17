@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
@@ -46,6 +47,6 @@ public class DriverCrossPlatformOIBinder {
 
         NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
         new MoveArcAndCloseByTrigger(arc, changeAngle, () -> entry.getDouble(MIN_POSSIBLE_ANGLE));
-        calibrateArc.whenActive(new MoveArcUntilLowerLimitSwitch(arc));
+        calibrateArc.whenActive(new CalibrateArc(arc));
     }
 }
