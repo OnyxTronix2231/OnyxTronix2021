@@ -68,8 +68,7 @@ public class BallTrigger extends SubsystemBase {
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
-
-
+    
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
