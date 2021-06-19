@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.*;
+import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.TOLERANCE_IN_RPM;
 
 public class BallTrigger extends SubsystemBase {
 
@@ -29,13 +30,13 @@ public class BallTrigger extends SubsystemBase {
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
         kiEntry = Shuffleboard.getTab("Ball Trigger").add("kI",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKi()).getEntry();
 
         kdEntry = Shuffleboard.getTab("Ball Trigger").add("kD",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKd()).getEntry();
 
         kfEntry = Shuffleboard.getTab("Ball Trigger").add("kF",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
@@ -67,10 +68,14 @@ public class BallTrigger extends SubsystemBase {
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
-
+    
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
+    }
+
+    public boolean isOnTarget() {
+        return components.getPIDController().isOnTarget(rpmToEncoderUnitsInDecisecond(TOLERANCE_IN_RPM));
     }
 
     public void openPiston() {
