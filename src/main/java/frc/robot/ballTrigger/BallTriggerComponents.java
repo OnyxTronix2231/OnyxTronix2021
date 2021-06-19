@@ -11,7 +11,7 @@ public interface BallTriggerComponents {
 
     WPI_TalonSRX getMasterMotor();
 
-    IMotorController getSlaveMotor();
+    //IMotorController getSlaveMotor();
 
     DoubleSolenoid getSolenoid();
 

@@ -21,7 +21,7 @@ public class BallTrigger extends SubsystemBase {
         Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
         Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
-                () -> components.getMasterMotor().getSelectedSensorVelocity());
+                () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
 
@@ -29,13 +29,13 @@ public class BallTrigger extends SubsystemBase {
                 components.getPIDController().getPIDFTerms().getKp()).getEntry();
 
         kiEntry = Shuffleboard.getTab("Ball Trigger").add("kI",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKi()).getEntry();
 
         kdEntry = Shuffleboard.getTab("Ball Trigger").add("kD",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKd()).getEntry();
 
         kfEntry = Shuffleboard.getTab("Ball Trigger").add("kF",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+                components.getPIDController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
@@ -66,6 +66,10 @@ public class BallTrigger extends SubsystemBase {
 
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+    }
+
+    public boolean isOnTarget(){
+        return components.getPIDController().isOnTarget(rpmToEncoderUnitsInDecisecond(TOLERANCE));
     }
 
     public void stop() {
