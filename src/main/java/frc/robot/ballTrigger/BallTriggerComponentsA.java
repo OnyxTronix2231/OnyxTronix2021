@@ -53,7 +53,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
 
     @Override
     public WPI_TalonSRX getSlaveMotor() {
-        return null;
+        return slaveMotor;
     }
 
     @Override
