@@ -31,7 +31,7 @@ public class DriverCrossPlatformOIBinder {
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
-                                       Trigger changeAngle, Trigger calibrateArc, Trigger ballTriggerPiston) {
+                                       Trigger changeAngle, Trigger calibrateArc) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
