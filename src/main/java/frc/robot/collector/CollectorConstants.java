@@ -15,9 +15,9 @@ public class CollectorConstants {
         static final int REVERSE_CHANNEL = 2;
         static final int PEAK_AMP = 0; //TODO: check value
         static final int PEAK_AMP_DURATION = 0; //TODO: check value
-        static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value
+        static final int CONTINUOUS_CURRENT_LIMIT = 40; //TODO: check value
         static final double OPEN_LOOP_RAMP = 0; //TODO: check value
         static final double CLOSED_LOOP_RAMP = 0; //TODO: check value
-        static final boolean CURRENT_LIMIT_ENABLED = false;
+        static final boolean CURRENT_LIMIT_ENABLED = true;
     }
 }
