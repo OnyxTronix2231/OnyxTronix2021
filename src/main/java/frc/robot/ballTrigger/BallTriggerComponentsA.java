@@ -17,7 +17,7 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*
 public class BallTriggerComponentsA implements BallTriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
-    //private final WPI_TalonSRX slaveMotor;
+    private final WPI_TalonSRX slaveMotor;
     private final DoubleSolenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
@@ -28,17 +28,23 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         masterMotor.configAllSettings(getConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Coast);
         masterMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
-        masterMotor.setInverted(false);
-        masterMotor.setSensorPhase(true);
+        masterMotor.setInverted(INVERTED);
+        masterMotor.setSensorPhase(SENSOR_PHASE);
+
+        slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
+        slaveMotor.configFactoryDefault();
+        slaveMotor.configAllSettings(getConfiguration());
+        slaveMotor.setNeutralMode(NeutralMode.Coast);
+        slaveMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        slaveMotor.setInverted(INVERTED);
+        slaveMotor.follow(masterMotor);
 
         solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
 
         encoder = new CtreEncoder(masterMotor);
 
         pidController = new CtrePIDController(masterMotor, encoder,
-                new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F),
-                PIDControlMode.Velocity);
-        pidController.setPIDFTerms(pidController.getPIDFTerms());
+            new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
     }
 
     @Override
@@ -46,10 +52,10 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         return masterMotor;
     }
 
-//    @Override
-//    public IMotorController getSlaveMotor() {
-//        return slaveMotor;
-//    }
+    @Override
+    public IMotorController getSlaveMotor() {
+        return slaveMotor;
+    }
 
     @Override
     public DoubleSolenoid getSolenoid() {
@@ -75,6 +81,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
         config.openloopRamp = OPEN_LOOP_RAMP;
         config.closedloopRamp = CLOSED_LOOP_RAMP;
+        config.peakOutputForward = PEAK_OUTPUT_FORWARD;
         return config;
     }
 }

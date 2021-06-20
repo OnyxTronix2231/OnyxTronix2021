@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.ballTrigger.BallTriggerConstants.*;
+import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.TOLERANCE_IN_RPM;
 
 public class BallTrigger extends SubsystemBase {
 
@@ -68,13 +69,13 @@ public class BallTrigger extends SubsystemBase {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
-    public boolean isOnTarget(){
-        return components.getPIDController().isOnTarget(rpmToEncoderUnitsInDecisecond(TOLERANCE));
-    }
-
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
+    }
+
+    public boolean isOnTarget() {
+        return components.getPIDController().isOnTarget(rpmToEncoderUnitsInDecisecond(TOLERANCE_IN_RPM));
     }
 
     public void openPiston() {

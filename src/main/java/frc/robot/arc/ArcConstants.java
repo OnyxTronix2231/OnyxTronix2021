@@ -3,6 +3,7 @@ package frc.robot.arc;
 public class ArcConstants {
 
     public static final double MOVE_ARC_TO_SWITCH_LIMIT_SPEED = -0.25; // TODO: check and change
+    public static final double DELAY_CALIBRATE_TIME = 0.5; // second
     static final double OFFSET = 20;
     public static final double MIN_POSSIBLE_ANGLE = 20 - OFFSET;
     static final int TIME_OUT = 100;
