@@ -43,7 +43,7 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whileActiveOnce(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> BALL_TRIGGER_RPM));
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
         NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
         new MoveArcAndCloseByTrigger(arc, changeAngle, () -> entry.getDouble(MIN_POSSIBLE_ANGLE));
