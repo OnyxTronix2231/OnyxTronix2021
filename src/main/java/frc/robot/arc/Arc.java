@@ -127,7 +127,7 @@ public class Arc extends SubsystemBase {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
     }
 
-    public boolean isOnTargetByRealValue(double angle){
+    public boolean isOnTargetByRealValue(double angle) {
         return Math.abs(angleToEncoderUnits(getValidAngle(angle)) - components.getEncoder().getCount())
                 <= angleToEncoderUnits(TOLERANCE_ANGLE);
     }
