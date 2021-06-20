@@ -40,7 +40,7 @@ public class DriverCrossPlatformOIBinder {
                 () -> BALL_TRIGGER_RPM, shootBallTrigger)
                 .alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
 
-        openCollector.whileActiveOnce(new OpenCollectorPistons(collector));
+        openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));

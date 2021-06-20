@@ -1,6 +1,5 @@
 package frc.robot.ballTrigger;
 
-import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -74,8 +73,6 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
 
     private TalonSRXConfiguration getConfiguration() {
         final TalonSRXConfiguration config = new TalonSRXConfiguration();
-        config.peakOutputForward = PEAK_OUTPUT_FORWARD;
-        config.peakOutputReverse = PEAK_OUTPUT_REVERSE;
         config.peakCurrentLimit = PEAK_AMP;
         config.peakCurrentDuration = PEAK_AMP_DURATION;
         config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
