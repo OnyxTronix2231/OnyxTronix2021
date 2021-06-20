@@ -18,6 +18,5 @@ public class ClimberDriverOIBinder {
         climbByDistance.whileActiveOnce(new ClimbToDistance(climber, () -> DISTANCE));
 
         climbByJoystick.whileActiveContinuous(new ClimbBySpeed(climber, () -> climbJoystick.getY(GenericHID.Hand.kLeft)));
-
     }
 }

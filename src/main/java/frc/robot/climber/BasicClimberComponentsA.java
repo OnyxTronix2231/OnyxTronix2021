@@ -6,10 +6,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import pid.CtreController;
 import pid.CtreMotionMagicController;
 import pid.PIDFTerms;
+import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
 import static frc.robot.climber.ClimberConstants.ClimberConstantsA.*;
-
 
 public class BasicClimberComponentsA implements ClimberComponents {
 
@@ -22,12 +22,12 @@ public class BasicClimberComponentsA implements ClimberComponents {
 
         masterMotor = new WPI_TalonFX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-       // masterMotor.configAllSettings(getMasterMotor());
+        masterMotor.configAllSettings(getFalconConfiguration());
         masterMotor.setNeutralMode(NeutralMode.Brake);
 
         slaveMotor = new WPI_TalonFX(SLAVE_MOTOR_ID);
         slaveMotor.configFactoryDefault();
-       // slaveMotor.configAllSettings(getSlaveMotor());
+        slaveMotor.configAllSettings(getFalconConfiguration());
         slaveMotor.setNeutralMode(NeutralMode.Brake);
         slaveMotor.follow(masterMotor);
 
@@ -53,11 +53,11 @@ public class BasicClimberComponentsA implements ClimberComponents {
     }
 
     @Override
-    public CtreEncoder getEncoder() {
+    public Counter getEncoder() {
         return encoder;
     }
 
-    private TalonFXConfiguration getFalconConfig() {
+    private TalonFXConfiguration getFalconConfiguration() {
         final TalonFXConfiguration config = new TalonFXConfiguration();
         config.peakOutputForward = PEAK_OUTPUT_FORWARD;
         config.peakOutputReverse = PEAK_OUTPUT_REVERSE;
@@ -73,6 +73,4 @@ public class BasicClimberComponentsA implements ClimberComponents {
         config.openloopRamp = OPEN_LOOP_RAMP;
         return config;
     }
-
-
 }

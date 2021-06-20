@@ -2,7 +2,11 @@ package frc.robot.climber;
 
 public class ClimberConstants {
 
-    public class ClimberConstantsA {
+    static final double CONVERSION_RATE = 1; //TODO: check value
+    static final double ENCODER_UNITS_PER_ROTATION = 4090 * CONVERSION_RATE;
+    static final double DISTANCE_PER_MOTOR_ROTATION = 0; //TODO: check value
+
+    public static class ClimberConstantsA {
 
         static final int MASTER_MOTOR_ID = 0;
         static final int SLAVE_MOTOR_ID = 1;
@@ -11,9 +15,9 @@ public class ClimberConstants {
         static final int ACCELERATION_SMOOTHING = 0; // Todo: ValueCheck
         static final double PEAK_OUTPUT_FORWARD = 0;
         static final double PEAK_OUTPUT_REVERSE = 0;
-        static final double SUPPLY_CURRENT_LIMIT = 0;
-        static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0;
-        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0;
+        static final double SUPPLY_CURRENT_LIMIT = 40;
+        static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 40;
+        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0.3;
         static final double STATOR_CURRENT_LIMIT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_TIME = 0;

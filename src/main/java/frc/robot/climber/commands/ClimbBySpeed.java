@@ -6,8 +6,8 @@ import java.util.function.DoubleSupplier;
 
 public class ClimbBySpeed extends CommandBase {
 
-    private Climber climber;
-    private DoubleSupplier speedSupplier;
+    private final Climber climber;
+    private final DoubleSupplier speedSupplier;
 
     public ClimbBySpeed(Climber climber, DoubleSupplier speedSupplier) {
         this.climber = climber;
