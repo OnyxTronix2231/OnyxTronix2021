@@ -7,21 +7,15 @@ import frc.robot.ballTrigger.BallTrigger;
 
 import java.util.Arrays;
 import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
 
 public class ControlBallTriggerByConditions extends SequentialCommandGroup {
 
     private BallTrigger ballTrigger;
 
-    public ControlBallTriggerByConditions(BallTrigger ballTrigger, DoubleSupplier ballTriggerSpeedSupplier,
-                                          BooleanSupplier... isReadyConditions) {
+    public ControlBallTriggerByConditions(BallTrigger ballTrigger, BooleanSupplier... isReadyConditions) {
         super(
                 new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).allMatch(BooleanSupplier::getAsBoolean)),
-                new OpenBallTriggerPiston(ballTrigger),
-//                new SpinBallTriggerBySpeed(ballTrigger, ballTriggerSpeedSupplier),
-                new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).
-                        anyMatch(isReadyCondition -> !isReadyCondition.getAsBoolean())),
-                new CloseBallTriggerPiston(ballTrigger));
+                new OpenBallTriggerPiston(ballTrigger));
         this.ballTrigger = ballTrigger;
     }
 

@@ -11,7 +11,7 @@ public class ArcConstants {
     static final double ANGULAR_CONVERSION = 19.0/20;
     static final double ANGLE_PER_MOTOR_ROTATION = 33.882;
     static final double MAX_POSSIBLE_ANGLE = 63 - OFFSET;
-    static final double TOLERANCE_ANGLE = 0.5; // TODO: check and change
+    static final double TOLERANCE_ANGLE = 1; // TODO: check and change
     static final double ENCODER_UNITS_PER_ROTATION = 4096 * ANGULAR_CONVERSION;
 
     public static final class ArcConstantsA {

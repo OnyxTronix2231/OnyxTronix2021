@@ -15,6 +15,6 @@ public class CrossPlatformConstants {
     }
 
     public static class TriggerConstantsA {
-        static final double TESTING_SPEED_TRIGGER = 1;
+        static final double BALL_TRIGGER_RPM = 2500;
     }
 }

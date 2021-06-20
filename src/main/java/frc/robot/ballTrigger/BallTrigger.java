@@ -22,7 +22,7 @@ public class BallTrigger extends SubsystemBase {
         Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
         Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
-                () -> components.getMasterMotor().getSelectedSensorVelocity());
+                () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
 
@@ -68,7 +68,7 @@ public class BallTrigger extends SubsystemBase {
     public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
-    
+
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();

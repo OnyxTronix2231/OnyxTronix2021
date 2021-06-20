@@ -31,7 +31,7 @@ public final class RevolverConstants {
         static final double CLOSED_LOOP_RAMP = 0; //TODO: check value
         static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check value
         static final double PEAK_OUTPUT_REVERSE = -1; //TODO: check value
-        static final double REGULAR_AMP = 2;
+        static final double REGULAR_AMP = 1;
         static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false;
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false;
     }

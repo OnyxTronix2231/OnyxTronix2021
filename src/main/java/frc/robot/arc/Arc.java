@@ -23,6 +23,7 @@ public class Arc extends SubsystemBase {
     private final NetworkTableEntry cruiseVelocity;
     private final NetworkTableEntry acceleration;
     private final NetworkTableEntry accelerationSmoothing;
+    private final NetworkTableEntry angleTest;
 
     public Arc(ArcComponents components) {
         this.components = components;
@@ -51,6 +52,7 @@ public class Arc extends SubsystemBase {
                 components.getController().getPIDFTerms().getKd()).getEntry();
         kF = Shuffleboard.getTab("Arc").add("kF",
                 components.getController().getPIDFTerms().getKf()).getEntry();
+        angleTest= Shuffleboard.getTab("Arc").add("arc Test", 20).getEntry();
 
         cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
                 components.getController().getCruiseVelocity()).getEntry();
@@ -125,11 +127,6 @@ public class Arc extends SubsystemBase {
         return components.getController().isOnTarget(angleToEncoderUnits(TOLERANCE_ANGLE));
     }
 
-    public boolean isOnTargetByRealValue(double angle){
-        return Math.abs(angleToEncoderUnits(getValidAngle(angle)) - components.getEncoder().getCount())
-                <= angleToEncoderUnits(TOLERANCE_ANGLE);
-    }
-
     public boolean hasHitForwardLimit() {
         return components.getForwardLimitSwitch().isOpen();
     }
@@ -142,5 +139,9 @@ public class Arc extends SubsystemBase {
         components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
         components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
                 getPulseWidthPosition() - START_ENCODER_VALUE);
+    }
+
+    public double getTestAngle(){
+        return angleTest.getDouble(20);
     }
 }
