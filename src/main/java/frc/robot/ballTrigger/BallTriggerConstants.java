@@ -20,13 +20,13 @@ public final class BallTriggerConstants {
         static final int CONTINUOUS_CURRENT_LIMIT = 0; //TODO: check value
         static final int OPEN_LOOP_RAMP = 0; //TODO: check value
         static final int CLOSED_LOOP_RAMP = 0; //TODO: check value
-        static final int TOLERANCE_IN_RPM = 100;
+        static final int TOLERANCE_IN_RPM = 50;
         static final int PEAK_OUTPUT_FORWARD = 1;
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_VELOCITY = 17300; //TODO: check value
-        static final double VELOCITY_P = 0.01; //TODO: check value
+        static final double MAX_VELOCITY = 16000 * 1.2; //TODO: check value
+        static final double VELOCITY_P = 0.08; //TODO: check value
         static final double VELOCITY_I = 0; //TODO: check value
-        static final double VELOCITY_D = 0.5; //TODO: check value
+        static final double VELOCITY_D = 3.2; //TODO: check value
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final boolean CURRENT_LIMIT_ENABLED = false;
         static final boolean INVERTED = false;

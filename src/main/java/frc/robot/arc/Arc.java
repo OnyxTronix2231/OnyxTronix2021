@@ -64,17 +64,17 @@ public class Arc extends SubsystemBase {
 
     @Override
     public void periodic() {
-//        components.getController().setPIDFTerms(
-//                kP.getDouble(components.getController().getPIDFTerms().getKp()),
-//                kI.getDouble(components.getController().getPIDFTerms().getKi()),
-//                kD.getDouble(components.getController().getPIDFTerms().getKd()),
-//                kF.getDouble(components.getController().getPIDFTerms().getKf()));
-//        components.getController().setCruiseVelocity((int)
-//                cruiseVelocity.getDouble(components.getController().getCruiseVelocity()));
-//        components.getController().setAcceleration((int)
-//                acceleration.getDouble(components.getController().getAcceleration()));
-//        components.getController().setAccelerationSmoothing((int)
-//                accelerationSmoothing.getDouble(components.getController().getAccelerationSmoothing()));
+        components.getController().setPIDFTerms(
+                kP.getDouble(components.getController().getPIDFTerms().getKp()),
+                kI.getDouble(components.getController().getPIDFTerms().getKi()),
+                kD.getDouble(components.getController().getPIDFTerms().getKd()),
+                kF.getDouble(components.getController().getPIDFTerms().getKf()));
+        components.getController().setCruiseVelocity((int)
+                cruiseVelocity.getDouble(components.getController().getCruiseVelocity()));
+        components.getController().setAcceleration((int)
+                acceleration.getDouble(components.getController().getAcceleration()));
+        components.getController().setAccelerationSmoothing((int)
+                accelerationSmoothing.getDouble(components.getController().getAccelerationSmoothing()));
     }
 
     public void moveBySpeed(double speed) {

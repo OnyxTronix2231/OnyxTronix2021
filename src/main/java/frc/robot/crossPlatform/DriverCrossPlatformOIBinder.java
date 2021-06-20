@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
+import frc.robot.arc.commands.MoveArcBySpeed;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
@@ -43,10 +44,9 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
+        moveBallTrigger.whileActiveContinuous(new MoveArcBySpeed(arc, ()-> 0.8));
 
-        NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
-        new MoveArcAndCloseByTrigger(arc, changeAngle, () -> entry.getDouble(MIN_POSSIBLE_ANGLE));
+        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));
     }
 }
