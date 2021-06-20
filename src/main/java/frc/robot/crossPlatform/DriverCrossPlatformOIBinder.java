@@ -22,7 +22,9 @@ import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
+import frc.robot.revolver.commands.SpinRevolverBySpeed;
 import frc.robot.shooter.Shooter;
+import frc.robot.shooter.commands.SpinShooterByRPM;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
 import onyxTronix.JoystickAxis;
@@ -44,7 +46,7 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new MoveArcBySpeed(arc, ()-> 0.8));
+        moveBallTrigger.whileActiveContinuous(new SpinRevolverBySpeed(revolver, ()-> 0.2));
 
         changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));

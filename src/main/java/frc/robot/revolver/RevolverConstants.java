@@ -15,7 +15,7 @@ public final class RevolverConstants {
     public static final class RevolverComponentsA {
 
         static final int MASTER_MOTOR_ID = 11;
-        static final int SUPPLY_CURRENT_LIMIT = 0; //TODO: check value
+        static final int SUPPLY_CURRENT_LIMIT = 40; //TODO: check value
         static final int SUPPLY_TRIGGER_THRESHOLD_TIME = 0; //TODO: check value
         static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; //TODO: check value
         static final int STATOR_CURRENT_LIMIT = 0; //TODO: check value
@@ -32,7 +32,7 @@ public final class RevolverConstants {
         static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check value
         static final double PEAK_OUTPUT_REVERSE = -1; //TODO: check value
         static final double REGULAR_AMP = 1;
-        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false;
+        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true;
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false;
     }
 }
