@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
+import frc.robot.arc.commands.MoveArcBySpeed;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
@@ -21,7 +22,9 @@ import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
+import frc.robot.revolver.commands.SpinRevolverBySpeed;
 import frc.robot.shooter.Shooter;
+import frc.robot.shooter.commands.SpinShooterByRPM;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
 import onyxTronix.JoystickAxis;
@@ -37,16 +40,14 @@ public class DriverCrossPlatformOIBinder {
         ));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision, revolver,
-                () -> BALL_TRIGGER_RPM, shootBallTrigger)
-                .alongWith(new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING)));
+                () -> BALL_TRIGGER_RPM, shootBallTrigger));
 
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
-        NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
-        new MoveArcAndCloseByTrigger(arc, changeAngle, () -> entry.getDouble(MIN_POSSIBLE_ANGLE));
+        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));
     }
 }

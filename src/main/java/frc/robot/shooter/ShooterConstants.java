@@ -23,7 +23,7 @@ public final class ShooterConstants {
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final double VELOCITY_P = 0.5;
         static final double VELOCITY_I = 0;
-        static final double VELOCITY_D = 0;
+        static final double VELOCITY_D = 16;
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final double OPEN_LOOP_RAMP = 0; // TODO: check and change
         static final double CLOSE_LOOP_RAMP = 0; // TODO: check and change
