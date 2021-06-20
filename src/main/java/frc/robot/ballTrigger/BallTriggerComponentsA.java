@@ -16,6 +16,7 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.*
 public class BallTriggerComponentsA implements BallTriggerComponents {
 
     private final WPI_TalonSRX masterMotor;
+    private final WPI_TalonSRX slaveMotor;
     private final DoubleSolenoid solenoid;
     private final CtreEncoder encoder;
     private final CtrePIDController pidController;
@@ -29,6 +30,14 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         masterMotor.setInverted(INVERTED);
         masterMotor.setSensorPhase(SENSOR_PHASE);
 
+        slaveMotor = new WPI_TalonSRX(SLAVE_MOTOR_ID);
+        slaveMotor.configFactoryDefault();
+        slaveMotor.configAllSettings(getConfiguration());
+        slaveMotor.setNeutralMode(NeutralMode.Coast);
+        slaveMotor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
+        slaveMotor.setInverted(INVERTED);
+        slaveMotor.follow(masterMotor);
+
         solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
 
         encoder = new CtreEncoder(masterMotor);
@@ -40,6 +49,11 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
     @Override
     public WPI_TalonSRX getMasterMotor() {
         return masterMotor;
+    }
+
+    @Override
+    public WPI_TalonSRX getSlaveMotor() {
+        return slaveMotor;
     }
 
     @Override
