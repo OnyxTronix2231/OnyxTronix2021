@@ -45,7 +45,7 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinRevolverBySpeed(revolver, ()-> 0.2));
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
         changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));
