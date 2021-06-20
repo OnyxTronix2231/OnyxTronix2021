@@ -37,7 +37,9 @@ public class ShootBall extends ParallelCommandGroup {
                 new SpinBallTriggerByRPM(ballTrigger, ballTriggerRPMSupplier),
                 new MoveArcAndCloseByTrigger(arc, shootBall, arc::getTestAngle),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget,
-                        revolver::isOnTarget, ballTrigger::isOnTarget, arc::isOnTarget, ()-> true));
+                        revolver::isOnTarget //, ballTrigger::isOnTarget
+                         , arc::isOnTarget // , turret::isOnTarget
+                         ));
         this.ballTrigger = ballTrigger;
     }
 }
