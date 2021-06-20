@@ -7,6 +7,7 @@ import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
+import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.shooter.commands.SpinShooterByRPM;

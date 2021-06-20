@@ -6,7 +6,7 @@ public final class RevolverConstants {
     public static final double UNCLOG_CHECK_DELAY = 0.3;
     public static final double UNCLOG_TIME = 0.5;
     static final int DECISECOND_IN_MIN = 600;
-    static final int TOLERANCE_IN_RPM = 15; //TODO: check value
+    static final int TOLERANCE_IN_RPM = 3; //TODO: check value
     static final double CONVERSION_RATE = 26.5625; //26.5625:1
     static final double ENCODER_UNITS_PER_ROTATION = 2048 * CONVERSION_RATE; //TODO: check value
     static final double MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP = 30;

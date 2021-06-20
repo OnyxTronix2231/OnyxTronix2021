@@ -13,7 +13,7 @@ public final class ShooterConstants {
 
         static final int MASTER_MOTOR_ID = 13;
         static final int SLAVE_MOTOR_ID = 7;
-        static final int SUPPLY_CURRENT_LIMIT = 0; // TODO: check and change
+        static final int SUPPLY_CURRENT_LIMIT = 40; // TODO: check and change
         static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
         static final int STATOR_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
@@ -27,7 +27,7 @@ public final class ShooterConstants {
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final double OPEN_LOOP_RAMP = 0; // TODO: check and change
         static final double CLOSE_LOOP_RAMP = 0; // TODO: check and change
-        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = false; // TODO: check and change
+        static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true; // TODO: check and change
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false; // TODO: check and change
     }
 
