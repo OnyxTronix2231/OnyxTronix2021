@@ -22,7 +22,7 @@ public final class RevolverConstants {
         static final int STATOR_TRIGGER_THRESHOLD_TIME = 0; //TODO: check value
         static final int STATOR_TRIGGER_THRESHOLD_CURRENT = 0; //TODO: check value
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
-        static final double MAX_VELOCITY = 18500 * 1.2; //TODO: check value
+        static final double MAX_VELOCITY = 17400 * 1.25; //TODO: check value
         static final double VELOCITY_P = 0.05; //TODO: check value
         static final double VELOCITY_I = 0.0002; //TODO: check value
         static final double VELOCITY_D = 6.5; //TODO: check value
