@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public final class BallTriggerConstants {
 
     static final int DECISECOND_IN_MIN = 600;
-    static final double ENCODER_UNITS_PER_ROTATION = 4096;
+    static final double BALL_TRIGGER_CONVERSION = 1.25;
+    static final double ENCODER_UNITS_PER_ROTATION = 4096 * BALL_TRIGGER_CONVERSION;
     static final DoubleSolenoid.Value OPEN_PISTON = DoubleSolenoid.Value.kForward;
     static final DoubleSolenoid.Value CLOSE_PISTON = DoubleSolenoid.Value.kReverse;
 
