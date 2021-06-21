@@ -59,6 +59,7 @@ public class RevolverComponentsA implements RevolverComponents {
         config.statorCurrLimit.enable = STATOR_CURRENT_LIMIT_ENABLED;
         config.closedloopRamp = CLOSED_LOOP_RAMP;
         config.openloopRamp = OPEN_LOOP_RAMP;
+        config.slot0.integralZone = INTEGRAL_ZONE;
         return config;
     }
 }
