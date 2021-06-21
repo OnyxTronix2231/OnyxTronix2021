@@ -112,6 +112,8 @@ public class Robot extends TimedRobot {
                 .withTurret(yawControl)
                 .withYawControl(yawControl)
         ;
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision,
+                yawControl);
     }
 
     /**
