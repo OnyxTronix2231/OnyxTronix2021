@@ -13,34 +13,34 @@ import static frc.robot.Roulette.RouletteConstants.*;
 public class Roulette extends SubsystemBase {
 
     private final RouletteComponents components;
-    private final NetworkTableEntry shuffleboardEntryKP;
-    private final NetworkTableEntry shuffleboardEntryKI;
-    private final NetworkTableEntry shuffleboardEntryKD;
-    private final NetworkTableEntry shuffleboardEntryKF;
-    private final NetworkTableEntry shuffleboardEntryCruiseVelocity;
-    private final NetworkTableEntry shuffleboardEntryAcceleration;
-    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing;
+//    private final NetworkTableEntry shuffleboardEntryKP;
+//    private final NetworkTableEntry shuffleboardEntryKI;
+//    private final NetworkTableEntry shuffleboardEntryKD;
+//    private final NetworkTableEntry shuffleboardEntryKF;
+//    private final NetworkTableEntry shuffleboardEntryCruiseVelocity;
+//    private final NetworkTableEntry shuffleboardEntryAcceleration;
+//    private final NetworkTableEntry shuffleboardEntryAccelerationSmoothing;
 
     public Roulette(RouletteComponents components) {
         this.components = components;
-        Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
-                , this::getCurrentRouletteRotations);
-        Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
-                getCurrentColor().getName());
-        shuffleboardEntryKP = Shuffleboard.getTab("Roulette").add("kP",
-                components.getController().getPIDFTerms().getKp()).getEntry();
-        shuffleboardEntryKI = Shuffleboard.getTab("Roulette").add("kI",
-                components.getController().getPIDFTerms().getKi()).getEntry();
-        shuffleboardEntryKD = Shuffleboard.getTab("Roulette").add("kD",
-                components.getController().getPIDFTerms().getKd()).getEntry();
-        shuffleboardEntryKF = Shuffleboard.getTab("Roulette").add("kF",
-                components.getController().getPIDFTerms().getKf()).getEntry();
-        shuffleboardEntryCruiseVelocity = Shuffleboard.getTab("Roulette").add("cruiseVelocity",
-                components.getController().getCruiseVelocity()).getEntry();
-        shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("acceleration",
-                components.getController().getAcceleration()).getEntry();
-        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("accelerationSmoothing",
-                components.getController().getAccelerationSmoothing()).getEntry();
+//        Shuffleboard.getTab("Roulette").addNumber("Roulette rotations complete"
+//                , this::getCurrentRouletteRotations);
+//        Shuffleboard.getTab("Roulette").addString("Current roulette color", () ->
+//                getCurrentColor().getName());
+//        shuffleboardEntryKP = Shuffleboard.getTab("Roulette").add("kP",
+//                components.getController().getPIDFTerms().getKp()).getEntry();
+//        shuffleboardEntryKI = Shuffleboard.getTab("Roulette").add("kI",
+//                components.getController().getPIDFTerms().getKi()).getEntry();
+//        shuffleboardEntryKD = Shuffleboard.getTab("Roulette").add("kD",
+//                components.getController().getPIDFTerms().getKd()).getEntry();
+//        shuffleboardEntryKF = Shuffleboard.getTab("Roulette").add("kF",
+//                components.getController().getPIDFTerms().getKf()).getEntry();
+//        shuffleboardEntryCruiseVelocity = Shuffleboard.getTab("Roulette").add("cruiseVelocity",
+//                components.getController().getCruiseVelocity()).getEntry();
+//        shuffleboardEntryAcceleration = Shuffleboard.getTab("Roulette").add("acceleration",
+//                components.getController().getAcceleration()).getEntry();
+//        shuffleboardEntryAccelerationSmoothing = Shuffleboard.getTab("Roulette").add("accelerationSmoothing",
+//                components.getController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override

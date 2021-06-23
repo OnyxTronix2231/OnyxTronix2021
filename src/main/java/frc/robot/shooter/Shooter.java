@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
+//    private final NetworkTableEntry kP;
+//    private final NetworkTableEntry kI;
+//    private final NetworkTableEntry kD;
+//    private final NetworkTableEntry kF;
     private final NetworkTableEntry rpm;
     private double lastRPMError;
 
@@ -25,22 +25,22 @@ public class Shooter extends SubsystemBase {
         this.components = components;
         initIsBallShot();
 
-        Shuffleboard.getTab("Shooter").addNumber("PID Error",
-                () -> components.getMasterMotor().getClosedLoopError());
+//        Shuffleboard.getTab("Shooter").addNumber("PID Error",
+//                () -> components.getMasterMotor().getClosedLoopError());
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
-        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
-                () -> components.getEncoder().getRate());
+//        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
+//                () -> components.getEncoder().getRate());
 
-        kP = Shuffleboard.getTab("Shooter").add("kP",
-                components.getController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Shooter").add("kI",
-                components.getController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Shooter").add("kD",
-                components.getController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Shooter").add("kF",
-                components.getController().getPIDFTerms().getKf()).getEntry();
-        rpm = Shuffleboard.getTab("Shooter").add("rpm", 0).getEntry();
+//        kP = Shuffleboard.getTab("Shooter").add("kP",
+//                components.getController().getPIDFTerms().getKp()).getEntry();
+//        kI = Shuffleboard.getTab("Shooter").add("kI",
+//                components.getController().getPIDFTerms().getKi()).getEntry();
+//        kD = Shuffleboard.getTab("Shooter").add("kD",
+//                components.getController().getPIDFTerms().getKd()).getEntry();
+//        kF = Shuffleboard.getTab("Shooter").add("kF",
+//                components.getController().getPIDFTerms().getKf()).getEntry();
+        rpm = Shuffleboard.getTab("Shooter").add("rpm", 4000).getEntry();
     }
 
     @Override

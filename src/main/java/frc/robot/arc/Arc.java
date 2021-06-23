@@ -21,13 +21,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Arc extends SubsystemBase {
 
     private final ArcComponents components;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
-    private final NetworkTableEntry cruiseVelocity;
-    private final NetworkTableEntry acceleration;
-    private final NetworkTableEntry accelerationSmoothing;
+//    private final NetworkTableEntry kP;
+//    private final NetworkTableEntry kI;
+//    private final NetworkTableEntry kD;
+//    private final NetworkTableEntry kF;
+//    private final NetworkTableEntry cruiseVelocity;
+//    private final NetworkTableEntry acceleration;
+//    private final NetworkTableEntry accelerationSmoothing;
     private final NetworkTableEntry angleTest;
 
     public Arc(ArcComponents components) {
@@ -40,31 +40,31 @@ public class Arc extends SubsystemBase {
 
         resetEncoderByAbsoluteValue();
 
-        Shuffleboard.getTab("Arc").addNumber("Current velocity",
-                () -> components.getEncoder().getRate());
+//        Shuffleboard.getTab("Arc").addNumber("Current velocity",
+//                () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Arc").addNumber("current angle",
                 this::getAngle);
-        Shuffleboard.getTab("Arc").addNumber("current position ENC",
-                ()-> components.getEncoder().getCount());
-        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
-                ()-> components.getMotor().getClosedLoopError());
+//        Shuffleboard.getTab("Arc").addNumber("current position ENC",
+//                ()-> components.getEncoder().getCount());
+//        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
+//                ()-> components.getMotor().getClosedLoopError());
 
-        kP = Shuffleboard.getTab("Arc").add("kP",
-                components.getController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Arc").add("kI",
-                components.getController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Arc").add("kD",
-                components.getController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Arc").add("kF",
-                components.getController().getPIDFTerms().getKf()).getEntry();
-        angleTest= Shuffleboard.getTab("Arc").add("arc Test", 20).getEntry();
-
-        cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
-                components.getController().getCruiseVelocity()).getEntry();
-        acceleration = Shuffleboard.getTab("Arc").add("Acceleration",
-                components.getController().getAcceleration()).getEntry();
-        accelerationSmoothing = Shuffleboard.getTab("Arc").add("Acceleration smoothing",
-                components.getController().getAccelerationSmoothing()).getEntry();
+//        kP = Shuffleboard.getTab("Arc").add("kP",
+//                components.getController().getPIDFTerms().getKp()).getEntry();
+//        kI = Shuffleboard.getTab("Arc").add("kI",
+//                components.getController().getPIDFTerms().getKi()).getEntry();
+//        kD = Shuffleboard.getTab("Arc").add("kD",
+//                components.getController().getPIDFTerms().getKd()).getEntry();
+//        kF = Shuffleboard.getTab("Arc").add("kF",
+//                components.getController().getPIDFTerms().getKf()).getEntry();
+      angleTest= Shuffleboard.getTab("Arc").add("arc Test", 21).getEntry();
+//
+//        cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
+//                components.getController().getCruiseVelocity()).getEntry();
+//        acceleration = Shuffleboard.getTab("Arc").add("Acceleration",
+//                components.getController().getAcceleration()).getEntry();
+//        accelerationSmoothing = Shuffleboard.getTab("Arc").add("Acceleration smoothing",
+//                components.getController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override

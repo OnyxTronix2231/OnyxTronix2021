@@ -11,13 +11,13 @@ public class Turret extends SubsystemBase {
     protected final TurretComponents components;
     private double startingAngle;
     private double targetAngle;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
-    private final NetworkTableEntry cruiseVelocity;
-    private final NetworkTableEntry acceleration;
-    private final NetworkTableEntry accelerationSmoothing;
+//    private final NetworkTableEntry kP;
+//    private final NetworkTableEntry kI;
+//    private final NetworkTableEntry kD;
+//    private final NetworkTableEntry kF;
+//    private final NetworkTableEntry cruiseVelocity;
+//    private final NetworkTableEntry acceleration;
+//    private final NetworkTableEntry accelerationSmoothing;
 
     public Turret(TurretComponents turretComponents) {
         this.components = turretComponents;
@@ -29,27 +29,27 @@ public class Turret extends SubsystemBase {
                 () -> components.getEncoder().getRate());
         Shuffleboard.getTab("Turret").addNumber("current angle",
                 this::getAngleRTR);
-        Shuffleboard.getTab("Turret").addNumber("current position ENC",
-                ()-> components.getEncoder().getCount());
-        Shuffleboard.getTab("Turret").addNumber("current ERROR ENC",
-                ()-> components.getMotor().getClosedLoopError());
+//        Shuffleboard.getTab("Turret").addNumber("current position ENC",
+//                ()-> components.getEncoder().getCount());
+//        Shuffleboard.getTab("Turret").addNumber("current ERROR ENC",
+//                ()-> components.getMotor().getClosedLoopError());
 
-        kP = Shuffleboard.getTab("Turret").add("kP",
-                components.getTurretController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Turret").add("kI",
-                components.getTurretController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Turret").add("kD",
-                components.getTurretController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Turret").add("kF",
-                components.getTurretController().getPIDFTerms().getKf()).getEntry();
-
-        cruiseVelocity = Shuffleboard.getTab("Turret").add("Cruise velocity",
-                components.getTurretController().getCruiseVelocity()).getEntry();
-        acceleration = Shuffleboard.getTab("Turret").add("Acceleration",
-                components.getTurretController().getAcceleration()).getEntry();
-        accelerationSmoothing = Shuffleboard.getTab("Turret" +
-                "").add("Acceleration smoothing",
-                components.getTurretController().getAccelerationSmoothing()).getEntry();
+//        kP = Shuffleboard.getTab("Turret").add("kP",
+//                components.getTurretController().getPIDFTerms().getKp()).getEntry();
+//        kI = Shuffleboard.getTab("Turret").add("kI",
+//                components.getTurretController().getPIDFTerms().getKi()).getEntry();
+//        kD = Shuffleboard.getTab("Turret").add("kD",
+//                components.getTurretController().getPIDFTerms().getKd()).getEntry();
+//        kF = Shuffleboard.getTab("Turret").add("kF",
+//                components.getTurretController().getPIDFTerms().getKf()).getEntry();
+//
+//        cruiseVelocity = Shuffleboard.getTab("Turret").add("Cruise velocity",
+//                components.getTurretController().getCruiseVelocity()).getEntry();
+//        acceleration = Shuffleboard.getTab("Turret").add("Acceleration",
+//                components.getTurretController().getAcceleration()).getEntry();
+//        accelerationSmoothing = Shuffleboard.getTab("Turret" +
+//                "").add("Acceleration smoothing",
+//                components.getTurretController().getAccelerationSmoothing()).getEntry();
     }
 
     @Override
