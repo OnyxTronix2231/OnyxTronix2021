@@ -8,6 +8,11 @@ public class ArcConstants {
     public static final double MIN_POSSIBLE_ANGLE = 0;
     static final int TIME_OUT = 100;
     static final double START_ENCODER_VALUE = 150;
+    static final double MIDDLE_DISTANCE = 601;
+    static final double START_DISTANCE = 230;
+    static final double START_ANGLE = 25;
+    static final double MIDDLE_ANGLE = 53;
+    static final double FAR_ANGLE = 61;
     static final double ANGULAR_CONVERSION = 19.0/20;
     static final double ANGLE_PER_MOTOR_ROTATION = 33.882;
     static final double MAX_POSSIBLE_ANGLE = 63 - OFFSET;

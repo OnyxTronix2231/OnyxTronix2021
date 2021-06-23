@@ -112,4 +112,8 @@ public class Vision extends BaseVision {
     public VisionTarget getChosenTarget() {
         return chosenTarget;
     }
+
+    public OuterTarget getOuterTarget() {
+        return outerTarget;
+    }
 }

@@ -26,5 +26,7 @@ public class MainShuffleboardTab {
                 yawControl::isOnTarget);
         Shuffleboard.getTab("Main").addString("Vision target",
                 ()-> vision.getChosenTarget() instanceof InnerTarget ? "Inner Target" : "Outer target");
+        Shuffleboard.getTab("Main").addNumber("Distance to outer target",
+                vision.getOuterTarget()::getAirDistanceTurretToTarget);
     }
 }
