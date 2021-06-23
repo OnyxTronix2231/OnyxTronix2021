@@ -31,12 +31,13 @@ public class ShootBall extends ParallelCommandGroup {
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
                      Turret turret, Vision vision, Revolver revolver, Trigger shootBall) {
         super(
-                new SpinShooterByVision(shooter, vision),
-                new MoveArcByVision(arc, shootBall, vision),
+                //new SpinShooterByVision(shooter, vision),
+                //new MoveArcByVision(arc, shootBall, vision),
                 //new MoveTurretByVision(turret, vision),
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
+                new SpinShooterByRPM(shooter ,shooter::getRpm),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                //new MoveArcAndCloseByTrigger(arc, shootBall, arc::getTestAngle),
+                new MoveArcAndCloseByTrigger(arc, shootBall, arc::getTestAngle),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget,
                         revolver::isOnTarget
                         ,ballTrigger::isOnTarget
