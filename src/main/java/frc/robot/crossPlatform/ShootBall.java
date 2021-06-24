@@ -11,9 +11,7 @@ import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
-import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.revolver.Revolver;
-import frc.robot.revolver.commands.SpinRevolverAccordingToAmpResistance;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.shooter.commands.SpinShooterByRPM;
@@ -21,8 +19,6 @@ import frc.robot.shooter.commands.SpinShooterByVision;
 import frc.robot.turret.Turret;
 import frc.robot.turret.commands.MoveTurretByVision;
 import frc.robot.vision.visionMainChallenge.Vision;
-
-import java.util.function.DoubleSupplier;
 
 public class ShootBall extends ParallelCommandGroup {
 
@@ -38,11 +34,8 @@ public class ShootBall extends ParallelCommandGroup {
                 new SpinShooterByRPM(shooter ,shooter::getRpm),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new MoveArcAndCloseByTrigger(arc, shootBall, arc::getTestAngle),
-                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget,
-                        revolver::isOnTarget
-                        ,ballTrigger::isOnTarget
-                         , arc::isOnTarget //turret::isOnTarget
-                         ));
+                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
+                        ballTrigger::isOnTarget ,arc::isOnTarget /*turret::isOnTarget*/ ));
         this.ballTrigger = ballTrigger;
     }
 }

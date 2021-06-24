@@ -72,7 +72,11 @@ public class Shooter extends SubsystemBase {
 
     public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
         double encoderUnitsTarget;
-        encoderUnitsTarget = RPMToEncoderUnitsInDecisecond(ShooterConstants.ShooterCalculation.FORMULA(distance));
+        if (distance > MIDDLE_DISTANCE) {
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
+        } else {
+            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
+        }
         return Math.min(encoderUnitsTarget, MAX_VELOCITY);
     }
 

@@ -2,14 +2,9 @@ package frc.robot.arc;
 
 import static frc.robot.arc.ArcConstants.ANGLE_PER_MOTOR_ROTATION;
 import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.arc.ArcConstants.FAR_ANGLE;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
-import static frc.robot.arc.ArcConstants.MIDDLE_ANGLE;
-import static frc.robot.arc.ArcConstants.MIDDLE_DISTANCE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.OFFSET;
-import static frc.robot.arc.ArcConstants.START_ANGLE;
-import static frc.robot.arc.ArcConstants.START_DISTANCE;
 import static frc.robot.arc.ArcConstants.START_ENCODER_VALUE;
 import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
@@ -57,7 +52,7 @@ public class Arc extends SubsystemBase {
 //                components.getController().getPIDFTerms().getKd()).getEntry();
 //        kF = Shuffleboard.getTab("Arc").add("kF",
 //                components.getController().getPIDFTerms().getKf()).getEntry();
-      angleTest= Shuffleboard.getTab("Arc").add("arc Test", 21).getEntry();
+        angleTest= Shuffleboard.getTab("Arc").add("arc Test", 21).getEntry();
 //
 //        cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
 //                components.getController().getCruiseVelocity()).getEntry();
@@ -107,15 +102,8 @@ public class Arc extends SubsystemBase {
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
-        if(distance > START_DISTANCE && distance < MIDDLE_DISTANCE){
-            return MIDDLE_ANGLE;
-        }
-        else if(distance > MIDDLE_DISTANCE ){
-            return FAR_ANGLE;
-        }
-        else{
-            return START_ANGLE;
-        }
+        System.err.println("there is no formula");
+        return distance;
     }
 
     public double angleToEncoderUnits(double angle) {

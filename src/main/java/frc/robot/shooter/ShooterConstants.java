@@ -35,8 +35,14 @@ public final class ShooterConstants {
 
     public static final class ShooterCalculation { // TODO: change
 
-        static double FORMULA(double distance) {
-            return 0.0088 * Math.pow(distance, 2) - 5.548 * distance + 4776.7;
+        static double FORMULA_DISTANCE_FAR(double distance) {
+            System.err.println("there is no formula");
+            return 0;
+        }
+
+        static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: change
+            System.err.println("there is no formula");
+            return 0;
         }
     }
 }
