@@ -112,8 +112,7 @@ public class Robot extends TimedRobot {
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
         //.withRevolverOi(revolver)
                 .withTurret(yawControl).withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision,
-                yawControl);
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }
 
     /**
