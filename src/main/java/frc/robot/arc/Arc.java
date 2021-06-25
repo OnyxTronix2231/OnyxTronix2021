@@ -5,13 +5,17 @@ import static frc.robot.arc.ArcConstants.ENCODER_UNITS_PER_ROTATION;
 import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.OFFSET;
+import static frc.robot.arc.ArcConstants.REAL_MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.START_ENCODER_VALUE;
 import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
+import static frc.robot.arc.ArcConstants.MIDDLE_DISTANCE_ARC;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.arc.ArcConstants.ArcCalculation;
+import frc.robot.shooter.ShooterConstants;
 
 public class Arc extends SubsystemBase {
 
@@ -41,8 +45,8 @@ public class Arc extends SubsystemBase {
                 this::getAngle);
 //        Shuffleboard.getTab("Arc").addNumber("current position ENC",
 //                ()-> components.getEncoder().getCount());
-//        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
-//                ()-> components.getMotor().getClosedLoopError());
+        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
+                ()-> encoderUnitsToAngle(components.getMotor().getClosedLoopError()));
 
 //        kP = Shuffleboard.getTab("Arc").add("kP",
 //                components.getController().getPIDFTerms().getKp()).getEntry();
@@ -102,8 +106,13 @@ public class Arc extends SubsystemBase {
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
-        System.err.println("there is no formula");
-        return distance;
+        double angleUnitsTarget;
+        if (distance > MIDDLE_DISTANCE_ARC ) {
+            angleUnitsTarget = ArcCalculation.FORMULA_DISTANCE_FAR(distance);
+        } else {
+            angleUnitsTarget = ArcCalculation.FORMULA_DISTANCE_CLOSE(distance);
+        }
+        return Math.min(angleUnitsTarget, REAL_MAX_POSSIBLE_ANGLE );
     }
 
     public double angleToEncoderUnits(double angle) {

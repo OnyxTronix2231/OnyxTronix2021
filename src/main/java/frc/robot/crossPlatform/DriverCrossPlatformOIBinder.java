@@ -15,6 +15,7 @@ import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.arc.commands.MoveArcBySpeed;
 import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.commands.OpenBallTriggerPiston;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;
@@ -35,9 +36,9 @@ public class DriverCrossPlatformOIBinder {
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
                                        Trigger changeAngle, Trigger calibrateArc) {
-        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
-                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
-        ));
+        collectAndLoadRevolver.whileActiveContinuous(new SpinRevolverByRPM(revolver,
+                () -> REVOLVER_RPM_WHILE_COLLECTING)
+        );
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision, revolver,
                 shootBallTrigger));
@@ -45,7 +46,7 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> 2300));
 
         changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));

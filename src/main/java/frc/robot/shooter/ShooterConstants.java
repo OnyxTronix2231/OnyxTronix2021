@@ -16,12 +16,12 @@ public final class ShooterConstants {
         static final int MASTER_MOTOR_ID = 13;
         static final int SLAVE_MOTOR_ID = 7;
         static final int SUPPLY_CURRENT_LIMIT = 40; // TODO: check and change
-        static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
+        static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 40; // TODO: check and change
         static final int STATOR_CURRENT_LIMIT = 0; // TODO: check and change
         static final int STATOR_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final double MAX_VELOCITY = 17750 * 1.2;
-        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0; // TODO: check and change
+        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 1; // TODO: check and change
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0; // TODO: check and change
         static final double VELOCITY_P = 0.5;
         static final double VELOCITY_I = 0;
@@ -36,13 +36,11 @@ public final class ShooterConstants {
     public static final class ShooterCalculation { // TODO: change
 
         static double FORMULA_DISTANCE_FAR(double distance) {
-            System.err.println("there is no formula");
-            return 0;
+            return 0.0038 * Math.pow(distance, 2) + 0.677 * distance + 3119.2;
         }
 
         static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: change
-            System.err.println("there is no formula");
-            return 0;
+            return 3000;
         }
     }
 }

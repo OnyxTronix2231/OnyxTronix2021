@@ -25,8 +25,8 @@ public class Shooter extends SubsystemBase {
         this.components = components;
         initIsBallShot();
 
-//        Shuffleboard.getTab("Shooter").addNumber("PID Error",
-//                () -> components.getMasterMotor().getClosedLoopError());
+        Shuffleboard.getTab("Shooter").addNumber("PID Error",
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 //        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
@@ -71,13 +71,13 @@ public class Shooter extends SubsystemBase {
     }
 
     public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
-        double encoderUnitsTarget;
+        double RPMUnitsTarget;
         if (distance > MIDDLE_DISTANCE) {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
+            RPMUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
         } else {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
+            RPMUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
         }
-        return Math.min(encoderUnitsTarget, MAX_VELOCITY);
+        return RPMUnitsTarget;
     }
 
     public double RPMToEncoderUnitsInDecisecond(double rpm) {

@@ -18,6 +18,7 @@ import frc.robot.shooter.commands.SpinShooterByRPM;
 import frc.robot.shooter.commands.SpinShooterByVision;
 import frc.robot.turret.Turret;
 import frc.robot.turret.commands.MoveTurretByVision;
+import frc.robot.turret.commands.MoveTurretToAngleAndKeep;
 import frc.robot.vision.visionMainChallenge.Vision;
 
 public class ShootBall extends ParallelCommandGroup {
@@ -29,11 +30,11 @@ public class ShootBall extends ParallelCommandGroup {
         super(
                 //new SpinShooterByVision(shooter, vision),
                 //new MoveArcByVision(arc, shootBall, vision),
-                //new MoveTurretByVision(turret, vision),
+                //new MoveTurretToAngleAndKeep(turret, ()-> 1),
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
-                new SpinShooterByRPM(shooter ,shooter::getRpm),
+                new SpinShooterByVision(shooter , vision),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                new MoveArcAndCloseByTrigger(arc, shootBall, arc::getTestAngle),
+                new MoveArcByVision(arc, shootBall, vision),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget ,arc::isOnTarget /*turret::isOnTarget*/ ));
         this.ballTrigger = ballTrigger;
