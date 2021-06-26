@@ -6,9 +6,9 @@ import frc.robot.yawControll.YawControl;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveToAngleAndKeepRTF extends MoveTurretToAngleAndKeep {
+public class MoveTurretToAngleAndKeepRTF extends MoveTurretToAngleAndKeep {
 
-    public MoveToAngleAndKeepRTF(YawControl yawControl, DoubleSupplier angleSupplier) {
+    public MoveTurretToAngleAndKeepRTF(YawControl yawControl, DoubleSupplier angleSupplier) {
         super(yawControl, () -> yawControl.angleToAngleRTF(angleSupplier.getAsDouble()));
     }
 }
