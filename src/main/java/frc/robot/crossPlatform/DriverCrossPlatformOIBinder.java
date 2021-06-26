@@ -35,10 +35,10 @@ public class DriverCrossPlatformOIBinder {
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
-                                       Trigger changeAngle, Trigger calibrateArc) {
-        collectAndLoadRevolver.whileActiveContinuous(new SpinRevolverByRPM(revolver,
-                () -> REVOLVER_RPM_WHILE_COLLECTING)
-        );
+                                       Trigger changeAngle, Trigger calibrateArc, Trigger shootClose) {
+        collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
+                () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
+        ));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision, revolver,
                 shootBallTrigger));
@@ -46,9 +46,11 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> 2300));
+        //moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> 3500));
 
         changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
         calibrateArc.whenActive(new CalibrateArc(arc));
+
+        shootClose.whileActiveContinuous(new ShootBallClose(shooter, ballTrigger, revolver));
     }
 }
