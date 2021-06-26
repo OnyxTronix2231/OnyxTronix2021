@@ -28,19 +28,20 @@ import frc.robot.shooter.Shooter;
 import frc.robot.shooter.commands.SpinShooterByRPM;
 import frc.robot.turret.Turret;
 import frc.robot.vision.visionMainChallenge.Vision;
+import frc.robot.yawControll.YawControl;
 import onyxTronix.JoystickAxis;
 
 public class DriverCrossPlatformOIBinder {
 
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                       Turret turret, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
+                                       YawControl yawControl, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
                                        Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
                                        Trigger changeAngle, Trigger calibrateArc, Trigger shootClose) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
 
-        shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, turret, vision, revolver,
+        shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
                 shootBallTrigger));
 
         openCollector.whenActive(new OpenCollectorPistons(collector));
