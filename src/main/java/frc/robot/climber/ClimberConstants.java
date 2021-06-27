@@ -8,16 +8,16 @@ public class ClimberConstants {
 
     public static class ClimberConstantsA {
 
-        static final int MASTER_MOTOR_ID = 0;
-        static final int SLAVE_MOTOR_ID = 1;
+        static final int MASTER_MOTOR_ID = 14;
+        static final int SLAVE_MOTOR_ID = 15;
         static final int ACCELERATION = 0; // Todo: ValueCheck
         static final int CRUISE_VELOCITY = 0; // Todo: ValueCheck
         static final int ACCELERATION_SMOOTHING = 0; // Todo: ValueCheck
-        static final double PEAK_OUTPUT_FORWARD = 0;
-        static final double PEAK_OUTPUT_REVERSE = 0;
-        static final double SUPPLY_CURRENT_LIMIT = 40;
-        static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 40;
-        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0.3;
+        static final double PEAK_OUTPUT_FORWARD = 1;
+        static final double PEAK_OUTPUT_REVERSE = -1;
+        static final double SUPPLY_CURRENT_LIMIT = 0;
+        static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0;
+        static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0;
         static final double STATOR_CURRENT_LIMIT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_TIME = 0;
