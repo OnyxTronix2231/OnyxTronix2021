@@ -106,13 +106,7 @@ public class Arc extends SubsystemBase {
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
-        double angleUnitsTarget;
-        if (distance > MIDDLE_DISTANCE_ARC ) {
-            angleUnitsTarget = ArcCalculation.FORMULA_DISTANCE_FAR(distance);
-        } else {
-            angleUnitsTarget = ArcCalculation.FORMULA_DISTANCE_CLOSE(distance);
-        }
-        return Math.min(angleUnitsTarget, REAL_MAX_POSSIBLE_ANGLE );
+        return Math.min(ArcCalculation.FORMULA_DISTANCE_FAR(distance), REAL_MAX_POSSIBLE_ANGLE );
     }
 
     public double angleToEncoderUnits(double angle) {

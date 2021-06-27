@@ -70,43 +70,40 @@ public class Shooter extends SubsystemBase {
         components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 
-    public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
-        double RPMUnitsTarget;
-        if (distance > MIDDLE_DISTANCE) {
-            RPMUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
-        } else {
-            RPMUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
+        public double RPMToEncoderUnitsInDecisecond(double rpm) {
+            return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
         }
-        return RPMUnitsTarget;
-    }
 
-    public double RPMToEncoderUnitsInDecisecond(double rpm) {
-        return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
-    }
-
-    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-    }
-
-    public void initIsBallShot() {
-        lastRPMError = Double.MAX_VALUE;
-    }
-
-    public boolean updateIsBallShot() {
-        boolean isBallShot = false;
-        if (components.getController().getCurrentError() >
-                MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
-            isBallShot = true;
+        public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+            return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
         }
-        lastRPMError = components.getController().getCurrentError();
-        return isBallShot;
+
+    public double distanceMetersToRPM(double distance) {
+            return Math.min(ShooterConstants.ShooterCalculation.FORMULA(distance),
+                    encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
+        }
+
+        public void initIsBallShot() {
+            lastRPMError = Double.MAX_VALUE;
+        }
+
+        public boolean updateIsBallShot() {
+            boolean isBallShot = false;
+            if (components.getController().getCurrentError() >
+                    MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
+                isBallShot = true;
+            }
+            lastRPMError = components.getController().getCurrentError();
+            return isBallShot;
+        }
+
+        public boolean isOnTarget() {
+            return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
+        }
+
+        public double getRpm(){
+            return rpm.getDouble(0);
+        }
     }
 
-    public boolean isOnTarget() {
-        return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
-    }
 
-    public double getRpm(){
-        return rpm.getDouble(0);
-    }
-}

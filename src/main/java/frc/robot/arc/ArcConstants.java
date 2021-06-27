@@ -41,9 +41,5 @@ public class ArcConstants {
             static double FORMULA_DISTANCE_FAR(double distance) {
                 return 0.00008 * Math.pow(distance, 2) - 0.0325 * distance + 51.521;
             }
-
-            static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: change
-                return 21;
-            }
         }
 }

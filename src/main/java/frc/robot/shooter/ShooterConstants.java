@@ -35,12 +35,8 @@ public final class ShooterConstants {
 
     public static final class ShooterCalculation { // TODO: change
 
-        static double FORMULA_DISTANCE_FAR(double distance) {
+        static double FORMULA(double distance) {
             return 0.0038 * Math.pow(distance, 2) + 0.677 * distance + 3119.2;
-        }
-
-        static double FORMULA_DISTANCE_CLOSE(double distance) { // TODO: change
-            return 3000;
         }
     }
 }
