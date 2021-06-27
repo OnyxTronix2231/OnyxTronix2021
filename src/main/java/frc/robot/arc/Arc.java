@@ -9,13 +9,10 @@ import static frc.robot.arc.ArcConstants.REAL_MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.START_ENCODER_VALUE;
 import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
-import static frc.robot.arc.ArcConstants.MIDDLE_DISTANCE_ARC;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.arc.ArcConstants.ArcCalculation;
-import frc.robot.shooter.ShooterConstants;
 
 public class Arc extends SubsystemBase {
 
@@ -27,7 +24,7 @@ public class Arc extends SubsystemBase {
 //    private final NetworkTableEntry cruiseVelocity;
 //    private final NetworkTableEntry acceleration;
 //    private final NetworkTableEntry accelerationSmoothing;
-    private final NetworkTableEntry angleTest;
+//    private final NetworkTableEntry angleTest;
 
     public Arc(ArcComponents components) {
         this.components = components;
@@ -46,7 +43,7 @@ public class Arc extends SubsystemBase {
 //        Shuffleboard.getTab("Arc").addNumber("current position ENC",
 //                ()-> components.getEncoder().getCount());
         Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
-                ()-> encoderUnitsToAngle(components.getMotor().getClosedLoopError()));
+                () -> encoderUnitsToAngle(components.getMotor().getClosedLoopError()));
 
 //        kP = Shuffleboard.getTab("Arc").add("kP",
 //                components.getController().getPIDFTerms().getKp()).getEntry();
@@ -56,7 +53,7 @@ public class Arc extends SubsystemBase {
 //                components.getController().getPIDFTerms().getKd()).getEntry();
 //        kF = Shuffleboard.getTab("Arc").add("kF",
 //                components.getController().getPIDFTerms().getKf()).getEntry();
-        angleTest= Shuffleboard.getTab("Arc").add("arc Test", 21).getEntry();
+//        angleTest= Shuffleboard.getTab("Arc").add("arc Test", 21).getEntry();
 //
 //        cruiseVelocity = Shuffleboard.getTab("Arc").add("Cruise velocity",
 //                components.getController().getCruiseVelocity()).getEntry();
@@ -101,12 +98,12 @@ public class Arc extends SubsystemBase {
         components.getController().update(angleToEncoderUnits(angle));
     }
 
-    public void configReverseSoftLimitEnable(boolean enable){
+    public void configReverseSoftLimitEnable(boolean enable) {
         components.getMotor().configReverseSoftLimitEnable(enable);
     }
 
     public double distanceMetersToAngle(double distance) { //TODO add formula
-        return Math.min(ArcCalculation.FORMULA_DISTANCE_FAR(distance), REAL_MAX_POSSIBLE_ANGLE );
+        return Math.min(ArcCalculation.FORMULA_DISTANCE_FAR(distance), REAL_MAX_POSSIBLE_ANGLE);
     }
 
     public double angleToEncoderUnits(double angle) {
@@ -122,7 +119,7 @@ public class Arc extends SubsystemBase {
         return Math.min(MAX_POSSIBLE_ANGLE, Math.max(angle, MIN_POSSIBLE_ANGLE));
     }
 
-    public double getAngle(){
+    public double getAngle() {
         return encoderUnitsToAngle(components.getEncoder().getCount()) + OFFSET;
     }
 
@@ -138,13 +135,13 @@ public class Arc extends SubsystemBase {
         return components.getReverseLimitSwitch().isOpen();
     }
 
-    public void resetEncoderByAbsoluteValue(){
+    public void resetEncoderByAbsoluteValue() {
         components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
         components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
                 getPulseWidthPosition() - START_ENCODER_VALUE);
     }
 
-    public double getTestAngle(){
-        return angleTest.getDouble(20);
-    }
+//    public double getTestAngle(){
+//        return angleTest.getDouble(20);
+//    }
 }

@@ -18,7 +18,7 @@ public class Shooter extends SubsystemBase {
 //    private final NetworkTableEntry kI;
 //    private final NetworkTableEntry kD;
 //    private final NetworkTableEntry kF;
-    private final NetworkTableEntry rpm;
+//    private final NetworkTableEntry rpm;
     private double lastRPMError;
 
     public Shooter(ShooterComponents components) {
@@ -40,7 +40,7 @@ public class Shooter extends SubsystemBase {
 //                components.getController().getPIDFTerms().getKd()).getEntry();
 //        kF = Shuffleboard.getTab("Shooter").add("kF",
 //                components.getController().getPIDFTerms().getKf()).getEntry();
-        rpm = Shuffleboard.getTab("Shooter").add("rpm", 4000).getEntry();
+//        rpm = Shuffleboard.getTab("Shooter").add("rpm", 4000).getEntry();
     }
 
     @Override
@@ -101,9 +101,9 @@ public class Shooter extends SubsystemBase {
             return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
         }
 
-        public double getRpm(){
-            return rpm.getDouble(0);
-        }
+//        public double getRpm(){
+//            return rpm.getDouble(0);
+//        }
     }
 
 
