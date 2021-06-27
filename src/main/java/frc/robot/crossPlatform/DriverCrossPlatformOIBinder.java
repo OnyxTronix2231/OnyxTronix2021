@@ -8,6 +8,7 @@ import frc.robot.arc.Arc;
 import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
@@ -33,10 +34,10 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        //moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> 3500));
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
-        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
-        calibrateArc.whenActive(new CalibrateArc(arc));
+//        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
+//        calibrateArc.whenActive(new CalibrateArc(arc));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
     }
