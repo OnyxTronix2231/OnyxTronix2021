@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.climber.Climber;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
 import frc.robot.drivetrain.DriveTrain;
@@ -34,7 +35,7 @@ public class DriverOI {
     }
 
     public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                        YawControl yawControl, Shooter shooter, Vision vision) {
+                                        YawControl yawControl, Shooter shooter, Vision vision, Climber climber) {
         Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         Trigger openBallCollector = new JoystickButton(xboxController, XboxController.Button.kBack.value);
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
@@ -42,9 +43,10 @@ public class DriverOI {
         Trigger changeAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
         JoystickAxis moveBallTrigger = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         Trigger shootClose = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
+        JoystickAxis climb = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
+        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision, climber,
                 collectAndLoadRevolver, shootBall,
-                openBallCollector, moveBallTrigger, changeAngle, calibrateArc, shootClose);
+                openBallCollector, moveBallTrigger, changeAngle, calibrateArc, shootClose, climb);
         return this;
     }
 
