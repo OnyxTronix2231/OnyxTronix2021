@@ -15,7 +15,7 @@ public final class RevolverConstants {
     public static final class RevolverComponentsA {
 
         static final int MASTER_MOTOR_ID = 11;
-        static final int SUPPLY_CURRENT_LIMIT = 10; //// TODO: check value
+        static final int SUPPLY_CURRENT_LIMIT = 10; // TODO: check value
         static final int SUPPLY_TRIGGER_THRESHOLD_TIME = 0; //TODO: check value
         static final int SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0; //TODO: check value
         static final int STATOR_CURRENT_LIMIT = 0; //TODO: check value
