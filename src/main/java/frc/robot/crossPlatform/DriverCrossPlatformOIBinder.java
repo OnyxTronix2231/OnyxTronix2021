@@ -5,8 +5,6 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
-import frc.robot.arc.commands.CalibrateArc;
-import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;

@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.arc.commands.MoveArcBySpeed;
-import frc.robot.arc.commands.MoveArcUntilLowerLimitSwitch;
 import onyxTronix.JoystickAxis;
 
 public class DriverArcOiBinders {

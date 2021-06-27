@@ -1,6 +1,5 @@
 package frc.robot.drivetrain.commands;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.drivetrain.DriveTrain;
 

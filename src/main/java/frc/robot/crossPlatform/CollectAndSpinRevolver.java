@@ -6,7 +6,6 @@ import frc.robot.collector.commands.OpenAndCollect;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverAccordingToAmpResistance;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
-import frc.robot.revolver.commands.SpinRevolverBySpeed;
 
 import java.util.function.DoubleSupplier;
 
