@@ -4,8 +4,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MAX_POSSIBLE_DISTANCE;
+import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MIN_POSSIBLE_DISTANCE;
 import static frc.robot.climber.ClimberConstants.ClimberConstantsA.TOLERANCE;
-import static frc.robot.climber.ClimberConstants.DISTANCE_PER_MOTOR_ROTATION;
+import static frc.robot.climber.ClimberConstants.DECISECONDS_IN_MIN;
 import static frc.robot.climber.ClimberConstants.ENCODER_UNITS_PER_ROTATION;
 
 public class Climber extends SubsystemBase {
@@ -18,6 +20,12 @@ public class Climber extends SubsystemBase {
 
     public Climber(ClimberComponents components) {
         this.components = components;
+
+        components.getMasterMotor().configForwardSoftLimitEnable(true);
+        components.getMasterMotor().configForwardSoftLimitThreshold(MAX_POSSIBLE_DISTANCE);
+        components.getMasterMotor().configReverseSoftLimitEnable(true);
+        components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
+
         kP = Shuffleboard.getTab("Climber").add("kP",
             components.getController().getPIDFTerms().getKp()).getEntry();
         kI = Shuffleboard.getTab("Climber").add("kI",
@@ -41,21 +49,21 @@ public class Climber extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public void initClimbToDistance(double distance) {
-        components.getController().setSetpoint(rpmToEncoderUnitsInDecisecond(distance)); // Todo: convert to encoder units
+    public void initClimbToDistance(double distanceInEncoderUnits) {
+        components.getController().setSetpoint(distanceInEncoderUnits);
         components.getController().enable();
     }
 
-    public void updateClimbToDistance(double distance) {
-        components.getController().update(distance); // Todo: convert to encoder units
+    public void updateClimbToDistance(double distanceInEncoderUnits) {
+        components.getController().update(distanceInEncoderUnits);
     }
 
-    public double rpmToEncoderUnitsInDecisecond(double distance) {
-        return (distance * DISTANCE_PER_MOTOR_ROTATION) / ENCODER_UNITS_PER_ROTATION;
+    public double encoderUnitsInDecisecondToRPM(int encoderUnits) {
+        return (encoderUnits * DECISECONDS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
     public boolean isOnTarget() {
-        return components.getController().isOnTarget(TOLERANCE); // Todo: convert to encoder units, put variable
+        return components.getController().isOnTarget(TOLERANCE);
     }
 
     public void stopMotor() {
