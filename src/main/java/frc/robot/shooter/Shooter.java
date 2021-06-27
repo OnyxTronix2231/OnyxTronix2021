@@ -78,7 +78,7 @@ public class Shooter extends SubsystemBase {
             return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
         }
 
-    public double distanceMetersToRPM(double distance) {
+        public double distanceMetersToRPM(double distance) {
             return Math.min(ShooterConstants.ShooterCalculation.FORMULA(distance),
                     encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
         }
