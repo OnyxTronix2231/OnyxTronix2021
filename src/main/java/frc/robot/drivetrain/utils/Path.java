@@ -6,9 +6,6 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.commands.MoveByPath;
 
 import java.util.Arrays;
 import java.util.List;

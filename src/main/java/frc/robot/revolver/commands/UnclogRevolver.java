@@ -3,7 +3,6 @@ package frc.robot.revolver.commands;
 import static frc.robot.revolver.RevolverConstants.UNCLOG_TIME;
 
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.revolver.Revolver;
 

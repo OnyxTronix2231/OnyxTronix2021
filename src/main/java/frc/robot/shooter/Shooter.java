@@ -2,12 +2,10 @@ package frc.robot.shooter;
 
 import static frc.robot.shooter.ShooterConstants.DECISECOND_IN_MIN;
 import static frc.robot.shooter.ShooterConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.shooter.ShooterConstants.MIDDLE_DISTANCE;
 import static frc.robot.shooter.ShooterConstants.MIN_ERROR_RPM;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 import static frc.robot.shooter.ShooterConstants.TOLERANCE_RPM;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 

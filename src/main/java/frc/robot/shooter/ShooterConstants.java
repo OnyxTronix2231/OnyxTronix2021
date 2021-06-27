@@ -1,7 +1,5 @@
 package frc.robot.shooter;
 
-import frc.robot.Main;
-
 public final class ShooterConstants {
 
     static final int MIDDLE_DISTANCE = 230;
