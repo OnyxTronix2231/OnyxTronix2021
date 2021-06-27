@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
+
 import java.util.function.DoubleSupplier;
+
 import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class Vision extends BaseVision {
@@ -67,7 +69,7 @@ public class Vision extends BaseVision {
         }
     }
 
-    public void updatePos(){
+    public void updatePos() {
         if (hasTarget()) {
             /* we create a vector from the robot to the zero point of the field by taking the vector
              * from the robot to the target and subtracting from it the fixed vector from the zero point
@@ -93,11 +95,11 @@ public class Vision extends BaseVision {
                 Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
     }
 
-    public double getRobotX(){
+    public double getRobotX() {
         return currentPos.getX();
     }
 
-    public double getRobotY(){
+    public double getRobotY() {
         return currentPos.getY();
     }
 
@@ -111,5 +113,9 @@ public class Vision extends BaseVision {
 
     public VisionTarget getChosenTarget() {
         return chosenTarget;
+    }
+
+    public OuterTarget getOuterTarget() {
+        return outerTarget;
     }
 }

@@ -8,13 +8,13 @@ public final class MainVisionConstants {
     public static final double CIRCLE_ANGLES = 360;
 
     // mechanical parameters
-    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 15.8;
+    public static final double LIMELIGHT_ANGLE_TO_HORIZON_DEG = 17.2;  // 15.8
     public static final double LIMELIGHT_HEIGHT_TO_FLOOR_CM = 59.3;
 
-    public static final double LIMELIGHT_TO_TURRET_CM = 15.188;
+    public static final double LIMELIGHT_TO_TURRET_CM = 0;  // 15.188
     public static final double DISTANCE_OUTER_TO_FIELD_ZERO_CM = 580.6186;
     public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM = 74.295;
-    public static final double OUTER_TARGET_HEIGHT_CM = 225;
+    public static final double OUTER_TARGET_HEIGHT_CM = 231;  // 225
     public static final double INNER_TARGET_HEIGHT_CM = 233.045;
     public static final double ROBOT_TO_TURRET_DISTANCE_CM = 10.511;
 

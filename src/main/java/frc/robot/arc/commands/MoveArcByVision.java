@@ -8,6 +8,6 @@ import frc.robot.vision.visionMainChallenge.Vision;
 public class MoveArcByVision extends ActByVision {
 
     public MoveArcByVision(Arc arc, Trigger closeArc, Vision vision) {
-        super(new MoveArcByDistance(arc, closeArc, () -> vision.getChosenTarget().getAirDistanceTurretToTarget()), vision);
+        super(new MoveArcByDistance(arc, closeArc, () -> vision.getOuterTarget().getAirDistanceTurretToTarget()), vision);
     }
 }

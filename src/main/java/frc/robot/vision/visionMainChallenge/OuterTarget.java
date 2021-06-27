@@ -29,8 +29,8 @@ public class OuterTarget extends VisionTarget {
         //        verticalAngleLimelightToTarget);
         //Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
         //        verticalDistanceLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Horizontal angle robot to target", () ->
-                horizontalAngleTargetToRobot);
+        Shuffleboard.getTab("Vision").addNumber("Horizontal angle turret to target", () ->
+                horizontalAngleTargetToTurret);
     }
 
     @Override

@@ -14,11 +14,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase {
 
     private final ShooterComponents components;
-    private final NetworkTableEntry kP;
-    private final NetworkTableEntry kI;
-    private final NetworkTableEntry kD;
-    private final NetworkTableEntry kF;
-    private final NetworkTableEntry rpm;
+//    private final NetworkTableEntry kP;
+//    private final NetworkTableEntry kI;
+//    private final NetworkTableEntry kD;
+//    private final NetworkTableEntry kF;
+//    private final NetworkTableEntry rpm;
     private double lastRPMError;
 
     public Shooter(ShooterComponents components) {
@@ -26,21 +26,21 @@ public class Shooter extends SubsystemBase {
         initIsBallShot();
 
         Shuffleboard.getTab("Shooter").addNumber("PID Error",
-                () -> components.getMasterMotor().getClosedLoopError());
+                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
         Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
-        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
-                () -> components.getEncoder().getRate());
+//        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
+//                () -> components.getEncoder().getRate());
 
-        kP = Shuffleboard.getTab("Shooter").add("kP",
-                components.getController().getPIDFTerms().getKp()).getEntry();
-        kI = Shuffleboard.getTab("Shooter").add("kI",
-                components.getController().getPIDFTerms().getKi()).getEntry();
-        kD = Shuffleboard.getTab("Shooter").add("kD",
-                components.getController().getPIDFTerms().getKd()).getEntry();
-        kF = Shuffleboard.getTab("Shooter").add("kF",
-                components.getController().getPIDFTerms().getKf()).getEntry();
-        rpm = Shuffleboard.getTab("Shooter").add("rpm", 0).getEntry();
+//        kP = Shuffleboard.getTab("Shooter").add("kP",
+//                components.getController().getPIDFTerms().getKp()).getEntry();
+//        kI = Shuffleboard.getTab("Shooter").add("kI",
+//                components.getController().getPIDFTerms().getKi()).getEntry();
+//        kD = Shuffleboard.getTab("Shooter").add("kD",
+//                components.getController().getPIDFTerms().getKd()).getEntry();
+//        kF = Shuffleboard.getTab("Shooter").add("kF",
+//                components.getController().getPIDFTerms().getKf()).getEntry();
+//        rpm = Shuffleboard.getTab("Shooter").add("rpm", 4000).getEntry();
     }
 
     @Override
@@ -70,43 +70,40 @@ public class Shooter extends SubsystemBase {
         components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 
-    public double distanceMetersToEncoderUnitsInDecisecond(double distance) { //TODO fix formula
-        double encoderUnitsTarget;
-        if (distance > MIDDLE_DISTANCE) {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_FAR(distance);
-        } else {
-            encoderUnitsTarget = ShooterConstants.ShooterCalculation.FORMULA_DISTANCE_CLOSE(distance);
+        public double RPMToEncoderUnitsInDecisecond(double rpm) {
+            return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
         }
-        return Math.min(encoderUnitsTarget, MAX_VELOCITY);
-    }
 
-    public double RPMToEncoderUnitsInDecisecond(double rpm) {
-        return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
-    }
-
-    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-    }
-
-    public void initIsBallShot() {
-        lastRPMError = Double.MAX_VALUE;
-    }
-
-    public boolean updateIsBallShot() {
-        boolean isBallShot = false;
-        if (components.getController().getCurrentError() >
-                MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
-            isBallShot = true;
+        public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+            return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
         }
-        lastRPMError = components.getController().getCurrentError();
-        return isBallShot;
+
+        public double distanceMetersToRPM(double distance) {
+            return Math.min(ShooterConstants.ShooterCalculation.FORMULA(distance),
+                    encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
+        }
+
+        public void initIsBallShot() {
+            lastRPMError = Double.MAX_VALUE;
+        }
+
+        public boolean updateIsBallShot() {
+            boolean isBallShot = false;
+            if (components.getController().getCurrentError() >
+                    MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
+                isBallShot = true;
+            }
+            lastRPMError = components.getController().getCurrentError();
+            return isBallShot;
+        }
+
+        public boolean isOnTarget() {
+            return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
+        }
+
+//        public double getRpm(){
+//            return rpm.getDouble(0);
+//        }
     }
 
-    public boolean isOnTarget() {
-        return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
-    }
 
-    public double getRpm(){
-        return rpm.getDouble(0);
-    }
-}

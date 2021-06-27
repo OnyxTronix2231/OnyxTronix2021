@@ -78,7 +78,6 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         config.continuousCurrentLimit = CONTINUOUS_CURRENT_LIMIT;
         config.openloopRamp = OPEN_LOOP_RAMP;
         config.closedloopRamp = CLOSED_LOOP_RAMP;
-        config.peakOutputForward = PEAK_OUTPUT_FORWARD;
         return config;
     }
 }

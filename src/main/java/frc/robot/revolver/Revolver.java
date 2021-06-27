@@ -14,33 +14,33 @@ import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 public class Revolver extends SubsystemBase {
 
     private final RevolverComponents components;
-    private final NetworkTableEntry kpEntry;
-    private final NetworkTableEntry kiEntry;
-    private final NetworkTableEntry kdEntry;
-    private final NetworkTableEntry kfEntry;
+//    private final NetworkTableEntry kpEntry;
+//    private final NetworkTableEntry kiEntry;
+//    private final NetworkTableEntry kdEntry;
+//    private final NetworkTableEntry kfEntry;
 
     public Revolver(RevolverComponents components) {
         this.components = components;
-        Shuffleboard.getTab("Revolver").addNumber("Current error in encoder units",
-                () -> components.getMotor().getClosedLoopError());
-        Shuffleboard.getTab("Revolver").addNumber("Current error in RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
-        Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
-                () -> components.getMotor().getSelectedSensorVelocity());
+//        Shuffleboard.getTab("Revolver").addNumber("Current error in encoder units",
+//                () -> components.getMotor().getClosedLoopError());
+//        Shuffleboard.getTab("Revolver").addNumber("Current error in RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getClosedLoopError()));
+//        Shuffleboard.getTab("Revolver").addNumber("Current velocity in encoder units",
+//                () -> components.getMotor().getSelectedSensorVelocity());
         Shuffleboard.getTab("Revolver").addNumber("Current RPM",
                 () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
 
-        kpEntry = Shuffleboard.getTab("Revolver").add("kP",
-                components.getPIDController().getPIDFTerms().getKp()).getEntry();
-
-        kiEntry = Shuffleboard.getTab("Revolver").add("kI",
-                components.getPIDController().getPIDFTerms().getKi()).getEntry();
-
-        kdEntry = Shuffleboard.getTab("Revolver").add("kD",
-                components.getPIDController().getPIDFTerms().getKd()).getEntry();
-
-        kfEntry = Shuffleboard.getTab("Revolver").add("kF",
-                components.getPIDController().getPIDFTerms().getKf()).getEntry();
+//        kpEntry = Shuffleboard.getTab("Revolver").add("kP",
+//                components.getPIDController().getPIDFTerms().getKp()).getEntry();
+//
+//        kiEntry = Shuffleboard.getTab("Revolver").add("kI",
+//                components.getPIDController().getPIDFTerms().getKi()).getEntry();
+//
+//        kdEntry = Shuffleboard.getTab("Revolver").add("kD",
+//                components.getPIDController().getPIDFTerms().getKd()).getEntry();
+//
+//        kfEntry = Shuffleboard.getTab("Revolver").add("kF",
+//                components.getPIDController().getPIDFTerms().getKf()).getEntry();
     }
 
     @Override
@@ -57,7 +57,7 @@ public class Revolver extends SubsystemBase {
     }
 
     public void initMoveByRPM(double rpm) {
-        if (Math.abs(rpm) > MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP) {
+        if (Math.abs(rpm) > 0) {
             components.getMotor().configClosedloopRamp(CLOSE_LOOP_RAMP_WHILE_SHOOTING);
         }
         components.getPIDController().setSetpoint(rpmToEncoderUnitInDecisecond(rpm));

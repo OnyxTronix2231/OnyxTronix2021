@@ -57,8 +57,8 @@ public class RevolverComponentsA implements RevolverComponents {
         config.statorCurrLimit.triggerThresholdCurrent = STATOR_TRIGGER_THRESHOLD_CURRENT;
         config.statorCurrLimit.triggerThresholdTime = STATOR_TRIGGER_THRESHOLD_TIME;
         config.statorCurrLimit.enable = STATOR_CURRENT_LIMIT_ENABLED;
-        config.closedloopRamp = CLOSED_LOOP_RAMP;
         config.openloopRamp = OPEN_LOOP_RAMP;
+        config.slot0.integralZone = INTEGRAL_ZONE;
         return config;
     }
 }
