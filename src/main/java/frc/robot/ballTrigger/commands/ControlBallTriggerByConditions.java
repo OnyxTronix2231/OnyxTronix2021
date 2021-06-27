@@ -1,10 +1,7 @@
 package frc.robot.ballTrigger.commands;
 
-import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.BALL_TRIGGER_RPM;
-
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.ballTrigger.BallTrigger;
 
@@ -17,10 +14,9 @@ public class ControlBallTriggerByConditions extends SequentialCommandGroup {
 
     public ControlBallTriggerByConditions(BallTrigger ballTrigger, BooleanSupplier... isReadyConditions) {
         super(
-                new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).allMatch(BooleanSupplier::getAsBoolean))
-                .alongWith(new WaitCommand(2)),
+                new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).allMatch(BooleanSupplier::getAsBoolean)),
                 new OpenBallTriggerPiston(ballTrigger));
-                this.ballTrigger = ballTrigger;
+        this.ballTrigger = ballTrigger;
     }
 
     @Override
