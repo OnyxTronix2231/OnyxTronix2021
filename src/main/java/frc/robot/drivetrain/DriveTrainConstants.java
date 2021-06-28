@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.util.Units;
-import frc.robot.drivetrain.skills.SkillsConstants;
 import frc.robot.drivetrain.utils.Path;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
@@ -55,7 +54,7 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-        public static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
+        public static final double TRACKWIDTH_METERS = 0.7; // TODO: Calibration with A
         public static final Pose2d START_POSE = GS_BLUE_FIRST_START;
         private static final double KS = 0.76;
         private static final double KV = 2.03;
@@ -66,94 +65,90 @@ public final class DriveTrainConstants {
     }
 
     public static final class InfiniteRechargeStartPoints {
-        public static final Pose2d PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        public static final Pose2d SECOND_PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
+        public static final Pose2d PRIORITY_PATH_START = new Pose2d(3, 0.7 , Rotation2d.fromDegrees(0));
+        public static final Pose2d SECOND_PRIORITY_PATH_START = new Pose2d(3, 7.5, Rotation2d.fromDegrees(0));
         public static final Pose2d THIRD_PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        public static final Pose2d FOURTH_PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        public static final Pose2d FIFTH_PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
-        public static final Pose2d BOOM_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
+        public static final Pose2d FOURTH_PRIORITY_PATH_START = new Pose2d(3, 6.5, Rotation2d.fromDegrees(0));
+        public static final Pose2d FIFTH_PRIORITY_PATH_START = new Pose2d(3, 6.5, Rotation2d.fromDegrees(0));
     }
 
     public static final class InfiniteRechargePaths {
-        private static final double OFFSET = 8.2;
 
         public static final Path PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
+                new Pose2d(6.2,  0.7, Rotation2d.fromDegrees(0)));
 
         public static final Path PRIORITY_PATH_B = new Path(
                 PRIORITY_PATH_A.getEndPose(),
-                List.of(
-                new Translation2d(4.9, OFFSET - 2.1),
-                new Translation2d(7.69, OFFSET - 2.7),
-                new Translation2d(6.75, OFFSET - 4),
-                new Translation2d(6.15, OFFSET - 3.7),
-                new Translation2d(7.1, OFFSET - 3)),
-                new Pose2d(5.95, OFFSET - 2.3, Rotation2d.fromDegrees(0))).setReversed();
+                List.of(),
+                new Pose2d(4.5, 5.8, Rotation2d.fromDegrees(0))).setReversed();
+
+        public static final Path PRIORITY_PATH_C = new Path(
+                PRIORITY_PATH_B.getEndPose(),
+                List.of(new Translation2d(6.157,  5.685),
+                        new Translation2d(6.8, 5),
+                        new Translation2d(6.9, 4.3)),
+                new Pose2d(6.3,  4, Rotation2d.fromDegrees(0)));
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(7, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
+                new Pose2d(7,  0.75, Rotation2d.fromDegrees(0)));
 
         public static final Path SECOND_PRIORITY_PATH_B = new Path(
                 SECOND_PRIORITY_PATH_A.getEndPose(),
                 List.of(),
-                new Pose2d(5.5, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
+                new Pose2d(5.5, 0.75, Rotation2d.fromDegrees(0)));
 
         public static final Path SECOND_PRIORITY_PATH_C = new Path(
                 SECOND_PRIORITY_PATH_B.getEndPose(),
                 List.of(),
-                new Pose2d(9.5, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
+                new Pose2d(9.5, 0.75, Rotation2d.fromDegrees(0)));
 
         public static final Path THIRD_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.THIRD_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
+                new Pose2d(6,  7.5, Rotation2d.fromDegrees(0)));
 
         public static final Path THIRD_PRIORITY_PATH_B = new Path(
                 THIRD_PRIORITY_PATH_A.getEndPose(),
                 List.of(),
-                new Pose2d(4, OFFSET - 4.1, Rotation2d.fromDegrees(225))).setReversed();
+                new Pose2d(4, 4.1, Rotation2d.fromDegrees(225))).setReversed();
 
         public static final Path THIRD_PRIORITY_PATH_C = new Path(
                 THIRD_PRIORITY_PATH_B.getEndPose(),
                 List.of(
-                new Translation2d(6.5, OFFSET - 3.3),
-                new Translation2d(7.2, OFFSET - 3),
-                new Translation2d(7.5, OFFSET - 3.7),
-                new Translation2d(6.7, OFFSET - 4)),
-                new Pose2d(5, OFFSET - 4.6, Rotation2d.fromDegrees(225)));
+                new Translation2d(6.5,  3.3),
+                new Translation2d(7.2, 3),
+                new Translation2d(7.5, 3.7),
+                new Translation2d(6.7,  4)),
+                new Pose2d(5, 4.6, Rotation2d.fromDegrees(225)));
 
         public static final Path FOURTH_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.FOURTH_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(8.5, OFFSET - 2.5, Rotation2d.fromDegrees(45)));
+                new Pose2d(8.5, 2.5, Rotation2d.fromDegrees(45)));
 
         public static final Path FOURTH_PRIORITY_PATH_B = new Path(
                 FOURTH_PRIORITY_PATH_A.getEndPose(),
                 List.of(
-                new Translation2d(6.7, OFFSET - 3.25),
-                new Translation2d(6.1, OFFSET - 3.5),
-                new Translation2d(6.4, OFFSET - 4.2),
-                new Translation2d(7.1, OFFSET - 3.9),
-                new Translation2d(7.7, OFFSET - 3.6)),
-                new Pose2d(5, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
+                new Translation2d(6.7, 3.25),
+                new Translation2d(6.1, 3.5),
+                new Translation2d(6.4, 4.2),
+                new Translation2d(7.1, 3.9),
+                new Translation2d(7.7, 3.6)),
+                new Pose2d(5,  0.75, Rotation2d.fromDegrees(0)));
 
         public static final Path FIFTH_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.FIFTH_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(6.8, OFFSET - 3, Rotation2d.fromDegrees(315)));
+                new Pose2d(6.8, 3, Rotation2d.fromDegrees(315)));
 
         public static final Path FIFTH_PRIORITY_PATH_B = new Path(
                 FIFTH_PRIORITY_PATH_A.getEndPose(),
                 List.of(),
-                new Pose2d(4, OFFSET - 0.75, Rotation2d.fromDegrees(315))).setReversed();
+                new Pose2d(4,  0.75, Rotation2d.fromDegrees(315))).setReversed();
 
-        public static final Path KABOOM_PATH = new Path(
-                InfiniteRechargeStartPoints.BOOM_PATH_START,
-                List.of(),
-                new Pose2d(10.75, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
-    }
+        }
 }
