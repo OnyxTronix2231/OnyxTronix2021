@@ -29,7 +29,9 @@ public class DriverOI {
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        new DriveTrainOiBinder(driveTrain, xboxController);
+        Trigger doPath = new JoystickButton(xboxController, XboxController.Button.kStart.value);
+        Trigger reset = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        new DriveTrainOiBinder(driveTrain, xboxController, doPath, reset);
         return this;
     }
 

@@ -107,12 +107,12 @@ public class Robot extends TimedRobot {
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
 
         DriverOI driverOI = new DriverOI();
-        driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
+        driverOI.withDriveTrainOi(driveTrain);
+                //.withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
         //.withRevolverOi(revolver)
                 //.withTurret(yawControl
         //.withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
+        //new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }
 
     /**
