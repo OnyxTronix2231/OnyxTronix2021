@@ -17,8 +17,7 @@ public class DriveTrainOiBinder {
     public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger doPath, Trigger reset,
                               Trigger maxVoltage) {
         driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
-//        reset.whenActive(new InstantCommand(() -> driveTrain.resetOdometryToPose(START_POSE)));
-//        doPath.whenActive(new DriveOneMeter(driveTrain));
-        maxVoltage.whileActiveContinuous(new DriveBySpeed(driveTrain, () -> 1, () -> 0));
-    }
+        reset.whenActive(new InstantCommand(() -> driveTrain.resetOdometryToPose(START_POSE)));
+        doPath.whenActive(new DriveOneMeter(driveTrain));
+        }
 }

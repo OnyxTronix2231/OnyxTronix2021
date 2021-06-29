@@ -23,7 +23,7 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         rightMaster.configAllSettings(getFalconConfiguration());
         rightMaster.setInverted(true);
         rightMaster.setNeutralMode(NeutralMode.Brake);
-        rightMaster.configOpenloopRamp(0.3);
+//        rightMaster.configOpenloopRamp(0.3);
 
         rightSlave = new WPI_TalonFX(RIGHT_SLAVE_PORT);
         rightSlave.configFactoryDefault();
@@ -31,20 +31,20 @@ public class DriveTrainComponentsA implements DriveTrainComponents {
         rightSlave.setInverted(true);
         rightSlave.setNeutralMode(NeutralMode.Brake);
         rightSlave.follow(rightMaster);
-        rightSlave.configOpenloopRamp(0.3);
+//        rightSlave.configOpenloopRamp(0.3);
 
         leftMaster = new WPI_TalonFX(LEFT_MASTER_PORT);
         leftMaster.configFactoryDefault();
         leftMaster.configAllSettings(getFalconConfiguration());
         leftMaster.setNeutralMode(NeutralMode.Brake);
-        leftMaster.configOpenloopRamp(0.3);
+//        leftMaster.configOpenloopRamp(0.3);
 
         leftSlave = new WPI_TalonFX(LEFT_SLAVE_PORT);
         leftSlave.configFactoryDefault();
         leftSlave.configAllSettings(getFalconConfiguration());
         leftSlave.setNeutralMode(NeutralMode.Brake);
         leftSlave.follow(leftMaster);
-        leftSlave.configOpenloopRamp(0.3);
+//        leftSlave.configOpenloopRamp(0.3);
 
 
         pigeonIMU = new NormalizedPigeonIMU(PIGEON_PORT);

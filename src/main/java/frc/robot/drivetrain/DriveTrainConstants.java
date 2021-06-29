@@ -22,9 +22,9 @@ public final class DriveTrainConstants {
     public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
     public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
     static final int DECISECOND_IN_SECOND = 10;
-    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6; // TODO: check value
+    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.7; // TODO: check value
     static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 0.7; // TODO: check value
-    static final double ARCADE_DRIVE_BACKWARD_SENSITIVITY = 0.6; // TODO: check value
+    static final double ARCADE_DRIVE_BACKWARD_SENSITIVITY = 0.7; // TODO: check value
 
     public static final class DriveTrainSimConstantsA {
         static final double DRIVE_TRAIN_MASS = 54;
@@ -55,7 +55,7 @@ public final class DriveTrainConstants {
 
         public static final double TRAJECTORY_P = 0;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
-        public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
+        public static final double MAX_SPEED_METERS_PER_SECOND = 2.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final double TRACKWIDTH_METERS = 0.7;
         public static final Pose2d START_POSE = NEUTRAL_START;

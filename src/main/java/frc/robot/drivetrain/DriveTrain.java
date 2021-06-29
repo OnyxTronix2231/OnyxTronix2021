@@ -63,8 +63,8 @@ public class DriveTrain extends SubsystemBase {
                         getLeftMaster().getSelectedSensorPosition()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
                         getRightMaster().getSelectedSensorPosition()));
-        currentVelocity = encoderUnitsDeciSecToMetersSec((getWheelSpeeds().leftMetersPerSecond +
-                getWheelSpeeds().rightMetersPerSecond) / 2);
+        currentVelocity = (encoderUnitsDeciSecToMetersSec(getWheelSpeeds().leftMetersPerSecond) +
+                encoderUnitsDeciSecToMetersSec(getWheelSpeeds().rightMetersPerSecond)) / 2;
         if (currentVelocity > maxVelocity) {
             maxVelocity = currentVelocity;
             System.out.println("max velocity: " + maxVelocity);

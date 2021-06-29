@@ -41,11 +41,11 @@ public class BallTrigger extends SubsystemBase {
 
     @Override
     public void periodic() {
-        components.getPIDController().setPIDFTerms(
-                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
-                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
-                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
-                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
+//        components.getPIDController().setPIDFTerms(
+//                kpEntry.getDouble(components.getPIDController().getPIDFTerms().getKp()),
+//                kiEntry.getDouble(components.getPIDController().getPIDFTerms().getKi()),
+//                kdEntry.getDouble(components.getPIDController().getPIDFTerms().getKd()),
+//                kfEntry.getDouble(components.getPIDController().getPIDFTerms().getKf()));
     }
 
     public void moveBySpeed(double speed) {
