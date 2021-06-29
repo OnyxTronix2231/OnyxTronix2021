@@ -12,6 +12,7 @@ import frc.robot.drivetrain.utils.Path;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
+import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.NEUTRAL_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
 
 import java.util.List;
@@ -56,17 +57,18 @@ public final class DriveTrainConstants {
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
         public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-        public static final double TRACKWIDTH_METERS = 0.7; // TODO: Calibration with A
-        public static final Pose2d START_POSE = GS_BLUE_FIRST_START;
-        private static final double KS = 0.76;
-        private static final double KV = 2.03;
-        private static final double KA = 0.275;
+        public static final double TRACKWIDTH_METERS = 0.7;
+        public static final Pose2d START_POSE = NEUTRAL_START;
+        private static final double KS = 0.76; // TODO: Calibration with A
+        private static final double KV = 2.03; // TODO: Calibration with A
+        private static final double KA = 0.275; // TODO: Calibration with A
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
     }
 
     public static final class InfiniteRechargeStartPoints {
+        public static final Pose2d NEUTRAL_START = new Pose2d(0, 0 , Rotation2d.fromDegrees(0));
         public static final Pose2d PRIORITY_PATH_START = new Pose2d(3, 0.7 , Rotation2d.fromDegrees(0));
         public static final Pose2d SECOND_PRIORITY_PATH_START = new Pose2d(3, 7.5, Rotation2d.fromDegrees(0));
         public static final Pose2d THIRD_PRIORITY_PATH_START = new Pose2d(0, 0, Rotation2d.fromDegrees(0));
