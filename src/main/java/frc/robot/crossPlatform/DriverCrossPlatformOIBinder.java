@@ -10,6 +10,8 @@ import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
+import frc.robot.crossPlatform.pathCommands.DriveOneMeter;
+import frc.robot.drivetrain.DriveTrain;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
@@ -18,10 +20,10 @@ import onyxTronix.JoystickAxis;
 
 public class DriverCrossPlatformOIBinder {
 
-    public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
+    public DriverCrossPlatformOIBinder(DriveTrain driveTrain, Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        YawControl yawControl, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
-                                       Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
-                                       Trigger changeAngle, Trigger calibrateArc, Trigger shootClose) {
+                                       Trigger shootBallTrigger, JoystickAxis moveBallTrigger, Trigger calibrateArc,
+                                       Trigger shootClose, Trigger doPath) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
@@ -29,14 +31,12 @@ public class DriverCrossPlatformOIBinder {
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
                 shootBallTrigger));
 
-        openCollector.whenActive(new OpenCollectorPistons(collector));
-        openCollector.whenInactive(new CloseCollectorPistons(collector));
-
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
-//        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
 //        calibrateArc.whenActive(new CalibrateArc(arc));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
+
+        doPath.whileActiveContinuous(new DriveOneMeter(driveTrain, collector, revolver));
     }
 }

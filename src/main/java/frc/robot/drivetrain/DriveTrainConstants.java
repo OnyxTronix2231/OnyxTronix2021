@@ -13,6 +13,7 @@ import frc.robot.drivetrain.utils.Path;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.ENCODER_UNITS;
 import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.NEUTRAL_START;
+import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.PRIORITY_PATH_START;
 import static frc.robot.drivetrain.skills.SkillsConstants.StartingPositions.GS_BLUE_FIRST_START;
 
 import java.util.List;
@@ -53,13 +54,13 @@ public final class DriveTrainConstants {
 
     public static final class TrajectoryConstants {
 
-        public static final double TRAJECTORY_P = 0;
+        public static final double TRAJECTORY_P = 0.0001;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
         public static final double MAX_SPEED_METERS_PER_SECOND = 2.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final double TRACKWIDTH_METERS = 0.7;
         public static final Pose2d START_POSE = NEUTRAL_START;
-        private static final double KS = 0.76;
+        private static final double KS = 0.74;
         private static final double KV = 2.09;
         private static final double KA = 0.315;
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
@@ -195,9 +196,9 @@ public final class DriveTrainConstants {
         public static final Path ONE_METER_FORWARD = new Path(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                 List.of(),
-                new Pose2d(3, 0, Rotation2d.fromDegrees(0)));
-//                new CentripetalAccelerationConstraint(3),
-//                new MaxVelocityConstraint(3));
+                new Pose2d(1, 0, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2));
 
         public static final Path ONE_METER_BACKWARDS = new Path(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),

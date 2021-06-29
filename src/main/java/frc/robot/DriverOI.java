@@ -29,25 +29,21 @@ public class DriverOI {
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        Trigger doPath = new JoystickButton(xboxController, XboxController.Button.kStart.value);
         Trigger reset = new JoystickButton(xboxController, XboxController.Button.kBack.value);
-        Trigger maxVoltage = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DriveTrainOiBinder(driveTrain, xboxController, doPath, reset, maxVoltage);
+        new DriveTrainOiBinder(driveTrain, xboxController, reset);
         return this;
     }
 
-    public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
+    public DriverOI withCrossPlatformOi(DriveTrain driveTrain, Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                         YawControl yawControl, Shooter shooter, Vision vision) {
         Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
-        Trigger openBallCollector = new JoystickButton(xboxController, XboxController.Button.kBack.value);
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
         Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
-        Trigger changeAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
         JoystickAxis moveBallTrigger = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         Trigger shootClose = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
-                collectAndLoadRevolver, shootBall,
-                openBallCollector, moveBallTrigger, changeAngle, calibrateArc, shootClose);
+        Trigger doPath = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        new DriverCrossPlatformOIBinder(driveTrain, collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
+                collectAndLoadRevolver, shootBall, moveBallTrigger, calibrateArc, shootClose, doPath);
         return this;
     }
 
