@@ -31,7 +31,8 @@ public class DriverOI {
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
         Trigger doPath = new JoystickButton(xboxController, XboxController.Button.kStart.value);
         Trigger reset = new JoystickButton(xboxController, XboxController.Button.kBack.value);
-        new DriveTrainOiBinder(driveTrain, xboxController, doPath, reset);
+        Trigger maxVoltage = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        new DriveTrainOiBinder(driveTrain, xboxController, doPath, reset, maxVoltage);
         return this;
     }
 
@@ -54,14 +55,12 @@ public class DriverOI {
         JoystickAxis turretMoveBySpeed = new JoystickAxis(xboxController, XboxController.Axis.kRightX.value);
         Trigger turretMoveToAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
         new DriverTurretOiBinder(turret, turretMoveBySpeed, turretMoveToAngle);
-
         return this;
     }
 
     public DriverOI withYawControl(YawControl yawControl){
         JoystickButton yawControlKeep = new JoystickButton(xboxController, XboxController.Button.kY.value);
         new DriverYawControlOiBinder(yawControl, yawControlKeep);
-
         return this;
     }
 }
