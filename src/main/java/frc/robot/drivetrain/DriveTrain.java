@@ -3,8 +3,8 @@ package frc.robot.drivetrain;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
@@ -23,12 +23,6 @@ public class DriveTrain extends SubsystemBase {
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
-    private double lastVelocity = 0;
-    private double maxVelocity = 0;
-    private final Timer timer = new Timer();
-    private double lastTime = 0;
-    private double currentVelocity;
-    private double maxAcc = 0;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
@@ -49,10 +43,12 @@ public class DriveTrain extends SubsystemBase {
         resetHeading();
         resetOdometryToPose(START_POSE);
         resetEncoders();
-        Shuffleboard.getTab("DriveTrain").addNumber("Heading",
+        Shuffleboard.getTab("DriveTrain").addNumber("heading",
                 () -> getHeading());
-        timer.start();
-        lastTime = timer.get();
+        Shuffleboard.getTab("DriveTrain").addNumber("current x",
+                () -> getPose().getX());
+        Shuffleboard.getTab("DriveTrain").addNumber("current y",
+                () -> getPose().getY());
     }
 
     @Override
@@ -63,18 +59,6 @@ public class DriveTrain extends SubsystemBase {
                         getLeftMaster().getSelectedSensorPosition()),
                 encoderUnitsToMeters(Robot.isSimulation() ? getSimRightMaster().getSelectedSensorPosition() :
                         getRightMaster().getSelectedSensorPosition()));
-        currentVelocity = (encoderUnitsDeciSecToMetersSec(getWheelSpeeds().leftMetersPerSecond) +
-                encoderUnitsDeciSecToMetersSec(getWheelSpeeds().rightMetersPerSecond)) / 2;
-        if (currentVelocity > maxVelocity) {
-            maxVelocity = currentVelocity;
-            System.out.println("max velocity: " + maxVelocity);
-        }
-        if ((currentVelocity - lastVelocity) / (timer.get() - lastTime) > maxAcc) {
-            maxAcc = (currentVelocity - lastVelocity) / (timer.get() - lastTime);
-            System.out.println("max acc: " + maxAcc);
-        }
-        lastTime = timer.get();
-        lastTime = currentVelocity;
     }
 
     @Override

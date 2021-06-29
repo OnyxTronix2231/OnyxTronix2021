@@ -59,9 +59,9 @@ public final class DriveTrainConstants {
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final double TRACKWIDTH_METERS = 0.7;
         public static final Pose2d START_POSE = NEUTRAL_START;
-        private static final double KS = 0.74;
+        private static final double KS = 0.76;
         private static final double KV = 2.09;
-        private static final double KA = 0.365;
+        private static final double KA = 0.315;
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
@@ -195,14 +195,14 @@ public final class DriveTrainConstants {
         public static final Path ONE_METER_FORWARD = new Path(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                 List.of(),
-                new Pose2d(0, 1, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
+                new Pose2d(3, 0, Rotation2d.fromDegrees(0)));
+//                new CentripetalAccelerationConstraint(3),
+//                new MaxVelocityConstraint(3));
 
         public static final Path ONE_METER_BACKWARDS = new Path(
-                new Pose2d(0, 1, Rotation2d.fromDegrees(0)),
-                List.of(),
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+                List.of(),
+                new Pose2d(-1, 0, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(3),
                 new MaxVelocityConstraint(3)).setReversed();
 
@@ -223,6 +223,13 @@ public final class DriveTrainConstants {
                 new Pose2d(0, 0, Rotation2d.fromDegrees(90)),
                 new CentripetalAccelerationConstraint(3),
                 new MaxVelocityConstraint(3)).setReversed();
+
+        public static final Path TEST_TURN = new Path(
+                new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
+                List.of(),
+                new Pose2d(1, 1, Rotation2d.fromDegrees(30)),
+                new CentripetalAccelerationConstraint(3),
+                new MaxVelocityConstraint(3));
 
     }
 }
