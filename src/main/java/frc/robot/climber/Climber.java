@@ -21,10 +21,10 @@ public class Climber extends SubsystemBase {
     public Climber(ClimberComponents components) {
         this.components = components;
 
-        components.getMasterMotor().configForwardSoftLimitEnable(true);
-        components.getMasterMotor().configForwardSoftLimitThreshold(MAX_POSSIBLE_DISTANCE);
-        components.getMasterMotor().configReverseSoftLimitEnable(true);
-        components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
+//        components.getMasterMotor().configForwardSoftLimitEnable(true);
+//        components.getMasterMotor().configForwardSoftLimitThreshold(MAX_POSSIBLE_DISTANCE);
+//        components.getMasterMotor().configReverseSoftLimitEnable(true);
+//        components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
 
 //        kP = Shuffleboard.getTab("Climber").add("kP",
 //            components.getController().getPIDFTerms().getKp()).getEntry();

@@ -26,7 +26,7 @@ public class ClimberConstants {
         static final double CLOSED_LOOP_RAMP = 0;
         static final double OPEN_LOOP_RAMP = 0;
         static final double TOLERANCE = 0.2; // Todo: ValueCheck
-        static final double TESTING_SPEED = 0.2; // Todo: ValueCheck
+        static final double TESTING_SPEED = -0.2; // Todo: ValueCheck
         static final double DISTANCE = 18000; // Todo: ValueCheck
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final double MAX_VELOCITY = 0; // Todo: ValueCheck

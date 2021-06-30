@@ -1,15 +1,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.DriverTurretOiBinder;
 import frc.robot.turret.Turret;
@@ -35,9 +39,9 @@ public class DriverOI {
 
     public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                         YawControl yawControl, Shooter shooter, Vision vision) {
-        Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
+        Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
         Trigger openBallCollector = new JoystickButton(xboxController, XboxController.Button.kBack.value);
-        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
+        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
         Trigger changeAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
         JoystickAxis moveBallTrigger = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
@@ -60,6 +64,12 @@ public class DriverOI {
         JoystickButton yawControlKeep = new JoystickButton(xboxController, XboxController.Button.kY.value);
         new DriverYawControlOiBinder(yawControl, yawControlKeep);
 
+        return this;
+    }
+
+    public DriverOI withClimber(Climber climber){
+        JoystickAxis clime = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
+        new ClimberDriverOIBinder(climber, clime);
         return this;
     }
 }

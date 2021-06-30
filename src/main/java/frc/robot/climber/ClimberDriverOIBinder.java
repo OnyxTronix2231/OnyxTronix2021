@@ -11,12 +11,12 @@ import static frc.robot.climber.ClimberConstants.ClimberConstantsA.TESTING_SPEED
 
 public class ClimberDriverOIBinder {
 
-    public ClimberDriverOIBinder(Climber climber, Trigger climbBySpeed, Trigger climbByJoystick,
-                                 XboxController climbJoystick, Trigger climbByDistance){
+    public ClimberDriverOIBinder(Climber climber, Trigger climbBySpeed //,Trigger climbByJoystick,
+                                 /*XboxController climbJoystick, Trigger climbByDistance*/){
         climbBySpeed.whileActiveOnce( new ClimbBySpeed(climber, () -> TESTING_SPEED));
 
-        climbByDistance.whileActiveOnce(new ClimbToDistance(climber, () -> DISTANCE));
-
-        climbByJoystick.whileActiveContinuous(new ClimbBySpeed(climber, () -> climbJoystick.getY(GenericHID.Hand.kLeft)));
+//        climbByDistance.whileActiveOnce(new ClimbToDistance(climber, () -> DISTANCE));
+//
+//        climbByJoystick.whileActiveContinuous(new ClimbBySpeed(climber, () -> climbJoystick.getY(GenericHID.Hand.kLeft)));
     }
 }

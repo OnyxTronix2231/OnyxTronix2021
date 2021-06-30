@@ -7,6 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
+import frc.robot.climber.BasicClimberComponentsA;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberComponents;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
@@ -22,6 +26,7 @@ import frc.robot.drivetrain.*;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.RevolverComponents;
 import frc.robot.revolver.RevolverComponentsA;
+import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.shooter.ShooterComponents;
 import frc.robot.shooter.ShooterComponentsA;
@@ -51,6 +56,7 @@ public class Robot extends TimedRobot {
     BallTrigger ballTrigger;
     YawControl yawControl;
     Vision vision;
+    Climber climber;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -68,6 +74,7 @@ public class Robot extends TimedRobot {
         RevolverComponents revolverComponents;
         BallTriggerComponents ballTriggerComponents;
         TurretComponents turretComponents;
+        ClimberComponents climberComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new DriveTrainComponentsA();
@@ -85,6 +92,7 @@ public class Robot extends TimedRobot {
             revolverComponents = new RevolverComponentsA();
             ballTriggerComponents = new BallTriggerComponentsA();
             turretComponents = new TurretComponentsA();
+            climberComponents = new BasicClimberComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
@@ -95,6 +103,7 @@ public class Robot extends TimedRobot {
             ballTriggerComponents = null;
             turretComponents = null;
             arcComponents = null;
+            climberComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
@@ -105,11 +114,13 @@ public class Robot extends TimedRobot {
         ballTrigger = new BallTrigger(ballTriggerComponents);
         yawControl = new YawControl(turretComponents, driveTrain);
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
+        climber = new Climber(climberComponents);
 
         DriverOI driverOI = new DriverOI();
         driverOI
                 .withDriveTrainOi(driveTrain)
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
+                //withClimber(climber);
         //.withRevolverOi(revolver)
                 //.withTurret(yawControl);
         //.withYawControl(yawControl);
