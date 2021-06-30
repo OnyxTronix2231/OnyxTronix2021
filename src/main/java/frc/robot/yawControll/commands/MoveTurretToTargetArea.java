@@ -8,5 +8,4 @@ public class MoveTurretToTargetArea extends MoveTurretToAngleRTF {
         super(yawControl, ()-> 180);
     }
 
-
 }
