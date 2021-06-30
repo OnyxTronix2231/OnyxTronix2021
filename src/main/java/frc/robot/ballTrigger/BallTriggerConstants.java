@@ -21,7 +21,7 @@ public final class BallTriggerConstants {
         static final int CONTINUOUS_CURRENT_LIMIT = 20; //TODO: check value
         static final int OPEN_LOOP_RAMP = 0; //TODO: check value
         static final int CLOSED_LOOP_RAMP = 0; //TODO: check value
-        static final int TOLERANCE_IN_RPM = 200;
+        static final int TOLERANCE_IN_RPM = 100;
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final double MAX_VELOCITY = 14900 * 1.25; //TODO: check value
         static final double VELOCITY_P = 0; //TODO: check value

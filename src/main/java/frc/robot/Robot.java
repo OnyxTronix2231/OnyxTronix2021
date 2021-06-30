@@ -108,10 +108,10 @@ public class Robot extends TimedRobot {
 
         DriverOI driverOI = new DriverOI();
         driverOI
-                //.withDriveTrainOi(driveTrain)
-                //.withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
+                .withDriveTrainOi(driveTrain)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
         //.withRevolverOi(revolver)
-                .withTurret(yawControl);
+                //.withTurret(yawControl);
         //.withYawControl(yawControl);
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }

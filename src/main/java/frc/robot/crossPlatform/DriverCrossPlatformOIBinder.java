@@ -5,7 +5,9 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
@@ -32,10 +34,10 @@ public class DriverCrossPlatformOIBinder {
         openCollector.whenActive(new OpenCollectorPistons(collector));
         openCollector.whenInactive(new CloseCollectorPistons(collector));
 
-        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
+        moveBallTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> 3000));
 
 //        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
-//        calibrateArc.whenActive(new CalibrateArc(arc));
+        calibrateArc.whenActive(new CalibrateArc(arc));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
     }
