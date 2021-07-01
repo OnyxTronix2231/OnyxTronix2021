@@ -22,7 +22,7 @@ import onyxTronix.JoystickAxis;
 public class DriverCrossPlatformOIBinder {
 
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                       YawControl yawControl, Shooter shooter, Vision vision, Climber climber,
+                                       YawControl yawControl, Shooter shooter, Vision vision,
                                        Trigger collectAndLoadRevolver, Trigger shootBallTrigger, Trigger openCollector,
                                        JoystickAxis moveBallTrigger, Trigger changeAngle, Trigger calibrateArc,
                                        Trigger shootClose) {
