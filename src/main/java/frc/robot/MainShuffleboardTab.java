@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
@@ -12,7 +13,7 @@ import frc.robot.yawControll.YawControl;
 public class MainShuffleboardTab {
 
     public MainShuffleboardTab(Shooter shooter, Revolver revolver, BallTrigger ballTrigger, Arc arc, Vision vision,
-                               YawControl yawControl){
+                               YawControl yawControl, UsbCamera camera1, UsbCamera camera2){
 
         Shuffleboard.getTab("Main").addBoolean("Shooter on Target",
                 shooter::isOnTarget);
@@ -28,5 +29,7 @@ public class MainShuffleboardTab {
                 ()-> vision.getChosenTarget() instanceof InnerTarget ? "Inner Target" : "Outer target");
         Shuffleboard.getTab("Main").addNumber("Distance to outer target",
                 vision.getOuterTarget()::getAirDistanceTurretToTarget);
+        Shuffleboard.getTab("Main").add(camera1);
+        Shuffleboard.getTab("Main").add(camera2);
     }
 }

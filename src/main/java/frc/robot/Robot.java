@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -58,6 +60,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+        camera1.setResolution(80,70);
+        camera1.setFPS(15);
+        camera1.setBrightness(60);
+
+        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+        camera2.setResolution(80,70);
+        camera2.setFPS(15);
+        camera2.setBrightness(60);
+
         LiveWindow.disableAllTelemetry();
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
@@ -113,7 +125,7 @@ public class Robot extends TimedRobot {
         //.withRevolverOi(revolver)
                 .withTurret(yawControl);
         //.withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, camera1, camera2);
     }
 
     /**
