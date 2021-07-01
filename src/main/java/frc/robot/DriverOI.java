@@ -66,10 +66,4 @@ public class DriverOI {
 
         return this;
     }
-
-    public DriverOI withClimber(Climber climber){
-        JoystickAxis clime = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
-        new ClimberDriverOIBinder(climber, clime);
-        return this;
-    }
 }

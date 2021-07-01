@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.climber.Climber;
 import frc.robot.climber.commands.ClimbBySpeed;
