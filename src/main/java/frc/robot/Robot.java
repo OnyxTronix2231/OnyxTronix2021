@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
 import frc.robot.climber.BasicClimberComponentsA;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberComponents;
@@ -117,13 +116,13 @@ public class Robot extends TimedRobot {
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
 
         DriverOI driverOI = new DriverOI();
-        driverOI
-                .withDriveTrainOi(driveTrain)
+        DeputyOI deputyOI = new DeputyOI();
+        driverOI.withDriveTrainOi(driveTrain)
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
-                //withClimber(climber);
         //.withRevolverOi(revolver)
                 //.withTurret(yawControl);
         //.withYawControl(yawControl);
+        deputyOI.withClimber(climber);
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }
 

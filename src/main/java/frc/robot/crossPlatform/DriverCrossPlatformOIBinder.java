@@ -9,6 +9,8 @@ import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
+import frc.robot.climber.Climber;
+import frc.robot.climber.commands.ClimbBySpeed;
 import frc.robot.collector.Collector;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.OpenCollectorPistons;
@@ -21,9 +23,10 @@ import onyxTronix.JoystickAxis;
 public class DriverCrossPlatformOIBinder {
 
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                       YawControl yawControl, Shooter shooter, Vision vision, Trigger collectAndLoadRevolver,
-                                       Trigger shootBallTrigger, Trigger openCollector, JoystickAxis moveBallTrigger,
-                                       Trigger changeAngle, Trigger calibrateArc, Trigger shootClose) {
+                                       YawControl yawControl, Shooter shooter, Vision vision,
+                                       Trigger collectAndLoadRevolver, Trigger shootBallTrigger, Trigger openCollector,
+                                       JoystickAxis moveBallTrigger, Trigger changeAngle, Trigger calibrateArc,
+                                       Trigger shootClose) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
