@@ -1,19 +1,15 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.climber.Climber;
-import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.revolver.Revolver;
-import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.DriverTurretOiBinder;
 import frc.robot.turret.Turret;
