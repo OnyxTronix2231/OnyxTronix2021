@@ -115,11 +115,13 @@ public class Robot extends TimedRobot {
         climber = new Climber(climberComponents);
 
         DriverOI driverOI = new DriverOI();
+        DeputyOI deputyOI = new DeputyOI();
         driverOI//.withDriveTrainOi(driveTrain)
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision, climber);
         //.withRevolverOi(revolver)
                 //.withTurret(yawControl
         //.withYawControl(yawControl);
+        deputyOI.withClimber(climber);
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }
 

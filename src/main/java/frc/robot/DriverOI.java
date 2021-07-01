@@ -43,10 +43,9 @@ public class DriverOI {
         Trigger changeAngle = new JoystickButton(xboxController, XboxController.Button.kA.value);
         JoystickAxis moveBallTrigger = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         Trigger shootClose = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        JoystickAxis climb = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
         new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision, climber,
                 collectAndLoadRevolver, shootBall,
-                openBallCollector, moveBallTrigger, changeAngle, calibrateArc, shootClose, climb);
+                openBallCollector, moveBallTrigger, changeAngle, calibrateArc, shootClose);
         return this;
     }
 

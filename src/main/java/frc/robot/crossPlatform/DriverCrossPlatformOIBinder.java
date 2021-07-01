@@ -5,6 +5,7 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.climber.Climber;
@@ -24,7 +25,7 @@ public class DriverCrossPlatformOIBinder {
                                        YawControl yawControl, Shooter shooter, Vision vision, Climber climber,
                                        Trigger collectAndLoadRevolver, Trigger shootBallTrigger, Trigger openCollector,
                                        JoystickAxis moveBallTrigger, Trigger changeAngle, Trigger calibrateArc,
-                                       Trigger shootClose, JoystickAxis climb) {
+                                       Trigger shootClose) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
@@ -38,10 +39,8 @@ public class DriverCrossPlatformOIBinder {
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 
 //        changeAngle.whenActive(new MoveArcAndCloseByTrigger(arc, changeAngle, arc::getTestAngle));
-//        calibrateArc.whenActive(new CalibrateArc(arc));
+        calibrateArc.whenActive(new CalibrateArc(arc));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
-
-        climb.whileActiveContinuous(new ClimbBySpeed(climber, climb::getRawAxis));
     }
 }
