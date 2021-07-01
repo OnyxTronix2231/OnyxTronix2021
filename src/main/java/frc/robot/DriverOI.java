@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.climber.Climber;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
 import frc.robot.drivetrain.DriveTrain;

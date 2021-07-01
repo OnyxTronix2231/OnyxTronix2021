@@ -26,6 +26,9 @@ public class Climber extends SubsystemBase {
         components.getMasterMotor().configReverseSoftLimitEnable(true);
         components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
 
+        Shuffleboard.getTab("Climber").addNumber("current pos", ()-> components.getEncoder().getCount());
+        Shuffleboard.getTab("Climber").addNumber("current velocity", ()-> components.getEncoder().getRate());
+
 //        kP = Shuffleboard.getTab("Climber").add("kP",
 //            components.getController().getPIDFTerms().getKp()).getEntry();
 //        kI = Shuffleboard.getTab("Climber").add("kI",
