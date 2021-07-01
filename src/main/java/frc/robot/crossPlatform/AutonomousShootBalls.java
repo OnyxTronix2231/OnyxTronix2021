@@ -9,7 +9,6 @@ import frc.robot.arc.Arc;
 import frc.robot.arc.commands.AutonomousMoveArcByVision;
 import frc.robot.arc.commands.CloseArc;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.ballTrigger.commands.CloseBallTriggerPiston;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.revolver.Revolver;
