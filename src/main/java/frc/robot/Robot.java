@@ -113,8 +113,8 @@ public class Robot extends TimedRobot {
         revolver = new Revolver(revolverComponents);
         ballTrigger = new BallTrigger(ballTriggerComponents);
         yawControl = new YawControl(turretComponents, driveTrain);
-        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
         climber = new Climber(climberComponents);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
 
         DriverOI driverOI = new DriverOI();
         driverOI
