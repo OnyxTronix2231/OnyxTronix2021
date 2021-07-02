@@ -9,6 +9,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.camera.CameraComponents;
+import frc.robot.camera.CameraComponentsA;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
@@ -60,17 +62,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-        camera1.setResolution(80,70);
-        camera1.setFPS(15);
-        camera1.setBrightness(60);
-
-        UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-        camera2.setResolution(80,70);
-        camera2.setFPS(15);
-        camera2.setBrightness(60);
-
         LiveWindow.disableAllTelemetry();
+        CameraComponents cameraComponents;
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
@@ -97,6 +90,7 @@ public class Robot extends TimedRobot {
             revolverComponents = new RevolverComponentsA();
             ballTriggerComponents = new BallTriggerComponentsA();
             turretComponents = new TurretComponentsA();
+            cameraComponents = new CameraComponentsA();
         } else {
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
@@ -107,6 +101,7 @@ public class Robot extends TimedRobot {
             ballTriggerComponents = null;
             turretComponents = null;
             arcComponents = null;
+            cameraComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
@@ -125,7 +120,7 @@ public class Robot extends TimedRobot {
         //.withRevolverOi(revolver)
                 .withTurret(yawControl);
         //.withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, camera1, camera2);
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
     }
 
     /**
