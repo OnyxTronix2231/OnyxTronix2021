@@ -13,8 +13,4 @@ public class MoveArcAndCloseByTrigger extends MoveArcToAngle {
         super(arc, angleSupplier);
         closeArc.whenInactive(new MoveArcToAngle(arc, () -> MIN_POSSIBLE_ANGLE));
     }
-
-    public MoveArcAndCloseByTrigger(Arc arc, DoubleSupplier angleSupplier){
-        super(arc, angleSupplier);
-    }
 }
