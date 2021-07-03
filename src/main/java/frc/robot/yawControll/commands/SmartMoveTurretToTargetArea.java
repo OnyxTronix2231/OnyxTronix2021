@@ -12,7 +12,7 @@ public class SmartMoveTurretToTargetArea extends SequentialCommandGroup {
 
     public SmartMoveTurretToTargetArea(YawControl yawControl, Vision vision) {
         super(
-                new ConditionalCommand(new MoveTurretToTargetArea(yawControl), new InstantCommand(),
+                new ConditionalCommand(new InstantCommand(), new MoveTurretToTargetArea(yawControl),
                         vision::hasTarget),
                 new MoveTurretByVision(yawControl, vision)
         );
