@@ -21,7 +21,9 @@ public class CameraComponentsA implements CameraComponents {
     public static void setCameraConfiguration(UsbCamera camera){
         camera.setResolution(WIDTH,HEIGHT);
         camera.setFPS(FPS);
-        camera.setBrightness(BRIGTNESS);
+        //camera.setBrightness(BRIGTNESS);
+        //camera.setExposureAuto();
+        camera.setExposureManual(EXPOSURE);
     }
 
     @Override
