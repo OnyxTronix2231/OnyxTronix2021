@@ -17,6 +17,7 @@ public class AutonomousShootBalls extends SequentialCommandGroup {
     public AutonomousShootBalls(BallTrigger ballTrigger, Vision vision, Arc arc, YawControl yawControl,
                                 Shooter shooter, Revolver revolver){
         super(new AutonomousShootBallLogic(ballTrigger, shooter, arc, yawControl, vision, revolver)
-                .raceWith(new WaitCommand(AUTONOMOUS_BALL_SHOOT_TIME)).andThen(new CloseArc(arc)));
+                .raceWith(new WaitCommand(AUTONOMOUS_BALL_SHOOT_TIME)),
+                new CloseArc(arc));
     }
 }
