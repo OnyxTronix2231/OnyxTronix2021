@@ -14,9 +14,10 @@ import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.shooter.commands.SpinShooterByVision;
+import frc.robot.turret.commands.MoveTurretByVision;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
-import frc.robot.yawControll.commands.SmartMoveTurretByVision;
+import frc.robot.yawControll.commands.SmartMoveTurretToTargetArea;
 
 class AutonomousShootBallLogic extends ParallelCommandGroup {
 
@@ -25,10 +26,10 @@ class AutonomousShootBallLogic extends ParallelCommandGroup {
         super(
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                new SmartMoveTurretByVision(yawControl, vision).andThen(
-                        new PrintCommand("Moved On"),
-                    new MoveArcByVision(arc,vision),
-                    new SpinShooterByVision(shooter, vision)),
+                new SmartMoveTurretToTargetArea(yawControl, vision).andThen(
+                        new MoveTurretByVision(yawControl, vision).alongWith(
+                                new MoveArcByVision(arc,vision),
+                                new SpinShooterByVision(shooter, vision))),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
     }
