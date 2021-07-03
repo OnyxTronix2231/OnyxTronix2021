@@ -8,9 +8,14 @@ import frc.robot.turret.commands.MoveTurretByVision;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
 
-public class SmartMoveTurretToTargetArea extends ConditionalCommand {
+public class SmartMoveTurretToTargetArea extends SequentialCommandGroup {
+
     public SmartMoveTurretToTargetArea(YawControl yawControl, Vision vision) {
-        super(new MoveTurretToTargetArea(yawControl), new InstantCommand(),
-            vision::hasTarget);
+        super(
+                new ConditionalCommand(new MoveTurretToTargetArea(yawControl), new InstantCommand(),
+                        () -> vision.getChosenTarget() == null),
+                new MoveTurretByVision(yawControl, vision)
+        );
     }
 }
+
