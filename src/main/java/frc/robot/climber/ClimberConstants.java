@@ -5,7 +5,6 @@ public class ClimberConstants {
     static final int DECISECONDS_IN_MIN = 600;
     static final double ENCODER_UNITS_PER_ROTATION = 2048;
     static final double MAX_JOYSTICK_OUTPUT = 0.7;
-    static final double DISTANCE_PER_MOTOR_ROTATION = 0; //TODO: check value
 
     public static class ClimberConstantsA {
 
@@ -27,8 +26,6 @@ public class ClimberConstants {
         static final double CLOSED_LOOP_RAMP = 0;
         static final double OPEN_LOOP_RAMP = 0;
         static final double TOLERANCE = 0.2; // Todo: ValueCheck
-        static final double TESTING_SPEED = 0.2; // Todo: ValueCheck
-        static final double DISTANCE = 18000; // Todo: ValueCheck
         static final double MAX_CLOSED_LOOP_OUTPUT = 1023;
         static final double MAX_VELOCITY = 1; // Todo: ValueCheck
         static final double KP = 0; // Todo: ValueCheck
