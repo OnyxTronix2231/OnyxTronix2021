@@ -4,6 +4,7 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.BALL_TRIGGER_RPM;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
@@ -21,11 +22,13 @@ class AutonomousShootBallLogic extends ParallelCommandGroup {
 
     protected AutonomousShootBallLogic(BallTrigger ballTrigger, Shooter shooter, Arc arc, YawControl yawControl, Vision vision,
                                     Revolver revolver) {
-        super(new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
-                new SpinShooterByVision(shooter, vision),
+        super(
+                new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                new SmartMoveTurretByVision(yawControl, vision),
-                new MoveArcByVision(arc,vision),
+                new SmartMoveTurretByVision(yawControl, vision).andThen(
+                        new PrintCommand("Moved On"),
+                    new MoveArcByVision(arc,vision),
+                    new SpinShooterByVision(shooter, vision)),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
     }
