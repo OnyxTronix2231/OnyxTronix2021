@@ -27,8 +27,8 @@ public class DriverCrossPlatformOIBinder {
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
 
-//        shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
-//                shootBallTrigger));
+        shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
+                shootBallTrigger));
 
         moveBallTrigger.whileActiveContinuous(new SpinBallTriggerBySpeed(ballTrigger, moveBallTrigger::getRawAxis));
 

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.collector.Collector;
+import frc.robot.crossPlatform.AutonomousShootBalls;
 import frc.robot.crossPlatform.CollectAndSpinRevolver;
 import frc.robot.crossPlatform.ShootBall;
 import frc.robot.crossPlatform.ShootBallClose;
@@ -30,19 +31,19 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                                BallTrigger ballTrigger, Shooter shooter, Arc arc, Vision vision,
                                YawControl yawControl) {
         super(
-                new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
-                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
-                new MoveTurretToTargetArea(yawControl),
-                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
-                new MoveTurretToTargetArea(yawControl),
-                new ShootBallClose(shooter, yawControl, ballTrigger, revolver).raceWith(
-                        new WaitCommand(4))
+//                new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
+//                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
+//                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                        () -> TESTING_SPEED_COLLECTOR)),
+//                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+//                new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
+//                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
+//                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                        () -> TESTING_SPEED_COLLECTOR)),
+//                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+                new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver)
                 );
     }
 }
