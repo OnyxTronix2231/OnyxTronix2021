@@ -19,11 +19,13 @@ public class MoveTurretByAngleAndKeep extends CommandBase {
     @Override
     public void initialize() {
         turret.initMoveByAngle(angleSupplier.getAsDouble());
+        System.out.println(angleSupplier.getAsDouble());
     }
 
     @Override
     public void execute() {
         turret.updateMoveByAngle(angleSupplier.getAsDouble());
+        System.out.println(angleSupplier.getAsDouble());
     }
 
     @Override

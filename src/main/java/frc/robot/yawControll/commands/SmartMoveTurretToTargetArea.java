@@ -11,6 +11,6 @@ import frc.robot.yawControll.YawControl;
 public class SmartMoveTurretToTargetArea extends ConditionalCommand {
     public SmartMoveTurretToTargetArea(YawControl yawControl, Vision vision) {
         super(new MoveTurretToTargetArea(yawControl), new InstantCommand(),
-                        () -> vision.getChosenTarget() == null);
+            vision::hasTarget);
     }
 }

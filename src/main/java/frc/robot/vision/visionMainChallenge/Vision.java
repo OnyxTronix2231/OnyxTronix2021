@@ -1,5 +1,11 @@
 package frc.robot.vision.visionMainChallenge;
 
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.CM_IN_METER;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.MAX_AIR_DISTANCE_OUTER_CM;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.MIN_AIR_DISTANCE_OUTER_CM;
+import static frc.robot.vision.visionMainChallenge.MainVisionConstants.VECTOR_FIELD_ZERO_TO_OUTER;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -7,8 +13,6 @@ import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
 
 import java.util.function.DoubleSupplier;
-
-import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class Vision extends BaseVision {
 
@@ -29,13 +33,14 @@ public class Vision extends BaseVision {
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
         Shuffleboard.getTab("Vision").addNumber("turret angle", this.turretAngleRTF);
         Shuffleboard.getTab("Vision").addNumber("gyro", gyroYawAngle);
+        Shuffleboard.getTab("Vision").addNumber("horizontal angle turret to target", chosenTarget == null ? () -> 5 : () -> chosenTarget.getHorizontalAngleTargetToTurret());
         /* Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
                 outerTarget::getAirDistanceTurretToTarget);
         Shuffleboard.getTab("Vision").addNumber("Distance to inner target",
-                innerTarget::getAirDistanceTurretToTarget);
+                innerTarget::getAirDistanceTurretToTarget);*/
         Shuffleboard.getTab("Vision").addString("Chosen target",
                 () -> chosenTarget == outerTarget ? "outer" : "inner" );
-        Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target",
+        /*Shuffleboard.getTab("Vision").addNumber("Angle turret to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToTurret() : -1);
         Shuffleboard.getTab("Vision").addNumber("Angle robot to chosen target",
                 () -> chosenTarget != null ? chosenTarget.getHorizontalAngleTargetToRobot() : -1);
@@ -55,10 +60,10 @@ public class Vision extends BaseVision {
     }
 
     public void chooseTarget() {
-        if (hasTarget() && limelight.getTarget().getTargetArea() > 50) {
+        if (hasTarget()) {
             boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER_CM &&
-                    outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
-                    Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) < MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
+                outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
+                Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) < MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
             if (innerTargetCondition) {
                 chosenTarget = innerTarget;
             } else {
@@ -92,7 +97,7 @@ public class Vision extends BaseVision {
 
     public double DistanceToTargetWall() {
         return outerTarget.getAirDistanceTurretToTarget() *
-                Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
+            Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
     }
 
     public double getRobotX() {

@@ -107,6 +107,8 @@ public class OuterTarget extends VisionTarget {
              * it won't change the turret to target vector */
             vectorRobotToTargetRTF = vectorTurretToTargetRTF.clone();
             vectorRobotToTargetRTF.subtract(turretToRobotCenterVector);
+
+            horizontalAngleTargetToTurret = limelight.getTarget().getHorizontalOffsetToCrosshair();
         }
 
         /* and if a target isn't found by the limelight:*/
