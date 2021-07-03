@@ -20,6 +20,6 @@ public class CrossPlatformConstants {
 
     public static class ShooterConstantA{
         public static final double CLOSE_SHOOTER_RPM = 3000;
-        public static final double AUTONOMOUS_BALL_SHOOT_TIME = 4;
+        public static final double AUTONOMOUS_BALL_SHOOT_TIME = 5;
     }
 }
