@@ -18,16 +18,16 @@ public class Vision extends BaseVision {
     private VisionTarget chosenTarget;
     private Pose2d currentPos;
     private Rotation2d currentRotation;
-    private DoubleSupplier turretAngleRTR;
+    private DoubleSupplier turretAngleRTF;
 
-    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTR) {
+    public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF) {
         this.gyroYawAngle = gyroYawAngle;
-        this.turretAngleRTR = turretAngleRTR;
+        this.turretAngleRTF = turretAngleRTF;
         currentRotation = new Rotation2d(Math.toRadians(gyroYawAngle.getAsDouble()));
         currentPos = new Pose2d(0, 0, currentRotation);
-        outerTarget = new OuterTarget(limelight, turretAngleRTR, gyroYawAngle);
-        innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTR, gyroYawAngle);
-        Shuffleboard.getTab("Vision").addNumber("turret angle", this.turretAngleRTR);
+        outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
+        innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
+        Shuffleboard.getTab("Vision").addNumber("turret angle", this.turretAngleRTF);
         Shuffleboard.getTab("Vision").addNumber("gyro", gyroYawAngle);
         /* Shuffleboard.getTab("Vision").addNumber("Distance to outer target",
                 outerTarget::getAirDistanceTurretToTarget);

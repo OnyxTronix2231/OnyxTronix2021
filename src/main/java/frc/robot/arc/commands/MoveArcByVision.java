@@ -10,4 +10,8 @@ public class MoveArcByVision extends ActByVision {
     public MoveArcByVision(Arc arc, Trigger closeArc, Vision vision) {
         super(new MoveArcByDistance(arc, closeArc, () -> vision.getOuterTarget().getAirDistanceTurretToTarget()), vision);
     }
+
+    public MoveArcByVision(Arc arc, Vision vision) {
+        super(new MoveArcByDistance(arc, () -> vision.getOuterTarget().getAirDistanceTurretToTarget()), vision);
+    }
 }
