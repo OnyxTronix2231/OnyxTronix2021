@@ -36,9 +36,6 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                 new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
                 new MoveTurretToTargetArea(yawControl),
-                new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver).raceWith(
-                        new WaitCommand(4)
-                ),
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
                 new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
