@@ -6,6 +6,8 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.B
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
+import frc.robot.arc.commands.CloseArc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
@@ -32,5 +34,6 @@ public class ShootBall extends ParallelCommandGroup {
                         new SpinShooterByVision(shooter, vision))),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
+        shootBall.whenInactive(new CloseArc(arc));
     }
 }
