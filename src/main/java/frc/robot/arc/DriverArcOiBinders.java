@@ -12,10 +12,7 @@ import onyxTronix.JoystickAxis;
 
 public class DriverArcOiBinders {
 
-    public DriverArcOiBinders(Arc arc, Trigger changeAngle, Trigger calibrateArc, JoystickAxis moveArc) {
-        NetworkTableEntry entry = Shuffleboard.getTab("Arc").add("angle", 0).getEntry();
-        new MoveArcAndCloseByTrigger(arc, changeAngle, () -> entry.getDouble(MIN_POSSIBLE_ANGLE));
+    public DriverArcOiBinders(Arc arc, Trigger calibrateArc) {
         calibrateArc.whenActive(new CalibrateArc(arc));
-        moveArc.whileActiveContinuous(new MoveArcBySpeed(arc, moveArc::getRawAxis));
     }
 }

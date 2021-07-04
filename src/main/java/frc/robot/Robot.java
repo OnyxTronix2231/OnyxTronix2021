@@ -5,14 +5,14 @@
 package frc.robot;
 
 import edu.wpi.cscore.HttpCamera;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraComponents;
 import frc.robot.camera.CameraComponentsA;
+import frc.robot.climber.BasicClimberComponentsA;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberComponents;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
@@ -35,7 +35,6 @@ import frc.robot.turret.TurretComponents;
 import frc.robot.turret.TurretComponentsA;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
-import vision.limelight.Limelight;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -50,6 +49,7 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
  */
 public class Robot extends TimedRobot {
 
+    private HttpCamera limeLightFeed;
     DriveTrain driveTrain;
     Shooter shooter;
     Arc arc;
@@ -58,7 +58,7 @@ public class Robot extends TimedRobot {
     BallTrigger ballTrigger;
     YawControl yawControl;
     Vision vision;
-    private HttpCamera limeLightFeed;
+    Climber climber;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -79,6 +79,7 @@ public class Robot extends TimedRobot {
         RevolverComponents revolverComponents;
         BallTriggerComponents ballTriggerComponents;
         TurretComponents turretComponents;
+        ClimberComponents climberComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
             driveTrainComponents = new DriveTrainComponentsA();
@@ -90,14 +91,16 @@ public class Robot extends TimedRobot {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
+            cameraComponents = new CameraComponentsA();
             shooterComponents = new ShooterComponentsA();
             arcComponents = new ArcComponentsA();
             collectorComponents = new CollectorComponentsA();
             revolverComponents = new RevolverComponentsA();
             ballTriggerComponents = new BallTriggerComponentsA();
             turretComponents = new TurretComponentsA();
-            cameraComponents = new CameraComponentsA();
+            climberComponents = new BasicClimberComponentsA();
         } else {
+            cameraComponents = null;
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
@@ -107,7 +110,7 @@ public class Robot extends TimedRobot {
             ballTriggerComponents = null;
             turretComponents = null;
             arcComponents = null;
-            cameraComponents = null;
+            climberComponents = null;
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
@@ -117,16 +120,25 @@ public class Robot extends TimedRobot {
         revolver = new Revolver(revolverComponents);
         ballTrigger = new BallTrigger(ballTriggerComponents);
         yawControl = new YawControl(turretComponents, driveTrain);
-        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
+        climber = new Climber(climberComponents);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
 
         DriverOI driverOI = new DriverOI();
-        driverOI
-                //.withDriveTrainOi(driveTrain)
-                //.withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision);
-        //.withRevolverOi(revolver)
+        DeputyOI deputyOI = new DeputyOI();
+
+        driverOI.withDriveTrainOi(driveTrain)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
+                .withCollector(collector)
+                .withArc(arc);
+
+        deputyOI.withClimber(climber)
+                .withRevolver(revolver)
+                .withArc(arc)
+                .withCollector(collector)
                 .withTurret(yawControl);
         //.withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed, cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
+                cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
     }
 
     /**
