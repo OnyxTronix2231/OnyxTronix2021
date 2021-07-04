@@ -11,17 +11,17 @@ import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
+import onyxTronix.JoystickAxis;
 
 public class DriverCrossPlatformOIBinder {
 
     public DriverCrossPlatformOIBinder(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        YawControl yawControl, Shooter shooter, Vision vision,
                                        Trigger collectAndLoadRevolver, Trigger shootBallTrigger,
-                                       Trigger shootClose) {
+                                       JoystickAxis shootClose) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
-        collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
                 shootBallTrigger));

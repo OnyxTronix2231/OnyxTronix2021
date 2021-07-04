@@ -15,6 +15,7 @@ import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
+import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
@@ -35,7 +36,7 @@ public class DriverOI {
                                         YawControl yawControl, Shooter shooter, Vision vision) {
         Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
-        Trigger shootClose = new JoystickButton(xboxController, XboxController.Button.kB.value);
+        JoystickAxis shootClose = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
         new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
                 collectAndLoadRevolver, shootBall, shootClose);
         return this;
@@ -48,7 +49,7 @@ public class DriverOI {
     }
 
     public DriverOI withCollector(Collector collector){
-        Trigger closeBallCollector = new JoystickButton(xboxController, XboxController.Button.kY.value);
+        JoystickAxis closeBallCollector = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         new DriverCollectorOiBinder(collector, closeBallCollector);
         return this;
     }
