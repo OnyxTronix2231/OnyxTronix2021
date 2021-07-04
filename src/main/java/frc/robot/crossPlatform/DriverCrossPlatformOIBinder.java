@@ -21,6 +21,7 @@ public class DriverCrossPlatformOIBinder {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR
         ));
+        collectAndLoadRevolver.whenInactive(new CloseCollectorPistons(collector));
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
                 shootBallTrigger));
