@@ -4,10 +4,12 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.HttpCamera;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraComponents;
 import frc.robot.camera.CameraComponentsA;
@@ -33,6 +35,7 @@ import frc.robot.turret.TurretComponents;
 import frc.robot.turret.TurretComponentsA;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
+import vision.limelight.Limelight;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,6 +58,7 @@ public class Robot extends TimedRobot {
     BallTrigger ballTrigger;
     YawControl yawControl;
     Vision vision;
+    private HttpCamera limeLightFeed;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -62,6 +66,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        limeLightFeed = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpg");
+
         LiveWindow.disableAllTelemetry();
         CameraComponents cameraComponents;
         DriveTrainComponents driveTrainComponents;
@@ -120,7 +126,7 @@ public class Robot extends TimedRobot {
         //.withRevolverOi(revolver)
                 .withTurret(yawControl);
         //.withYawControl(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed, cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
     }
 
     /**
