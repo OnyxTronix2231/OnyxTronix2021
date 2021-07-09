@@ -2,6 +2,7 @@ package frc.robot.ballTrigger.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.ballTrigger.BallTrigger;
 
@@ -15,6 +16,7 @@ public class ControlBallTriggerByConditions extends SequentialCommandGroup {
     public ControlBallTriggerByConditions(BallTrigger ballTrigger, BooleanSupplier... isReadyConditions) {
         super(
                 new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).allMatch(BooleanSupplier::getAsBoolean)),
+                new WaitCommand(1),
                 new OpenBallTriggerPiston(ballTrigger));
         this.ballTrigger = ballTrigger;
     }

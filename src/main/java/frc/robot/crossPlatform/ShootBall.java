@@ -12,6 +12,7 @@ import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
+import frc.robot.ballTrigger.commands.SpinBallTriggerBySpeed;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
@@ -26,14 +27,13 @@ public class ShootBall extends ParallelCommandGroup {
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
                      YawControl yawControl, Vision vision, Revolver revolver, Trigger shootBall) {
         super(
-                new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
+                new SpinBallTriggerBySpeed(ballTrigger, () -> 0.8),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new SmartMoveTurretToTargetArea(yawControl, vision).andThen(
                         new MoveTurretByVision(yawControl, vision).alongWith(
                         new MoveArcByVision(arc,vision),
                         new SpinShooterByVision(shooter, vision))),
-                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
-                        ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
+                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
         shootBall.whenInactive(new CloseArc(arc));
     }
 }
