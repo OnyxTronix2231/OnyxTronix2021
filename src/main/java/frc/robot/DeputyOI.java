@@ -34,8 +34,7 @@ public class DeputyOI {
     public DeputyOI withTurret(Turret turret){
         JoystickAxis moveLeft = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         JoystickAxis moveRight = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
-        Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kX.value);
-        new DeputeTurretOiBinder(turret, moveLeft, moveRight, centerTurret);
+        new DeputeTurretOiBinder(turret, moveLeft, moveRight);
         return this;
     }
 
@@ -49,7 +48,7 @@ public class DeputyOI {
     public DeputyOI withRevolver(Revolver revolver){
         Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kB.value);
         Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        Trigger resetRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
+        Trigger resetRevolver = new JoystickButton(xboxController, XboxController.Button.kX.value);
         new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards, resetRevolver);
         return this;
     }
