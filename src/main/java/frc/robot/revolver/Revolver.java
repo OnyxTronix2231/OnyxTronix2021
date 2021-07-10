@@ -91,7 +91,7 @@ public class Revolver extends SubsystemBase {
         components.getMotor().setSelectedSensorPosition(0);
     }
 
-    public boolean isHAllEffectOnTarget() {
+    public boolean isHallEffectOnTarget() {
         double pos = components.getEncoder().getCount() % ENCODER_UNITS_PER_ROTATION;
         return pos > BALL_ONE_POS_FIRST && pos < BALL_ONE_POS_SECOND ||
                 pos > BALL_TWO_POS_FIRST && pos < BALL_TWO_POS_SECOND ||

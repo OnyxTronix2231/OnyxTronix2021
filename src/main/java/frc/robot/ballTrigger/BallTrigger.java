@@ -23,9 +23,8 @@ public class BallTrigger extends SubsystemBase {
 //                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
 //        Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
 //                () -> components.getEncoder().getRate());
-         Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
-                   () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
-
+//        Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
 //        kpEntry = Shuffleboard.getTab("Ball Trigger").add("kP",
 //                components.getPIDController().getPIDFTerms().getKp()).getEntry();
 //
