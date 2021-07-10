@@ -4,12 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.camera.CameraComponents;
-import frc.robot.camera.CameraComponentsA;
 import frc.robot.climber.BasicClimberComponentsA;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberComponents;
@@ -49,7 +46,6 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
  */
 public class Robot extends TimedRobot {
 
-    private HttpCamera limeLightFeed;
     DriveTrain driveTrain;
     Shooter shooter;
     Arc arc;
@@ -66,10 +62,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-        limeLightFeed = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpg");
-
         LiveWindow.disableAllTelemetry();
-        CameraComponents cameraComponents;
         DriveTrainComponents driveTrainComponents;
         SimulationDriveTrainComponents simulationDriveTrainComponents;
         DriveTrainVirtualComponents driveTrainVirtualComponents;
@@ -91,7 +84,6 @@ public class Robot extends TimedRobot {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
-            cameraComponents = new CameraComponentsA();
             shooterComponents = new ShooterComponentsA();
             arcComponents = new ArcComponentsA();
             collectorComponents = new CollectorComponentsA();
@@ -100,7 +92,6 @@ public class Robot extends TimedRobot {
             turretComponents = new TurretComponentsA();
             climberComponents = new BasicClimberComponentsA();
         } else {
-            cameraComponents = null;
             driveTrainComponents = null;
             simulationDriveTrainComponents = null;
             driveTrainVirtualComponents = null;
@@ -136,8 +127,8 @@ public class Robot extends TimedRobot {
                 .withArc(arc)
                 .withCollector(collector)
                 .withTurret(yawControl);
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
-                cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
+
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl);
     }
 
     /**
