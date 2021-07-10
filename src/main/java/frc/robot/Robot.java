@@ -136,7 +136,6 @@ public class Robot extends TimedRobot {
                 .withArc(arc)
                 .withCollector(collector)
                 .withTurret(yawControl);
-        //.withYawControl(yawControl);
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
                 cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
     }
