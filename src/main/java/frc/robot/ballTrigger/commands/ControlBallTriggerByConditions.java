@@ -16,7 +16,6 @@ public class ControlBallTriggerByConditions extends SequentialCommandGroup {
     public ControlBallTriggerByConditions(BallTrigger ballTrigger, BooleanSupplier... isReadyConditions) {
         super(
                 new WaitUntilCommand(() -> Arrays.stream(isReadyConditions).allMatch(BooleanSupplier::getAsBoolean)),
-                new WaitCommand(1),
                 new OpenBallTriggerPiston(ballTrigger));
         this.ballTrigger = ballTrigger;
     }
