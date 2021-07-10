@@ -17,6 +17,7 @@ public final class DriveTrainConstants {
     static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6; // TODO: check value
     static final double ARCADE_DRIVE_FORWARD_SENSITIVITY = 1; // TODO: check value
     static final double ARCADE_DRIVE_BACKWARD_SENSITIVITY = 1; // TODO: check value
+    public static final double SLOW_DRIVE_SPEED_BY = 0.8; // TODO: check value
 
     public static final class DriveTrainSimConstantsA {
         static final double DRIVE_TRAIN_MASS = 54;

@@ -2,7 +2,6 @@ package frc.robot.camera;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import vision.limelight.Limelight;
 
 import static frc.robot.camera.CameraConstants.*;
 
@@ -22,7 +21,7 @@ public class CameraComponentsA implements CameraComponents {
     public static void setCameraConfiguration(UsbCamera camera){
         camera.setResolution(WIDTH,HEIGHT);
         camera.setFPS(FPS);
-        camera.setExposureAuto();
+        camera.setExposureManual(EXPOSURE);
     }
 
     @Override
