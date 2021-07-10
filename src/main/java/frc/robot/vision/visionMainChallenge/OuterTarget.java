@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
+
 import java.util.function.DoubleSupplier;
+
 import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class OuterTarget extends VisionTarget {
@@ -23,14 +25,20 @@ public class OuterTarget extends VisionTarget {
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
 
-        //Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
-        //        LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
-        //Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
-        //        verticalAngleLimelightToTarget);
-        //Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
-        //        verticalDistanceLimelightToTarget);
-        Shuffleboard.getTab("Vision").addNumber("Horizontal angle turret to target", () ->
-                horizontalAngleTargetToTurret);
+//        Shuffleboard.getTab("Vision").addNumber("Vertical calculated angle to outer", () ->
+//                LIMELIGHT_ANGLE_TO_HORIZON_DEG + verticalAngleLimelightToTarget);
+//        Shuffleboard.getTab("Vision").addNumber("Vertical angle to crosshair", () ->
+//                verticalAngleLimelightToTarget);
+//        Shuffleboard.getTab("Vision").addNumber("Vertical distance limelight to target", () ->
+//                verticalDistanceLimelightToTarget);
+//        Shuffleboard.getTab("Vision").addNumber("turret to target RTF",
+//                this.turretAngleRTF);
+//        Shuffleboard.getTab("Vision").addNumber("Horizontal angle turret to target", () ->
+//                horizontalAngleTargetToTurret);
+//        Shuffleboard.getTab("Vision").addNumber("robot to target", this::getHorizontalAngleTargetToRobot);
+//        Shuffleboard.getTab("Vision").addNumber("Horizontal angle turret to target", turretToTargetVector ==
+//                null ? () -> 0 : () ->
+//                turretToTargetVector.direction());
     }
 
     @Override
@@ -63,7 +71,7 @@ public class OuterTarget extends VisionTarget {
              * (from the limelight to the turret center) so we have the wanted vector
              * this vector is just for calculations it is in a wrong coordinates system (related to the turret)
              * soon we will define the correct one*/
-            Vector2dEx turretToTargetVector = Vector2dEx.fromMagnitudeDirection(airDistanceLimelightToTarget,
+            turretToTargetVector = Vector2dEx.fromMagnitudeDirection(airDistanceLimelightToTarget,
                     horizontalAngleLimelightToTarget);
 
             /* this is a vector addition and NOT a numeric addition of the vector values*/
@@ -83,7 +91,7 @@ public class OuterTarget extends VisionTarget {
              * the angle from the field (the starting angle of the robot, with gyro) to the turret is given
              * from the turret subsystem we are just making sure it is a reasonable value from 0 to 360*/
             horizontalAngleTargetToRobot = horizontalAngleTargetToTurret +
-                    turretAngleRTF.getAsDouble() % CIRCLE_ANGLES;
+                    (180 - turretAngleRTF.getAsDouble()) % CIRCLE_ANGLES;
 
             /* this is the correct vector (yay!) from the turret center to the target it is stated on the correct
              * coordinates system (which is related to the field and not to the turret) physically it
@@ -152,5 +160,9 @@ public class OuterTarget extends VisionTarget {
 
     public double getVerticalDistanceLimelightToTarget() {
         return verticalDistanceLimelightToTarget;
+    }
+
+    public Vector2dEx getTurretToTargetVector() {
+        return turretToTargetVector;
     }
 }

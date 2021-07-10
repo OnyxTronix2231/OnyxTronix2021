@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.DeputeArcOiBinder;
+import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.commands.DeputeBallTriggerOi;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
@@ -34,8 +36,7 @@ public class DeputyOI {
     public DeputyOI withTurret(Turret turret){
         JoystickAxis moveLeft = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         JoystickAxis moveRight = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
-        Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kX.value);
-        new DeputeTurretOiBinder(turret, moveLeft, moveRight, centerTurret);
+        new DeputeTurretOiBinder(turret, moveLeft, moveRight);
         return this;
     }
 
@@ -47,16 +48,23 @@ public class DeputyOI {
     }
 
     public DeputyOI withRevolver(Revolver revolver){
-        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards);
+        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
+        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
+        Trigger resetRevolver = new JoystickButton(xboxController, XboxController.Button.kX.value);
+        new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards, resetRevolver);
         return this;
     }
 
-
     public DeputyOI withCollector(Collector collector){
         Trigger closeCollector = new JoystickButton(xboxController, XboxController.Button.kY.value);
-        new DeputeCollectorOiBinder(collector, closeCollector);
+        Trigger ejectBall = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        new DeputeCollectorOiBinder(collector, closeCollector, ejectBall);
+        return this;
+    }
+
+    public DeputyOI withBallTrigger(BallTrigger ballTrigger){
+        Trigger moveBallTrigger = new JoystickButton(xboxController, XboxController.Button.kB.value);
+        new DeputeBallTriggerOi(ballTrigger, moveBallTrigger);
         return this;
     }
 }

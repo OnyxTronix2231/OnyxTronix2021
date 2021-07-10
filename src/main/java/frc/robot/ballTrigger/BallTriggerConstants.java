@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public final class BallTriggerConstants {
 
+    public static final double BACKWARD_BALL_TRIGGER_RPM = -2000;
     static final int DECISECOND_IN_MIN = 600;
     static final double BALL_TRIGGER_CONVERSION = 0.8;
     static final double ENCODER_UNITS_PER_ROTATION = 4096 * BALL_TRIGGER_CONVERSION;
