@@ -20,6 +20,8 @@ public class SpinRevolverUntilLimitSwitch extends SpinRevolverByRPM {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        revolver.resetEncoder();
+        if (!interrupted) {
+            revolver.resetEncoder();
+        }
     }
 }
