@@ -55,7 +55,7 @@ public class Vision extends BaseVision {
     }
 
     public void chooseTarget() {
-        if (hasTarget() && limelight.getTarget().getHorizontalSideOfRoughBoundingBox() > MIN_TARGET_WIDTH) {
+        if (hasTarget()) {
             boolean innerTargetCondition = outerTarget.getAirDistanceTurretToTarget() < MAX_AIR_DISTANCE_OUTER_CM &&
                     outerTarget.getAirDistanceTurretToTarget() > MIN_AIR_DISTANCE_OUTER_CM &&
                     Math.abs(outerTarget.getHorizontalAngleTargetToRobot()) < MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG;
@@ -105,6 +105,10 @@ public class Vision extends BaseVision {
 
     public Pose2d getCurrentPos() {
         return currentPos;
+    }
+
+    public InnerTarget getInnerTarget(){
+        return innerTarget;
     }
 
     public Rotation2d getCurrentRotation() {

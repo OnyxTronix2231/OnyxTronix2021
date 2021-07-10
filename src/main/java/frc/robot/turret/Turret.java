@@ -27,8 +27,8 @@ public class Turret extends SubsystemBase {
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_DEGREE));
 //        Shuffleboard.getTab("Turret").addNumber("Current velocity",
 //                () -> components.getEncoder().getRate());
-//        Shuffleboard.getTab("Turret").addNumber("current angle",
-//                this::getAngleRTR);
+           Shuffleboard.getTab("Turret").addNumber("current angle",
+                    this::getAngleRTR);
 //        Shuffleboard.getTab("Turret").addNumber("current position ENC",
 //                ()-> components.getEncoder().getCount());
 //        Shuffleboard.getTab("Turret").addNumber("current ERROR ENC",

@@ -1,5 +1,6 @@
 package frc.robot.vision.visionMainChallenge;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
@@ -23,6 +24,8 @@ public class InnerTarget extends VisionTarget {
         airDistanceTurretToTarget = 0.0;
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
+
+        Shuffleboard.getTab("Vision").addNumber("Error angle inner", this::getHorizontalAngleTargetToTurret);
     }
 
     @Override
@@ -30,6 +33,10 @@ public class InnerTarget extends VisionTarget {
         LimelightTarget target = limelight.getTarget();
 
         if (target != null) {
+            turretToTargetVector = outerTarget.getTurretToTargetVector();
+
+            turretToTargetVector.add(VECTOR_OUTER_INNER_TARGET);
+
             /* calculating the vector that connects the turret center to the inner target
              * we are connecting the vector from the turret center to the outer target
              * to the fixed vector from the outer target to the inner one*/
@@ -117,7 +124,7 @@ public class InnerTarget extends VisionTarget {
 
     @Override
     public double getHorizontalAngleTargetToTurret() {
-        return horizontalAngleTargetToTurret;
+        return turretToTargetVector == null ? 0 : turretToTargetVector.direction() % 360;
     }
 
     @Override
@@ -128,5 +135,9 @@ public class InnerTarget extends VisionTarget {
     @Override
     public Vector2dEx getVectorRobotToTargetRTF() {
         return vectorRobotToTargetRTF;
+    }
+
+    public Vector2dEx getTurretToTargetVector(){
+        return turretToTargetVector;
     }
 }
