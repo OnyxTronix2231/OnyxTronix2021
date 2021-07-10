@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.DeputeArcOiBinder;
+import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.commands.DeputeBallTriggerOi;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
@@ -47,8 +49,8 @@ public class DeputyOI {
     }
 
     public DeputyOI withRevolver(Revolver revolver){
-        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
+        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards);
         return this;
     }
@@ -57,6 +59,12 @@ public class DeputyOI {
     public DeputyOI withCollector(Collector collector){
         Trigger closeCollector = new JoystickButton(xboxController, XboxController.Button.kY.value);
         new DeputeCollectorOiBinder(collector, closeCollector);
+        return this;
+    }
+
+    public DeputyOI withBallTrigger(BallTrigger ballTrigger){
+        Trigger moveBallTrigger = new JoystickButton(xboxController, XboxController.Button.kB.value);
+        new DeputeBallTriggerOi(ballTrigger, moveBallTrigger);
         return this;
     }
 }
