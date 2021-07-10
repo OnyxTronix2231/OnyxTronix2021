@@ -9,6 +9,7 @@ import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.collector.Collector;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
+import frc.robot.revolver.commands.WaitAndThenCalibrateRevolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
@@ -26,7 +27,7 @@ public class DriverCrossPlatformOIBinder {
 
         shootBallTrigger.whileActiveContinuous(new ShootBall(shooter, ballTrigger, arc, yawControl, vision, revolver,
                 shootBallTrigger));
-        shootBallTrigger.whenInactive(new SpinRevolverUntilLimitSwitch(revolver));
+        shootBallTrigger.whenInactive(new WaitAndThenCalibrateRevolver(revolver));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
     }
