@@ -129,7 +129,8 @@ public class Robot extends TimedRobot {
         driverOI.withDriveTrainOi(driveTrain)
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
                 .withCollector(collector)
-                .withArc(arc);
+                .withArc(arc)
+                .withTurret(yawControl);
 
         deputyOI.withClimber(climber)
                 .withRevolver(revolver)

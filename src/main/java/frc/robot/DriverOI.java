@@ -13,6 +13,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
+import frc.robot.turret.DriverTurretOiBinder;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
 import onyxTronix.JoystickAxis;
@@ -51,6 +52,12 @@ public class DriverOI {
     public DriverOI withCollector(Collector collector){
         JoystickAxis closeBallCollector = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
         new DriverCollectorOiBinder(collector, closeBallCollector);
+        return this;
+    }
+
+    public DriverOI withTurret(YawControl yawControl){
+        Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        new DriverTurretOiBinder(yawControl, centerTurret);
         return this;
     }
 }

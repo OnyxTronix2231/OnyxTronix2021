@@ -47,9 +47,9 @@ public final class RevolverConstants {
         static final double VELOCITY_F = MAX_CLOSED_LOOP_OUTPUT / MAX_VELOCITY;
         static final double INTEGRAL_ZONE = 200;
         static final double OPEN_LOOP_RAMP = 0; //TODO: check value
-        static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check value
+        static final double PEAK_OUTPUT_FORWARD = 1; //TODO: check// value
         static final double PEAK_OUTPUT_REVERSE = -1; //TODO: check value
-        static final double REGULAR_AMP = 2.5;
+        static final double REGULAR_AMP = 2.8;
         static final boolean SUPPLY_CURRENT_LIMIT_ENABLED = true;
         static final boolean STATOR_CURRENT_LIMIT_ENABLED = false;
     }
