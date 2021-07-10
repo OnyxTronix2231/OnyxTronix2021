@@ -58,7 +58,8 @@ public class DeputyOI {
 
     public DeputyOI withCollector(Collector collector){
         Trigger closeCollector = new JoystickButton(xboxController, XboxController.Button.kY.value);
-        new DeputeCollectorOiBinder(collector, closeCollector);
+        Trigger ejectBall = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        new DeputeCollectorOiBinder(collector, closeCollector, ejectBall);
         return this;
     }
 
