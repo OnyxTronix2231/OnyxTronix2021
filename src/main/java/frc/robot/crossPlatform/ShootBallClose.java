@@ -23,7 +23,7 @@ public class ShootBallClose extends ParallelCommandGroup {
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
                 new SpinShooterByRPM(shooter, () -> CLOSE_SHOOTER_RPM),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                new ControlBallTriggerByConditions(ballTrigger,  shooter::isOnTarget, revolver::isOnTarget,
-                        ballTrigger::isOnTarget, yawControl::isOnTarget));
+                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
+                        ballTrigger::isOnTarget, revolver::isHAllEffectOnTarget, yawControl::isOnTarget));
     }
 }
