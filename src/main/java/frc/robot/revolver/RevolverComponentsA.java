@@ -3,7 +3,6 @@ package frc.robot.revolver;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.interfaces.PIDController;
@@ -17,7 +16,6 @@ public class RevolverComponentsA implements RevolverComponents {
     private final WPI_TalonFX motor;
     private final CtrePIDController pidController;
     private final CtreEncoder encoder;
-    private final DigitalInput hallEffect;
 
     public RevolverComponentsA() {
         motor = new WPI_TalonFX(MASTER_MOTOR_ID);
@@ -30,8 +28,6 @@ public class RevolverComponentsA implements RevolverComponents {
 
         pidController = new CtrePIDController(motor, encoder, VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F,
                 PIDControlMode.Velocity);
-
-        hallEffect = new DigitalInput(HALL_EFECT_PORT);
     }
 
     @Override
@@ -47,11 +43,6 @@ public class RevolverComponentsA implements RevolverComponents {
     @Override
     public PIDController getPIDController() {
         return pidController;
-    }
-
-    @Override
-    public DigitalInput getHallEffect() {
-        return hallEffect;
     }
 
     private TalonFXConfiguration getConfiguration() {
