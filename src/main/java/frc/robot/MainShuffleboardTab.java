@@ -18,6 +18,8 @@ public class MainShuffleboardTab {
                 shooter::isOnTarget);
         Shuffleboard.getTab("Main").addBoolean("Arc on Target",
                 arc::isOnTarget);
+        Shuffleboard.getTab("Main").addBoolean("Revolver Sensor on Target",
+                revolver::isHAllEffectOnTarget);
         Shuffleboard.getTab("Main").addBoolean("Revolver on Target",
                 revolver::isOnTarget);
         Shuffleboard.getTab("Main").addBoolean("Ball Trigger on Target",
