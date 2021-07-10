@@ -8,7 +8,7 @@ import static frc.robot.revolver.RevolverConstants.WAIT_REVOLVER;
 
 public class WaitAndThenCalibrateRevolver extends SequentialCommandGroup {
 
-    public WaitAndThenCalibrateRevolver(Revolver revolver){
+    public WaitAndThenCalibrateRevolver(Revolver revolver) {
         super(new WaitCommand(WAIT_REVOLVER),
                 new SpinRevolverUntilLimitSwitch(revolver));
     }

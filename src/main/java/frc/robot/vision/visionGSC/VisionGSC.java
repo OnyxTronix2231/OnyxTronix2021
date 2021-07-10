@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 
 import static frc.robot.vision.visionGSC.VisionGSCConstants.*;
-
-public class VisionGSC extends BaseVision{
+//why does this class exist if never used?
+public class VisionGSC extends BaseVision {
 
     private GSCOption chosenOption;
 
-    public VisionGSC(){
+    public VisionGSC() {
         Shuffleboard.getTab("Vision").addString("Chosen path", () -> chosenOption != null ? chosenOption.toString() : "no path");
         Shuffleboard.getTab("Vision").addNumber("Area precentage", this::getTargetAreaPercentage);
         Shuffleboard.getTab("Vision").addNumber("Horizontal angle", this::getTargetHorizontalAngle);

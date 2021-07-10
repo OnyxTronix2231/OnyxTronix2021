@@ -42,13 +42,13 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI withArc(Arc arc){
+    public DriverOI withArc(Arc arc) {
         Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
         new DriverArcOiBinders(arc, calibrateArc);
         return this;
     }
 
-    public DriverOI withCollector(Collector collector){
+    public DriverOI withCollector(Collector collector) {
         JoystickAxis closeBallCollector = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
         new DriverCollectorOiBinder(collector, closeBallCollector);
         return this;

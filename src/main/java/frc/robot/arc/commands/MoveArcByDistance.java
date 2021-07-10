@@ -5,7 +5,7 @@ import frc.robot.arc.Arc;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveArcByDistance extends MoveArcAndCloseByTrigger{
+public class MoveArcByDistance extends MoveArcAndCloseByTrigger {
 
     public MoveArcByDistance(Arc arc, Trigger closeArc, DoubleSupplier distanceSupplier) {
         super(arc, closeArc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble()));

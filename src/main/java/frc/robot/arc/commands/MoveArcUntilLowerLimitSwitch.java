@@ -1,8 +1,8 @@
 package frc.robot.arc.commands;
 
-import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_SWITCH_LIMIT_SPEED;
-
 import frc.robot.arc.Arc;
+
+import static frc.robot.arc.ArcConstants.MOVE_ARC_TO_SWITCH_LIMIT_SPEED;
 
 public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
 

@@ -1,11 +1,9 @@
 package frc.robot.ballTrigger;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.ballTrigger.BallTriggerConstants.*;
 import static frc.robot.ballTrigger.BallTriggerConstants.BallTriggerConstantsA.TOLERANCE_IN_RPM;
+import static frc.robot.ballTrigger.BallTriggerConstants.*;
 
 public class BallTrigger extends SubsystemBase {
 
@@ -64,9 +62,9 @@ public class BallTrigger extends SubsystemBase {
         return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
 
-    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-    }
+//    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+//        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+//    }
 
     public void stop() {
         moveBySpeed(0);

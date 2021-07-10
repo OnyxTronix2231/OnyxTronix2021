@@ -4,15 +4,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.revolver.Revolver;
-import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
 
 import java.util.Arrays;
 import java.util.function.BooleanSupplier;
 
 public class ControlBallTriggerByConditions extends SequentialCommandGroup {
 
-    private BallTrigger ballTrigger;
+    private final BallTrigger ballTrigger;
 
     public ControlBallTriggerByConditions(BallTrigger ballTrigger, BooleanSupplier... isReadyConditions) {
         super(

@@ -43,7 +43,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         encoder = new CtreEncoder(masterMotor);
 
         pidController = new CtrePIDController(masterMotor, encoder,
-            new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
+                new PIDFTerms(VELOCITY_P, VELOCITY_I, VELOCITY_D, VELOCITY_F), PIDControlMode.Velocity);
     }
 
     @Override

@@ -5,6 +5,8 @@ import frc.robot.climber.Climber;
 
 import java.util.function.DoubleSupplier;
 
+// why does this class exist?
+
 public class ClimbToDistance extends CommandBase {
 
     private final Climber climber;

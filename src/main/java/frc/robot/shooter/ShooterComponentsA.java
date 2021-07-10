@@ -1,22 +1,5 @@
 package frc.robot.shooter;
 
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.CLOSE_LOOP_RAMP;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MASTER_MOTOR_ID;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.OPEN_LOOP_RAMP;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SLAVE_MOTOR_ID;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.STATOR_CURRENT_LIMIT;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.STATOR_CURRENT_LIMIT_ENABLED;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.STATOR_TRIGGER_THRESHOLD_CURRENT;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.STATOR_TRIGGER_THRESHOLD_TIME;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SUPPLY_CURRENT_LIMIT;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SUPPLY_CURRENT_LIMIT_ENABLED;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SUPPLY_TRIGGER_THRESHOLD_CURRENT;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.SUPPLY_TRIGGER_THRESHOLD_TIME;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.VELOCITY_D;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.VELOCITY_F;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.VELOCITY_I;
-import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.VELOCITY_P;
-
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
@@ -27,6 +10,8 @@ import pid.PIDFTerms;
 import pid.interfaces.PIDController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
+
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.*;
 
 public class ShooterComponentsA implements ShooterComponents {
 

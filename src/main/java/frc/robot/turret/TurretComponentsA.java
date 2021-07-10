@@ -26,7 +26,7 @@ public class TurretComponentsA implements TurretComponents {
         motor.setNeutralMode(NeutralMode.Coast);
         motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
         motor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-        motor.setSelectedSensorPosition( motor.getSensorCollection().getAnalogInRaw() - ENCODER_OFFSET, 0, 0);
+        motor.setSelectedSensorPosition(motor.getSensorCollection().getAnalogInRaw() - ENCODER_OFFSET, 0, 0);
         motor.setInverted(true);
         motor.setSensorPhase(true);
         encoder = new CtreEncoder(motor);

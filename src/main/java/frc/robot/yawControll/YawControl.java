@@ -10,14 +10,15 @@ public class YawControl extends Turret {
 
     private final DriveTrain driveTrain;
     private TurretState turretState;
+
     public YawControl(TurretComponents turretComponents, DriveTrain driveTrain) {
         super(turretComponents);
         this.driveTrain = driveTrain;
         turretState = TurretState.RTR;
-        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTR",()-> getAngleRTR());
-        Shuffleboard.getTab("Turret").addNumber("Encoder units",()-> turretComponents.getEncoder().getCount());
-        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTF",()-> getTurretAngleRTF());
-        Shuffleboard.getTab("Turret").addString("Turret State",()-> turretState.toString());
+        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTR", this::getAngleRTR);
+        Shuffleboard.getTab("Turret").addNumber("Encoder units", () -> turretComponents.getEncoder().getCount());
+        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTF", this::getTurretAngleRTF);
+        Shuffleboard.getTab("Turret").addString("Turret State", () -> turretState.toString());
 
     }
 
@@ -46,7 +47,7 @@ public class YawControl extends Turret {
         this.turretState = turretState;
     }
 
-    public double angleToAngleRTF( double angle){
+    public double angleToAngleRTF(double angle) {
         return angle + getRobotAngle();
     }
 

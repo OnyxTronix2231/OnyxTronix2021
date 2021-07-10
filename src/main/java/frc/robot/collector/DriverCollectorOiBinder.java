@@ -5,7 +5,7 @@ import onyxTronix.JoystickAxis;
 
 public class DriverCollectorOiBinder {
 
-    public DriverCollectorOiBinder(Collector collector, JoystickAxis closeCollector){
+    public DriverCollectorOiBinder(Collector collector, JoystickAxis closeCollector) {
         closeCollector.whenActive(new CloseCollectorPistons(collector));
     }
 }

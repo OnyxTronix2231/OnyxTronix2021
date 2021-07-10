@@ -112,19 +112,19 @@ public class DriveTrain extends SubsystemBase {
         }
     }
 
-    public double getAverageEncoderDistance() {
-        return Robot.isSimulation() ? (getSimLeftMaster().getSelectedSensorPosition() +
-                getSimRightMaster().getSelectedSensorPosition()) / 2 : (getLeftMaster().getSelectedSensorPosition() +
-                getRightMaster().getSelectedSensorPosition()) / 2;
-    }
-
-    public void setArcadeDriveMaxOutput(double maxOutput) {
-        if (Robot.isReal()) {
-            virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
-        } else {
-            virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
-        }
-    }
+//    public double getAverageEncoderDistance() {
+//        return Robot.isSimulation() ? (getSimLeftMaster().getSelectedSensorPosition() +
+//                getSimRightMaster().getSelectedSensorPosition()) / 2 : (getLeftMaster().getSelectedSensorPosition() +
+//                getRightMaster().getSelectedSensorPosition()) / 2;
+//    }
+//
+//    public void setArcadeDriveMaxOutput(double maxOutput) {
+//        if (Robot.isReal()) {
+//            virtualComponents.getDifferentialDrive().setMaxOutput(maxOutput);
+//        } else {
+//            virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
+//        }
+//    }
 
     public void resetHeading() {
         if (Robot.isReal()) {
@@ -139,10 +139,10 @@ public class DriveTrain extends SubsystemBase {
                 components.getNormelizedPigeonIMU().getNormalizedYaw();
     }
 
-    public double getYawRate() {
-        return Robot.isSimulation() ? simulationComponents.getAnalogGyroSim().getRate() :
-                components.getNormelizedPigeonIMU().getYawRate();
-    }
+//    public double getYawRate() {
+//        return Robot.isSimulation() ? simulationComponents.getAnalogGyroSim().getRate() :
+//                components.getNormelizedPigeonIMU().getYawRate();
+//    }
 
     public void stopDrive() {
         if (Robot.isReal()) {

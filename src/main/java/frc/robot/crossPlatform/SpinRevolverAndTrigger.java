@@ -14,7 +14,7 @@ public class SpinRevolverAndTrigger extends ParallelCommandGroup {
     public SpinRevolverAndTrigger(Revolver revolver, BallTrigger ballTrigger, DoubleSupplier triggerSpeedSupplier,
                                   DoubleSupplier revolverSpeedSupplier) {
         super(new SpinRevolverAccordingToAmpResistance(revolver,
-            new SpinRevolverBySpeed(revolver, revolverSpeedSupplier)), new SpinBallTriggerBySpeed(ballTrigger,
+                new SpinRevolverBySpeed(revolver, revolverSpeedSupplier)), new SpinBallTriggerBySpeed(ballTrigger,
                 triggerSpeedSupplier));
     }
 }

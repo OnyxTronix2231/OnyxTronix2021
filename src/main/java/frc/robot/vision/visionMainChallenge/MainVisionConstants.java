@@ -30,5 +30,5 @@ public final class MainVisionConstants {
     public static final double MIN_AIR_DISTANCE_OUTER_CM = 290;
     public static final double MAX_ABS_ANGLE_TARGET_TO_FIELD_DEG = 18;
 
-    public static final double MIN_TARGET_WIDTH = 10;
+//    public static final double MIN_TARGET_WIDTH = 10;
 }

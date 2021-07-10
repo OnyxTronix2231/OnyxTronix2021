@@ -6,7 +6,7 @@ public abstract class BaseVision {
 
     protected Limelight limelight;
 
-    public BaseVision(){
+    public BaseVision() {
         limelight = Limelight.getInstance();
     }
 

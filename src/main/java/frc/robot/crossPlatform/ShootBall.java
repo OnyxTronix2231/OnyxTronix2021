@@ -1,8 +1,5 @@
 package frc.robot.crossPlatform;
 
-import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
-import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.BALL_TRIGGER_RPM;
-
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
@@ -20,6 +17,9 @@ import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
 import frc.robot.yawControll.commands.SmartMoveTurretToTargetArea;
 
+import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_SHOOTING;
+import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.BALL_TRIGGER_RPM;
+
 public class ShootBall extends ParallelCommandGroup {
 
     public ShootBall(Shooter shooter, BallTrigger ballTrigger, Arc arc,
@@ -29,8 +29,8 @@ public class ShootBall extends ParallelCommandGroup {
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new SmartMoveTurretToTargetArea(yawControl, vision).andThen(
                         new MoveTurretByVision(yawControl, vision).alongWith(
-                        new MoveArcByVision(arc,vision),
-                        new SpinShooterByVision(shooter, vision))),
+                                new MoveArcByVision(arc, vision),
+                                new SpinShooterByVision(shooter, vision))),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget,
                         revolver::isHallEffectOnTarget));

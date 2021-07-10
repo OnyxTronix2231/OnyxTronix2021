@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.shooter.Shooter;
 
 import java.util.function.DoubleSupplier;
-
+//why does this class exist if never used?
 public class SpinShooterBySpeed extends CommandBase {
 
     private final Shooter shooter;

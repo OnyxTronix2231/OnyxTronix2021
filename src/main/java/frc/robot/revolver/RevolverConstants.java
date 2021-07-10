@@ -10,7 +10,7 @@ public final class RevolverConstants {
     static final int TOLERANCE_IN_RPM = 10; //TODO: check value
     static final double CONVERSION_RATE = 26.5625; //26.5625:1
     static final double ENCODER_UNITS_PER_ROTATION = 2048 * CONVERSION_RATE; //TODO: check value
-    static final double MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP = 30;
+//    static final double MINIMUM_RPM_FOR_CLOSE_LOOP_RAMP = 30;
     static final double CLOSE_LOOP_RAMP_WHILE_SHOOTING = 5;
     static final double REVOLVER_RPM_WHILE_SPINING = 30;
 

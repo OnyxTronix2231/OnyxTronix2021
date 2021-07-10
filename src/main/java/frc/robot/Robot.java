@@ -8,19 +8,17 @@ import edu.wpi.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.camera.CameraComponents;
-import frc.robot.camera.CameraComponentsA;
-import frc.robot.climber.BasicClimberComponentsA;
-import frc.robot.climber.Climber;
-import frc.robot.climber.ClimberComponents;
-import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
 import frc.robot.arc.ArcComponents;
 import frc.robot.arc.ArcComponentsA;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.BallTriggerComponents;
 import frc.robot.ballTrigger.BallTriggerComponentsA;
+import frc.robot.camera.CameraComponents;
+import frc.robot.camera.CameraComponentsA;
+import frc.robot.climber.BasicClimberComponentsA;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberComponents;
 import frc.robot.collector.Collector;
 import frc.robot.collector.CollectorComponents;
 import frc.robot.collector.CollectorComponentsA;
@@ -49,7 +47,6 @@ import static frc.robot.RobotConstants.ROBOT_TYPE;
  */
 public class Robot extends TimedRobot {
 
-    private HttpCamera limeLightFeed;
     DriveTrain driveTrain;
     Shooter shooter;
     Arc arc;
@@ -59,6 +56,7 @@ public class Robot extends TimedRobot {
     YawControl yawControl;
     Vision vision;
     Climber climber;
+    HttpCamera limeLightFeed;
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -86,8 +84,7 @@ public class Robot extends TimedRobot {
             if (Robot.isReal()) {
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
                 simulationDriveTrainComponents = null;
-            }
-            else {
+            } else {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
@@ -115,7 +112,8 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         shooter = new Shooter(shooterComponents);
-        arc= new Arc(arcComponents);
+        assert arcComponents != null;
+        arc = new Arc(arcComponents);
         collector = new Collector(collectorComponents);
         revolver = new Revolver(revolverComponents);
         ballTrigger = new BallTrigger(ballTriggerComponents);
@@ -174,7 +172,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
     }
-
 
 
     @Override

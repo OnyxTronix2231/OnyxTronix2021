@@ -1,6 +1,5 @@
 package frc.robot.vision.visionMainChallenge;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
@@ -158,9 +157,9 @@ public class OuterTarget extends VisionTarget {
         return vectorRobotToTargetRTF;
     }
 
-    public double getVerticalDistanceLimelightToTarget() {
-        return verticalDistanceLimelightToTarget;
-    }
+//    public double getVerticalDistanceLimelightToTarget() {
+//        return verticalDistanceLimelightToTarget;
+//    }
 
     public Vector2dEx getTurretToTargetVector() {
         return turretToTargetVector;

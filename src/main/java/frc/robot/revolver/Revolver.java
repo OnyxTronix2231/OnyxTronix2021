@@ -1,6 +1,5 @@
 package frc.robot.revolver;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.revolver.RevolverConstants.*;
@@ -82,9 +81,9 @@ public class Revolver extends SubsystemBase {
         return rpm * ENCODER_UNITS_PER_ROTATION / DECISECOND_IN_MIN;
     }
 
-    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-    }
+//    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+//        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+//    }
 
     public void resetEncoder() {
         components.getMotor().getSensorCollection().setIntegratedSensorPosition(0, 100);

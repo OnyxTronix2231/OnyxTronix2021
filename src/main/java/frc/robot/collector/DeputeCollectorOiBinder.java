@@ -8,8 +8,8 @@ import static frc.robot.collector.CollectorConstants.BallCollectorConstantsA.COL
 
 public class DeputeCollectorOiBinder {
 
-    public DeputeCollectorOiBinder(Collector collector, Trigger closeCollector, Trigger ejectBall){
+    public DeputeCollectorOiBinder(Collector collector, Trigger closeCollector, Trigger ejectBall) {
         closeCollector.whenActive(new CloseCollectorPistons(collector));
-        ejectBall.whileActiveContinuous(new CollectBySpeed(collector, ()-> COLLECTION_EJECT_SPEED))
+        ejectBall.whileActiveContinuous(new CollectBySpeed(collector, () -> COLLECTION_EJECT_SPEED));
     }
 }

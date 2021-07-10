@@ -1,14 +1,13 @@
 package frc.robot.revolver.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.revolver.Revolver;
 
 public class SpinRevolverUntilLimitSwitch extends SpinRevolverByRPM {
 
     private final Revolver revolver;
 
-    public SpinRevolverUntilLimitSwitch(Revolver revolver){
-        super(revolver, ()-> 30);
+    public SpinRevolverUntilLimitSwitch(Revolver revolver) {
+        super(revolver, () -> 30);
         this.revolver = revolver;
     }
 

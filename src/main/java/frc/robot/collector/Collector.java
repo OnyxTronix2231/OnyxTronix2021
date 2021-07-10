@@ -1,9 +1,9 @@
 package frc.robot.collector;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import static frc.robot.collector.CollectorConstants.CLOSE_PISTONS;
 import static frc.robot.collector.CollectorConstants.OPEN_PISTONS;
-
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Collector extends SubsystemBase {
 

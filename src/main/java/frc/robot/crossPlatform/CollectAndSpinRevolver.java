@@ -14,7 +14,7 @@ public class CollectAndSpinRevolver extends ParallelCommandGroup {
     public CollectAndSpinRevolver(Collector collector, Revolver revolver, DoubleSupplier revolverRPMSupplier,
                                   DoubleSupplier collectorSpeedSupplier) {
         super(new OpenAndCollect(collector, collectorSpeedSupplier),
-            new SpinRevolverAccordingToAmpResistance(revolver,
-                new SpinRevolverByRPM(revolver, revolverRPMSupplier)));
+                new SpinRevolverAccordingToAmpResistance(revolver,
+                        new SpinRevolverByRPM(revolver, revolverRPMSupplier)));
     }
 }

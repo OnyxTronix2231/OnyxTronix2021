@@ -33,8 +33,8 @@ public class BasicClimberComponentsA implements ClimberComponents {
 
         encoder = new CtreEncoder(masterMotor);
 
-        controller = new CtreMotionMagicController(masterMotor, encoder,new PIDFTerms(KP, KI, KD, KF),
-                ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING );
+        controller = new CtreMotionMagicController(masterMotor, encoder, new PIDFTerms(KP, KI, KD, KF),
+                ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
     }
 
     @Override

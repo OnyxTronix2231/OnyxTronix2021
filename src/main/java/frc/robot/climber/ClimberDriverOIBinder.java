@@ -1,9 +1,9 @@
 package frc.robot.climber;
 
-import static frc.robot.climber.ClimberConstants.MAX_JOYSTICK_OUTPUT;
-
 import frc.robot.climber.commands.ClimbBySpeed;
 import onyxTronix.JoystickAxis;
+
+import static frc.robot.climber.ClimberConstants.MAX_JOYSTICK_OUTPUT;
 
 public class ClimberDriverOIBinder {
 

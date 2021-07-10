@@ -1,6 +1,6 @@
 package frc.robot.drivetrain.utils;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
@@ -13,10 +13,10 @@ public class NormalizedPigeonIMU extends PigeonIMU implements Sendable {
         SendableRegistry.addLW(this, "PigeonIMU [" + deviceNumber + "]");
     }
 
-    public NormalizedPigeonIMU(TalonSRX talonSrx) {
-        super(talonSrx);
-        SendableRegistry.addLW(this, "PigeonIMU [" + talonSrx.getDeviceID() + "]");
-    }
+//    public NormalizedPigeonIMU(TalonSRX talonSrx) {
+//        super(talonSrx);
+//        SendableRegistry.addLW(this, "PigeonIMU [" + talonSrx.getDeviceID() + "]");
+//    }
 
     public double getRawYaw() {
         double[] yawPitchRoll = new double[3];

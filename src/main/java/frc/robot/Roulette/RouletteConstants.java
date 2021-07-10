@@ -15,7 +15,7 @@ public class RouletteConstants {
     static final RouletteColor[] ROULETTE_COLORS = {ROULETTE_RED, ROULETTE_YELLOW, ROULETTE_BLUE, ROULETTE_GREEN};
     static final double RATIO_ROULETTE_TO_ROULETTE_COLOR = 1.0 / 8;
     static final double PERCENT_TOLERANCE = 0.05; //TODO: check real value
-    static final int REQUIRED_AMOUNT_OF_ROUNDS = 3;
+//    static final int REQUIRED_AMOUNT_OF_ROUNDS = 3;
     static final int COLOR_OFFSET = 2;
     static final int MAX_COLOR_INDEX = 3;
     static final int MIN_COLOR_INDEX = 0;

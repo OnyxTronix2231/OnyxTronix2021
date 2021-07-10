@@ -7,7 +7,7 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BACKWARD_BALL_TRIGGER_R
 
 public class DeputeBallTriggerOi {
 
-    public DeputeBallTriggerOi(BallTrigger ballTrigger, Trigger moveTrigger){
-        moveTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> BACKWARD_BALL_TRIGGER_RPM));
+    public DeputeBallTriggerOi(BallTrigger ballTrigger, Trigger moveTrigger) {
+        moveTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, () -> BACKWARD_BALL_TRIGGER_RPM));
     }
 }

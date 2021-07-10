@@ -2,7 +2,6 @@ package frc.robot.vision.visionMainChallenge;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
 
@@ -18,7 +17,7 @@ public class Vision extends BaseVision {
     private VisionTarget chosenTarget;
     private Pose2d currentPos;
     private Rotation2d currentRotation;
-    private DoubleSupplier turretAngleRTF;
+    private final DoubleSupplier turretAngleRTF;
 
     public Vision(DoubleSupplier gyroYawAngle, DoubleSupplier turretAngleRTF) {
         this.gyroYawAngle = gyroYawAngle;
@@ -90,30 +89,30 @@ public class Vision extends BaseVision {
         }
     }
 
-    public double DistanceToTargetWall() {
-        return outerTarget.getAirDistanceTurretToTarget() *
-                Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
-    }
+//    public double DistanceToTargetWall() {
+//        return outerTarget.getAirDistanceTurretToTarget() *
+//                Math.cos(Math.toRadians(outerTarget.getHorizontalAngleTargetToRobot()));
+//    }
 
-    public double getRobotX() {
-        return currentPos.getX();
-    }
-
-    public double getRobotY() {
-        return currentPos.getY();
-    }
+//    public double getRobotX() {
+//        return currentPos.getX();
+//    }
+//
+//    public double getRobotY() {
+//        return currentPos.getY();
+//    }
 
     public Pose2d getCurrentPos() {
         return currentPos;
     }
 
-    public InnerTarget getInnerTarget(){
+    public InnerTarget getInnerTarget() {
         return innerTarget;
     }
 
-    public Rotation2d getCurrentRotation() {
-        return currentRotation;
-    }
+//    public Rotation2d getCurrentRotation() {
+//        return currentRotation;
+//    }
 
     public VisionTarget getChosenTarget() {
         return chosenTarget;

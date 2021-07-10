@@ -1,14 +1,10 @@
 package frc.robot.climber;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MAX_POSSIBLE_DISTANCE;
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MIN_POSSIBLE_DISTANCE;
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.TOLERANCE;
-import static frc.robot.climber.ClimberConstants.DECISECONDS_IN_MIN;
-import static frc.robot.climber.ClimberConstants.ENCODER_UNITS_PER_ROTATION;
+import static frc.robot.climber.ClimberConstants.ClimberConstantsA.*;
+//import static frc.robot.climber.ClimberConstants.DECISECONDS_IN_MIN;
+//import static frc.robot.climber.ClimberConstants.ENCODER_UNITS_PER_ROTATION;
 
 public class Climber extends SubsystemBase {
 
@@ -61,9 +57,9 @@ public class Climber extends SubsystemBase {
         components.getController().update(distanceInEncoderUnits);
     }
 
-    public double encoderUnitsInDecisecondToRPM(int encoderUnits) {
-        return (encoderUnits * DECISECONDS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-    }
+//    public double encoderUnitsInDecisecondToRPM(int encoderUnits) {
+//        return (encoderUnits * DECISECONDS_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+//    }
 
     public boolean isOnTarget() {
         return components.getController().isOnTarget(TOLERANCE);

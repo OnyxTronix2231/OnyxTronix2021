@@ -2,8 +2,8 @@ package frc.robot.climber;
 
 public class ClimberConstants {
 
-    static final int DECISECONDS_IN_MIN = 600;
-    static final double ENCODER_UNITS_PER_ROTATION = 2048;
+//    static final int DECISECONDS_IN_MIN = 600;
+//    static final double ENCODER_UNITS_PER_ROTATION = 2048;
     static final double MAX_JOYSTICK_OUTPUT = 0.7;
 
     public static class ClimberConstantsA {

@@ -3,9 +3,11 @@ package frc.robot.Roulette;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
+
 import static frc.robot.Roulette.RouletteConstants.*;
 
 public class Roulette extends SubsystemBase {
@@ -68,9 +70,9 @@ public class Roulette extends SubsystemBase {
         components.getMasterMotor().set(speed);
     }
 
-    public double getCurrentRouletteRotations() {
-        return encoderUnitsToRouletteRounds(components.getEncoder().getCount());
-    }
+//    public double getCurrentRouletteRotations() {
+//        return encoderUnitsToRouletteRounds(components.getEncoder().getCount());
+//    }
 
     public RouletteColor colorMatching(Color color) {
         Optional<RouletteColor> closestColor = Arrays.stream(ROULETTE_COLORS).
@@ -117,11 +119,11 @@ public class Roulette extends SubsystemBase {
                 getColorSensor().getColor());
     }
 
-    public double getRoundsToColor(RouletteColor requiredColor){
+    public double getRoundsToColor(RouletteColor requiredColor) {
         return getRounds(getCurrentColor(), requiredColor);
     }
 
-    public double getRounds(RouletteColor startingColor, RouletteColor requiredColor){
+    public double getRounds(RouletteColor startingColor, RouletteColor requiredColor) {
         int requiredColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(requiredColor);
         int currentColorIndex = Arrays.asList(ROULETTE_COLORS).indexOf(startingColor);
         if (currentColorIndex + COLOR_OFFSET > MAX_COLOR_INDEX) {
@@ -146,9 +148,9 @@ public class Roulette extends SubsystemBase {
         return rouletteRounds * ENCODER_UNITS_PER_WHEEL_ROUND * RATIO_ROULETTE_TO_WHEEL;
     }
 
-    public double encoderUnitsToRouletteRounds(double encoderUnits) {
-        return encoderUnits / ENCODER_UNITS_PER_WHEEL_ROUND / RATIO_ROULETTE_TO_WHEEL;
-    }
+//    public double encoderUnitsToRouletteRounds(double encoderUnits) {
+//        return encoderUnits / ENCODER_UNITS_PER_WHEEL_ROUND / RATIO_ROULETTE_TO_WHEEL;
+//    }
 
     public void reset() {
         components.getEncoder().reset();

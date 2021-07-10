@@ -51,16 +51,16 @@ public final class DriveTrainConstants {
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final double TRACKWIDTH_METERS = 0.675; // TODO: Calibration with A
         public static final Pose2d START_POSE = GS_BLUE_FIRST_START;
+        public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
+                new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         private static final double KS = 0.76;
         private static final double KV = 2.03;
         private static final double KA = 0.275;
-        public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
-                new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
     }
 
-    public static final class InfiniteRechargePaths {
-        private static final double OFFSET = 8.2;
+//    public static final class InfiniteRechargePaths {
+//        private static final double OFFSET = 8.2;
 
 //        public static final Path PRIORITY_PATH_A = new Path(List.of(),
 //                new Pose2d(6, OFFSET - 7.5, Rotation2d.fromDegrees(0)));
@@ -114,5 +114,5 @@ public final class DriveTrainConstants {
 //
 //        public static final Path KABOOM_PATH = new Path(List.of(),
 //                new Pose2d(10.75, OFFSET - 0.75, Rotation2d.fromDegrees(0)));
-    }
+//    }
 }

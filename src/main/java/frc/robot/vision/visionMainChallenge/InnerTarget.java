@@ -1,10 +1,11 @@
 package frc.robot.vision.visionMainChallenge;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.Vector2dEx;
 import vision.limelight.Limelight;
 import vision.limelight.target.LimelightTarget;
+
 import java.util.function.DoubleSupplier;
+
 import static frc.robot.vision.visionMainChallenge.MainVisionConstants.*;
 
 public class InnerTarget extends VisionTarget {
@@ -135,7 +136,7 @@ public class InnerTarget extends VisionTarget {
         return vectorRobotToTargetRTF;
     }
 
-    public Vector2dEx getTurretToTargetVector(){
+    public Vector2dEx getTurretToTargetVector() {
         return turretToTargetVector;
     }
 }

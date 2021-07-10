@@ -2,11 +2,11 @@ package frc.robot.shooter;
 
 public final class ShooterConstants {
 
-    static final int MIDDLE_DISTANCE = 230;
+//    static final int MIDDLE_DISTANCE = 230;
     static final double SHOOTER_CONVERSION = 1.03;
     static final double ENCODER_UNITS_PER_ROTATION = 2048 * SHOOTER_CONVERSION;
     static final double DECISECOND_IN_MIN = 600;
-    static final double MIN_ERROR_RPM = 1000;
+//    static final double MIN_ERROR_RPM = 1000;
     static final double TOLERANCE_RPM = 50;
 
     public static final class ShooterConstantsA {

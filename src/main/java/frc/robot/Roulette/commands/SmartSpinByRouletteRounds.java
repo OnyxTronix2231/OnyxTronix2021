@@ -3,6 +3,7 @@ package frc.robot.Roulette.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Roulette.Roulette;
 import frc.robot.Roulette.RouletteColor;
+
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.Roulette.RouletteConstants.ROULETTE_ROUNDS_TOLERANCE;
@@ -10,8 +11,8 @@ import static frc.robot.Roulette.RouletteConstants.ROULETTE_ROUNDS_TOLERANCE;
 public class SmartSpinByRouletteRounds extends CommandBase {
 
     private final Roulette roulette;
-    private DoubleSupplier rouletteRounds;
     private final SpinByRouletteRounds spinByRouletteRounds;
+    private DoubleSupplier rouletteRounds;
     private RouletteColor currentColor;
     private int counter;
 
