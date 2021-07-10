@@ -23,10 +23,10 @@ public class Shooter extends SubsystemBase {
         this.components = components;
         initIsBallShot();
 
-        Shuffleboard.getTab("Shooter").addNumber("PID Error",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
-        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
+//        Shuffleboard.getTab("Shooter").addNumber("PID Error",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
+//        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 //        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
 //                () -> components.getEncoder().getRate());
 

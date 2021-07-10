@@ -32,7 +32,8 @@ public class ShootBall extends ParallelCommandGroup {
                         new MoveArcByVision(arc,vision),
                         new SpinShooterByVision(shooter, vision))),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
-                        arc::isOnTarget, yawControl::isOnTarget));
+                        ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget,
+                        revolver::isHallEffectOnTarget));
         shootBall.whenInactive(new CloseArc(arc));
     }
 }
