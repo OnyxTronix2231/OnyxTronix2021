@@ -24,8 +24,7 @@ public class InnerTarget extends VisionTarget {
         airDistanceTurretToTarget = 0.0;
         vectorTurretToTargetRTF = new Vector2dEx(0, 0);
         vectorRobotToTargetRTF = new Vector2dEx(0, 0);
-
-        Shuffleboard.getTab("Vision").addNumber("Error angle inner", this::getHorizontalAngleTargetToTurret);
+//        Shuffleboard.getTab("Vision").addNumber("Error angle inner", this::getHorizontalAngleTargetToTurret);
     }
 
     @Override
@@ -34,7 +33,6 @@ public class InnerTarget extends VisionTarget {
 
         if (target != null) {
             turretToTargetVector = outerTarget.getTurretToTargetVector();
-
             turretToTargetVector.add(VECTOR_OUTER_INNER_TARGET);
 
             /* calculating the vector that connects the turret center to the inner target
