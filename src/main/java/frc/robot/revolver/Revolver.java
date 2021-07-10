@@ -3,11 +3,8 @@ package frc.robot.revolver;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.revolver.RevolverConstants.CLOSE_LOOP_RAMP_WHILE_SHOOTING;
-import static frc.robot.revolver.RevolverConstants.ENCODER_UNITS_PER_ROTATION;
-import static frc.robot.revolver.RevolverConstants.DECISECOND_IN_MIN;
+import static frc.robot.revolver.RevolverConstants.*;
 import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.REGULAR_AMP;
-import static frc.robot.revolver.RevolverConstants.TOLERANCE_IN_RPM;
 
 public class Revolver extends SubsystemBase {
 
@@ -19,6 +16,7 @@ public class Revolver extends SubsystemBase {
 
     public Revolver(RevolverComponents components) {
         this.components = components;
+        resetEncoder();
 //        Shuffleboard.getTab("Revolver").addNumber("Current error in encoder units",
 //                () -> components.getMotor().getClosedLoopError());
 //        Shuffleboard.getTab("Revolver").addNumber("Current error in RPM",
@@ -65,7 +63,7 @@ public class Revolver extends SubsystemBase {
     public void updateMoveByRPM(double rpm) {
         components.getPIDController().update(rpmToEncoderUnitInDecisecond(rpm));
     }
-    
+
     public void stop() {
         moveBySpeed(0);
         components.getPIDController().disable();
@@ -76,6 +74,10 @@ public class Revolver extends SubsystemBase {
         return components.getPIDController().isOnTarget(rpmToEncoderUnitInDecisecond(TOLERANCE_IN_RPM));
     }
 
+    public boolean isHallEffectClosed() {
+        return !components.getHallEffect().get();
+    }
+
     public double rpmToEncoderUnitInDecisecond(double rpm) {
         return rpm * ENCODER_UNITS_PER_ROTATION / DECISECOND_IN_MIN;
     }
@@ -84,7 +86,21 @@ public class Revolver extends SubsystemBase {
         return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
     }
 
-    public boolean isStuck () {
+    public void resetEncoder() {
+        components.getMotor().getSensorCollection().setIntegratedSensorPosition(0, 100);
+        components.getMotor().setSelectedSensorPosition(0);
+    }
+
+    public boolean isHAllEffectOnTarget() {
+        double pos = components.getEncoder().getCount() % ENCODER_UNITS_PER_ROTATION;
+        return pos > BALL_ONE_POS_FIRST && pos < BALL_ONE_POS_SECOND ||
+                pos > BALL_TWO_POS_FIRST && pos < BALL_TWO_POS_SECOND ||
+                pos > BALL_THIRD_POS_FIRST && pos < BALL_THIRD_POS_SECOND ||
+                pos > BALL_FOURTH_POS_FIRST && pos < BALL_FOURTH_POS_SECOND ||
+                pos > BALL_FIVE_POS_FIRST && pos < BALL_FIVE_POS_SECOND;
+    }
+
+    public boolean isStuck() {
         return components.getMotor().getSupplyCurrent() > REGULAR_AMP;
     }
 }
