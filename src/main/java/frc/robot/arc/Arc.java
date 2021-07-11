@@ -137,8 +137,7 @@ public class Arc extends SubsystemBase {
 
     public void resetEncoderByAbsoluteValue() {
         components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
-        components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
-                getPulseWidthPosition() - START_ENCODER_VALUE);
+        components.getMotor().setSelectedSensorPosition(0);
     }
 
 //    public double getTestAngle(){
