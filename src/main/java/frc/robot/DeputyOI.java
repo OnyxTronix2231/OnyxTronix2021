@@ -13,6 +13,8 @@ import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
 import frc.robot.collector.DeputeCollectorOiBinder;
+import frc.robot.drivetrain.DeputeDriveTrainOiBinder;
+import frc.robot.drivetrain.DriveTrain;
 import frc.robot.revolver.DeputeRevolverOiBinder;
 import frc.robot.revolver.Revolver;
 import frc.robot.turret.DeputeTurretOiBinder;
@@ -30,6 +32,12 @@ public class DeputyOI {
     public DeputyOI withClimber(Climber climber) {
         JoystickAxis clime = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
         new ClimberDriverOIBinder(climber, clime);
+        return this;
+    }
+
+    public DeputyOI withDriveTrain(DriveTrain driveTrain){
+        Trigger slowButton = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        new DeputeDriveTrainOiBinder(driveTrain, slowButton);
         return this;
     }
 

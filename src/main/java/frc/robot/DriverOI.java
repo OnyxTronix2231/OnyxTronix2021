@@ -29,7 +29,8 @@ public class DriverOI {
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        new DriveTrainOiBinder(driveTrain, xboxController);
+        Trigger slowButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
+        new DriveTrainOiBinder(driveTrain, xboxController, slowButton);
         return this;
     }
 

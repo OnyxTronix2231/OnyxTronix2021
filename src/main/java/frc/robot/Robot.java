@@ -137,7 +137,9 @@ public class Robot extends TimedRobot {
                 .withArc(arc)
                 .withCollector(collector)
                 .withTurret(yawControl)
-                .withBallTrigger(ballTrigger);
+                .withBallTrigger(ballTrigger)
+                .withDriveTrain(driveTrain);
+
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
                 cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
     }
