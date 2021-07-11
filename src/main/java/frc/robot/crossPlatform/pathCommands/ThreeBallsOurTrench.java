@@ -31,18 +31,18 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                                BallTrigger ballTrigger, Shooter shooter, Arc arc, Vision vision,
                                YawControl yawControl) {
         super(
-//                new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
-//                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
-//                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-//                        () -> TESTING_SPEED_COLLECTOR)),
-//                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-//                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
-//                new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
-//                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
-//                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-//                        () -> TESTING_SPEED_COLLECTOR)),
-//                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-//                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+                new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
+                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR)),
+                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+                new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
+                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR)),
+                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver)
                 );
     }

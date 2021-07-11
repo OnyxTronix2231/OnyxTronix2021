@@ -6,7 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
+import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
@@ -51,6 +55,9 @@ public class Robot extends TimedRobot {
     BallTrigger ballTrigger;
     YawControl yawControl;
     Vision vision;
+    Command enemyTrenchAutonomous;
+    Command ourTrenchAutonomous;
+    SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -105,6 +112,12 @@ public class Robot extends TimedRobot {
         ballTrigger = new BallTrigger(ballTriggerComponents);
         yawControl = new YawControl(turretComponents, driveTrain);
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getAngleRTR());
+        enemyTrenchAutonomous = new TwoBallsEnemyTrench(driveTrain, collector, revolver,
+                ballTrigger, shooter, arc, vision,
+                yawControl);
+        ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver,
+                ballTrigger, shooter, arc, vision,
+                yawControl);
 
         DriverOI driverOI = new DriverOI();
         driverOI.withDriveTrainOi(driveTrain)

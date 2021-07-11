@@ -105,17 +105,8 @@ public final class DriveTrainConstants {
                         new Translation2d(4.6, 3.8)
                 ),
                 new Pose2d(4.3, 6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
-        public static final Path PRIORITY_PATH_E = new Path(
-                PRIORITY_PATH_D.getEndPose(),
-                List.of(new Translation2d(6.157, 5.685),
-                        new Translation2d(6.8, 5),
-                        new Translation2d(6.9, 4.3)),
-                new Pose2d(6.3, 4, Rotation2d.fromDegrees(180)),
-                new CentripetalAccelerationConstraint(1),
-                new MaxVelocityConstraint(2));
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2)).setReversed();
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
@@ -138,114 +129,12 @@ public final class DriveTrainConstants {
                 new CentripetalAccelerationConstraint(3),
                 new MaxVelocityConstraint(3)).setReversed();
 
-        public static final Path THIRD_PRIORITY_PATH_A = new Path(
-                InfiniteRechargeStartPoints.THIRD_PRIORITY_PATH_START,
-                List.of(),
-                new Pose2d(6, 7.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
-
-        public static final Path THIRD_PRIORITY_PATH_B = new Path(
-                THIRD_PRIORITY_PATH_A.getEndPose(),
-                List.of(),
-                new Pose2d(4, 4.1, Rotation2d.fromDegrees(225)),
-                new CentripetalAccelerationConstraint(2),
-                new MaxVelocityConstraint(2)).setReversed();
-
-        public static final Path THIRD_PRIORITY_PATH_C = new Path(
-                THIRD_PRIORITY_PATH_B.getEndPose(),
-                List.of(
-                        new Translation2d(6.5, 3.3),
-                        new Translation2d(7.2, 3),
-                        new Translation2d(7.5, 3.7),
-                        new Translation2d(6.7, 4)
-                ),
-                new Pose2d(5, 4.6, Rotation2d.fromDegrees(225)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
-
-        public static final Path FOURTH_PRIORITY_PATH_A = new Path(
-                InfiniteRechargeStartPoints.FOURTH_PRIORITY_PATH_START,
-                List.of(
-                        new Translation2d(7, 5.4),
-                        new Translation2d(6.9, 4.2),
-                        new Translation2d(6.4, 4),
-                        new Translation2d(6.35, 4.8)
-                ),
-                new Pose2d(5.9, 6.3, Rotation2d.fromDegrees(90)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
-
-        public static final Path FIFTH_PRIORITY_PATH_A = new Path(
-                InfiniteRechargeStartPoints.FIFTH_PRIORITY_PATH_START,
-                List.of(new Translation2d(5.8, 5.9)),
-                new Pose2d(6.8, 5, Rotation2d.fromDegrees(290)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
-
-        public static final Path FIFTH_PRIORITY_PATH_B = new Path(
-                FIFTH_PRIORITY_PATH_A.getEndPose(),
-                List.of(),
-                new Pose2d(4.7, 6.7, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
-        public static final Path FIFTH_PRIORITY_PATH_C = new Path(
-                FIFTH_PRIORITY_PATH_A.getEndPose(),
-                List.of(
-                        new Translation2d(5.7, 7.5)
-                ),
-                new Pose2d(9.6, 7.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
-
-        public static final Path FIFTH_PRIORITY_PATH_D = new Path(
-                FIFTH_PRIORITY_PATH_A.getEndPose(),
-                List.of(
-                        new Translation2d(7.5, 7.5)
-                ),
-                new Pose2d(5.7, 7.1, Rotation2d.fromDegrees(30)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
         public static final Path ONE_METER_FORWARD = new Path(
                 new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
                 List.of(),
                 new Pose2d(1, 0, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
-
-        public static final Path ONE_METER_BACKWARDS = new Path(
-                new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                List.of(),
-                new Pose2d(-1, 0, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
-        public static final Path TONY_HAWK = new Path(
-                new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                List.of(),
-                new Pose2d(0, 0, Rotation2d.fromDegrees(180)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
-        public static final Path TEST_O = new Path(
-                new Pose2d(0, 0, Rotation2d.fromDegrees(90)),
-                List.of(
-                        new Translation2d(0.5, 0.5),
-                        new Translation2d(1, 1),
-                        new Translation2d(-0.5, 0.5)
-                ),
-                new Pose2d(0, 0, Rotation2d.fromDegrees(90)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3)).setReversed();
-
-        public static final Path TEST_TURN = new Path(
-                new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
-                List.of(),
-                new Pose2d(1, 1, Rotation2d.fromDegrees(30)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
 
         public static final Path THREE_BALLS_OUR_TRENCH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
