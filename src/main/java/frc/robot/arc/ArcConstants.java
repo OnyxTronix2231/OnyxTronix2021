@@ -6,10 +6,8 @@ public class ArcConstants {
     public static final double DELAY_CALIBRATE_TIME = 0.5; // second
     static final double OFFSET = 21;
     public static final double MIN_POSSIBLE_ANGLE = 0;
-    static final int MIDDLE_DISTANCE_ARC = 230;
     static final int TIME_OUT = 100;
-    static final double START_ENCODER_VALUE = 150;
-    static final double ANGULAR_CONVERSION = 19.0/20;
+    private static final double ANGULAR_CONVERSION = 19.0/20;
     static final double ANGLE_PER_MOTOR_ROTATION = 33.882;
     static final double MAX_POSSIBLE_ANGLE = 63 - OFFSET;
     static final double REAL_MAX_POSSIBLE_ANGLE = 63;
@@ -36,7 +34,7 @@ public class ArcConstants {
         static final boolean CURRENT_LIMIT_ENABLED = false; // TODO: check and change
     }
 
-        public static final class ArcCalculation {
+        static final class ArcCalculation {
 
             static double FORMULA_DISTANCE_FAR(double distance) {
                 return 0.00004 * Math.pow(distance, 2) + 0.0031 * distance + 44.91;
