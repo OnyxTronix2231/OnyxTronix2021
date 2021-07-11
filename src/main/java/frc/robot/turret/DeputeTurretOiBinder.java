@@ -1,8 +1,6 @@
 package frc.robot.turret;
 
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.turret.commands.MoveTurretBySpeed;
-import frc.robot.turret.commands.MoveTurretToAngle;
 import onyxTronix.JoystickAxis;
 
 public class DeputeTurretOiBinder {

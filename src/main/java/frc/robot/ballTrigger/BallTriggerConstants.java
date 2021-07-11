@@ -6,7 +6,7 @@ public final class BallTriggerConstants {
 
     public static final double BACKWARD_BALL_TRIGGER_RPM = -2000;
     static final int DECISECOND_IN_MIN = 600;
-    static final double BALL_TRIGGER_CONVERSION = 0.8;
+    private static final double BALL_TRIGGER_CONVERSION = 0.8;
     static final double ENCODER_UNITS_PER_ROTATION = 4096 * BALL_TRIGGER_CONVERSION;
     static final DoubleSolenoid.Value OPEN_PISTON = DoubleSolenoid.Value.kForward;
     static final DoubleSolenoid.Value CLOSE_PISTON = DoubleSolenoid.Value.kReverse;

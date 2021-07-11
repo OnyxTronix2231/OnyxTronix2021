@@ -6,10 +6,10 @@ import static frc.robot.arc.ArcConstants.MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.MIN_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.OFFSET;
 import static frc.robot.arc.ArcConstants.REAL_MAX_POSSIBLE_ANGLE;
-import static frc.robot.arc.ArcConstants.START_ENCODER_VALUE;
 import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.arc.ArcConstants.ArcCalculation;
