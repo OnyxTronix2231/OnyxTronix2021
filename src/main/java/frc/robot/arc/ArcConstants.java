@@ -39,7 +39,8 @@ public class ArcConstants {
         public static final class ArcCalculation {
 
             static double FORMULA_DISTANCE_FAR(double distance) {
-                return 0.00008 * Math.pow(distance, 2) - 0.0325 * distance + 51.521;
+                return 0.00004 * Math.pow(distance, 2) + 0.0031 * distance + 44.91;
+                // old farnula 0.00008 * Math.pow(distance, 2) - 0.0325 * distance + 51.521;
             }
         }
 }

@@ -9,7 +9,7 @@ public class CollectorConstants {
 
     public static final class BallCollectorConstantsA {
 
-        public static final double COLLECTION_SPEED = 0.8;
+        public static final double COLLECTION_EJECT_SPEED = -0.8;
         static final int MASTER_MOTOR_ID = 9;
         static final int FORWARD_CHANNEL = 1;
         static final int REVERSE_CHANNEL = 2;

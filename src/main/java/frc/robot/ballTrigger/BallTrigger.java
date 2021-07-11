@@ -17,15 +17,14 @@ public class BallTrigger extends SubsystemBase {
 
     public BallTrigger(BallTriggerComponents components) {
         this.components = components;
-        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in encoder units",
-                () -> components.getMasterMotor().getClosedLoopError());
-        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
-        Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
-                () -> components.getEncoder().getRate());
-        Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
-
+//        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in encoder units",
+//                () -> components.getMasterMotor().getClosedLoopError());
+//        Shuffleboard.getTab("Ball Trigger").addNumber("Current error in RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
+//        Shuffleboard.getTab("Ball Trigger").addNumber("Current velocity in encoder units",
+//                () -> components.getEncoder().getRate());
+//        Shuffleboard.getTab("Ball Trigger").addNumber("Current RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getSelectedSensorVelocity()));
 //        kpEntry = Shuffleboard.getTab("Ball Trigger").add("kP",
 //                components.getPIDController().getPIDFTerms().getKp()).getEntry();
 //

@@ -6,6 +6,7 @@ import static frc.robot.shooter.ShooterConstants.MIN_ERROR_RPM;
 import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
 import static frc.robot.shooter.ShooterConstants.TOLERANCE_RPM;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -23,10 +24,10 @@ public class Shooter extends SubsystemBase {
         this.components = components;
         initIsBallShot();
 
-        Shuffleboard.getTab("Shooter").addNumber("PID Error",
-                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
-        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
-                () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
+//        Shuffleboard.getTab("Shooter").addNumber("PID Error",
+//                () -> encoderUnitsInDecisecondToRPM(components.getMasterMotor().getClosedLoopError()));
+//        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor RPM",
+//                () -> encoderUnitsInDecisecondToRPM(components.getEncoder().getRate()));
 //        Shuffleboard.getTab("Shooter").addNumber("Current Shooter Motor ENC",
 //                () -> components.getEncoder().getRate());
 

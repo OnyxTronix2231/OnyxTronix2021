@@ -1,15 +1,14 @@
 package frc.robot.drivetrain;
 
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.START_POSE;
-
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.drivetrain.commands.DriveByJoystick;
+import frc.robot.drivetrain.commands.SlowDriveTrainButton;
 
 public class DriveTrainOiBinder {
-    public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger reset) {
+    public DriveTrainOiBinder(DriveTrain driveTrain, XboxController driveJoystick, Trigger slow) {
         driveTrain.setDefaultCommand(new DriveByJoystick(driveTrain, driveJoystick));
-        reset.whenActive(new InstantCommand(() -> driveTrain.resetOdometryToPose(START_POSE)));
-        }
+        new SlowDriveTrainButton(driveTrain, slow);
+    }
 }

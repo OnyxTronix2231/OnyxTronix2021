@@ -7,6 +7,6 @@ public class MoveTurretByVision extends MoveTurretByAngleAndKeep{
 
     public MoveTurretByVision(Turret turret, Vision vision) {
         super(turret, () -> (vision.getChosenTarget() == null ? 0 :
-                vision.getChosenTarget().getHorizontalAngleTargetToTurret()));
+                vision.getInnerTarget().getHorizontalAngleTargetToTurret()));
     }
 }

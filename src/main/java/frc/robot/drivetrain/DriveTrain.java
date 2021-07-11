@@ -23,12 +23,14 @@ public class DriveTrain extends SubsystemBase {
     private final DriveTrainComponents components;
     private final SimulationDriveTrainComponents simulationComponents;
     private final DriveTrainVirtualComponents virtualComponents;
+    private double arcadeDriveSensitivity;
 
     public DriveTrain(DriveTrainComponents components, SimulationDriveTrainComponents simulationComponents,
                       DriveTrainVirtualComponents virtualComponents) {
         this.components = components;
         this.simulationComponents = simulationComponents;
         this.virtualComponents = virtualComponents;
+        arcadeDriveSensitivity = ARCADE_DRIVE_SENSITIVITY;
 
         if (Robot.isSimulation()) {
             Shuffleboard.getTab("DriveTrain").add("Field", getField2d());
@@ -84,13 +86,13 @@ public class DriveTrain extends SubsystemBase {
         simulationComponents.getAnalogGyroSim().setAngle(getDriveTrainSim().getHeading().getDegrees());
     }
 
-    public void arcadeDrive(final double forwardSpeed, final double rotationSpeed) {
+    public void arcadeDrive(final double speed, final double rotationSpeed) {
         if (Robot.isReal()) {
-            virtualComponents.getDifferentialDrive().arcadeDrive(forwardSpeed > 0 ? forwardSpeed *
-                            ARCADE_DRIVE_FORWARD_SENSITIVITY : forwardSpeed * ARCADE_DRIVE_BACKWARD_SENSITIVITY,
+            virtualComponents.getDifferentialDrive().arcadeDrive(speed *
+                            arcadeDriveSensitivity,
                     rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, true);
         } else {
-            virtualComponents.getSimDifferentialDrive().arcadeDrive(forwardSpeed * ARCADE_DRIVE_FORWARD_SENSITIVITY,
+            virtualComponents.getSimDifferentialDrive().arcadeDrive(speed * ARCADE_DRIVE_SENSITIVITY,
                     rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
         }
     }
@@ -132,6 +134,10 @@ public class DriveTrain extends SubsystemBase {
         } else {
             virtualComponents.getSimDifferentialDrive().setMaxOutput(maxOutput);
         }
+    }
+
+    public void setArcadeDriveSensitivity(double sensitivity){
+        arcadeDriveSensitivity = sensitivity;
     }
 
     public void resetHeading() {
