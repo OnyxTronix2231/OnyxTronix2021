@@ -7,12 +7,18 @@ package frc.robot;
 import edu.wpi.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.camera.CameraComponents;
 import frc.robot.camera.CameraComponentsA;
 import frc.robot.climber.BasicClimberComponentsA;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberComponents;
+import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
+import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
@@ -59,6 +65,11 @@ public class Robot extends TimedRobot {
     YawControl yawControl;
     Vision vision;
     Climber climber;
+    Command enemyTrenchAutonomous;
+    Command ourTrenchAutonomous;
+    SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+    Command selectedAutonomousCommand;
+
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -122,6 +133,12 @@ public class Robot extends TimedRobot {
         yawControl = new YawControl(turretComponents, driveTrain);
         climber = new Climber(climberComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
+        enemyTrenchAutonomous = new TwoBallsEnemyTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        autonomousChooser.setDefaultOption("Enemy Trench (align to left ball", enemyTrenchAutonomous);
+        autonomousChooser.addOption("Our Trench", ourTrenchAutonomous);
 
         DriverOI driverOI = new DriverOI();
         DeputyOI deputyOI = new DeputyOI();
@@ -142,6 +159,7 @@ public class Robot extends TimedRobot {
 
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
                 cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
+        SmartDashboard.putData(autonomousChooser);
     }
 
     /**
@@ -182,6 +200,11 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        driveTrain.setNeutralModeToBrake();
+        selectedAutonomousCommand = autonomousChooser.getSelected();
+        if (selectedAutonomousCommand != null) {
+            selectedAutonomousCommand.schedule();
+        }
     }
 
     /**
@@ -194,6 +217,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralModeToBrake();
+        if (selectedAutonomousCommand != null) {
+            selectedAutonomousCommand.cancel();
+        }
     }
 
     /**

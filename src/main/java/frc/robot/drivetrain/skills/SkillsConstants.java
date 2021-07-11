@@ -114,6 +114,7 @@ public final class SkillsConstants {
         ), new Pose2d(15, 1.1, Rotation2d.fromDegrees(0)), new CentripetalAccelerationConstraint(6),
                 new MaxVelocityConstraint(2));
         private static final double OFFSET = 4.572;
+
         public static final Path AUTONAV_FIRST = new Path(StartingPositions.AUTONAV_FIRST_START,
                 List.of(new Translation2d(4.4, OFFSET - 2.8),
                         new Translation2d(3.9, OFFSET - 3.7),
@@ -130,6 +131,7 @@ public final class SkillsConstants {
                         new Translation2d(6.11, OFFSET - 2.256)
                 ), new Pose2d(0, OFFSET - 2.2, Rotation2d.fromDegrees(180)),
                 new CentripetalAccelerationConstraint(3.2));
+
         public static final Path AUTONAV_SECOND = new Path(StartingPositions.AUTONAV_SECOND_START,
                 List.of(
                         new Translation2d(3.1, OFFSET - 2.1),
@@ -144,22 +146,32 @@ public final class SkillsConstants {
                         new Translation2d(4.7, OFFSET - 4),
                         new Translation2d(2.75, OFFSET - 3.8),
                         new Translation2d(2.15, OFFSET - 2.74)
-                ), new Pose2d(1.55, OFFSET - 2.3, Rotation2d.fromDegrees(130)), new CentripetalAccelerationConstraint(10),
-                new RectangularRegionConstraint(new Translation2d(6.3, 0), new Translation2d(9, OFFSET), new CentripetalAccelerationConstraint(3)),
-                new RectangularRegionConstraint(new Translation2d(1.5, -3.8), new Translation2d(3.1, OFFSET - 2.1), new CentripetalAccelerationConstraint(6)));
+                ), new Pose2d(1.55, OFFSET - 2.3, Rotation2d.fromDegrees(130)),
+                new CentripetalAccelerationConstraint(10),
+                new RectangularRegionConstraint(new Translation2d(6.3, 0), new Translation2d(9, OFFSET),
+                new CentripetalAccelerationConstraint(3)),
+                new RectangularRegionConstraint(new Translation2d(1.5, -3.8),
+                        new Translation2d(3.1, OFFSET - 2.1),
+                new CentripetalAccelerationConstraint(6)));
+
         public static final Path AUTONAV_THIRD_A = new Path(StartingPositions.AUTONAV_THIRD_START,
                 List.of(),
                 new Pose2d(Waypoints.A3.getX(), OFFSET - 1.2, Rotation2d.fromDegrees(90)));
+
         public static final Path AUTONAV_THIRD_B = new Path(AUTONAV_THIRD_A.getEndPose(), List.of(
                 new Translation2d(2.698, OFFSET - 2.54),
                 new Translation2d(3.45, OFFSET - 3.778),
                 new Translation2d(4.28, OFFSET - 3.7),
                 new Translation2d(4.5, OFFSET - 2.5)
-        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.11, Rotation2d.fromDegrees(270)), new CentripetalAccelerationConstraint(6)).setReversed();
+        ), new Pose2d(Waypoints.A6.getX(), OFFSET - 1.11, Rotation2d.fromDegrees(270)),
+                new CentripetalAccelerationConstraint(6)).setReversed();
+
         public static final Path AUTONAV_THIRD_C = new Path(AUTONAV_THIRD_B.getEndPose(), List.of(
                 new Translation2d(5.09, OFFSET - 3.6),
                 new Translation2d(6.335, OFFSET - 3.6)
-        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.105, Rotation2d.fromDegrees(90)), new CentripetalAccelerationConstraint(5));
+        ), new Pose2d(Waypoints.A9.getX(), OFFSET - 1.105, Rotation2d.fromDegrees(90)),
+                new CentripetalAccelerationConstraint(5));
+
         public static final Path AUTONAV_THIRD_D = new Path(AUTONAV_THIRD_C.getEndPose(), List.of(),
                 new Pose2d(7.9, 2.3, Rotation2d.fromDegrees(180))).setReversed();
     }
