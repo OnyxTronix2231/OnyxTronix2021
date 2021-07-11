@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -147,14 +146,15 @@ public class Robot extends TimedRobot {
                 .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
                 .withCollector(collector)
                 .withArc(arc)
-                .withTurret(yawControl);
+                .withTurret(yawControl)
+                .withBallTrigger(ballTrigger);
 
         deputyOI.withClimber(climber)
                 .withRevolver(revolver)
                 .withArc(arc)
                 .withCollector(collector)
                 .withTurret(yawControl)
-                .withBallTrigger(ballTrigger)
+                .withCrossPlatform(ballTrigger, shooter)
                 .withDriveTrain(driveTrain);
 
         new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.DeputeArcOiBinder;
 import frc.robot.ballTrigger.BallTrigger;
-import frc.robot.ballTrigger.commands.DeputeBallTriggerOi;
+import frc.robot.crossPlatform.DeputeCrossPlatformOi;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberDriverOIBinder;
 import frc.robot.collector.Collector;
@@ -17,6 +17,7 @@ import frc.robot.drivetrain.DeputeDriveTrainOiBinder;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.revolver.DeputeRevolverOiBinder;
 import frc.robot.revolver.Revolver;
+import frc.robot.shooter.Shooter;
 import frc.robot.turret.DeputeTurretOiBinder;
 import frc.robot.turret.Turret;
 import onyxTronix.JoystickAxis;
@@ -70,9 +71,9 @@ public class DeputyOI {
         return this;
     }
 
-    public DeputyOI withBallTrigger(BallTrigger ballTrigger){
+    public DeputyOI withCrossPlatform(BallTrigger ballTrigger, Shooter shooter){
         Trigger moveBallTrigger = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DeputeBallTriggerOi(ballTrigger, moveBallTrigger);
+        new DeputeCrossPlatformOi(ballTrigger, shooter, moveBallTrigger);
         return this;
     }
 }

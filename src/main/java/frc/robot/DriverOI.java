@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
 import frc.robot.arc.DriverArcOiBinders;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.DriverBallTriggerOiBinder;
 import frc.robot.collector.Collector;
 import frc.robot.collector.DriverCollectorOiBinder;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
@@ -59,6 +60,12 @@ public class DriverOI {
     public DriverOI withTurret(YawControl yawControl){
         Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kA.value);
         new DriverTurretOiBinder(yawControl, centerTurret);
+        return this;
+    }
+
+    public DriverOI withBallTrigger(BallTrigger ballTrigger){
+        Trigger open = new JoystickButton(xboxController, XboxController.Button.kY.value);
+        new DriverBallTriggerOiBinder(ballTrigger, open);
         return this;
     }
 }
