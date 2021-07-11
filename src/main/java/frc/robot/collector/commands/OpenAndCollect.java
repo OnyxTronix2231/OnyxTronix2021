@@ -13,5 +13,4 @@ public class OpenAndCollect extends ParallelCommandGroup {
         super(new OpenCollectorPistons(collector), new CollectBySpeed(collector, speedSupplier));
         this.collector = collector;
     }
-
 }
