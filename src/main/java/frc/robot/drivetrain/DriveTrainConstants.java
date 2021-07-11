@@ -59,9 +59,9 @@ public final class DriveTrainConstants {
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
         public static final double TRACKWIDTH_METERS = 0.7;
         public static final Pose2d START_POSE = SECOND_PRIORITY_PATH_START;
-        private static final double KS = 0.74;
-        private static final double KV = 2.09;
-        private static final double KA = 0.315;
+        private static final double KS = 0.738;
+        private static final double KV = 2.08;
+        private static final double KA = 0.321;
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS =
                 new DifferentialDriveKinematics(TRACKWIDTH_METERS);
         public static final SimpleMotorFeedforward FEEDFORWARD = new SimpleMotorFeedforward(KS, KV, KA);
