@@ -38,8 +38,8 @@ public class Arc extends SubsystemBase {
 
 //        Shuffleboard.getTab("Arc").addNumber("Current velocity",
 //                () -> components.getEncoder().getRate());
-//        Shuffleboard.getTab("Arc").addNumber("current angle",
-//                this::getAngle);
+        Shuffleboard.getTab("Arc").addNumber("current angle",
+                this::getAngle);
 //        Shuffleboard.getTab("Arc").addNumber("current position ENC",
 //                ()-> components.getEncoder().getCount());
 //        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
@@ -137,8 +137,7 @@ public class Arc extends SubsystemBase {
 
     public void resetEncoderByAbsoluteValue() {
         components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
-        components.getMotor().setSelectedSensorPosition(components.getMotor().getSensorCollection().
-                getPulseWidthPosition() - START_ENCODER_VALUE);
+        components.getMotor().setSelectedSensorPosition(0);
     }
 
 //    public double getTestAngle(){
