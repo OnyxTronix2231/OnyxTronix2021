@@ -23,7 +23,9 @@ public class MoveArcUntilLowerLimitSwitch extends MoveArcBySpeed {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
-        arc.resetEncoderByAbsoluteValue();
-        arc.configReverseSoftLimitEnable(true);
+        if (!interrupted) {
+            arc.resetEncoderByAbsoluteValue();
+            arc.configReverseSoftLimitEnable(true);
+        }
     }
 }
