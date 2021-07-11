@@ -36,10 +36,10 @@ public class MainShuffleboardTab {
         Shuffleboard.getTab("Main").addBoolean("Shooter on Target",
                 shooter::isOnTarget).withPosition(6,0);
         Shuffleboard.getTab("Main").add(camera1).withPosition(0,1).withSize(3,3)
-                .withProperties(Map.of("Show Crosshair", false, "Show Contorls", false));
+                .withProperties(Map.of("Show Crosshair", false, "Show Controls", false));
         Shuffleboard.getTab("Main").add(camera2).withPosition(3, 1).withSize(3,3)
-                .withProperties(Map.of("Show Crosshair", false, "Show Contorls", false));
+                .withProperties(Map.of("Show Crosshair", false, "Show Controls", false));
         Shuffleboard.getTab("Main").add("LL", limeLightFeed).withPosition(6,1).withSize(3,3)
-                .withProperties(Map.of("Show Crosshair", false, "Show Contorls", false));
+                .withProperties(Map.of("Show Crosshair", false, "Show Controls", false));
     }
 }
