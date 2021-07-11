@@ -112,12 +112,12 @@ public class DriveTrain extends SubsystemBase {
 
     public void tankDriveVolts(double leftVolts, double rightVolts) {
         if (Robot.isReal()) {
-            getLeftMaster().set(leftVolts / 12);
-            getRightMaster().set(rightVolts / 12);
+            getLeftMaster().set(leftVolts / VOLTS);
+            getRightMaster().set(rightVolts / VOLTS);
             virtualComponents.getDifferentialDrive().feed();
         } else {
-            getSimLeftMaster().set(leftVolts / 12);
-            getSimRightMaster().set(rightVolts / 12);
+            getSimLeftMaster().set(leftVolts / VOLTS);
+            getSimRightMaster().set(rightVolts / VOLTS);
             virtualComponents.getSimDifferentialDrive().feed();
         }
     }

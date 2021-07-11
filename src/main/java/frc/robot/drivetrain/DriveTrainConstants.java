@@ -23,6 +23,7 @@ public final class DriveTrainConstants {
     public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.5; // TODO: check value
     public static final double ARCADE_DRIVE_SENSITIVITY = 0.8; // TODO: check value
     static final int DECISECOND_IN_SECOND = 10;
+    static final int VOLTS = 12;
     static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6; // TODO: check value
 
     public static final class DriveTrainSimConstantsA {
