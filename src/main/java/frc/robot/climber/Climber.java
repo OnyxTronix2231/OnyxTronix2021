@@ -1,8 +1,8 @@
 package frc.robot.climber;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MAX_POSSIBLE_DISTANCE;
 import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MIN_POSSIBLE_DISTANCE;

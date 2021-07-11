@@ -4,7 +4,6 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.BALL_TRIGGER_RPM;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByVision;
 import frc.robot.ballTrigger.BallTrigger;
@@ -14,7 +13,6 @@ import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
 import frc.robot.shooter.commands.SpinShooterByVision;
-import frc.robot.turret.commands.MoveTurretByVision;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
 import frc.robot.yawControll.commands.SmartMoveTurretToTargetArea;
