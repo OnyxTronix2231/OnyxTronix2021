@@ -45,14 +45,14 @@ public class DriveTrain extends SubsystemBase {
         resetHeading();
         resetOdometryToPose(START_POSE);
         resetEncoders();
-        Shuffleboard.getTab("DriveTrain").addNumber("Normalized yaw",
-                () -> getHeading());
-        Shuffleboard.getTab("DriveTrain").addNumber("current x",
-                () -> getPose().getX());
-        Shuffleboard.getTab("DriveTrain").addNumber("current y",
-                () -> getPose().getY());
-        Shuffleboard.getTab("DriveTrain").addNumber("heading",
-                () -> getPose().getRotation().getDegrees());
+//        Shuffleboard.getTab("DriveTrain").addNumber("Normalized yaw",
+//                () -> getHeading());
+//        Shuffleboard.getTab("DriveTrain").addNumber("current x",
+//                () -> getPose().getX());
+//        Shuffleboard.getTab("DriveTrain").addNumber("current y",
+//                () -> getPose().getY());
+//        Shuffleboard.getTab("DriveTrain").addNumber("heading",
+//                () -> getPose().getRotation().getDegrees());
     }
 
     @Override
