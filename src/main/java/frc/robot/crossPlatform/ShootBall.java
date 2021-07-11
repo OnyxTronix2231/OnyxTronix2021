@@ -27,7 +27,7 @@ public class ShootBall extends ParallelCommandGroup {
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new SmartMoveTurretToTargetArea(yawControl, vision),
-                new MoveArcByVision(arc,vision),
+                new MoveArcByVision(arc,shootBall ,vision),
                 new SpinShooterByVision(shooter, vision),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget,

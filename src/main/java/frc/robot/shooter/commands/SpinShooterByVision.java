@@ -9,4 +9,12 @@ public class SpinShooterByVision extends ActByVision {
     public SpinShooterByVision(Shooter shooter, Vision vision) {
         super(new SpinShooterByDistance(shooter, () -> vision.getOuterTarget().getAirDistanceTurretToTarget()), vision);
     }
+
+    @Override
+    public boolean isFinished() {
+        if (super.isFinished()) {
+            initialize();
+        }
+        return false;
+    }
 }
