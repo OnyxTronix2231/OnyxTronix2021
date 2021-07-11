@@ -5,7 +5,7 @@ public class TurretConstants {
     static final int MASTER_MOTOR_ID = 8;
     static final int FLIP_POINT = 360;
     static final double TOLERANCE_DEGREE = 1;
-    static final double TURRET_CONVERSION = 1;
+    private static final double TURRET_CONVERSION = 1;
     static final double ENCODER_UNITS_PER_ROUND = 1023 * TURRET_CONVERSION;
     static final double DEGREES_IN_CIRCLE = 360;
     static final double MAX_DEGREE = 225;
