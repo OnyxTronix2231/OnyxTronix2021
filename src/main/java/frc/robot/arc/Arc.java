@@ -38,8 +38,8 @@ public class Arc extends SubsystemBase {
 
 //        Shuffleboard.getTab("Arc").addNumber("Current velocity",
 //                () -> components.getEncoder().getRate());
-        Shuffleboard.getTab("Arc").addNumber("current angle",
-                this::getAngle);
+//        Shuffleboard.getTab("Arc").addNumber("current angle",
+//                this::getAngle);
 //        Shuffleboard.getTab("Arc").addNumber("current position ENC",
 //                ()-> components.getEncoder().getCount());
 //        Shuffleboard.getTab("Arc").addNumber("current ERROR ENC",
