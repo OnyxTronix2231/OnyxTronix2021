@@ -200,6 +200,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        driveTrain.setNeutralModeToBrake();
         selectedAutonomousCommand = autonomousChooser.getSelected();
         if (selectedAutonomousCommand != null) {
             selectedAutonomousCommand.schedule();

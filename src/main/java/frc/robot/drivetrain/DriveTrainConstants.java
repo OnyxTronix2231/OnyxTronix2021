@@ -81,23 +81,23 @@ public final class DriveTrainConstants {
         public static final Path PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(5.6, 0.9, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
+                new Pose2d(5.4, 0.9, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(1),
                 new MaxVelocityConstraint(1));
 
         public static final Path PRIORITY_PATH_B = new Path(
                 PRIORITY_PATH_A.getEndPose(),
                 List.of(),
                 new Pose2d(5.2, 0.9, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(1)).setReversed();
+                new CentripetalAccelerationConstraint(0.5),
+                new MaxVelocityConstraint(0.5)).setReversed();
 
         public static final Path PRIORITY_PATH_C = new Path(
                 PRIORITY_PATH_B.getEndPose(),
                 List.of(),
-                new Pose2d(5.6, 0.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(1));
+                new Pose2d(5.5, 0.5, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(0.5),
+                new MaxVelocityConstraint(0.5));
 
         public static final Path PRIORITY_PATH_D = new Path(
                 PRIORITY_PATH_C.getEndPose(),
@@ -105,7 +105,7 @@ public final class DriveTrainConstants {
                         new Translation2d(4.6, 3.8)
                 ),
                 new Pose2d(4.3, 6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(2),
+                new CentripetalAccelerationConstraint(1),
                 new MaxVelocityConstraint(2)).setReversed();
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
@@ -141,14 +141,14 @@ public final class DriveTrainConstants {
                 List.of(),
                 new Pose2d(6.7, 7.5, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
-                new MaxVelocityConstraint(3));
+                new MaxVelocityConstraint(2));
 
         public static final Path THREE_BALLS_OUR_TRENCH_B = new Path(
                 THREE_BALLS_OUR_TRENCH_A.getEndPose(),
                 List.of(),
                 new Pose2d(7.6, 7.5, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
-                new MaxVelocityConstraint(3));
+                new MaxVelocityConstraint(2));
 
     }
 }
