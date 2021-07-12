@@ -10,6 +10,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.commands.ResetOdometryToPose;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.CalibrateRevolver;
 import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
@@ -26,7 +27,7 @@ public class MoveFromLineAndShoot extends SequentialCommandGroup {
                                 YawControl yawControl){
         super(
         new CalibrateArc(arc),
-        new SpinRevolverUntilLimitSwitch(revolver),
+        new CalibrateRevolver(revolver),
         new ResetOdometryToPose(driveTrain, NEUTRAL_START),
         new MoveByPath(driveTrain, ONE_METER_FORWARD),
         new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver));

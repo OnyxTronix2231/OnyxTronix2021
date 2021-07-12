@@ -8,10 +8,10 @@ import java.util.function.DoubleSupplier;
 public class MoveArcByDistance extends MoveArcAndCloseByTrigger{
 
     public MoveArcByDistance(Arc arc, Trigger closeArc, DoubleSupplier distanceSupplier) {
-        super(arc, closeArc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble()));
+        super(arc, closeArc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble() + 20));
     }
 
     public MoveArcByDistance(Arc arc, DoubleSupplier distanceSupplier) {
-        super(arc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble()));
+        super(arc, () -> arc.distanceMetersToAngle(distanceSupplier.getAsDouble() + 20));
     }
 }

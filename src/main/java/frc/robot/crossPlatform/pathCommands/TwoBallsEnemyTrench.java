@@ -20,6 +20,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.commands.ResetOdometryToPose;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.CalibrateRevolver;
 import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
@@ -32,7 +33,7 @@ public class TwoBallsEnemyTrench extends SequentialCommandGroup {
                                YawControl yawControl) {
         super(new ResetOdometryToPose(driveTrain, PRIORITY_PATH_A.getStartPose()),
                 new CalibrateArc(arc),
-                new SpinRevolverUntilLimitSwitch(revolver),
+                new CalibrateRevolver(revolver),
                 new MoveByPath(driveTrain, PRIORITY_PATH_A).
                         raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                                 () -> TESTING_SPEED_COLLECTOR)),
