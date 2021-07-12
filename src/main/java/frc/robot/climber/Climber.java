@@ -76,7 +76,5 @@ public class Climber extends SubsystemBase {
     public void resetEncoderByAbsoluteValue() {
         components.getMasterMotor().getSensorCollection().setIntegratedSensorPosition(0, TIME_OUT);
         components.getMasterMotor().setSelectedSensorPosition(0);
-        components.getSlaveMotor().getSensorCollection().setIntegratedSensorPosition(0, TIME_OUT);
-        components.getSlaveMotor().setSelectedSensorPosition(0);
     }
 }

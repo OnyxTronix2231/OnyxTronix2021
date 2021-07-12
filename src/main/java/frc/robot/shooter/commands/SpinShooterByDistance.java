@@ -7,6 +7,6 @@ import java.util.function.DoubleSupplier;
 public class SpinShooterByDistance extends SpinShooterByRPM {
 
     public SpinShooterByDistance(Shooter shooter, DoubleSupplier distanceSupplier) {
-        super(shooter, () -> shooter.distanceMetersToRPM(distanceSupplier.getAsDouble() + 15));
+        super(shooter, () -> shooter.distanceMetersToRPM(distanceSupplier.getAsDouble()));
     }
 }

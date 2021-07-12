@@ -90,7 +90,7 @@ public class DriveTrain extends SubsystemBase {
         if (Robot.isReal()) {
             virtualComponents.getDifferentialDrive().arcadeDrive(speed *
                             arcadeDriveSensitivity,
-                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, true);
+                    rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
         } else {
             virtualComponents.getSimDifferentialDrive().arcadeDrive(speed * ARCADE_DRIVE_SENSITIVITY,
                     rotationSpeed * ARCADE_DRIVE_ROTATION_SENSITIVITY, false);
