@@ -21,7 +21,7 @@ public final class DriveTrainConstants {
     public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
     public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
     public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.5; // TODO: check value
-    public static final double ARCADE_DRIVE_SENSITIVITY = 0.8; // TODO: check value
+    public static final double ARCADE_DRIVE_SENSITIVITY = 0.65; // TODO: check value
     static final int DECISECOND_IN_SECOND = 10;
     static final int VOLTS = 12;
     static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6; // TODO: check value
@@ -95,7 +95,7 @@ public final class DriveTrainConstants {
         public static final Path PRIORITY_PATH_C = new Path(
                 PRIORITY_PATH_B.getEndPose(),
                 List.of(),
-                new Pose2d(5.5, 0.6, Rotation2d.fromDegrees(0)),
+                new Pose2d(5.55, 0.6, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(0.5),
                 new MaxVelocityConstraint(2));
 
@@ -105,7 +105,7 @@ public final class DriveTrainConstants {
                         new Translation2d(4.6, 3.8)
                 ),
                 new Pose2d(4.3, 6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(2),
+                new CentripetalAccelerationConstraint(1),
                 new MaxVelocityConstraint(2)).setReversed();
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
@@ -139,16 +139,16 @@ public final class DriveTrainConstants {
         public static final Path THREE_BALLS_OUR_TRENCH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(6.7, 7.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
+                new Pose2d(4, 7.5, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2));
 
         public static final Path THREE_BALLS_OUR_TRENCH_B = new Path(
                 THREE_BALLS_OUR_TRENCH_A.getEndPose(),
                 List.of(),
-                new Pose2d(7.6, 7.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(3),
-                new MaxVelocityConstraint(3));
+                new Pose2d(7.5, 7.5, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2));
 
     }
 }

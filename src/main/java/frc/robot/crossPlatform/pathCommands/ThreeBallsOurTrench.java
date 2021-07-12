@@ -2,8 +2,7 @@ package frc.robot.crossPlatform.pathCommands;
 
 import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED_COLLECTOR;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
-import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.THREE_BALLS_OUR_TRENCH_A;
-import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.THREE_BALLS_OUR_TRENCH_B;
+import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.*;
 import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -41,8 +40,6 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
