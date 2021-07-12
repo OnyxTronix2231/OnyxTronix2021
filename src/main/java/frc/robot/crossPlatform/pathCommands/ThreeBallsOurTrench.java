@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
+import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.AutonomousShootBalls;
@@ -20,6 +22,7 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.commands.ResetOdometryToPose;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
@@ -31,6 +34,8 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                                BallTrigger ballTrigger, Shooter shooter, Arc arc, Vision vision,
                                YawControl yawControl) {
         super(
+                new CalibrateArc(arc),
+                new SpinRevolverUntilLimitSwitch(revolver),
                 new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,

@@ -15,7 +15,7 @@ public final class MainVisionConstants {
     public static final double DISTANCE_OUTER_TO_FIELD_ZERO_CM = 580.6186;
     public static final double DISTANCE_BETWEEN_OUTER_INNER_TARGET_CM = 74;
     public static final double OUTER_TARGET_HEIGHT_CM = 224;  // 225
-    public static final double INNER_TARGET_HEIGHT_CM = 250;
+    public static final double INNER_TARGET_HEIGHT_CM = 255;
     public static final double ROBOT_TO_TURRET_DISTANCE_CM = 10.511;
 
     // default vectors

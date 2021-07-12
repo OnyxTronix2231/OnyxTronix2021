@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MAX_POSSIBLE_DISTANCE;
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.MIN_POSSIBLE_DISTANCE;
-import static frc.robot.climber.ClimberConstants.ClimberConstantsA.TOLERANCE;
+import static frc.robot.climber.ClimberConstants.ClimberConstantsA.*;
 import static frc.robot.climber.ClimberConstants.DECISECONDS_IN_MIN;
 import static frc.robot.climber.ClimberConstants.ENCODER_UNITS_PER_ROTATION;
 
@@ -21,11 +19,11 @@ public class Climber extends SubsystemBase {
     public Climber(ClimberComponents components) {
         this.components = components;
 
-        components.getEncoder().reset();
-        components.getMasterMotor().configForwardSoftLimitEnable(true);
-        components.getMasterMotor().configForwardSoftLimitThreshold(MAX_POSSIBLE_DISTANCE);
-        components.getMasterMotor().configReverseSoftLimitEnable(true);
-        components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
+        resetEncoderByAbsoluteValue();
+        //components.getMasterMotor().configForwardSoftLimitEnable(true);
+        //components.getMasterMotor().configForwardSoftLimitThreshold(MAX_POSSIBLE_DISTANCE);
+//        components.getMasterMotor().configReverseSoftLimitEnable(true);
+//        components.getMasterMotor().configReverseSoftLimitThreshold(MIN_POSSIBLE_DISTANCE);
 
 //        Shuffleboard.getTab("Climber").addNumber("current pos", ()-> components.getEncoder().getCount());
 //        Shuffleboard.getTab("Climber").addNumber("current velocity", ()-> components.getEncoder().getRate());
@@ -73,5 +71,12 @@ public class Climber extends SubsystemBase {
     public void stopMotor() {
         moveBySpeed(0);
         components.getController().disable();
+    }
+
+    public void resetEncoderByAbsoluteValue() {
+        components.getMasterMotor().getSensorCollection().setIntegratedSensorPosition(0, TIME_OUT);
+        components.getMasterMotor().setSelectedSensorPosition(0);
+        components.getSlaveMotor().getSensorCollection().setIntegratedSensorPosition(0, TIME_OUT);
+        components.getSlaveMotor().setSelectedSensorPosition(0);
     }
 }

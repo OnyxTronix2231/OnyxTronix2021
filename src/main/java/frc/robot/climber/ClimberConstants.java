@@ -21,6 +21,7 @@ public class ClimberConstants {
         static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0;
         static final double STATOR_CURRENT_LIMIT = 0;
+        static final int TIME_OUT = 100;
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_TIME = 0;
         static final double CLOSED_LOOP_RAMP = 0;
