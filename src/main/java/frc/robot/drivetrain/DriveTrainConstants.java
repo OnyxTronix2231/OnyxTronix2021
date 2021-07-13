@@ -81,32 +81,32 @@ public final class DriveTrainConstants {
         public static final Path PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(5.5, 0.9, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(1),
+                new Pose2d(5.47, 0.9, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
 
         public static final Path PRIORITY_PATH_B = new Path(
                 PRIORITY_PATH_A.getEndPose(),
                 List.of(),
                 new Pose2d(5, 0.6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(0.5),
+                new CentripetalAccelerationConstraint(1),
                 new MaxVelocityConstraint(1)).setReversed();
 
         public static final Path PRIORITY_PATH_C = new Path(
                 PRIORITY_PATH_B.getEndPose(),
                 List.of(),
-                new Pose2d(5.55, 0.6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(0.5),
+                new Pose2d(5.52, 0.6, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
 
         public static final Path PRIORITY_PATH_D = new Path(
                 PRIORITY_PATH_C.getEndPose(),
                 List.of(
-                        new Translation2d(4.6, 3.8)
+                        new Translation2d(4.3, 3.8)
                 ),
-                new Pose2d(4.3, 6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(1),
-                new MaxVelocityConstraint(2)).setReversed();
+                new Pose2d(4.2, 6, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2.5)).setReversed();
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,

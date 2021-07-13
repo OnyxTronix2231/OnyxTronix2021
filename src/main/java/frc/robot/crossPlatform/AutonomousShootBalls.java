@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.CloseArc;
 import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.collector.Collector;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.CalibrateRevolver;
 import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;

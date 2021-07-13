@@ -5,6 +5,7 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.
 import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.*;
 import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -34,9 +35,10 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                                BallTrigger ballTrigger, Shooter shooter, Arc arc, Vision vision,
                                YawControl yawControl) {
         super(
-                new CalibrateArc(arc),
-                new CalibrateRevolver(revolver),
                 new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
+                new ParallelCommandGroup(
+                        new CalibrateArc(arc),
+                        new CalibrateRevolver(revolver)),
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),

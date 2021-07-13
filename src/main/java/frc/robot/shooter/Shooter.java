@@ -96,6 +96,10 @@ public class Shooter extends SubsystemBase {
             return isBallShot;
         }
 
+        public double getRPM(){
+            return encoderUnitsInDecisecondToRPM(this.components.getEncoder().getRate());
+        }
+
         public boolean isOnTarget() {
             return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
         }
