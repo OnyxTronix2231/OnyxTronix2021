@@ -20,7 +20,7 @@ public final class DriveTrainConstants {
 
     public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
     public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
-    public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.3; // TODO: check value
+    public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.4; // TODO: check value
     public static final double ARCADE_DRIVE_SENSITIVITY = 0.65; // TODO: check value
     static final int DECISECOND_IN_SECOND = 10;
     static final int VOLTS = 12;
@@ -149,6 +149,13 @@ public final class DriveTrainConstants {
                 new Pose2d(7.5, 7.5, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
+
+        public static final Path THREE_BALLS_OUR_TRENCH_C = new Path(
+                THREE_BALLS_OUR_TRENCH_B.getEndPose(),
+                List.of(),
+                new Pose2d(6, 7.5, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2)).setReversed();
 
     }
 }

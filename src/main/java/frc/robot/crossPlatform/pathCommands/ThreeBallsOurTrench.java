@@ -41,11 +41,14 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
-                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B)
+                        .raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_C)
+                        .raceWith(new CollectAndSpinRevolver(collector,
+                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver)
                 );
     }

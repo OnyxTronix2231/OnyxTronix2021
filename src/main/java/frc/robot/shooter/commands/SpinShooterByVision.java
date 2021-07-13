@@ -8,7 +8,7 @@ public class SpinShooterByVision extends ActByVision {
 
     public SpinShooterByVision(Shooter shooter, Vision vision) {
         super(new SpinShooterByDistance(shooter, () -> vision.getChosenTarget() == null ?
-               0 : vision.getOuterTarget().getAirDistanceTurretToTarget()), vision);
+               0 : vision.getChosenTarget().getAirDistanceTurretToTarget()), vision);
     }
 
     @Override
