@@ -6,13 +6,16 @@ import static frc.robot.crossPlatform.CrossPlatformConstants.TriggerConstantsA.B
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.MoveArcByDistance;
 import frc.robot.arc.commands.MoveArcByVision;
+import frc.robot.arc.commands.MoveArcToAngle;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.commands.SpinRevolverByRPM;
 import frc.robot.shooter.Shooter;
+import frc.robot.shooter.commands.SpinShooterByRPM;
 import frc.robot.shooter.commands.SpinShooterByVision;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
@@ -28,10 +31,9 @@ class AutonomousShootBallLogic extends ParallelCommandGroup {
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new SequentialCommandGroup(new MoveTurretToTargetArea(yawControl),
                        new SmartMoveTurretToTargetArea(yawControl, vision)),
-                new MoveArcByVision(arc,vision),
-                new SpinShooterByVision(shooter, vision),
+                new MoveArcToAngle(arc, () -> 52), //52
+                new SpinShooterByRPM(shooter, () -> 4050), //4050
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
-                        ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget,
-                        ()-> vision.getChosenTarget() != null));
+                        ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
     }
 }

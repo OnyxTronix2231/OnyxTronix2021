@@ -39,12 +39,12 @@ public class TwoBallsEnemyTrench extends SequentialCommandGroup {
                 new MoveByPath(driveTrain, PRIORITY_PATH_A).
                         raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                                 () -> TESTING_SPEED_COLLECTOR)),
-                new MoveByPath(driveTrain, PRIORITY_PATH_B).
-                        raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                                () -> TESTING_SPEED_COLLECTOR)),
-                new MoveByPath(driveTrain, PRIORITY_PATH_C).
-                        raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                                () -> TESTING_SPEED_COLLECTOR)),
+//                new MoveByPath(driveTrain, PRIORITY_PATH_B).
+//                        raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                                () -> TESTING_SPEED_COLLECTOR)),
+//                new MoveByPath(driveTrain, PRIORITY_PATH_C).
+//                        raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+//                                () -> TESTING_SPEED_COLLECTOR)),
                 new MoveByPath(driveTrain, PRIORITY_PATH_D).
                         raceWith(new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                                 () -> TESTING_SPEED_COLLECTOR)),

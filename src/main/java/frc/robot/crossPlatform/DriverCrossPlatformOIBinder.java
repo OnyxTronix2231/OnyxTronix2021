@@ -22,7 +22,7 @@ public class DriverCrossPlatformOIBinder {
     public DriverCrossPlatformOIBinder(Collector collector, DriveTrain driveTrain, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                        YawControl yawControl, Shooter shooter, Vision vision,
                                        Trigger collectAndLoadRevolver, Trigger shootBallTrigger,
-                                       JoystickAxis shootClose) {
+                                       JoystickAxis shootClose, Trigger shootAutonomously) {
         collectAndLoadRevolver.whileActiveOnce(new CollectAndSpinRevolver(collector, revolver,
                 () -> REVOLVER_RPM_WHILE_COLLECTING, () -> TESTING_SPEED_COLLECTOR));
         new SlowDriveTrainButton(driveTrain, collectAndLoadRevolver);
@@ -32,5 +32,7 @@ public class DriverCrossPlatformOIBinder {
         shootBallTrigger.whenInactive(new WaitAndThenCalibrateRevolver(revolver));
 
         shootClose.whileActiveContinuous(new ShootBallClose(shooter, yawControl, ballTrigger, revolver));
+
+        shootAutonomously.whenActive(new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver));
     }
 }

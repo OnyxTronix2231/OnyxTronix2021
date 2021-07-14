@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 public class OpenAndCollect extends ParallelCommandGroup {
 
     public OpenAndCollect(Collector collector, DoubleSupplier speedSupplier) {
-        super(new OpenCollectorPistons(collector), new CollectBySpeed(collector, speedSupplier));
+        super(new OpenCollectorPistons(collector));
+                //new CollectBySpeed(collector, speedSupplier));
     }
 }

@@ -100,7 +100,7 @@ public final class DriveTrainConstants {
                 new MaxVelocityConstraint(2));
 
         public static final Path PRIORITY_PATH_D = new Path(
-                PRIORITY_PATH_C.getEndPose(),
+                PRIORITY_PATH_A.getEndPose(),
                 List.of(
                         new Translation2d(4.3, 3.8)
                 ),
