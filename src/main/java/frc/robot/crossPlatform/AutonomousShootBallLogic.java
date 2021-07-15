@@ -31,8 +31,8 @@ class AutonomousShootBallLogic extends ParallelCommandGroup {
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
                 new SequentialCommandGroup(new MoveTurretToTargetArea(yawControl),
                        new SmartMoveTurretToTargetArea(yawControl, vision)),
-                new MoveArcToAngle(arc, () -> 52), //52
-                new SpinShooterByRPM(shooter, () -> 4050), //4050
+                new MoveArcByVision(arc, vision),
+                new SpinShooterByVision(shooter, vision),
                 new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
                         ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget));
     }
