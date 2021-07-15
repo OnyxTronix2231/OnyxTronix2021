@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.arc.Arc;
 import frc.robot.arc.commands.MoveArcByDistance;
 import frc.robot.arc.commands.MoveArcByVision;
-import frc.robot.arc.commands.MoveArcToAngle;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.commands.ControlBallTriggerByConditions;
 import frc.robot.ballTrigger.commands.SpinBallTriggerByRPM;
