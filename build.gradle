@@ -59,7 +59,7 @@ dependencies {
     testImplementation(platform('org.junit:junit-bom:5.7.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
 
-    compile 'com.github.OnyxTronix2231:Lib-FRC:master-SNAPSHOT'
+    compile 'com.github.OnyxTronix2231:Lib-FRC:FIX-PS5Controller-SNAPSHOT'
     // Enable simulation gui support. Must check the box in vscode to enable support
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)

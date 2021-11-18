@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
@@ -17,54 +16,57 @@ import frc.robot.shooter.Shooter;
 import frc.robot.turret.DriverTurretOiBinder;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
+import joysticks.ConsoleController;
+import joysticks.OnyxXboxController;
+import joysticks.PlayStation5Controller;
 import onyxTronix.JoystickAxis;
 
 import static frc.robot.RobotConstants.DRIVER_JOYSTICK_PORT;
 
 public class DriverOI {
 
-    XboxController xboxController;
+    ConsoleController controller;
 
     public DriverOI() {
-        xboxController = new XboxController(DRIVER_JOYSTICK_PORT);
+            controller = new PlayStation5Controller(DRIVER_JOYSTICK_PORT);
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        Trigger slowButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DriveTrainOiBinder(driveTrain, xboxController, slowButton);
+        Trigger slowButton = new JoystickButton(controller, controller.getButtonRight());
+        new DriveTrainOiBinder(driveTrain, controller, slowButton);
         return this;
     }
 
     public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                         YawControl yawControl, Shooter shooter, Vision vision) {
-        Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
-        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
-        JoystickAxis shootClose = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
+        Trigger collectAndLoadRevolver = new JoystickButton(controller, controller.getBumperRight());
+        Trigger shootBall = new JoystickButton(controller, controller.getBumperLeft());
+        JoystickAxis shootClose = new JoystickAxis(controller, controller.getLeftTrigger());
         new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
                 collectAndLoadRevolver, shootBall, shootClose);
         return this;
     }
 
     public DriverOI withArc(Arc arc){
-        Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
+        Trigger calibrateArc = new JoystickButton(controller, controller.getCenterRight());
         new DriverArcOiBinders(arc, calibrateArc);
         return this;
     }
 
     public DriverOI withCollector(Collector collector){
-        JoystickAxis closeBallCollector = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
+        JoystickAxis closeBallCollector = new JoystickAxis(controller, controller.getRightTrigger());
         new DriverCollectorOiBinder(collector, closeBallCollector);
         return this;
     }
 
     public DriverOI withTurret(YawControl yawControl){
-        Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        Trigger centerTurret = new JoystickButton(controller, controller.getButtonDown());
         new DriverTurretOiBinder(yawControl, centerTurret);
         return this;
     }
 
     public DriverOI withBallTrigger(BallTrigger ballTrigger){
-        Trigger open = new JoystickButton(xboxController, XboxController.Button.kY.value);
+        Trigger open = new JoystickButton(controller, controller.getButtonUp());
         new DriverBallTriggerOiBinder(ballTrigger, open);
         return this;
     }
