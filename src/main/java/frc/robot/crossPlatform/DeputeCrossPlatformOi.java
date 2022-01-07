@@ -10,8 +10,8 @@ import static frc.robot.ballTrigger.BallTriggerConstants.BACKWARD_BALL_TRIGGER_R
 
 public class DeputeCrossPlatformOi {
 
-    public DeputeCrossPlatformOi(BallTrigger ballTrigger, Shooter shooter, Trigger moveTrigger){
+    public DeputeCrossPlatformOi(BallTrigger ballTrigger, Trigger moveTrigger){
         moveTrigger.whileActiveContinuous(new SpinBallTriggerByRPM(ballTrigger, ()-> BACKWARD_BALL_TRIGGER_RPM)
-                .alongWith(new SpinShooterBySpeed(shooter, ()-> -0.3)));
+                .alongWith(new SpinShooterBySpeed(()-> -0.3)));
     }
 }

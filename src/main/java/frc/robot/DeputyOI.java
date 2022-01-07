@@ -73,7 +73,7 @@ public class DeputyOI {
 
     public DeputyOI withCrossPlatform(BallTrigger ballTrigger, Shooter shooter){
         Trigger moveBallTrigger = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DeputeCrossPlatformOi(ballTrigger, shooter, moveBallTrigger);
+        new DeputeCrossPlatformOi(ballTrigger, moveBallTrigger);
         return this;
     }
 }

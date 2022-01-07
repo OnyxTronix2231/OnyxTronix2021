@@ -7,22 +7,20 @@ import java.util.function.DoubleSupplier;
 
 public class SpinShooterBySpeed extends CommandBase {
 
-    private final Shooter shooter;
     private final DoubleSupplier speedSupplier;
 
-    public SpinShooterBySpeed(Shooter shooter, DoubleSupplier speedSupplier) {
-        this.shooter = shooter;
+    public SpinShooterBySpeed(DoubleSupplier speedSupplier) {
         this.speedSupplier = speedSupplier;
-        addRequirements(shooter);
+        addRequirements(Shooter.getInstance());
     }
 
     @Override
     public void execute() {
-        shooter.moveBySpeed(speedSupplier.getAsDouble());
+        Shooter.getInstance().moveBySpeed(speedSupplier.getAsDouble());
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.stop();
+        Shooter.getInstance().stop();
     }
 }

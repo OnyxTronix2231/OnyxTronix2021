@@ -9,15 +9,23 @@ import static frc.robot.shooter.ShooterConstants.TOLERANCE_RPM;
 
 public class Shooter extends SubsystemBase {
 
-    private final ShooterComponents components;
-    private final ShooterShuffleboard shooterShuffleboard;
+    private static Shooter shooter;
+    private ShooterComponents components;
+    private ShooterShuffleboard shooterShuffleboard;
 
     private double lastRPMError;
 
-    public Shooter(ShooterComponents components) {
+    public static Shooter getInstance(){
+        if(shooter == null){
+            shooter = new Shooter();
+        }
+        return shooter;
+    }
+
+    public void init(ShooterComponents components){
         this.components = components;
         initIsBallShot();
-        shooterShuffleboard = new ShooterShuffleboard(components);
+        shooterShuffleboard = new ShooterShuffleboard(this.components);
     }
 
     @Override

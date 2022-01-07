@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
 
     private HttpCamera limeLightFeed;
     DriveTrain driveTrain;
-    Shooter shooter;
     Arc arc;
     Collector collector;
     Revolver revolver;
@@ -121,7 +120,7 @@ public class Robot extends TimedRobot {
         }
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
-        shooter = new Shooter(shooterComponents);
+        Shooter.getInstance().init(shooterComponents);
         arc = new Arc(arcComponents);
         collector = new Collector(collectorComponents);
         revolver = new Revolver(revolverComponents);
@@ -129,9 +128,9 @@ public class Robot extends TimedRobot {
         yawControl = new YawControl(turretComponents, driveTrain);
         climber = new Climber(climberComponents);
         vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
-        enemyTrenchAutonomous = new TwoBallsEnemyTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+        enemyTrenchAutonomous = new TwoBallsEnemyTrench(driveTrain, collector, revolver, ballTrigger, Shooter.getInstance(), arc,
                 vision, yawControl);
-        ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+        ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver, ballTrigger, Shooter.getInstance(), arc,
                 vision, yawControl);
         autonomousChooser.setDefaultOption("Enemy Trench (align to left ball", enemyTrenchAutonomous);
         autonomousChooser.addOption("Our Trench", ourTrenchAutonomous);
@@ -140,7 +139,7 @@ public class Robot extends TimedRobot {
         DeputyOI deputyOI = new DeputyOI();
 
         driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
+                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, Shooter.getInstance(), vision)
                 .withCollector(collector)
                 .withArc(arc)
                 .withTurret(yawControl)
@@ -151,10 +150,10 @@ public class Robot extends TimedRobot {
                 .withArc(arc)
                 .withCollector(collector)
                 .withTurret(yawControl)
-                .withCrossPlatform(ballTrigger, shooter)
+                .withCrossPlatform(ballTrigger, Shooter.getInstance())
                 .withDriveTrain(driveTrain);
 
-        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
+        new MainShuffleboardTab(Shooter.getInstance(), revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
                 cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
         SmartDashboard.putData(autonomousChooser);
     }
