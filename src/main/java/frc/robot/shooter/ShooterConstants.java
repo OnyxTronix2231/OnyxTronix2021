@@ -1,5 +1,7 @@
 package frc.robot.shooter;
 
+import static frc.robot.shooter.ShooterConstants.ShooterConstantsA.MAX_VELOCITY;
+
 public final class ShooterConstants {
 
     static final int MIDDLE_DISTANCE = 230;
@@ -33,9 +35,22 @@ public final class ShooterConstants {
 
     public static final class ShooterCalculation { // TODO: change
 
-        static double FORMULA(double distance) {
+        static double formula(double distance) {
             return 0.0019 * Math.pow(distance, 2) + 2.0558 * distance + 2884.8;
             // old formula 0.0038 * Math.pow(distance, 2) + 0.677 * distance + 3119.2;
+        }
+
+        static double RPMToEncoderUnitsInDecisecond(double rpm) {
+            return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
+        }
+
+        static double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+            return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+        }
+
+        static double distanceMetersToRPM(double distance) {
+            return Math.min(ShooterConstants.ShooterCalculation.formula(distance),
+                    encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
         }
     }
 }

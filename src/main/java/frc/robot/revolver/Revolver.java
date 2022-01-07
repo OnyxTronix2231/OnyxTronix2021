@@ -1,11 +1,9 @@
 package frc.robot.revolver;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.revolver.RevolverConstants.*;
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.REGULAR_AMP;
+import static frc.robot.revolver.RevolverConstants.RevolverComponents.REGULAR_AMP;
 
 public class Revolver extends SubsystemBase {
 

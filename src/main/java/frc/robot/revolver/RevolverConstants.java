@@ -30,7 +30,10 @@ public final class RevolverConstants {
     static final double BALL_FIVE_POS_FIRST = 50396;
     static final double BALL_FIVE_POS_SECOND = 54332;
 
-    public static final class RevolverComponentsA {
+    public static final class RevolverSubsystem {
+    }
+
+    public static final class RevolverComponents {
 
         static final int MASTER_MOTOR_ID = 11;
         static final int HALL_EFECT_PORT = 2;

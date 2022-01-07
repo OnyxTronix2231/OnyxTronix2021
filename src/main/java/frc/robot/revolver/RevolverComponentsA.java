@@ -10,7 +10,7 @@ import pid.interfaces.PIDController;
 import sensors.counter.Counter;
 import sensors.counter.CtreEncoder;
 
-import static frc.robot.revolver.RevolverConstants.RevolverComponentsA.*;
+import static frc.robot.revolver.RevolverConstants.RevolverComponents.*;
 
 public class RevolverComponentsA implements RevolverComponents {
 

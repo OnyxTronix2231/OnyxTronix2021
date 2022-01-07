@@ -11,24 +11,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.camera.CameraComponents;
-import frc.robot.camera.CameraComponentsA;
-import frc.robot.climber.BasicClimberComponentsA;
-import frc.robot.climber.Climber;
-import frc.robot.climber.ClimberComponents;
-import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
-import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
-import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.DriveTrainComponents;
 import frc.robot.arc.Arc;
 import frc.robot.arc.ArcComponents;
 import frc.robot.arc.ArcComponentsA;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.BallTriggerComponents;
 import frc.robot.ballTrigger.BallTriggerComponentsA;
+import frc.robot.camera.CameraComponents;
+import frc.robot.camera.CameraComponentsA;
+import frc.robot.climber.BasicClimberComponentsA;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberComponents;
 import frc.robot.collector.Collector;
 import frc.robot.collector.CollectorComponents;
 import frc.robot.collector.CollectorComponentsA;
+import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
+import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
 import frc.robot.drivetrain.*;
 import frc.robot.revolver.Revolver;
 import frc.robot.revolver.RevolverComponents;
@@ -96,8 +94,7 @@ public class Robot extends TimedRobot {
             if (Robot.isReal()) {
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
                 simulationDriveTrainComponents = null;
-            }
-            else {
+            } else {
                 simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
                 driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
             }
@@ -125,7 +122,7 @@ public class Robot extends TimedRobot {
 
         driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
         shooter = new Shooter(shooterComponents);
-        arc= new Arc(arcComponents);
+        arc = new Arc(arcComponents);
         collector = new Collector(collectorComponents);
         revolver = new Revolver(revolverComponents);
         ballTrigger = new BallTrigger(ballTriggerComponents);
@@ -195,7 +192,6 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
     }
-
 
 
     @Override
