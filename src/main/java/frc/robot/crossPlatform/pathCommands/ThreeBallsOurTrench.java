@@ -2,14 +2,16 @@ package frc.robot.crossPlatform.pathCommands;
 
 import static frc.robot.crossPlatform.CrossPlatformConstants.CollectorConstantsA.TESTING_SPEED_COLLECTOR;
 import static frc.robot.crossPlatform.CrossPlatformConstants.ConveyorConstantsA.REVOLVER_RPM_WHILE_COLLECTING;
-import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.THREE_BALLS_OUR_TRENCH_A;
-import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.THREE_BALLS_OUR_TRENCH_B;
+import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargePaths.*;
 import static frc.robot.drivetrain.DriveTrainConstants.InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.arc.Arc;
+import frc.robot.arc.commands.CalibrateArc;
+import frc.robot.arc.commands.MoveArcAndCloseByTrigger;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.collector.Collector;
 import frc.robot.crossPlatform.AutonomousShootBalls;
@@ -20,6 +22,8 @@ import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.commands.MoveByPath;
 import frc.robot.drivetrain.commands.ResetOdometryToPose;
 import frc.robot.revolver.Revolver;
+import frc.robot.revolver.commands.CalibrateRevolver;
+import frc.robot.revolver.commands.SpinRevolverUntilLimitSwitch;
 import frc.robot.shooter.Shooter;
 import frc.robot.vision.visionMainChallenge.Vision;
 import frc.robot.yawControll.YawControl;
@@ -32,17 +36,21 @@ public class ThreeBallsOurTrench extends SequentialCommandGroup {
                                YawControl yawControl) {
         super(
                 new ResetOdometryToPose(driveTrain, SECOND_PRIORITY_PATH_START),
+                new ParallelCommandGroup(
+                        new CalibrateArc(arc),
+                        new CalibrateRevolver(revolver)),
                 new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_A).raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver),
-                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B).raceWith(new CollectAndSpinRevolver(collector,
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_B)
+                        .raceWith(new CollectAndSpinRevolver(collector,
                         revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
                         () -> TESTING_SPEED_COLLECTOR)),
-                new CollectAndSpinRevolver(collector, revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
-                        () -> TESTING_SPEED_COLLECTOR).raceWith(new WaitCommand(3)),
+                new MoveByPath(driveTrain, THREE_BALLS_OUR_TRENCH_C)
+                        .raceWith(new CollectAndSpinRevolver(collector,
+                        revolver, () -> REVOLVER_RPM_WHILE_COLLECTING,
+                        () -> TESTING_SPEED_COLLECTOR)),
                 new AutonomousShootBalls(ballTrigger, vision, arc, yawControl, shooter, revolver)
                 );
     }

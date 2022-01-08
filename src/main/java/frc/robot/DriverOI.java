@@ -35,13 +35,14 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
+    public DriverOI withCrossPlatformOi(Collector collector, DriveTrain driveTrain, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                         YawControl yawControl, Shooter shooter, Vision vision) {
         Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
         Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
         JoystickAxis shootClose = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
-        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
-                collectAndLoadRevolver, shootBall, shootClose);
+        Trigger shootAutonomously = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        new DriverCrossPlatformOIBinder(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision,
+                collectAndLoadRevolver, shootBall, shootClose, shootAutonomously);
         return this;
     }
 

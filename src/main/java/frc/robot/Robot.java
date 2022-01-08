@@ -16,6 +16,7 @@ import frc.robot.camera.CameraComponentsA;
 import frc.robot.climber.BasicClimberComponentsA;
 import frc.robot.climber.Climber;
 import frc.robot.climber.ClimberComponents;
+import frc.robot.crossPlatform.pathCommands.MoveFromLineAndShoot;
 import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
 import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
 import frc.robot.drivetrain.DriveTrain;
@@ -66,6 +67,7 @@ public class Robot extends TimedRobot {
     Climber climber;
     Command enemyTrenchAutonomous;
     Command ourTrenchAutonomous;
+    Command moveFromLineAndShoot;
     SendableChooser<Command> autonomousChooser = new SendableChooser<>();
     Command selectedAutonomousCommand;
 
@@ -136,14 +138,17 @@ public class Robot extends TimedRobot {
                 vision, yawControl);
         ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
                 vision, yawControl);
-        autonomousChooser.setDefaultOption("Enemy Trench (align to left ball", enemyTrenchAutonomous);
+        moveFromLineAndShoot = new MoveFromLineAndShoot(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        autonomousChooser.setDefaultOption("move from line shoot", moveFromLineAndShoot);
         autonomousChooser.addOption("Our Trench", ourTrenchAutonomous);
+        autonomousChooser.addOption("Enemy Trench (align to left ball)", enemyTrenchAutonomous);
 
         DriverOI driverOI = new DriverOI();
         DeputyOI deputyOI = new DeputyOI();
 
         driverOI.withDriveTrainOi(driveTrain)
-                .withCrossPlatformOi(collector, ballTrigger, revolver, arc, yawControl, shooter, vision)
+                .withCrossPlatformOi(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision)
                 .withCollector(collector)
                 .withArc(arc)
                 .withTurret(yawControl)

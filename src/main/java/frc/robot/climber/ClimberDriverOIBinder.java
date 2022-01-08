@@ -8,6 +8,6 @@ import onyxTronix.JoystickAxis;
 public class ClimberDriverOIBinder {
 
     public ClimberDriverOIBinder(Climber climber, JoystickAxis climbBySpeed) {
-        climbBySpeed.whileActiveOnce(new ClimbBySpeed(climber, () -> -climbBySpeed.getRawAxis() * MAX_JOYSTICK_OUTPUT));
+        climbBySpeed.whileActiveOnce(new ClimbBySpeed(climber, () -> climbBySpeed.getRawAxis() * MAX_JOYSTICK_OUTPUT * -1));
     }
 }
