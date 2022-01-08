@@ -13,7 +13,7 @@ import sensors.counter.CtreEncoder;
 import static frc.robot.Roulette.RouletteConstants.MASTER_MOTOR_ID;
 import static frc.robot.Roulette.RouletteConstants.RouletteConstantsA.*;
 import static frc.robot.Roulette.RouletteConstants.SOLENOID_ID;
-//why does this class exist if never used?
+
 public class RouletteComponentsA implements RouletteComponents {
 
     private final WPI_TalonSRX masterMotor;
