@@ -4,16 +4,48 @@
 
 package frc.robot;
 
-import static frc.robot.RobotConstants.ROBOT_TYPE;
-
+import edu.wpi.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.drivetrain.BasicDriveTrainComponentsA;
+import frc.robot.camera.CameraComponents;
+import frc.robot.camera.CameraComponentsA;
+import frc.robot.climber.BasicClimberComponentsA;
+import frc.robot.climber.Climber;
+import frc.robot.climber.ClimberComponents;
+import frc.robot.crossPlatform.pathCommands.MoveFromLineAndShoot;
+import frc.robot.crossPlatform.pathCommands.ThreeBallsOurTrench;
+import frc.robot.crossPlatform.pathCommands.TwoBallsEnemyTrench;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainComponents;
+import frc.robot.arc.Arc;
+import frc.robot.arc.ArcComponents;
+import frc.robot.arc.ArcComponentsA;
+import frc.robot.ballTrigger.BallTrigger;
+import frc.robot.ballTrigger.BallTriggerComponents;
+import frc.robot.ballTrigger.BallTriggerComponentsA;
+import frc.robot.collector.Collector;
+import frc.robot.collector.CollectorComponents;
+import frc.robot.collector.CollectorComponentsA;
+import frc.robot.drivetrain.*;
+import frc.robot.revolver.Revolver;
+import frc.robot.revolver.RevolverComponents;
+import frc.robot.revolver.RevolverComponentsA;
+import frc.robot.shooter.Shooter;
+import frc.robot.shooter.ShooterComponents;
+import frc.robot.shooter.ShooterComponentsA;
+import frc.robot.turret.TurretComponents;
+import frc.robot.turret.TurretComponentsA;
+import frc.robot.vision.visionMainChallenge.Vision;
+import frc.robot.yawControll.YawControl;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static frc.robot.RobotConstants.ROBOT_TYPE;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,7 +55,22 @@ import java.util.TimerTask;
  */
 public class Robot extends TimedRobot {
 
+    private HttpCamera limeLightFeed;
     DriveTrain driveTrain;
+    Shooter shooter;
+    Arc arc;
+    Collector collector;
+    Revolver revolver;
+    BallTrigger ballTrigger;
+    YawControl yawControl;
+    Vision vision;
+    Climber climber;
+    Command enemyTrenchAutonomous;
+    Command ourTrenchAutonomous;
+    Command moveFromLineAndShoot;
+    SendableChooser<Command> autonomousChooser = new SendableChooser<>();
+    Command selectedAutonomousCommand;
+
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -31,18 +78,93 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        limeLightFeed = new HttpCamera("limelight", "http://limelight.local:5800/stream.mjpg");
+
+        LiveWindow.disableAllTelemetry();
+        CameraComponents cameraComponents;
         DriveTrainComponents driveTrainComponents;
+        SimulationDriveTrainComponents simulationDriveTrainComponents;
+        DriveTrainVirtualComponents driveTrainVirtualComponents;
+        ShooterComponents shooterComponents;
+        ArcComponents arcComponents;
+        CollectorComponents collectorComponents;
+        RevolverComponents revolverComponents;
+        BallTriggerComponents ballTriggerComponents;
+        TurretComponents turretComponents;
+        ClimberComponents climberComponents;
 
         if (ROBOT_TYPE == RobotType.A) {
-            driveTrainComponents = new BasicDriveTrainComponentsA();
+            driveTrainComponents = new DriveTrainComponentsA();
+            if (Robot.isReal()) {
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(driveTrainComponents);
+                simulationDriveTrainComponents = null;
+            }
+            else {
+                simulationDriveTrainComponents = new SimulationDriveTrainComponentsA();
+                driveTrainVirtualComponents = new DriveTrainVirtualComponentsA(simulationDriveTrainComponents);
+            }
+            cameraComponents = new CameraComponentsA();
+            shooterComponents = new ShooterComponentsA();
+            arcComponents = new ArcComponentsA();
+            collectorComponents = new CollectorComponentsA();
+            revolverComponents = new RevolverComponentsA();
+            ballTriggerComponents = new BallTriggerComponentsA();
+            turretComponents = new TurretComponentsA();
+            climberComponents = new BasicClimberComponentsA();
         } else {
+            cameraComponents = null;
             driveTrainComponents = null;
+            simulationDriveTrainComponents = null;
+            driveTrainVirtualComponents = null;
+            shooterComponents = null;
+            collectorComponents = null;
+            revolverComponents = null;
+            ballTriggerComponents = null;
+            turretComponents = null;
+            arcComponents = null;
+            climberComponents = null;
         }
 
-        driveTrain = new DriveTrain(driveTrainComponents);
+        driveTrain = new DriveTrain(driveTrainComponents, simulationDriveTrainComponents, driveTrainVirtualComponents);
+        shooter = new Shooter(shooterComponents);
+        arc= new Arc(arcComponents);
+        collector = new Collector(collectorComponents);
+        revolver = new Revolver(revolverComponents);
+        ballTrigger = new BallTrigger(ballTriggerComponents);
+        yawControl = new YawControl(turretComponents, driveTrain);
+        climber = new Climber(climberComponents);
+        vision = new Vision(() -> driveTrain.getHeading(), () -> yawControl.getTurretAngleRTF());
+        enemyTrenchAutonomous = new TwoBallsEnemyTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        ourTrenchAutonomous = new ThreeBallsOurTrench(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        moveFromLineAndShoot = new MoveFromLineAndShoot(driveTrain, collector, revolver, ballTrigger, shooter, arc,
+                vision, yawControl);
+        autonomousChooser.setDefaultOption("move from line shoot", moveFromLineAndShoot);
+        autonomousChooser.addOption("Our Trench", ourTrenchAutonomous);
+        autonomousChooser.addOption("Enemy Trench (align to left ball)", enemyTrenchAutonomous);
 
-        new DriverOI(driveTrain);
-        new DeputyOI();
+        DriverOI driverOI = new DriverOI();
+        DeputyOI deputyOI = new DeputyOI();
+
+        driverOI.withDriveTrainOi(driveTrain)
+                .withCrossPlatformOi(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision)
+                .withCollector(collector)
+                .withArc(arc)
+                .withTurret(yawControl)
+                .withBallTrigger(ballTrigger);
+
+        deputyOI.withClimber(climber)
+                .withRevolver(revolver)
+                .withArc(arc)
+                .withCollector(collector)
+                .withTurret(yawControl)
+                .withCrossPlatform(ballTrigger, shooter)
+                .withDriveTrain(driveTrain);
+
+        new MainShuffleboardTab(shooter, revolver, ballTrigger, arc, vision, yawControl, limeLightFeed,
+                cameraComponents.getFirstCamera(), cameraComponents.getSecondCamera());
+        SmartDashboard.putData(autonomousChooser);
     }
 
     /**
@@ -59,6 +181,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
         // block in order for anything in the Command-based framework to work.
         CommandScheduler.getInstance().run();
+        vision.update();
     }
 
     /**
@@ -69,7 +192,7 @@ public class Robot extends TimedRobot {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                driveTrain.setNeutralModeToCoast();
+                if (isDisabled()) driveTrain.setNeutralModeToCoast();
             }
         }, 3000);
     }
@@ -79,9 +202,14 @@ public class Robot extends TimedRobot {
     }
 
 
+
     @Override
     public void autonomousInit() {
-
+        driveTrain.setNeutralModeToBrake();
+        selectedAutonomousCommand = autonomousChooser.getSelected();
+        if (selectedAutonomousCommand != null) {
+            selectedAutonomousCommand.schedule();
+        }
     }
 
     /**
@@ -94,6 +222,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         driveTrain.setNeutralModeToBrake();
+        if (selectedAutonomousCommand != null) {
+            selectedAutonomousCommand.cancel();
+        }
     }
 
     /**
