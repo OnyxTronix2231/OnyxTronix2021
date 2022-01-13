@@ -151,7 +151,7 @@ public class Robot extends TimedRobot {
                 .withCrossPlatformOi(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision)
                 .withCollector(collector)
                 .withArc(arc)
-                .withTurret(yawControl)
+                .withTurret(yawControl, vision)
                 .withBallTrigger(ballTrigger);
 
         deputyOI.withClimber(climber)

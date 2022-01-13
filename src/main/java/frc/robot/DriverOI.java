@@ -58,9 +58,9 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI withTurret(YawControl yawControl){
+    public DriverOI withTurret(YawControl yawControl, Vision vision){
         Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DriverTurretOiBinder(yawControl, centerTurret);
+        new DriverTurretOiBinder(yawControl, vision, centerTurret);
         return this;
     }
 

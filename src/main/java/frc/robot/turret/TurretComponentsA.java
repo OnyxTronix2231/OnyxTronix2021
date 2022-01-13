@@ -24,7 +24,6 @@ public class TurretComponentsA implements TurretComponents {
         motor.configFactoryDefault();
         motor.configAllSettings(getTalonSRXConfiguration());
         motor.setNeutralMode(NeutralMode.Coast);
-        motor.enableCurrentLimit(CURRENT_LIMIT_ENABLED);
         motor.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         motor.setSelectedSensorPosition( motor.getSensorCollection().getAnalogInRaw() - ENCODER_OFFSET, 0, 0);
         motor.setInverted(true);
