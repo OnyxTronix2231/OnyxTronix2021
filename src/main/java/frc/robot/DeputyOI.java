@@ -57,8 +57,8 @@ public class DeputyOI {
     }
 
     public DeputyOI withRevolver(Revolver revolver){
-        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
-        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
+        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
+        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kLeftBumper.value);
         Trigger resetRevolver = new JoystickButton(xboxController, XboxController.Button.kX.value);
         new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards, resetRevolver);
         return this;

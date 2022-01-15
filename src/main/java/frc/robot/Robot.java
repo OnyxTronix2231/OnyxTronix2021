@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.HttpCamera;
+import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;

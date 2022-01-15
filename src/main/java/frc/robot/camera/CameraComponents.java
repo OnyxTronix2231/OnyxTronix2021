@@ -1,6 +1,7 @@
 package frc.robot.camera;
 
-import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.cscore.UsbCamera;
 
 public interface CameraComponents {
 
