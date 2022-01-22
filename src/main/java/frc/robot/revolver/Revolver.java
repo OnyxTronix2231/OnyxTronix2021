@@ -26,6 +26,7 @@ public class Revolver extends SubsystemBase {
 //                () -> components.getMotor().getSelectedSensorVelocity());
 //        Shuffleboard.getTab("Revolver").addNumber("Current RPM",
 //                () -> encoderUnitsInDecisecondToRPM(components.getMotor().getSelectedSensorVelocity()));
+          Shuffleboard.getTab("Test").addNumber("EncPos",() -> components.getMotor().getSensorCollection().getIntegratedSensorAbsolutePosition());
 
 //        kpEntry = Shuffleboard.getTab("Revolver").add("kP",
 //                components.getPIDController().getPIDFTerms().getKp()).getEntry();
