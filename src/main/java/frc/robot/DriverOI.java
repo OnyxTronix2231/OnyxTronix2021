@@ -42,13 +42,14 @@ public class DriverOI {
         Trigger collectAndLoadRevolver = new JoystickButton(controller, controller.getBumperRight());
         Trigger shootBall = new JoystickButton(controller, controller.getBumperLeft());
         JoystickAxis shootClose = new JoystickAxis(controller, controller.getLeftTrigger());
-        new DriverCrossPlatformOIBinder(collector, ballTrigger, revolver, arc, yawControl, shooter, vision,
+
+        new DriverCrossPlatformOIBinder(collector, driveTrain,ballTrigger, revolver, arc, yawControl, shooter, vision,
                 collectAndLoadRevolver, shootBall, shootClose);
         return this;
     }
 
     public DriverOI withArc(Arc arc){
-        Trigger calibrateArc = new JoystickButton(controller, controller.getCenterRight());
+        Trigger calibrateArc = new JoystickButton(controller, controller.getStickRight());
         new DriverArcOiBinders(arc, calibrateArc);
         return this;
     }
@@ -59,9 +60,9 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI withTurret(YawControl yawControl){
+    public DriverOI withTurret(YawControl yawControl, Vision vision){
         Trigger centerTurret = new JoystickButton(controller, controller.getButtonDown());
-        new DriverTurretOiBinder(yawControl, centerTurret);
+        new DriverTurretOiBinder(yawControl, vision,centerTurret);
         return this;
     }
 

@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2022.1.1"
+    id "edu.wpi.first.GradleRIO" version "2022.2.1"
 }
 
 repositories {
@@ -69,7 +69,7 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    implementation 'com.github.OnyxTronix2231:Lib-FRC:master-SNAPSHOT'
+    implementation 'com.github.OnyxTronix2231:Lib-FRC:FIX-PS5Controller-SNAPSHOT'
 
     testImplementation 'junit:junit:4.12'
 }

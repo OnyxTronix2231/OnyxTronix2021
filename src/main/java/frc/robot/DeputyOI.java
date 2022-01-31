@@ -20,59 +20,61 @@ import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.DeputeTurretOiBinder;
 import frc.robot.turret.Turret;
+import joysticks.ConsoleController;
+import joysticks.OnyxXboxController;
 import onyxTronix.JoystickAxis;
 
 public class DeputyOI {
 
-    XboxController xboxController;
+    ConsoleController controller;
 
     public DeputyOI(){
-        xboxController = new XboxController(DEPUTY_JOYSTICK_PORT);
+        controller = new OnyxXboxController(DEPUTY_JOYSTICK_PORT);
     }
 
     public DeputyOI withClimber(Climber climber) {
-        JoystickAxis clime = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
+        JoystickAxis clime = new JoystickAxis(controller, controller.getAxisLeftY());
         new ClimberDriverOIBinder(climber, clime);
         return this;
     }
 
     public DeputyOI withDriveTrain(DriveTrain driveTrain){
-        Trigger slowButton = new JoystickButton(xboxController, XboxController.Button.kA.value);
+        Trigger slowButton = new JoystickButton(controller, controller.getButtonDown());
         new DeputeDriveTrainOiBinder(driveTrain, slowButton);
         return this;
     }
 
     public DeputyOI withTurret(Turret turret){
-        JoystickAxis moveLeft = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
-        JoystickAxis moveRight = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
+        JoystickAxis moveLeft = new JoystickAxis(controller, controller.getLeftTrigger());
+        JoystickAxis moveRight = new JoystickAxis(controller, controller.getRightTrigger());
         new DeputeTurretOiBinder(turret, moveLeft, moveRight);
         return this;
     }
 
     public DeputyOI withArc(Arc arc){
-        JoystickAxis moveArc = new JoystickAxis(xboxController, XboxController.Axis.kRightY.value);
-        Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
+        JoystickAxis moveArc = new JoystickAxis(controller, controller.getAxisRightY());
+        Trigger calibrateArc = new JoystickButton(controller, controller.getCenterRight());
         new DeputeArcOiBinder(arc, moveArc, calibrateArc);
         return this;
     }
 
     public DeputyOI withRevolver(Revolver revolver){
-        Trigger spinForward = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
-        Trigger spinBackwards = new JoystickButton(xboxController, XboxController.Button.kLeftBumper.value);
-        Trigger resetRevolver = new JoystickButton(xboxController, XboxController.Button.kX.value);
+        Trigger spinForward = new JoystickButton(controller, controller.getBumperRight());
+        Trigger spinBackwards = new JoystickButton(controller, controller.getBumperLeft());
+        Trigger resetRevolver = new JoystickButton(controller, controller.getButtonLeft());
         new DeputeRevolverOiBinder(revolver, spinForward, spinBackwards, resetRevolver);
         return this;
     }
 
     public DeputyOI withCollector(Collector collector){
-        Trigger closeCollector = new JoystickButton(xboxController, XboxController.Button.kY.value);
-        Trigger ejectBall = new JoystickButton(xboxController, XboxController.Button.kBack.value);
+        Trigger closeCollector = new JoystickButton(controller, controller.getButtonUp());
+        Trigger ejectBall = new JoystickButton(controller, controller.getCenterLeft());
         new DeputeCollectorOiBinder(collector, closeCollector, ejectBall);
         return this;
     }
 
     public DeputyOI withCrossPlatform(BallTrigger ballTrigger, Shooter shooter){
-        Trigger moveBallTrigger = new JoystickButton(xboxController, XboxController.Button.kB.value);
+        Trigger moveBallTrigger = new JoystickButton(controller, controller.getButtonRight());
         new DeputeCrossPlatformOi(ballTrigger, shooter, moveBallTrigger);
         return this;
     }
