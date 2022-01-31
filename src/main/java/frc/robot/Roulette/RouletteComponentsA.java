@@ -3,6 +3,7 @@ package frc.robot.Roulette;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import pid.CtreMotionMagicController;
 import pid.PIDFTerms;
@@ -24,7 +25,7 @@ public class RouletteComponentsA implements RouletteComponents {
     public RouletteComponentsA() {
         masterMotor = new WPI_TalonSRX(MASTER_MOTOR_ID);
         masterMotor.configFactoryDefault();
-        solenoid = new Solenoid(SOLENOID_ID);
+        solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, SOLENOID_ID);
         encoder = new CtreEncoder(masterMotor);
         controller = new CtreMotionMagicController(masterMotor, encoder,
                 new PIDFTerms(KP, KI, KD, KF), MAX_ACCELERATION, MAX_CRUISE_VELOCITY, ACCELERATION_SMOOTHING);

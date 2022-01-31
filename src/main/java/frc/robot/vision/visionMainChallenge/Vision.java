@@ -1,10 +1,12 @@
 package frc.robot.vision.visionMainChallenge;
 
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.vision.BaseVision;
 import frc.robot.vision.Vector2dEx;
+import vision.limelight.enums.LimelightLedMode;
 
 import java.util.function.DoubleSupplier;
 
@@ -27,6 +29,7 @@ public class Vision extends BaseVision {
         currentPos = new Pose2d(0, 0, currentRotation);
         outerTarget = new OuterTarget(limelight, turretAngleRTF, gyroYawAngle);
         innerTarget = new InnerTarget(outerTarget, limelight, turretAngleRTF, gyroYawAngle);
+        limelight.setLedMode(LimelightLedMode.forceOn);
 //        Shuffleboard.getTab("Vision").addNumber("turret angle", this.turretAngleRTF);
 //        Shuffleboard.getTab("Vision").addNumber("gyro", gyroYawAngle);
         /* Shuffleboard.getTab("Vision").addNumber("Distance to outer target",

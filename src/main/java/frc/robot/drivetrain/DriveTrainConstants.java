@@ -1,13 +1,14 @@
 package frc.robot.drivetrain;
 
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
-import edu.wpi.first.wpilibj.trajectory.constraint.MaxVelocityConstraint;
-import edu.wpi.first.wpilibj.util.Units;
+
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.trajectory.constraint.CentripetalAccelerationConstraint;
+import edu.wpi.first.math.trajectory.constraint.MaxVelocityConstraint;
+import edu.wpi.first.math.util.Units;
 import frc.robot.drivetrain.utils.Path;
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
@@ -20,11 +21,11 @@ public final class DriveTrainConstants {
 
     public static final double WHEEL_DIAMETER_METER = Units.inchesToMeters(6);
     public static final double PERIMETER_METER = WHEEL_DIAMETER_METER * Math.PI;
-    public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.5; // TODO: check value
-    public static final double ARCADE_DRIVE_SENSITIVITY = 0.8; // TODO: check value
+    public static final double ARCADE_DRIVE_BUTTON_SENSITIVITY = 0.4; // TODO: check value
+    public static final double ARCADE_DRIVE_SENSITIVITY = 0.65; // TODO: check value
     static final int DECISECOND_IN_SECOND = 10;
     static final int VOLTS = 12;
-    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.6; // TODO: check value
+    static final double ARCADE_DRIVE_ROTATION_SENSITIVITY = 0.3; // TODO: check value
 
     public static final class DriveTrainSimConstantsA {
         static final double DRIVE_TRAIN_MASS = 54;
@@ -55,9 +56,9 @@ public final class DriveTrainConstants {
 
         public static final double TRAJECTORY_P = 0;
         public static final double ENCODER_CPR = ENCODER_UNITS * CONVERSION_RATE;
-        public static final double MAX_SPEED_METERS_PER_SECOND = 2.5; // TODO: Calibration with A
+        public static final double MAX_SPEED_METERS_PER_SECOND = 4.5; // TODO: Calibration with A
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3; // TODO: Calibration with A
-        public static final double TRACKWIDTH_METERS = 0.7;
+        public static final double TRACKWIDTH_METERS = 0.69;
         public static final Pose2d START_POSE = SECOND_PRIORITY_PATH_START;
         private static final double KS = 0.738;
         private static final double KV = 2.08;
@@ -81,32 +82,30 @@ public final class DriveTrainConstants {
         public static final Path PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(5.4, 0.9, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(1),
-                new MaxVelocityConstraint(1));
+                new Pose2d(5.47, 0.9, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2));
 
         public static final Path PRIORITY_PATH_B = new Path(
                 PRIORITY_PATH_A.getEndPose(),
                 List.of(),
-                new Pose2d(5.2, 0.9, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(0.5),
-                new MaxVelocityConstraint(0.5)).setReversed();
+                new Pose2d(5, 0.6, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(1),
+                new MaxVelocityConstraint(1)).setReversed();
 
         public static final Path PRIORITY_PATH_C = new Path(
                 PRIORITY_PATH_B.getEndPose(),
                 List.of(),
-                new Pose2d(5.5, 0.5, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(0.5),
-                new MaxVelocityConstraint(0.5));
+                new Pose2d(5.52, 0.6, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2));
 
         public static final Path PRIORITY_PATH_D = new Path(
-                PRIORITY_PATH_C.getEndPose(),
-                List.of(
-                        new Translation2d(4.6, 3.8)
-                ),
-                new Pose2d(4.3, 6, Rotation2d.fromDegrees(0)),
-                new CentripetalAccelerationConstraint(1),
-                new MaxVelocityConstraint(2)).setReversed();
+                PRIORITY_PATH_A.getEndPose(),
+                List.of(new Translation2d(4.3, 3.8)),
+                new Pose2d(4.2, 6, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2.5)).setReversed();
 
         public static final Path SECOND_PRIORITY_PATH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
@@ -139,16 +138,23 @@ public final class DriveTrainConstants {
         public static final Path THREE_BALLS_OUR_TRENCH_A = new Path(
                 InfiniteRechargeStartPoints.SECOND_PRIORITY_PATH_START,
                 List.of(),
-                new Pose2d(6.7, 7.5, Rotation2d.fromDegrees(0)),
+                new Pose2d(4, 7.5, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
 
         public static final Path THREE_BALLS_OUR_TRENCH_B = new Path(
                 THREE_BALLS_OUR_TRENCH_A.getEndPose(),
                 List.of(),
-                new Pose2d(7.6, 7.5, Rotation2d.fromDegrees(0)),
+                new Pose2d(7.5, 7.5, Rotation2d.fromDegrees(0)),
                 new CentripetalAccelerationConstraint(2),
                 new MaxVelocityConstraint(2));
+
+        public static final Path THREE_BALLS_OUR_TRENCH_C = new Path(
+                THREE_BALLS_OUR_TRENCH_B.getEndPose(),
+                List.of(),
+                new Pose2d(6, 7.5, Rotation2d.fromDegrees(0)),
+                new CentripetalAccelerationConstraint(2),
+                new MaxVelocityConstraint(2)).setReversed();
 
     }
 }

@@ -4,7 +4,7 @@ public class ClimberConstants {
 
     static final int DECISECONDS_IN_MIN = 600;
     static final double ENCODER_UNITS_PER_ROTATION = 2048;
-    static final double MAX_JOYSTICK_OUTPUT = 0.7;
+    static final double MAX_JOYSTICK_OUTPUT = 0.8;
 
     public static class ClimberConstantsA {
 
@@ -21,6 +21,7 @@ public class ClimberConstants {
         static final double SUPPLY_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double SUPPLY_TRIGGER_THRESHOLD_TIME = 0;
         static final double STATOR_CURRENT_LIMIT = 0;
+        static final int TIME_OUT = 100;
         static final double STATOR_TRIGGER_THRESHOLD_CURRENT = 0;
         static final double STATOR_TRIGGER_THRESHOLD_TIME = 0;
         static final double CLOSED_LOOP_RAMP = 0;

@@ -3,6 +3,7 @@ package frc.robot.collector;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.collector.commands.CloseCollectorPistons;
 import frc.robot.collector.commands.CollectBySpeed;
+import frc.robot.collector.commands.OpenCollectorPistons;
 
 import static frc.robot.collector.CollectorConstants.BallCollectorConstantsA.COLLECTION_EJECT_SPEED;
 

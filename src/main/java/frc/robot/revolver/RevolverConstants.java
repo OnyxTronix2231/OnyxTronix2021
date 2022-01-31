@@ -5,6 +5,7 @@ public final class RevolverConstants {
     public static final double UNCLOG_SPEED = -0.15;
     public static final double UNCLOG_CHECK_DELAY = 0.3;
     public static final double UNCLOG_TIME = 0.8;
+    public static final double DELAY_CALIBRATE_TIME = 0.5; // second
     public static final double WAIT_REVOLVER = 1;
     public static final int REVOLVER_SLOW_SPIN_RPM = 30;
     static final int DECISECOND_IN_MIN = 600;

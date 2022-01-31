@@ -37,7 +37,7 @@ public class DriverOI {
         return this;
     }
 
-    public DriverOI withCrossPlatformOi(Collector collector, BallTrigger ballTrigger, Revolver revolver, Arc arc,
+    public DriverOI withCrossPlatformOi(Collector collector, DriveTrain driveTrain, BallTrigger ballTrigger, Revolver revolver, Arc arc,
                                         YawControl yawControl, Shooter shooter, Vision vision) {
         Trigger collectAndLoadRevolver = new JoystickButton(controller, controller.getBumperRight());
         Trigger shootBall = new JoystickButton(controller, controller.getBumperLeft());
