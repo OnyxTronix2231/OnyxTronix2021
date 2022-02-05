@@ -37,7 +37,7 @@ public final class DriveTrainConstants {
     static final int accelerationSmoothing = 0;
     static final double tolerance = 0.5;
 
-    public static final Pose2d TARGET_POSE = new Pose2d(1,1, new Rotation2d());
+    public static final Pose2d TARGET_POSE = new Pose2d(2,2, new Rotation2d());
 
     public static final double TRAJECTORY_P = 0;
     public static final double ENCODER_UNITS_PER_ROTATION = ENCODER_UNITS * CONVERSION_RATE;

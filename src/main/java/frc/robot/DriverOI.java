@@ -7,17 +7,13 @@ import frc.robot.arc.Arc;
 import frc.robot.arc.DriverArcOiBinders;
 import frc.robot.ballTrigger.BallTrigger;
 import frc.robot.ballTrigger.DriverBallTriggerOiBinder;
-import frc.robot.collector.Collector;
-import frc.robot.collector.DriverCollectorOiBinder;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
 import frc.robot.crossPlatform.ShootWhileDrivingCalc;
 import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.DriveTrainOiBinder;
 import frc.robot.drivetrain.DriverDriveTrainOiBinders;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
-import frc.robot.turret.DriverTurretOiBinder;
-import frc.robot.vision.visionMainChallenge.Vision;
+
 import frc.robot.yawControll.YawControl;
 import onyxTronix.JoystickAxis;
 

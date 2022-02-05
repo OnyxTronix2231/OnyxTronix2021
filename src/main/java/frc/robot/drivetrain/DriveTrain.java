@@ -35,6 +35,9 @@ public class DriveTrain extends SubsystemBase {
         SmartDashboard.putData(driveTrainComponents.getField());
         resetEncoders();
         driveTrainComponents.getField().setRobotPose(new Pose2d(7,10,new Rotation2d(80)));
+
+        Shuffleboard.getTab("main").addNumber("x", ()->getPose().getX());
+        Shuffleboard.getTab("main").addNumber("y", ()->getPose().getY());
     }
 
     public void resetEncoders(){

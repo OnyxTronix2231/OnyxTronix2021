@@ -25,12 +25,12 @@ public class YawControl extends Turret {
         turretState = TurretState.RTR;
 //        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTR",()-> getAngleRTR());
 //        Shuffleboard.getTab("Turret").addNumber("Encoder units",()-> turretComponents.getEncoder().getCount());
-        Shuffleboard.getTab("Turret").addNumber("Turret Angle RTF", this::getTurretAngleRTF);
+        Shuffleboard.getTab("main").addNumber("Turret Angle RTF", this::getTurretAngleRTF);
 //        Shuffleboard.getTab("Turret").addString("Turret State",()-> turretState.toString());
-        Shuffleboard.getTab("Turret").addNumber("Angle", this::getAngleToTargetByPose);
-        Shuffleboard.getTab("Turret").addNumber("Robot angle", driveTrain::getHeading);
-        Shuffleboard.getTab("Turret").addNumber("x", ()->driveTrain.getPose().getX());
-        Shuffleboard.getTab("Turret").addNumber("y", ()->driveTrain.getPose().getY());
+        Shuffleboard.getTab("main").addNumber("wanted Angle", this::getAngleToTargetByPose);
+//        Shuffleboard.getTab("Turret").addNumber("Robot angle", driveTrain::getHeading);
+//        Shuffleboard.getTab("Turret").addNumber("x", ()->driveTrain.getPose().getX());
+//        Shuffleboard.getTab("Turret").addNumber("y", ()->driveTrain.getPose().getY());
     }
 
     public double getTurretAngleRTF() {
@@ -72,9 +72,14 @@ public class YawControl extends Turret {
         HOMING
     }
 
+    @Override
+    public void periodic() {
+        System.out.println(isOnTarget());
+    }
+
     public double getAngleToTargetByPose() {
         Pose2d currentPos = driveTrain.getPose();
-        double angle = Math.toDegrees(Math.atan(-(currentPos.getY() - TARGET_POS.getY())/
+        double angle = Math.toDegrees(Math.atan((currentPos.getY() - TARGET_POS.getY())/
                 (currentPos.getX() - TARGET_POS.getX())));
         if (currentPos.getX() > TARGET_POS.getX())
             angle += 180;

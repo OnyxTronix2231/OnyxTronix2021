@@ -24,11 +24,8 @@ public class ShootBall extends ParallelCommandGroup {
         super(
                 new SpinBallTriggerByRPM(ballTrigger, () -> BALL_TRIGGER_RPM),
                 new SpinRevolverByRPM(revolver, () -> REVOLVER_RPM_WHILE_SHOOTING),
-                new SequentialCommandGroup(
                 new SpinShooterByRPM(shooter, ()-> shooter.getSpeedShooterRPM(shootWhileDrivingCalc)),
-                new ControlBallTriggerByConditions(ballTrigger, shooter::isOnTarget, revolver::isOnTarget,
-                        ballTrigger::isOnTarget, arc::isOnTarget, yawControl::isOnTarget,
-                        revolver::isHallEffectOnTarget)));
+                new ControlBallTriggerByConditions(ballTrigger, yawControl::isOnTarget, ballTrigger::isOnTarget));
         shootBall.whenInactive(new CloseArc(arc));
     }
 }
