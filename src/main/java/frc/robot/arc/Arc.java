@@ -9,13 +9,15 @@ import static frc.robot.arc.ArcConstants.REAL_MAX_POSSIBLE_ANGLE;
 import static frc.robot.arc.ArcConstants.TIME_OUT;
 import static frc.robot.arc.ArcConstants.TOLERANCE_ANGLE;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.arc.ArcConstants.ArcCalculation;
+import frc.robot.arc.commands.MoveArcToAngle;
+import frc.robot.crossPlatform.ShootWhileDrivingCalc;
+import frc.robot.drivetrain.DriveTrain;
 
 public class Arc extends SubsystemBase {
 
+    private ShootWhileDrivingCalc shootWhileDrivingCalc;
     private final ArcComponents components;
 //    private final NetworkTableEntry kP;
 //    private final NetworkTableEntry kI;
@@ -35,6 +37,7 @@ public class Arc extends SubsystemBase {
         components.getMotor().configReverseSoftLimitThreshold(angleToEncoderUnits(MIN_POSSIBLE_ANGLE));
 
         resetEncoderByAbsoluteValue();
+        shootWhileDrivingCalc = null;
 
 //        Shuffleboard.getTab("Arc").addNumber("Current velocity",
 //                () -> components.getEncoder().getRate());
@@ -106,6 +109,10 @@ public class Arc extends SubsystemBase {
         return Math.min(ArcCalculation.FORMULA_DISTANCE_FAR(distance), REAL_MAX_POSSIBLE_ANGLE);
     }
 
+    public double getFixedAngle(ShootWhileDrivingCalc shootWhileDrivingCalc){
+        return shootWhileDrivingCalc.getArcFixedAngle();
+    }
+
     public double angleToEncoderUnits(double angle) {
         return (angle / ANGLE_PER_MOTOR_ROTATION) * ENCODER_UNITS_PER_ROTATION;
     }
@@ -139,6 +146,12 @@ public class Arc extends SubsystemBase {
         components.getMotor().getSensorCollection().setPulseWidthPosition(0, TIME_OUT);
         components.getMotor().setSelectedSensorPosition(0);
     }
+
+    public void setShootWhileDrivingCalc(ShootWhileDrivingCalc shootWhileDrivingCalc) {
+        this.shootWhileDrivingCalc = shootWhileDrivingCalc;
+        setDefaultCommand(new MoveArcToAngle(this, ()-> this.getFixedAngle(this.shootWhileDrivingCalc)));
+    }
+
 
 //    public double getTestAngle(){
 //        return angleTest.getDouble(20);

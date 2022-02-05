@@ -1,32 +1,33 @@
 package frc.robot.drivetrain.commands;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.trajectory.Trajectory;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.drivetrain.DriveTrain;
-import frc.robot.drivetrain.utils.Path;
+import frc.robot.drivetrain.Path;
 
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
 
+import static frc.robot.drivetrain.DriveTrainConstants.*;
 public class MoveByPath extends CommandBase {
     private final DriveTrain driveTrain;
     private final Trajectory trajectory;
-    private OnyxRamseteCommand command;
+    private RamseteCommand command;
 
     public MoveByPath(DriveTrain driveTrain, Path path) {
         this.driveTrain = driveTrain;
-        trajectory = path.toTrajectory();
+        trajectory = path.toTrajectory(driveTrain.getPose());
         addRequirements(driveTrain);
     }
 
     @Override
     public void initialize() {
-        command = new OnyxRamseteCommand(
+        command = new RamseteCommand(
                 trajectory,
                 driveTrain::getPose,
                 new RamseteController(),
-                FEEDFORWARD,
                 FEEDFORWARD,
                 DRIVE_KINEMATICS,
                 driveTrain::getWheelSpeeds,
@@ -54,3 +55,4 @@ public class MoveByPath extends CommandBase {
         driveTrain.stopDrive();
     }
 }
+

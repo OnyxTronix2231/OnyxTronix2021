@@ -10,8 +10,10 @@ import frc.robot.ballTrigger.DriverBallTriggerOiBinder;
 import frc.robot.collector.Collector;
 import frc.robot.collector.DriverCollectorOiBinder;
 import frc.robot.crossPlatform.DriverCrossPlatformOIBinder;
+import frc.robot.crossPlatform.ShootWhileDrivingCalc;
 import frc.robot.drivetrain.DriveTrain;
 import frc.robot.drivetrain.DriveTrainOiBinder;
+import frc.robot.drivetrain.DriverDriveTrainOiBinders;
 import frc.robot.revolver.Revolver;
 import frc.robot.shooter.Shooter;
 import frc.robot.turret.DriverTurretOiBinder;
@@ -30,41 +32,26 @@ public class DriverOI {
     }
 
     public DriverOI withDriveTrainOi(DriveTrain driveTrain) {
-        Trigger slowButton = new JoystickButton(xboxController, XboxController.Button.kB.value);
-        new DriveTrainOiBinder(driveTrain, xboxController, slowButton);
+        JoystickAxis leftJoystick = new JoystickAxis(xboxController, XboxController.Axis.kLeftY.value);
+        JoystickAxis rightJoystick = new JoystickAxis(xboxController, XboxController.Axis.kRightX.value);
+        new DriverDriveTrainOiBinders(driveTrain, leftJoystick, rightJoystick);
         return this;
     }
 
-    public DriverOI withCrossPlatformOi(Collector collector, DriveTrain driveTrain, BallTrigger ballTrigger, Revolver revolver, Arc arc,
-                                        YawControl yawControl, Shooter shooter, Vision vision) {
-        Trigger collectAndLoadRevolver = new JoystickButton(xboxController, XboxController.Button.kBumperRight.value);
-        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kBumperLeft.value);
-        JoystickAxis shootClose = new JoystickAxis(xboxController, XboxController.Axis.kLeftTrigger.value);
-        Trigger shootAutonomously = new JoystickButton(xboxController, XboxController.Button.kBack.value);
-        new DriverCrossPlatformOIBinder(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision,
-                collectAndLoadRevolver, shootBall, shootClose, shootAutonomously);
+    public DriverOI withCrossPlatformOi(BallTrigger ballTrigger, Revolver revolver, Arc arc,
+                                        YawControl yawControl, Shooter shooter, ShootWhileDrivingCalc shootWhileDrivingCalc) {
+        Trigger shootBall = new JoystickButton(xboxController, XboxController.Button.kLeftBumper.value);
+        new DriverCrossPlatformOIBinder(ballTrigger, revolver, arc, yawControl, shooter, shootBall, shootWhileDrivingCalc);
         return this;
     }
 
-    public DriverOI withArc(Arc arc){
+    public DriverOI withArc(Arc arc) {
         Trigger calibrateArc = new JoystickButton(xboxController, XboxController.Button.kStart.value);
         new DriverArcOiBinders(arc, calibrateArc);
         return this;
     }
 
-    public DriverOI withCollector(Collector collector){
-        JoystickAxis closeBallCollector = new JoystickAxis(xboxController, XboxController.Axis.kRightTrigger.value);
-        new DriverCollectorOiBinder(collector, closeBallCollector);
-        return this;
-    }
-
-    public DriverOI withTurret(YawControl yawControl, Vision vision){
-        Trigger centerTurret = new JoystickButton(xboxController, XboxController.Button.kA.value);
-        new DriverTurretOiBinder(yawControl, vision, centerTurret);
-        return this;
-    }
-
-    public DriverOI withBallTrigger(BallTrigger ballTrigger){
+    public DriverOI withBallTrigger(BallTrigger ballTrigger) {
         Trigger open = new JoystickButton(xboxController, XboxController.Button.kY.value);
         new DriverBallTriggerOiBinder(ballTrigger, open);
         return this;

@@ -1,32 +1,35 @@
 package frc.robot.drivetrain.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.drivetrain.DriveTrain;
 
 import java.util.function.DoubleSupplier;
 
-public class DriveBySpeed extends CommandBase {
+public class DriveByDistance extends CommandBase {
 
-    private final DoubleSupplier speedSupplier;
-    private final DoubleSupplier rotationSupplier;
+    private final DoubleSupplier distance;
     private final DriveTrain driveTrain;
 
-    public DriveBySpeed(DriveTrain driveTrain, DoubleSupplier speedSupplier, DoubleSupplier rotationSupplier) {
-        this.speedSupplier = speedSupplier;
-        this.rotationSupplier = rotationSupplier;
+    public DriveByDistance(DriveTrain driveTrain, DoubleSupplier distance) {
+        this.distance = distance;
         this.driveTrain = driveTrain;
-
         addRequirements(driveTrain);
     }
 
     @Override
+    public void initialize() {
+        driveTrain.inItDriveByDistance(distance.getAsDouble());
+    }
+
+    @Override
     public void execute() {
-        driveTrain.arcadeDrive(speedSupplier.getAsDouble()*(-1)*(0.5), rotationSupplier.getAsDouble()*(0.5));
+        driveTrain.updateDriveByDistance(distance.getAsDouble());
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return driveTrain.isOnTarget();
     }
 
     @Override

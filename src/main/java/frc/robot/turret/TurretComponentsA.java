@@ -4,6 +4,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import pid.CtreMotionMagicController;
 import pid.interfaces.MotionMagicController;
 import sensors.counter.Counter;
@@ -18,6 +20,7 @@ public class TurretComponentsA implements TurretComponents {
     private final WPI_TalonSRX motor;
     private final CtreEncoder encoder;
     private final CtreMotionMagicController controller;
+    private Pose2d currentPos;
 
     public TurretComponentsA() {
         motor = new WPI_TalonSRX(MASTER_MOTOR_ID);
@@ -33,6 +36,16 @@ public class TurretComponentsA implements TurretComponents {
         motor.setNeutralMode(NeutralMode.Brake);
         controller = new CtreMotionMagicController(motor, encoder,
                 KP, KI, KD, KF, MAX_ACCELERATION, CRUISE_VELOCITY, ACCELERATION_SMOOTHING);
+        currentPos = new Pose2d(0,0, new Rotation2d());
+    }
+
+    @Override
+    public Pose2d getCurrentPos() {
+        return currentPos;
+    }
+
+    public void setCurrentPos(Pose2d currentPos) {
+        this.currentPos = currentPos;
     }
 
     @Override
@@ -42,7 +55,7 @@ public class TurretComponentsA implements TurretComponents {
 
     @Override
     public Counter getEncoder() {
-        return encoder;
+            return encoder;
     }
 
     @Override

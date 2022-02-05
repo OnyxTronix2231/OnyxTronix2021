@@ -9,6 +9,7 @@ import static frc.robot.shooter.ShooterConstants.TOLERANCE_RPM;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.crossPlatform.ShootWhileDrivingCalc;
 
 public class Shooter extends SubsystemBase {
 
@@ -69,40 +70,52 @@ public class Shooter extends SubsystemBase {
         components.getController().update(RPMToEncoderUnitsInDecisecond(rpm));
     }
 
-        public double RPMToEncoderUnitsInDecisecond(double rpm) {
-            return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
-        }
-
-        public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
-            return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
-        }
-
-        public double distanceMetersToRPM(double distance) {
-            return Math.min(ShooterConstants.ShooterCalculation.FORMULA(distance),
-                    encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
-        }
-
-        public void initIsBallShot() {
-            lastRPMError = Double.MAX_VALUE;
-        }
-
-        public boolean updateIsBallShot() {
-            boolean isBallShot = false;
-            if (components.getController().getCurrentError() >
-                    MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
-                isBallShot = true;
-            }
-            lastRPMError = components.getController().getCurrentError();
-            return isBallShot;
-        }
-
-        public boolean isOnTarget() {
-            return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
-        }
-
-//        public double getRpm(){
-//            return rpm.getDouble(0);
-//        }
+    public double RPMToEncoderUnitsInDecisecond(double rpm) {
+        return (rpm * ENCODER_UNITS_PER_ROTATION) / DECISECOND_IN_MIN;
     }
+
+    public double encoderUnitsInDecisecondToRPM(double encoderUnits) {
+        return (encoderUnits * DECISECOND_IN_MIN) / ENCODER_UNITS_PER_ROTATION;
+    }
+
+    public double distanceMetersToRPM(double distance) {
+        return Math.min(ShooterConstants.ShooterCalculation.FORMULA(distance),
+                encoderUnitsInDecisecondToRPM(MAX_VELOCITY));
+    }
+
+    public void initIsBallShot() {
+        lastRPMError = Double.MAX_VALUE;
+    }
+
+    public boolean updateIsBallShot() {
+        boolean isBallShot = false;
+        if (components.getController().getCurrentError() >
+                MIN_ERROR_RPM && components.getController().getCurrentError() > lastRPMError) {
+            isBallShot = true;
+        }
+        lastRPMError = components.getController().getCurrentError();
+        return isBallShot;
+    }
+
+    public boolean isOnTarget() {
+        return components.getController().isOnTarget(RPMToEncoderUnitsInDecisecond(TOLERANCE_RPM));
+    }
+
+    public double RPMToMPS(double RPM){
+        return RPM * (0.0508 * 2 * Math.PI) / 60;
+    }
+
+    public double MPSToRPM(double mps){
+        return (60 * mps) / (0.0508 * 2 * Math.PI);
+    }
+
+    public double getSpeedShooterMPS(double distance){
+        return RPMToMPS(distanceMetersToRPM(distance));
+    }
+
+    public double getSpeedShooterRPM(ShootWhileDrivingCalc shootWhileDrivingCalc){
+        return MPSToRPM(shootWhileDrivingCalc.getShooterFixedSpeedMPS());
+    }
+}
 
 

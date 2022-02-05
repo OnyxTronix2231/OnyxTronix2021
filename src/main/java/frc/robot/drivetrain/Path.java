@@ -1,16 +1,17 @@
-package frc.robot.drivetrain.utils;
+package frc.robot.drivetrain;
 
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.trajectory.constraint.TrajectoryConstraint;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.constraint.TrajectoryConstraint;
+
 
 import java.util.Arrays;
 import java.util.List;
 
-import static frc.robot.drivetrain.DriveTrainConstants.TrajectoryConstants.*;
+import static frc.robot.drivetrain.DriveTrainConstants.*;
 
 public class Path {
     private final Pose2d startPose;
