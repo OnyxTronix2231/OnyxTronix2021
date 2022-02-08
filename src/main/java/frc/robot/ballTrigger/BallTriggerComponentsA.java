@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import pid.CtrePIDController;
 import pid.PIDControlMode;
 import pid.PIDFTerms;
@@ -38,7 +39,7 @@ public class BallTriggerComponentsA implements BallTriggerComponents {
         slaveMotor.setInverted(INVERTED);
         slaveMotor.follow(masterMotor);
 
-        solenoid = new DoubleSolenoid(FORWARD_CHANNEL, REVERSE_CHANNEL);
+        solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, FORWARD_CHANNEL, REVERSE_CHANNEL);
 
         encoder = new CtreEncoder(masterMotor);
 

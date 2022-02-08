@@ -1,11 +1,12 @@
 package frc.robot.drivetrain;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
-import edu.wpi.first.wpilibj.system.plant.DCMotor;
+
 
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainComponentsA.CONVERSION_RATE;
 import static frc.robot.drivetrain.DriveTrainConstants.DriveTrainSimConstantsA.DRIVE_TRAIN_MASS;
@@ -22,7 +23,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
 
     public DriveTrainVirtualComponentsA(SimulationDriveTrainComponents simComponents) {
         simDifferentialDrive = new DifferentialDrive(simComponents.getLeftMasterMotor(), simComponents.getRightMasterMotor());
-        simDifferentialDrive.setRightSideInverted(false);
+//        simDifferentialDrive.setRightSideInverted(false);
         simDifferentialDrive.setSafetyEnabled(false);
 
         differentialDrive = null;
@@ -36,7 +37,7 @@ public class DriveTrainVirtualComponentsA implements DriveTrainVirtualComponents
 
     public DriveTrainVirtualComponentsA(DriveTrainComponents components) {
         differentialDrive = new DifferentialDrive(components.getLeftMasterMotor(), components.getRightMasterMotor());
-        differentialDrive.setRightSideInverted(false);
+//        differentialDrive.setRightSideInverted(false);
         differentialDrive.setSafetyEnabled(false);
 
         simDifferentialDrive = null;
