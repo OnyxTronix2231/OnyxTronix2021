@@ -69,7 +69,7 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    implementation 'com.github.OnyxTronix2231:Lib-FRC:master-SNAPSHOT'
+    implementation 'com.github.OnyxTronix2231:Lib-FRC:af9b73b77bff37fefb36c5e1da7498b8dc834c0f'
 
     testImplementation 'junit:junit:4.12'
 }
