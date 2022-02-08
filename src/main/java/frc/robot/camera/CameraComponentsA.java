@@ -1,7 +1,7 @@
 package frc.robot.camera;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 
 import static frc.robot.camera.CameraConstants.*;
 

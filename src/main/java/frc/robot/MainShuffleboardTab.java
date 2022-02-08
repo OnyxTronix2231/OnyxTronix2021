@@ -1,7 +1,8 @@
 package frc.robot;
 
-import edu.wpi.cscore.HttpCamera;
-import edu.wpi.cscore.UsbCamera;
+
+import edu.wpi.first.cscore.HttpCamera;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.arc.Arc;
 import frc.robot.ballTrigger.BallTrigger;

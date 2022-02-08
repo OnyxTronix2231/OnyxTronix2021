@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.HttpCamera;
+import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -151,7 +151,7 @@ public class Robot extends TimedRobot {
                 .withCrossPlatformOi(collector, driveTrain ,ballTrigger, revolver, arc, yawControl, shooter, vision)
                 .withCollector(collector)
                 .withArc(arc)
-                .withTurret(yawControl)
+                .withTurret(yawControl, vision)
                 .withBallTrigger(ballTrigger);
 
         deputyOI.withClimber(climber)
